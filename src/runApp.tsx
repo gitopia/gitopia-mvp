@@ -3,6 +3,7 @@
 ;(process as any).browser = true
 
 // normalize
+import Arweave from "arweave/web"
 import "normalize.css/normalize.css"
 
 // global css

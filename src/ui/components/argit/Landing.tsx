@@ -4,10 +4,18 @@ import { GlobalHeader } from "../organisms/GlobalHeader"
 import { LayoutManager } from "../organisms/LayoutManager"
 import { Grid, GridArea } from "../utils/Grid"
 import { connect } from "react-redux"
-import { setIsAuthenticated } from "../../reducers/argit"
+import { setIsAuthenticated, loadAddress } from "../../reducers/argit"
 import { connector } from "../../actionCreators"
 import { lifecycle } from "recompose"
 import { storage } from "redux-persist/lib/storage"
+import Arweave from "arweave/web"
+import delay from "delay"
+
+type ConnectedProps = {
+  isAuthenticated: boolean
+  setIsAuthenticated: typeof setIsAuthenticated
+  loadAddress: typeof loadAddress
+}
 
 // export const GlobalHeader = connector(
 //     state => ({
@@ -32,20 +40,33 @@ export const Landing = connector(
   }),
   actions => {
     return {
-      setIsAuthenticated: actions.argit.setIsAuthenticated
+      setIsAuthenticated: actions.argit.setIsAuthenticated,
+      loadAddress: actions.argit.loadAddress
     }
   },
-  lifecycle({
-    componentDidMount() {
-      ;(this as any).props.setIsAuthenticated({
-        isAuthenticated: sessionStorage.getItem("keyfile") !== null
-      })
+  lifecycle<ConnectedProps, {}>({
+    async componentDidMount() {
+      // UI Boot
+      await delay(150)
+      const { isAuthenticated, ...actions } = this.props
+
+      if (isAuthenticated) {
+        const arweave = Arweave.init({})
+        const address = await arweave.wallets.jwkToAddress(
+          JSON.parse(String(sessionStorage.getItem("keyfile")))
+        )
+        actions.loadAddress({ address })
+      }
     }
   })
 )(function LandingImpl(props) {
   //   if props.isAuthenticated) {
   //     return
   //   }
+
+  //   console.log(txids)
+  //   let repository = {}
+
   return (
     <Root data-testid="main">
       {/* prettier-ignore */}
