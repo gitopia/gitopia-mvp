@@ -13,9 +13,11 @@ import { OnlineDetector } from "./utils/OnlineDetector"
 import { StackRouter } from "./utils/StackRouter"
 import { ThemeProvider } from "./utils/ThemeProvider"
 import { LoginModal } from "./argit/LoginModal"
+import { Landing } from "./argit/Landing"
 
 // debug area
 const ENTER_PLAYGROUND = false
+const LandingPage = true
 
 export class App extends React.Component<{}> {
   render() {
@@ -27,7 +29,7 @@ export class App extends React.Component<{}> {
             <GlobalKeyHandler>
               <ThemeProvider>
                 <Initializer>
-                  {ENTER_PLAYGROUND ? <Playground /> : <StackRouter />}
+                  {LandingPage ? <Landing /> : <StackRouter />}
                   <OnlineDetector />
                   <LoginModal />
                   <CreateRepoModal />

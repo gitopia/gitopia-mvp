@@ -16,6 +16,8 @@ import React from "react"
 import styled from "styled-components"
 import { connector } from "../../actionCreators"
 import { NavigatorTitle } from "../atoms/NavgatorTitle"
+import { LoginModal } from "../argit/LoginModal"
+import { openLoginModal } from "../../reducers/argit"
 
 export const GlobalHeader = connector(
   state => ({
@@ -25,7 +27,8 @@ export const GlobalHeader = connector(
   }),
   actions => {
     return {
-      pushScene: actions.app.pushScene
+      pushScene: actions.app.pushScene,
+      openLoginModal: actions.argit.openLoginModal
     }
   }
 )(function GlobalHeaderImpl(props) {
@@ -37,7 +40,7 @@ export const GlobalHeader = connector(
         </NavbarHeading>
         <NavbarDivider />
 
-        <Popover
+        {/* <Popover
           content={<RepositoryMenu />}
           position={Position.BOTTOM_LEFT}
           minimal={true}
@@ -53,16 +56,23 @@ export const GlobalHeader = connector(
           lazy={false}
         >
           <Button className="bp3-minimal" icon="grid-view" text="View" />
-        </Popover>
+        </Popover> */}
       </NavbarGroup>
 
-      <NavbarGroup align={Alignment.RIGHT} style={sharedNavbarStyle}>
+      {/* <NavbarGroup align={Alignment.RIGHT} style={sharedNavbarStyle}>
         <Button
           className="bp3-minimal"
           icon="cog"
           onClick={() => {
             props.pushScene({ nextScene: "config" })
           }}
+        />
+      </NavbarGroup> */}
+      <NavbarGroup align={Alignment.RIGHT} style={sharedNavbarStyle}>
+        <Button
+          className="bp3-minimal"
+          icon="log-in"
+          onClick={() => props.openLoginModal({})}
         />
       </NavbarGroup>
     </StyledNavbar>

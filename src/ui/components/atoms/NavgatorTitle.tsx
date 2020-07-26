@@ -4,7 +4,7 @@ import React from "react"
 export function NavigatorTitle(props: { networkOnline: boolean }) {
   return (
     <>
-      Next Editor &nbsp;
+      Argit-hub &nbsp;
       <Tooltip
         content={props.networkOnline ? "online mode" : "offline mode"}
         lazy={false}
