@@ -23,12 +23,14 @@ export const GlobalHeader = connector(
   state => ({
     mainLayout: state.app.mainLayout,
     networkOnline: state.app.networkOnline,
+    isAuthenticated: state.argit.isAuthenticated,
     currentScene: state.app.sceneStack[state.app.sceneStack.length - 1]
   }),
   actions => {
     return {
       pushScene: actions.app.pushScene,
-      openLoginModal: actions.argit.openLoginModal
+      openLoginModal: actions.argit.openLoginModal,
+      setIsAuthenticated: actions.argit.setIsAuthenticated
     }
   }
 )(function GlobalHeaderImpl(props) {
@@ -68,13 +70,27 @@ export const GlobalHeader = connector(
           }}
         />
       </NavbarGroup> */}
-      <NavbarGroup align={Alignment.RIGHT} style={sharedNavbarStyle}>
-        <Button
-          className="bp3-minimal"
-          icon="log-in"
-          onClick={() => props.openLoginModal({})}
-        />
-      </NavbarGroup>
+      {props.isAuthenticated ? (
+        <NavbarGroup align={Alignment.RIGHT} style={sharedNavbarStyle}>
+          <Button
+            className="bp3-minimal"
+            icon="log-out"
+            onClick={() => {
+              sessionStorage.removeItem("keyfile") // Remove keyfile from sessionStorage
+              props.setIsAuthenticated({ isAuthenticated: false })
+              window.location.reload()
+            }}
+          />
+        </NavbarGroup>
+      ) : (
+        <NavbarGroup align={Alignment.RIGHT} style={sharedNavbarStyle}>
+          <Button
+            className="bp3-minimal"
+            icon="log-in"
+            onClick={() => props.openLoginModal({})}
+          />
+        </NavbarGroup>
+      )}
     </StyledNavbar>
   )
 })

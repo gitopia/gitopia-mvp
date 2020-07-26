@@ -3,8 +3,49 @@ import { Root } from "../atoms/Root"
 import { GlobalHeader } from "../organisms/GlobalHeader"
 import { LayoutManager } from "../organisms/LayoutManager"
 import { Grid, GridArea } from "../utils/Grid"
+import { connect } from "react-redux"
+import { setIsAuthenticated } from "../../reducers/argit"
+import { connector } from "../../actionCreators"
+import { lifecycle } from "recompose"
+import { storage } from "redux-persist/lib/storage"
 
-export function Landing() {
+// export const GlobalHeader = connector(
+//     state => ({
+//       mainLayout: state.app.mainLayout,
+//       networkOnline: state.app.networkOnline,
+//       currentScene: state.app.sceneStack[state.app.sceneStack.length - 1]
+//     }),
+//     actions => {
+//       return {
+//         pushScene: actions.app.pushScene,
+//         openLoginModal: actions.argit.openLoginModal
+//       }
+//     }
+//   )(function GlobalHeaderImpl(props) {
+//     return (
+
+//     )
+//   })
+export const Landing = connector(
+  state => ({
+    isAuthenticated: state.argit.isAuthenticated
+  }),
+  actions => {
+    return {
+      setIsAuthenticated: actions.argit.setIsAuthenticated
+    }
+  },
+  lifecycle({
+    componentDidMount() {
+      ;(this as any).props.setIsAuthenticated({
+        isAuthenticated: sessionStorage.getItem("keyfile") !== null
+      })
+    }
+  })
+)(function LandingImpl(props) {
+  //   if props.isAuthenticated) {
+  //     return
+  //   }
   return (
     <Root data-testid="main">
       {/* prettier-ignore */}
@@ -34,4 +75,4 @@ export function Landing() {
       </Grid>
     </Root>
   )
-}
+})

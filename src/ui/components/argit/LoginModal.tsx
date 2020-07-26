@@ -3,18 +3,21 @@ import path from "path"
 import React from "react"
 import { connector } from "../../actionCreators"
 import { updateRepositories } from "../../reducers/argit"
+import Dropzone, { ImageFile } from "react-dropzone"
 
 // This is example reference
 export const LoginModal = connector(
   state => {
     return {
-      openedLoginModal: state.argit.openedLoginModal
+      openedLoginModal: state.argit.openedLoginModal,
+      keyFileName: state.argit.keyFileName
     }
   },
   actions => {
     return {
       closeModal: actions.argit.closeLoginModal,
-      updateRepositories: actions.argit.updateRepositories
+      updateRepositories: actions.argit.updateRepositories,
+      loadKeyFile: actions.argit.loadKeyFile
     }
   }
 )(function LoginModalImpl(props) {
@@ -30,10 +33,59 @@ export const LoginModal = connector(
     >
       <div className={Classes.DIALOG_BODY}>
         <ModalContent
-          onConfirm={async projectRoot => {
+          onUpload={async acceptedFiles => {
             // const newProjectRoot = path.join("/", projectRoot)
+            if (
+              acceptedFiles[0].name
+                .split(".")
+                .pop()
+                .toLowerCase() === "json"
+            ) {
+              const upload = acceptedFiles[0] // Get uploaded file
+              let keyFileName =
+                upload.name.length > 15
+                  ? upload.name.substring(0, 10) + "....json"
+                  : upload.name // Concatenate filename for dropzone
 
-            closeModal({})
+              props.loadKeyFile({ keyFileName })
+
+              //   this.setState({
+              //     keyFileName: fileName,
+              //     isLoading: true // Set loading to true
+              //   })
+
+              const reader = new FileReader() // Initiate FileReader
+              reader.readAsText(upload) // Read content as text
+
+              reader.onload = () => {
+                const keyfile = JSON.parse(String(reader.result)) // Parse text to JSON object
+
+                if (keyfile.kty === "RSA") {
+                  // Confirm that uploaded file is indeed keyfile
+                  sessionStorage.setItem("keyfile", String(reader.result)) // Set keyfile to sessionStorage
+                  //   this.toggleModal() // Close login modal
+                  props.closeModal({})
+                  window.location.reload() // Reload page to get authenticated status
+                } else {
+                  // If uploaded JSON is not keyfile
+                  //   this.setState({
+                  //     // Throw error
+                  //     keyFileName: "Error: Not a keyfile",
+                  //     isLoading: false
+                  //   })
+                  props.loadKeyFile({ keyFileName: "Error: Not a keyfile" })
+                }
+              }
+            } else {
+              // If filename does not end in '.json'
+              //   this.setState({
+              //     // Throw error
+              //     keyFileName: "Error: Not a keyfile"
+              //   })
+              props.loadKeyFile({ keyFileName: "Error: Not a keyfile" })
+            }
+
+            props.closeModal({})
 
             // createNewProject({ newProjectRoot })
             // TODO: fix it
@@ -56,7 +108,7 @@ export const LoginModal = connector(
 
 class ModalContent extends React.Component<
   {
-    onConfirm: (newProjectRoot: string) => void
+    onUpload: (acceptedFiles: ImageFile[]) => void
   },
   {
     isValidProjectName: boolean
@@ -67,12 +119,13 @@ class ModalContent extends React.Component<
     isValidProjectName: true,
     newProjectRoot: ""
   }
+
   render() {
     return (
       <>
         <h2>Login</h2>
-        <p>Create directory to local file system.</p>
-        <div>
+        {/* <p>Create directory to local file system.</p> */}
+        {/* <div>
           <input
             spellCheck={false}
             style={{ width: "100%" }}
@@ -88,7 +141,10 @@ class ModalContent extends React.Component<
           icon="confirm"
           text="create"
           onClick={() => this.props.onConfirm(this.state.newProjectRoot)}
-        />
+        /> */}
+        <Dropzone onDrop={acceptedFiles => this.props.onUpload(acceptedFiles)}>
+          Drop your KeyFile
+        </Dropzone>
       </>
     )
   }

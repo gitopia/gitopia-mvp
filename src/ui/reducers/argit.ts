@@ -17,6 +17,10 @@ export const loadAddress: ActionCreator<{
   address: string
 }> = createAction("load-address")
 
+export const loadKeyFile: ActionCreator<{
+  keyFileName: string
+}> = createAction("load-keyfile")
+
 export const setIsAuthenticated: ActionCreator<{
   isAuthenticated: boolean
 }> = createAction("set-is-authenticated")
@@ -38,13 +42,15 @@ export type ArgitState = {
   isAuthenticated: boolean
   address: string | null
   openedLoginModal: boolean
+  keyFileName: string | null
 }
 
 const initialState: ArgitState = {
   repositories: [],
   isAuthenticated: false,
   address: null,
-  openedLoginModal: false
+  openedLoginModal: false,
+  keyFileName: null
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -71,4 +77,7 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   })
   .case(closeLoginModal, state => {
     return { ...state, openedLoginModal: false }
+  })
+  .case(loadKeyFile, (state, payload) => {
+    return { ...state, keyFileName: payload.keyFileName }
   })
