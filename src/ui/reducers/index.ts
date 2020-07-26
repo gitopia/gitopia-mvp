@@ -5,6 +5,7 @@ import * as config from "./config"
 import * as git from "./git"
 import * as project from "./project"
 import * as repository from "./repository"
+import * as argit from "./argit"
 
 export type RootState = {
   app: app.AppState
@@ -13,6 +14,7 @@ export type RootState = {
   buffer: buffer.BufferState
   git: git.GitState
   config: config.ConfigState
+  argit: argit.ArgitState
 }
 
 export const rootReducer: (
@@ -24,5 +26,6 @@ export const rootReducer: (
   buffer: buffer.reducer,
   repository: repository.reducer,
   git: git.reducer,
-  config: config.reducer
+  config: config.reducer,
+  argit: argit.reducer
 } as any)

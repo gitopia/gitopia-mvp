@@ -3,6 +3,7 @@ import { InferableComponentEnhancerWithProps } from "recompose"
 import { compose } from "redux"
 import { RootState } from "../reducers"
 import * as app from "../reducers/app"
+import * as argit from "../reducers/argit"
 import * as buffer from "../reducers/buffer"
 import * as config from "../reducers/config"
 import * as git from "../reducers/git"
@@ -19,6 +20,7 @@ const allActions = {
   git,
   config,
   editor,
+  argit,
   global: _global
 }
 

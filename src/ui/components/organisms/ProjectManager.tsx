@@ -13,7 +13,7 @@ export const ProjectManager = connector(
   },
   actions => {
     return {
-      openCreateRepoModal: actions.app.openCreateRepoModal,
+      openCreateRepoModal: actions.argit.openLoginModal,
       openCloneRepoModal: actions.app.openCloneRepoModal,
       loadProjectList: actions.project.loadProjectList,
       startProjectRootChanged: actions.editor.startProjectRootChanged,

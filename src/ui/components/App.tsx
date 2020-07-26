@@ -12,6 +12,7 @@ import { MediaDetector } from "./utils/MediaDetector"
 import { OnlineDetector } from "./utils/OnlineDetector"
 import { StackRouter } from "./utils/StackRouter"
 import { ThemeProvider } from "./utils/ThemeProvider"
+import { LoginModal } from "./argit/LoginModal"
 
 // debug area
 const ENTER_PLAYGROUND = false
@@ -28,6 +29,7 @@ export class App extends React.Component<{}> {
                 <Initializer>
                   {ENTER_PLAYGROUND ? <Playground /> : <StackRouter />}
                   <OnlineDetector />
+                  <LoginModal />
                   <CreateRepoModal />
                   <CloneRepoModal />
                   <MediaDetector />
