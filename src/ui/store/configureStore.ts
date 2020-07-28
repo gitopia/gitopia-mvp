@@ -17,6 +17,7 @@ const dev =
 const composeEnhancers =
   typeof win === "object" && win.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? win.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        trace: true
         // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
       })
     : compose

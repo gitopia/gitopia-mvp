@@ -25,7 +25,7 @@ const initialState: RepositoryState = {
   fileCreatingDir: null,
   dirCreatingDir: null,
   renamingPathname: null,
-  currentProjectRoot: "/playground",
+  currentProjectRoot: "",
   touchCounter: 0
 }
 

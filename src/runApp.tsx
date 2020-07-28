@@ -63,7 +63,7 @@ export async function run(opts = {}) {
     const {
       setupInitialRepository
     } = await import("./domain/git/commands/setupInitialRepository")
-    await setupInitialRepository("/playground")
+    // await setupInitialRepository("/playground")
   } catch (e) {
     // Skip
     console.error("init error", e)
