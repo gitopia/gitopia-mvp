@@ -33,6 +33,10 @@ export const closeLoginModal: ActionCreator<{}> = createAction(
   "close-create-repo-modal"
 )
 
+export const setActiveRepository: ActionCreator<{
+  activeRepository: string
+}> = createAction("set-active-repo")
+
 export type Repository = {
   name: string
   description: string
@@ -43,6 +47,7 @@ export type ArgitState = {
   address: string | null
   openedLoginModal: boolean
   keyFileName: string | null
+  activeRepository: string | null
 }
 
 const initialState: ArgitState = {
@@ -50,7 +55,8 @@ const initialState: ArgitState = {
   isAuthenticated: false,
   address: null,
   openedLoginModal: false,
-  keyFileName: null
+  keyFileName: null,
+  activeRepository: null
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -80,4 +86,7 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   })
   .case(loadKeyFile, (state, payload) => {
     return { ...state, keyFileName: payload.keyFileName }
+  })
+  .case(setActiveRepository, (state, payload) => {
+    return { ...state, activeRepository: payload.activeRepository }
   })

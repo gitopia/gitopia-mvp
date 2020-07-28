@@ -14,7 +14,7 @@ import { StackRouter } from "./utils/StackRouter"
 import { ThemeProvider } from "./utils/ThemeProvider"
 import { LoginModal } from "./argit/LoginModal"
 import { Landing } from "./argit/Landing"
-import { BrowserRouter } from "react-router-dom"
+import { BrowserRouter, Switch, Route } from "react-router-dom"
 
 // debug area
 const ENTER_PLAYGROUND = false
@@ -31,7 +31,13 @@ export class App extends React.Component<{}> {
               <GlobalKeyHandler>
                 <ThemeProvider>
                   <Initializer>
-                    {LandingPage ? <Landing /> : <StackRouter />}
+                    <Switch>
+                      <Route
+                        path="/:wallet_address/:repo_name"
+                        component={StackRouter}
+                      />
+                      <Route exact path="/" component={Landing} />
+                    </Switch>
                     <OnlineDetector />
                     <LoginModal />
                     <CreateRepoModal />

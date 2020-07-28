@@ -18,6 +18,7 @@ import { connector } from "../../actionCreators"
 import { NavigatorTitle } from "../atoms/NavgatorTitle"
 import { LoginModal } from "../argit/LoginModal"
 import { openLoginModal } from "../../reducers/argit"
+import { updateBranchStatus } from "../../reducers/git"
 
 export const GlobalHeader = connector(
   state => ({
@@ -30,7 +31,8 @@ export const GlobalHeader = connector(
     return {
       pushScene: actions.app.pushScene,
       openLoginModal: actions.argit.openLoginModal,
-      setIsAuthenticated: actions.argit.setIsAuthenticated
+      setIsAuthenticated: actions.argit.setIsAuthenticated,
+      updateRepositories: actions.argit.updateRepositories
     }
   }
 )(function GlobalHeaderImpl(props) {
@@ -78,6 +80,7 @@ export const GlobalHeader = connector(
             onClick={() => {
               sessionStorage.removeItem("keyfile") // Remove keyfile from sessionStorage
               props.setIsAuthenticated({ isAuthenticated: false })
+              props.updateRepositories({ repositories: [] })
               window.location.reload()
             }}
           />
