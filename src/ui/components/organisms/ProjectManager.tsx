@@ -113,16 +113,23 @@ class ProjectManagerImpl extends React.Component<{
             }}
           />
 
-          <Button
+          {/* <Button
             text="Add"
             icon="add"
             onClick={() => {
               onClickNewProject()
             }}
-          />
-          <Button
+          /> */}
+          {/* <Button
             text="Clone"
             icon="git-repo"
+            onClick={() => {
+              onClickCloneProject()
+            }}
+          /> */}
+          <Button
+            text="Push To Arweave"
+            icon="git-push"
             onClick={() => {
               onClickCloneProject()
             }}

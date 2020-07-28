@@ -76,6 +76,13 @@ export const GlobalHeader = connector(
         <NavbarGroup align={Alignment.RIGHT} style={sharedNavbarStyle}>
           <Button
             className="bp3-minimal"
+            icon="cog"
+            onClick={() => {
+              props.pushScene({ nextScene: "config" })
+            }}
+          />
+          <Button
+            className="bp3-minimal"
             icon="log-out"
             onClick={() => {
               sessionStorage.removeItem("keyfile") // Remove keyfile from sessionStorage
