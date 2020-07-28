@@ -17,7 +17,8 @@ export const LoginModal = connector(
     return {
       closeModal: actions.argit.closeLoginModal,
       updateRepositories: actions.argit.updateRepositories,
-      loadKeyFile: actions.argit.loadKeyFile
+      loadKeyFile: actions.argit.loadKeyFile,
+      setIsAuthenticated: actions.argit.setIsAuthenticated
     }
   }
 )(function LoginModalImpl(props) {
@@ -65,7 +66,8 @@ export const LoginModal = connector(
                   sessionStorage.setItem("keyfile", String(reader.result)) // Set keyfile to sessionStorage
                   //   this.toggleModal() // Close login modal
                   props.closeModal({})
-                  window.location.reload() // Reload page to get authenticated status
+                  props.setIsAuthenticated({ isAuthenticated: true })
+                  // window.location.reload() // Reload page to get authenticated status
                 } else {
                   // If uploaded JSON is not keyfile
                   //   this.setState({

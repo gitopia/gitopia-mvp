@@ -14,6 +14,7 @@ import { StackRouter } from "./utils/StackRouter"
 import { ThemeProvider } from "./utils/ThemeProvider"
 import { LoginModal } from "./argit/LoginModal"
 import { Landing } from "./argit/Landing"
+import { BrowserRouter } from "react-router-dom"
 
 // debug area
 const ENTER_PLAYGROUND = false
@@ -23,24 +24,26 @@ export class App extends React.Component<{}> {
   render() {
     const { store, persistor } = configureStore()
     return (
-      <GlobalErrorBoundary>
-        <Provider store={store}>
-          <PersistGate persistor={persistor}>
-            <GlobalKeyHandler>
-              <ThemeProvider>
-                <Initializer>
-                  {LandingPage ? <Landing /> : <StackRouter />}
-                  <OnlineDetector />
-                  <LoginModal />
-                  <CreateRepoModal />
-                  <CloneRepoModal />
-                  <MediaDetector />
-                </Initializer>
-              </ThemeProvider>
-            </GlobalKeyHandler>
-          </PersistGate>
-        </Provider>
-      </GlobalErrorBoundary>
+      <BrowserRouter>
+        <GlobalErrorBoundary>
+          <Provider store={store}>
+            <PersistGate persistor={persistor}>
+              <GlobalKeyHandler>
+                <ThemeProvider>
+                  <Initializer>
+                    {LandingPage ? <Landing /> : <StackRouter />}
+                    <OnlineDetector />
+                    <LoginModal />
+                    <CreateRepoModal />
+                    <CloneRepoModal />
+                    <MediaDetector />
+                  </Initializer>
+                </ThemeProvider>
+              </GlobalKeyHandler>
+            </PersistGate>
+          </Provider>
+        </GlobalErrorBoundary>
+      </BrowserRouter>
     )
   }
 }

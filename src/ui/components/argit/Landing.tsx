@@ -4,17 +4,25 @@ import { GlobalHeader } from "../organisms/GlobalHeader"
 import { LayoutManager } from "../organisms/LayoutManager"
 import { Grid, GridArea } from "../utils/Grid"
 import { connect } from "react-redux"
-import { setIsAuthenticated, loadAddress } from "../../reducers/argit"
+import {
+  Repository,
+  setIsAuthenticated,
+  loadAddress,
+  updateRepositories
+} from "../../reducers/argit"
 import { connector } from "../../actionCreators"
 import { lifecycle } from "recompose"
 import { storage } from "redux-persist/lib/storage"
 import Arweave from "arweave/web"
 import delay from "delay"
+import { Link } from "react-router-dom"
 
 type ConnectedProps = {
   isAuthenticated: boolean
+  repositories: Repository[]
   setIsAuthenticated: typeof setIsAuthenticated
   loadAddress: typeof loadAddress
+  updateRepositories: typeof updateRepositories
 }
 
 // export const GlobalHeader = connector(
@@ -36,26 +44,76 @@ type ConnectedProps = {
 //   })
 export const Landing = connector(
   state => ({
-    isAuthenticated: state.argit.isAuthenticated
+    isAuthenticated: state.argit.isAuthenticated,
+    repositories: state.argit.repositories,
+    address: state.argit.address
   }),
   actions => {
     return {
-      setIsAuthenticated: actions.argit.setIsAuthenticated,
-      loadAddress: actions.argit.loadAddress
+      loadAddress: actions.argit.loadAddress,
+      updateRepositories: actions.argit.updateRepositories
     }
   },
   lifecycle<ConnectedProps, {}>({
-    async componentDidMount() {
+    async componentDidUpdate(prevProps, prevState) {
       // UI Boot
       await delay(150)
-      const { isAuthenticated, ...actions } = this.props
+      const { isAuthenticated, repositories, ...actions } = this.props
 
-      if (isAuthenticated) {
-        const arweave = Arweave.init({})
-        const address = await arweave.wallets.jwkToAddress(
-          JSON.parse(String(sessionStorage.getItem("keyfile")))
-        )
-        actions.loadAddress({ address })
+      if (isAuthenticated !== prevProps.isAuthenticated) {
+        if (isAuthenticated) {
+          const arweave = Arweave.init({})
+          const address = await arweave.wallets.jwkToAddress(
+            JSON.parse(String(sessionStorage.getItem("keyfile")))
+          )
+          actions.loadAddress({ address })
+
+          const txids = await arweave.arql({
+            op: "and",
+            expr1: {
+              op: "equals",
+              expr1: "from",
+              expr2: address
+            },
+            expr2: {
+              op: "equals",
+              expr1: "App-Name",
+              expr2: "argit"
+            }
+          })
+
+          const repositories = await Promise.all(
+            txids.map(async txid => {
+              let repository = {} as Repository
+              const data: any = await arweave.transactions.getData(txid, {
+                decode: true,
+                string: true
+              })
+              try {
+                const decoded: any = JSON.parse(data)
+                repository = {
+                  name: decoded.reponame,
+                  description: decoded.description
+                }
+              } catch (error) {
+                repository = {
+                  name: txid,
+                  description: "Pending confirmation"
+                }
+              }
+
+              if (!repository) {
+                repository = {
+                  name: txid,
+                  description: "null"
+                }
+              }
+
+              return repository
+            })
+          )
+          actions.updateRepositories({ repositories })
+        }
       }
     }
   })
@@ -88,11 +146,37 @@ export const Landing = connector(
         >
           <GlobalHeader />
         </GridArea>
-        <GridArea
-          name="content"
-        >
+        
           {/* <LayoutManager /> */}
-        </GridArea>
+          <React.Fragment>
+      <h1>
+        Repositories{" "}
+        <Link to="/new">
+          <i className="fa fa-plus-circle" aria-hidden="true"></i>
+        </Link>
+      </h1>
+      <div className="card mt-4">
+        <div className="card-body">
+          <Link to="/jflsdfjsl43df/test_repo/tree/master">Test Repository</Link>
+          <p>lorem ipsum lorem ipsum</p>
+        </div>
+      </div>
+      {props.repositories &&
+        props.repositories.map(
+          (repository) =>
+            repository.name && (
+              <div key={repository.name} className="card mt-4">
+                <div className="card-body">
+                  <Link to={`/${props.address}/${repository.name}`}>
+                    {repository.name}
+                  </Link>
+                  <p>{repository.description}</p>
+                </div>
+              </div>
+            )
+        )}
+    </React.Fragment>
+        
       </Grid>
     </Root>
   )
