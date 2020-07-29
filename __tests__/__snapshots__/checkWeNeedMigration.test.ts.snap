@@ -67,7 +67,7 @@ Object {
     "projects": Array [],
   },
   "repository": Object {
-    "currentProjectRoot": "/playground",
+    "currentProjectRoot": "/",
     "dirCreatingDir": null,
     "fileCreatingDir": null,
     "renamingPathname": null,

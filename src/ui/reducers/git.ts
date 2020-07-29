@@ -10,6 +10,7 @@ import * as Git from "../../domain/git"
 import { GitStatusString, StatusMatrix } from "../../domain/types"
 import { projectChanged } from "../actionCreators/globalActions"
 import { CommitDescription } from "./../../domain/types"
+import fs from "fs"
 
 const {
   createAction,
@@ -48,7 +49,7 @@ export const updateBranchStatus: ActionCreator<{
 export const updateRemotes = createAsyncAction(
   "update-remotes",
   async (input: { projectRoot: string }) => {
-    const remotes = (await git.listRemotes({ dir: input.projectRoot })).map(
+    const remotes = (await git.listRemotes({ fs, dir: input.projectRoot })).map(
       (a: { remote: string; url: string }) => a.remote
     )
     return { remotes }
@@ -66,6 +67,7 @@ export const mergeBranches = createThunkAction(
     dispatch
   ) => {
     await git.merge({
+      fs,
       dir: projectRoot,
       ours: ref1,
       theirs: ref2

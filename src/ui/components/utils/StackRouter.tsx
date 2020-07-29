@@ -67,7 +67,7 @@ export const StackRouter = connector(
       await createProject(projectRoot)
 
       updateProjectList({ projects })
-      startProjectRootChanged({ projectRoot })
+      await startProjectRootChanged({ projectRoot })
       console.log(typeof initializeGitStatus)
       await initializeGitStatus(projectRoot)
     }
