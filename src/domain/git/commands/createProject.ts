@@ -2,7 +2,7 @@ import * as git from "isomorphic-git"
 import path from "path"
 import { mkdir } from "../../filesystem/commands/mkdir"
 import { writeFile } from "../../filesystem/commands/writeFile"
-import { browserFS as fs } from "../../../runApp"
+import fs from "fs"
 
 export async function createProject(newProjectRoot: string): Promise<void> {
   await mkdir(newProjectRoot)

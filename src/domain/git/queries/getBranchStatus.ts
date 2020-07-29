@@ -4,7 +4,7 @@ import { CommitDescription } from "../../types"
 import { getHistory } from "./getHistory"
 import { getRemotes } from "./getRemotes"
 import { listRemoteBranches } from "./listBranches"
-import { browserFS as fs } from "../../../runApp"
+import fs from "fs"
 
 export async function getBranchStatus(
   projectRoot: string

@@ -14,8 +14,7 @@ import * as ProjectActions from "../reducers/project"
 import * as RepositoryActions from "../reducers/repository"
 import { RootState } from "./../reducers"
 import * as GlobalActions from "./globalActions"
-import { browserFS as fs } from "../../runApp"
-
+import fs from "fs"
 // Action
 const { createThunkAction } = buildActionCreator({
   prefix: "editor/"

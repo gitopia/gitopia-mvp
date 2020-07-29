@@ -37,11 +37,11 @@ export const Initializer = connector(
         await actions.setConfigValue({ key: "isFirstVisit", value: false })
 
         // Open scratch.md as user first view
-        actions.loadFile({ filepath: "/playground/scratch.md" })
+        // actions.loadFile({ filepath: "/playground/scratch.md" })
 
         // TODO: Reload git on init. Sometimes initialze on git is failing
-        await delay(300)
-        actions.initializeGitStatus("/playground")
+        // await delay(300)
+        // actions.initializeGitStatus("/playground")
       }
 
       // TODO: dirty hack to focus

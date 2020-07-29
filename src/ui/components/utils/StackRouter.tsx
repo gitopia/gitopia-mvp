@@ -13,16 +13,15 @@ import {
   startProjectRootChanged,
   initializeGitStatus
 } from "../../actionCreators/editorActions"
+import * as EditorActions from "../../actionCreators/editorActions"
 
 type CustomProps = {
   currentScene: string
   projectRoot: string
   setActiveRepository: typeof setActiveRepository
   match: any
-  activeRepository: string
   updateProjectList: typeof updateProjectList
   startProjectRootChanged: typeof startProjectRootChanged
-  initializeGitStatus: typeof initializeGitStatus
 }
 
 // const selector = (state: RootState): Props => {
@@ -41,31 +40,36 @@ export const StackRouter = connector(
   actions => ({
     setActiveRepository: actions.argit.setActiveRepository,
     updateProjectList: actions.project.updateProjectList,
-    startProjectRootChanged: actions.editor.startProjectRootChanged,
-    intitializeGitStatus: actions.editor.initializeGitStatus
+    startProjectRootChanged: actions.editor.startProjectRootChanged
   }),
-  lifecycle<CustomProps, {}>({
-    componentDidUpdate(prevProps, prevState) {
-      const { projectRoot, activeRepository, match, ...actions } = this.props
-      console.log("here")
-      if (activeRepository !== prevProps.activeRepository) {
-        console.log(projectRoot)
-        console.log(match)
-        const activeRepository = match.params.repo_name
-      }
-    }
-  }),
+  // lifecycle<CustomProps, {}>({
+  //   componentDidUpdate(prevProps, prevState) {
+  //     const { projectRoot, activeRepository, match, ...actions } = this.props
+  //     console.log("here")
+  //     if (activeRepository !== prevProps.activeRepository) {
+  //       console.log(projectRoot)
+  //       console.log(match)
+  //       const activeRepository = match.params.repo_name
+  //     }
+  //   }
+  // }),
   lifecycle<CustomProps, {}>({
     async componentDidMount() {
-      const { match, ...actions } = this.props
+      const {
+        match,
+        setActiveRepository,
+        updateProjectList,
+        startProjectRootChanged
+      } = this.props
       const projectRoot = `/${match.params.repo_name}`
-      actions.setActiveRepository({ activeRepository: match.params.repo_name })
+      setActiveRepository({ activeRepository: match.params.repo_name })
       const projects = [{ projectRoot: projectRoot }]
       await createProject(projectRoot)
 
-      actions.updateProjectList({ projects })
-      actions.startProjectRootChanged({ projectRoot })
-      await actions.initializeGitStatus(projectRoot)
+      updateProjectList({ projects })
+      startProjectRootChanged({ projectRoot })
+      console.log(typeof initializeGitStatus)
+      await initializeGitStatus(projectRoot)
     }
   })
 )(function StackRouterImpl(props) {

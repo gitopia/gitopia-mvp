@@ -1,6 +1,6 @@
 import * as git from "isomorphic-git"
 import { CommitDescription } from "../../types"
-import { browserFS as fs } from "../../../runApp"
+import fs from "fs"
 
 export async function getHistory(
   projectRoot: string,

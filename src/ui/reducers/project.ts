@@ -21,7 +21,7 @@ export const updateProjectList: ActionCreator<{
 }> = createAction("update-project-list")
 
 export const loadProjectList = createThunkAction(
-  "create-new-project",
+  "load-project-list",
   async (_, dispatch) => {
     dispatch(updateProjectList(await fetchProjectList()))
   }

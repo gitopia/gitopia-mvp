@@ -26,7 +26,7 @@ export const ProjectManager = connector(
   },
   lifecycle({
     componentDidMount() {
-      ;(this as any).props.loadProjectList()
+      // ;(this as any).props.loadProjectList()
     }
   })
 )(props => {
