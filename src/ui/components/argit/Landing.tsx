@@ -14,8 +14,6 @@ import { connector } from "../../actionCreators"
 import { storage } from "redux-persist/lib/storage"
 import Arweave from "arweave/web"
 import delay from "delay"
-import { Link } from "react-router-dom"
-import NavBar from "./navBar"
 import { Repositories } from "./Repositories"
 
 // export const GlobalHeader = connector(
@@ -52,7 +50,6 @@ export const Landing = connector(
 
   return (
     <Root data-testid="main">
-      <NavBar />
       {/* prettier-ignore */}
       <Grid
         columns={["1fr"]}

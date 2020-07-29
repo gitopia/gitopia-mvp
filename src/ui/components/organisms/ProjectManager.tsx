@@ -2,13 +2,17 @@ import { Button, ButtonGroup, Card } from "@blueprintjs/core"
 import React from "react"
 import { lifecycle } from "recompose"
 import { connector } from "../../actionCreators"
+import { arweave } from "../../../runApp"
+import * as git from "isomorphic-git"
 
 export const ProjectManager = connector(
   state => {
     return {
       project: state.project,
       corsProxy: state.config.corsProxy,
-      repository: state.repository
+      repository: state.repository,
+      projectRoot: state.project.projectRoot,
+      address: state.argit.address
     }
   },
   actions => {
@@ -36,6 +40,20 @@ export const ProjectManager = connector(
       }}
       onClickCloneProject={() => {
         props.openCloneRepoModal({})
+      }}
+      onClickPushToArweave={() => {
+        const { projectRoot, address } = props
+        git.addArweaveRemote({
+          dir: projectRoot,
+          remote: "arweave",
+          url: `argit://${address}${projectRoot}`
+        })
+        git.pushToArweave({
+          dir: projectRoot,
+          remote: "arweave",
+          arweave,
+          wallet: JSON.parse(sessionStorage.getItem("keyfile") || "")
+        })
       }}
       onCloneEnd={projectRoot => {
         props.startProjectRootChanged({ projectRoot })
@@ -66,6 +84,7 @@ class ProjectManagerImpl extends React.Component<{
   onDeleteProject: (projectRoot: string) => void
   onClickNewProject: () => void
   onClickCloneProject: () => void
+  onClickPushToArweave: () => void
 }> {
   render() {
     const {
@@ -75,6 +94,7 @@ class ProjectManagerImpl extends React.Component<{
       onChangeProject,
       onCloneEnd,
       onClickCloneProject,
+      onClickPushToArweave,
       projectRoot,
       onDeleteProject
     } = this.props
@@ -131,7 +151,7 @@ class ProjectManagerImpl extends React.Component<{
             text="Push To Arweave"
             icon="git-push"
             onClick={() => {
-              onClickCloneProject()
+              onClickPushToArweave()
             }}
           />
         </ButtonGroup>

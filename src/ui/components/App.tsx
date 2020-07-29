@@ -15,6 +15,7 @@ import { ThemeProvider } from "./utils/ThemeProvider"
 import { LoginModal } from "./argit/LoginModal"
 import { Landing } from "./argit/Landing"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
+import NavBar from "./argit/navBar"
 
 // debug area
 const ENTER_PLAYGROUND = false
@@ -31,6 +32,7 @@ export class App extends React.Component<{}> {
               <GlobalKeyHandler>
                 <ThemeProvider>
                   <Initializer>
+                    <NavBar />
                     <Switch>
                       <Route
                         path="/:wallet_address/:repo_name"

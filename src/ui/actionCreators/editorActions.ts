@@ -1,5 +1,5 @@
 import { Intent } from "@blueprintjs/core"
-import fs from "fs"
+// import fs from "fs"
 import { buildActionCreator } from "hard-reducer"
 import * as git from "isomorphic-git"
 import path from "path"
@@ -14,6 +14,7 @@ import * as ProjectActions from "../reducers/project"
 import * as RepositoryActions from "../reducers/repository"
 import { RootState } from "./../reducers"
 import * as GlobalActions from "./globalActions"
+import { browserFS as fs } from "../../runApp"
 
 // Action
 const { createThunkAction } = buildActionCreator({
@@ -253,7 +254,7 @@ export async function initializeGitStatus(projectRoot: string) {
     } = await Git.getBranchStatus(projectRoot)
 
     const history = await Git.getHistory(projectRoot, { ref: currentBranch })
-    const matrix = await git.statusMatrix({ dir: projectRoot })
+    const matrix = await git.statusMatrix({ fs, dir: projectRoot })
 
     dispatch(
       GitActions.endInitialize({

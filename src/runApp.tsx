@@ -54,10 +54,17 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { App } from "./ui/components/App"
 
+export let arweave = {}
+export let browserFS = {}
+
 export async function run(opts = {}) {
   // Run
-  await Promise.all([setupFonts(), loadBrowserFS()])
-  git.plugins.set("fs", fs)
+  await setupFonts()
+  browserFS = await loadBrowserFS()
+  console.log("runapp", browserFS)
+  // git.plugins.set("fs", fs)
+
+  arweave = Arweave.init({})
 
   try {
     const {
@@ -79,15 +86,15 @@ async function setupFonts() {
 }
 
 async function loadBrowserFS() {
-  return new Promise(resolve => {
+  return new Promise<any>(resolve => {
     const BrowserFS = require("browserfs")
     BrowserFS.install(window)
     BrowserFS.configure({ fs: "IndexedDB", options: {} }, (err: any) => {
       if (err) {
         throw err
       }
-
-      resolve()
+      const fs = BrowserFS.BFSRequire("fs")
+      resolve(fs)
     })
   })
 }
