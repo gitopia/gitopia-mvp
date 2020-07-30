@@ -3,16 +3,19 @@ import difference from "lodash/difference"
 import uniq from "lodash/uniq"
 import { getFilesRecursively } from "../../filesystem/queries/getFileRecursively"
 import { GitTrackingStatus } from "../../types"
+import fs from "fs"
 
 export async function getTrackingStatus(
   projectRoot: string
 ): Promise<GitTrackingStatus> {
   const trackedByHead: string[] = await git.listFiles({
+    fs,
     dir: projectRoot,
     ref: "HEAD"
   })
 
   const trackedByIndex: string[] = await git.listFiles({
+    fs,
     dir: projectRoot
   })
 
@@ -34,6 +37,7 @@ export async function getUntrackingFiles(
   projectRoot: string
 ): Promise<string[]> {
   const tracked: string[] = await git.listFiles({
+    fs,
     dir: projectRoot,
     ref: "HEAD"
   })

@@ -1,5 +1,6 @@
 import * as git from "isomorphic-git"
 import { CommitDescription } from "./../../types"
+import fs from "fs"
 
 export async function isFastForward(
   dir: string,
@@ -15,8 +16,8 @@ export async function isFastForward(
       commits: CommitDescription[]
     }
 > {
-  const logA: CommitDescription[] = await git.log({ dir, ref: refA })
-  const logB: CommitDescription[] = await git.log({ dir, ref: refB })
+  const logA: CommitDescription[] = await git.log({ fs, dir, ref: refA })
+  const logB: CommitDescription[] = await git.log({ fs, dir, ref: refB })
   const fastForward: boolean = isFastForwardByCommits(logA, logB)
   if (fastForward) {
     const oid = logA[logA.length - 1].oid

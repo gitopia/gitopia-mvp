@@ -85,6 +85,7 @@ export const GitEasy = connector(
 
               try {
                 const pushResult = await git.push({
+                  fs,
                   dir: props.projectRoot,
                   remote: "origin",
                   ref: "master",
@@ -126,12 +127,12 @@ export const GitEasy = connector(
           }}
           data-testid="commit-all-button"
         />
-        {/* <Button
+        <Button
           text="Reload git"
           onClick={() => {
             props.initializeGitStatus(props.projectRoot)
           }}
-        /> */}
+        />
 
         {!hasChanges && <p>No Changes</p>}
         {hasChanges && (

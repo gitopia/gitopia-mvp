@@ -1,4 +1,5 @@
 import * as git from "isomorphic-git"
+import fs from "fs"
 
 export async function pushBranch(
   projectRoot: string,
@@ -8,6 +9,7 @@ export async function pushBranch(
   corsProxy: string
 ) {
   const ret = await (git.push as any)({
+    fs,
     dir: projectRoot,
     remote,
     ref,

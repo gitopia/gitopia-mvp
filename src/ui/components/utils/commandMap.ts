@@ -1,4 +1,5 @@
 import actions from "../../actionCreators"
+import fs from "fs"
 
 type MousetrapExpr = string | string[]
 
@@ -29,7 +30,7 @@ export const implCommandMap: {
     dispatch(actions.buffer.saveFile({}))
   },
   [commitAll]: dispatch => {
-    dispatch(actions.git.commitAll({ message: "Update" }))
+    dispatch(actions.git.commitAll({ fs, message: "Update" }))
   }
 }
 

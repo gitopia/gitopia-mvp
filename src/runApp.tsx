@@ -43,11 +43,11 @@ import "react-contexify/dist/ReactContexify.css"
 import fs from "fs"
 import * as git from "isomorphic-git"
 
-if (process.env.NODE_ENV !== "production") {
-  const g: any = global
-  g.git = git
-  g.fs = fs
-}
+// if (process.env.NODE_ENV !== "production") {
+//   const g: any = global
+//   g.git = git
+//   g.fs = fs
+// }
 
 // Runner
 import React from "react"
@@ -58,15 +58,15 @@ export async function run(opts = {}) {
   // Run
   await Promise.all([setupFonts(), loadBrowserFS()])
 
-  // try {
-  //   const {
-  //     setupInitialRepository
-  //   } = await import("./domain/git/commands/setupInitialRepository")
-  //   await setupInitialRepository("/playground")
-  // } catch (e) {
-  //   // Skip
-  //   console.error("init error", e)
-  // }
+  try {
+    const {
+      setupInitialRepository
+    } = await import("./domain/git/commands/setupInitialRepository")
+    await setupInitialRepository("/playground")
+  } catch (e) {
+    // Skip
+    console.error("init error", e)
+  }
 
   ReactDOM.render(<App />, document.querySelector(".root"))
 }

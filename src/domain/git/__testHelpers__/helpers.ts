@@ -21,7 +21,7 @@ export async function createTempGitProject() {
   repos.push(tempRoot)
 
   await fs.promises.mkdir(tempRoot)
-  await git.init({ dir: tempRoot })
+  await git.init({ fs, dir: tempRoot })
 
   return tempRoot
 }
@@ -33,7 +33,7 @@ export async function batchUpdateFiles(
 ): Promise<string> {
   for (const [filename, content] of files) {
     await fs.promises.writeFile(path.join(projectRoot, filename), content)
-    await git.add({ dir: projectRoot, filepath: filename })
+    await git.add({ fs, dir: projectRoot, filepath: filename })
   }
   return git.commit({
     dir: projectRoot,

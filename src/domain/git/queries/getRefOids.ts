@@ -1,14 +1,15 @@
 import * as git from "isomorphic-git"
 import flatten from "lodash/flatten"
 import path from "path"
+import fs from "fs"
 
 export async function getRefOids(projectRoot: string, ref: string) {
-  const sha = await git.resolveRef({ dir: projectRoot, ref })
+  const sha = await git.resolveRef({ fs, dir: projectRoot, ref })
   return getCommitOids(projectRoot, sha)
 }
 
 export async function getCommitOids(projectRoot: string, oid: string) {
-  const { object: commit } = await git.readObject({ dir: projectRoot, oid })
+  const { object: commit } = await git.readObject({ fs, dir: projectRoot, oid })
   return await searchTree(projectRoot, commit.tree)
 }
 
@@ -29,7 +30,7 @@ async function _searchTree({
   oid: string
   prefix: string
 }): Promise<Array<{ oid: string; filepath: string }>> {
-  const { object: tree } = await git.readObject({ dir, oid })
+  const { object: tree } = await git.readObject({ fs, dir, oid })
   const files = await Promise.all(
     tree.entries.map(async (entry: any) => {
       if (entry.type === "blob") {

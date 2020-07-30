@@ -7,7 +7,11 @@ import { Main } from "../pages/Main"
 import { setActiveRepository } from "../../reducers/argit"
 import { DIALOG_FOOTER_ACTIONS } from "@blueprintjs/core/lib/esm/common/classes"
 import { lifecycle } from "recompose"
-import { updateProjectList } from "../../reducers/project"
+import {
+  updateProjectList,
+  createNewProject,
+  loadProjectList
+} from "../../reducers/project"
 import { cloneRepository, createProject } from "../../../domain/git"
 import {
   startProjectRootChanged,
@@ -22,6 +26,8 @@ type CustomProps = {
   match: any
   updateProjectList: typeof updateProjectList
   startProjectRootChanged: typeof startProjectRootChanged
+  createNewProject: typeof createNewProject
+  loadProjectList: typeof loadProjectList
 }
 
 // const selector = (state: RootState): Props => {
@@ -40,7 +46,9 @@ export const StackRouter = connector(
   actions => ({
     setActiveRepository: actions.argit.setActiveRepository,
     updateProjectList: actions.project.updateProjectList,
-    startProjectRootChanged: actions.editor.startProjectRootChanged
+    startProjectRootChanged: actions.editor.startProjectRootChanged,
+    createNewProject: actions.project.createNewProject,
+    loadProjectList: actions.project.loadProjectList
   }),
   // lifecycle<CustomProps, {}>({
   //   componentDidUpdate(prevProps, prevState) {
@@ -59,11 +67,22 @@ export const StackRouter = connector(
         match,
         setActiveRepository,
         updateProjectList,
-        startProjectRootChanged
+        startProjectRootChanged,
+        loadProjectList
       } = this.props
       const projectRoot = `/${match.params.repo_name}`
       setActiveRepository({ activeRepository: match.params.repo_name })
       const projects = [{ projectRoot: projectRoot }]
+
+      // createNewProject({ newProjectRoot })
+      // // TODO: fix it
+
+      // await new Promise(r => setTimeout(r, 500))
+      // loadProjectList({ projects })
+
+      // await startProjectRootChanged({
+      //   projectRoot: newProjectRoot
+      // })
       await createProject(projectRoot)
 
       updateProjectList({ projects })

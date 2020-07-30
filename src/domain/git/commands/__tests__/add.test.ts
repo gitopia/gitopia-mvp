@@ -10,13 +10,13 @@ test.skip("Add japanese filepath correctly", async () => {
   const root = await helpers.createTempGitProject()
   const addingFilepath = "日本語"
   await fs.promises.writeFile(path.join(root, addingFilepath), "1")
-  await git.add({ dir: root, filepath: addingFilepath })
+  await git.add({ fs, dir: root, filepath: addingFilepath })
   await git.commit({
     dir: root,
     message: "Add japanese file",
     author: { email: "a", name: "a" }
   })
-  const files = await git.listFiles({ dir: root })
+  const files = await git.listFiles root })
   console.log(files)
   assert.deepEqual(files, ["日本語"])
 })
