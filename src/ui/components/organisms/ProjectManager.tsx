@@ -59,6 +59,22 @@ export const ProjectManager = connector(
           wallet: JSON.parse(sessionStorage.getItem("keyfile") || "")
         })
       }}
+      onClickFetchFromArweave={async () => {
+        const { projectRoot, address } = props
+        await git.addArweaveRemote({
+          fs,
+          dir: projectRoot,
+          remote: "arweave",
+          url: `argit://${address}${projectRoot}`
+        })
+
+        await git.fetchFromArweave({
+          fs,
+          dir: projectRoot,
+          remote: "arweave",
+          arweave
+        })
+      }}
       onCloneEnd={projectRoot => {
         props.startProjectRootChanged({ projectRoot })
       }}
@@ -89,6 +105,7 @@ class ProjectManagerImpl extends React.Component<{
   onClickNewProject: () => void
   onClickCloneProject: () => void
   onClickPushToArweave: () => void
+  onClickFetckFromArweave: () => void
 }> {
   render() {
     const {
@@ -100,7 +117,8 @@ class ProjectManagerImpl extends React.Component<{
       onClickCloneProject,
       onClickPushToArweave,
       projectRoot,
-      onDeleteProject
+      onDeleteProject,
+      onClickFetchFromArweave
     } = this.props
 
     return (
@@ -156,6 +174,13 @@ class ProjectManagerImpl extends React.Component<{
             icon="git-push"
             onClick={() => {
               onClickPushToArweave()
+            }}
+          />
+          <Button
+            text="Fetch"
+            icon="git-pull"
+            onClick={() => {
+              onClickFetchFromArweave()
             }}
           />
         </ButtonGroup>
