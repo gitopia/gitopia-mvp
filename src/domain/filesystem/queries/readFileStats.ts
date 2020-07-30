@@ -14,6 +14,7 @@ export async function readFileStats(
   const relpath = path.relative(projectRoot, dirpath)
 
   const mat = await (git as any).statusMatrix({
+    fs,
     dir: projectRoot,
     pattern: relpath.length > 0 ? path.join(relpath, "*") : "*"
   })
