@@ -2,7 +2,8 @@ import * as React from "react"
 import { Link } from "react-router-dom"
 import { connector } from "../../actionCreators/index"
 import { lifecycle } from "recompose"
-import Arweave from "arweave/web"
+import { arweave } from "../../../index"
+
 import {
   Repository,
   setIsAuthenticated,
@@ -36,7 +37,6 @@ export const Repositories = connector(
 
       if (isAuthenticated !== prevProps.isAuthenticated) {
         if (isAuthenticated) {
-          const arweave = Arweave.init({})
           const address = await arweave.wallets.jwkToAddress(
             JSON.parse(String(sessionStorage.getItem("keyfile")))
           )

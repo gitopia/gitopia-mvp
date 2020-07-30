@@ -7130,7 +7130,7 @@ isomorphic-fetch@^2.1.1:
 
 "isomorphic-git@https://github.com/TheTechTrap/isomorphic-git.git":
   version "0.0.0-development"
-  resolved "https://github.com/TheTechTrap/isomorphic-git.git#2d045e7369e089473b72c16b07063ad75d72f865"
+  resolved "https://github.com/TheTechTrap/isomorphic-git.git#e23f7798fc006dc43e9ba0fdb1dd60e5cc2d1177"
   dependencies:
     async-lock "^1.1.0"
     clean-git-ref "^2.0.1"
