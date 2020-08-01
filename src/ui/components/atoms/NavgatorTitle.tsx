@@ -1,10 +1,13 @@
 import { Icon, Position, Tooltip } from "@blueprintjs/core"
 import React from "react"
+import { Link } from "react-router-dom"
 
 export function NavigatorTitle(props: { networkOnline: boolean }) {
   return (
     <>
-      Argit-hub &nbsp;
+      <Link className="navbar-brand" to="/" style={{ color: "#FFF" }}>
+        ArgitHub &nbsp;
+      </Link>
       <Tooltip
         content={props.networkOnline ? "online mode" : "offline mode"}
         lazy={false}

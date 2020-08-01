@@ -32,7 +32,7 @@ export class App extends React.Component<{}> {
               <GlobalKeyHandler>
                 <ThemeProvider>
                   <Initializer>
-                    <NavBar />
+                    {/* <NavBar /> */}
                     <Switch>
                       <Route
                         path="/:wallet_address/:repo_name"

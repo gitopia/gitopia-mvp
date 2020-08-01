@@ -15,6 +15,7 @@ import { storage } from "redux-persist/lib/storage"
 import Arweave from "arweave/web"
 import delay from "delay"
 import { Repositories } from "./Repositories"
+import { HomePage } from "./HomePage"
 
 // export const GlobalHeader = connector(
 //     state => ({
@@ -52,26 +53,27 @@ export const Landing = connector(
     <Root data-testid="main">
       {/* prettier-ignore */}
       <Grid
-        columns={["1fr"]}
+        columns={[]}
         rows={[
-          "32px",
-          "1fr"
+
         ]}
         areas={[
-          ["header"],
-          ["content"]
+
         ]}
         width="100vw"
         height="100vh"
       >
+        { props.isAuthenticated &&
         <GridArea
           name="header"
         >
-          <GlobalHeader />
+         <GlobalHeader />
         </GridArea>
-        
+}
+        { props.isAuthenticated &&  <Repositories />}
+
           {/* <LayoutManager /> */}
-         <Repositories />
+         {!props.isAuthenticated && <HomePage />}
         
       </Grid>
     </Root>

@@ -30,64 +30,63 @@ export const Repositories = connector(
     updateRepositories: actions.argit.updateRepositories
   }),
   lifecycle<ConnectedProps, {}>({
-    async componentDidUpdate(prevProps, prevState) {
+    async componentDidMount() {
       // UI Boot
       // await delay(150)
+
       const { isAuthenticated, repositories, ...actions } = this.props
 
-      if (isAuthenticated !== prevProps.isAuthenticated) {
-        if (isAuthenticated) {
-          const address = await arweave.wallets.jwkToAddress(
-            JSON.parse(String(sessionStorage.getItem("keyfile")))
-          )
-          actions.loadAddress({ address })
+      if (isAuthenticated) {
+        const address = await arweave.wallets.jwkToAddress(
+          JSON.parse(String(sessionStorage.getItem("keyfile")))
+        )
+        actions.loadAddress({ address })
 
-          const txids = await arweave.arql({
-            op: "and",
-            expr1: {
-              op: "equals",
-              expr1: "from",
-              expr2: address
-            },
-            expr2: {
-              op: "equals",
-              expr1: "App-Name",
-              expr2: "argit"
-            }
-          })
+        const txids = await arweave.arql({
+          op: "and",
+          expr1: {
+            op: "equals",
+            expr1: "from",
+            expr2: address
+          },
+          expr2: {
+            op: "equals",
+            expr1: "App-Name",
+            expr2: "argit"
+          }
+        })
 
-          const repositories = await Promise.all(
-            txids.map(async txid => {
-              let repository = {} as Repository
-              const data: any = await arweave.transactions.getData(txid, {
-                decode: true,
-                string: true
-              })
-              try {
-                const decoded: any = JSON.parse(data)
-                repository = {
-                  name: decoded.reponame,
-                  description: decoded.description
-                }
-              } catch (error) {
-                repository = {
-                  name: txid,
-                  description: "Pending confirmation"
-                }
-              }
-
-              if (!repository) {
-                repository = {
-                  name: txid,
-                  description: "null"
-                }
-              }
-
-              return repository
+        const repositories = await Promise.all(
+          txids.map(async txid => {
+            let repository = {} as Repository
+            const data: any = await arweave.transactions.getData(txid, {
+              decode: true,
+              string: true
             })
-          )
-          actions.updateRepositories({ repositories })
-        }
+            try {
+              const decoded: any = JSON.parse(data)
+              repository = {
+                name: decoded.reponame,
+                description: decoded.description
+              }
+            } catch (error) {
+              repository = {
+                name: txid,
+                description: "Pending confirmation"
+              }
+            }
+
+            if (!repository) {
+              repository = {
+                name: txid,
+                description: "null"
+              }
+            }
+
+            return repository
+          })
+        )
+        actions.updateRepositories({ repositories })
       }
     }
   })
