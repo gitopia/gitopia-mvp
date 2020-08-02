@@ -251,8 +251,8 @@ export async function initializeGitStatus(projectRoot: string) {
       remotes,
       remoteBranches
     } = await Git.getBranchStatus(projectRoot)
-
     const history = await Git.getHistory(projectRoot, { ref: currentBranch })
+    console.log(history)
     const matrix = await git.statusMatrix({ fs, dir: projectRoot })
     console.log(history, matrix)
 

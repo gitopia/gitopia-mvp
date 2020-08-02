@@ -18,6 +18,11 @@ import {
   initializeGitStatus
 } from "../../actionCreators/editorActions"
 import * as EditorActions from "../../actionCreators/editorActions"
+import { update } from "lodash"
+
+type Project = {
+  projectRoot: string
+}
 
 type CustomProps = {
   currentScene: string
@@ -28,6 +33,7 @@ type CustomProps = {
   startProjectRootChanged: typeof startProjectRootChanged
   createNewProject: typeof createNewProject
   loadProjectList: typeof loadProjectList
+  projects: Project[]
 }
 
 // const selector = (state: RootState): Props => {
@@ -41,7 +47,8 @@ export const StackRouter = connector(
   state => ({
     currentScene: state.app.sceneStack[state.app.sceneStack.length - 1],
     projectRoot: state.project.projectRoot,
-    setActiveRepository: state.argit.activeRepository
+    setActiveRepository: state.argit.activeRepository,
+    projects: state.project.projects
   }),
   actions => ({
     setActiveRepository: actions.argit.setActiveRepository,
@@ -68,26 +75,35 @@ export const StackRouter = connector(
         setActiveRepository,
         updateProjectList,
         startProjectRootChanged,
-        loadProjectList
+        loadProjectList,
+        projects
       } = this.props
       const projectRoot = `/${match.params.repo_name}`
       setActiveRepository({ activeRepository: match.params.repo_name })
-      const projects = [{ projectRoot: projectRoot }]
+      console.log(projects)
+      createNewProject({ newProjectRoot: projectRoot })
+      // TODO: fix it
 
-      // createNewProject({ newProjectRoot })
-      // // TODO: fix it
+      await new Promise(r => setTimeout(r, 500))
+      loadProjectList({})
 
-      // await new Promise(r => setTimeout(r, 500))
-      // loadProjectList({ projects })
+      await startProjectRootChanged({
+        projectRoot: projectRoot
+      })
+      console.log(projects)
 
-      // await startProjectRootChanged({
-      //   projectRoot: newProjectRoot
-      // })
-      await createProject(projectRoot)
+      // const found = projects.some(
+      //   project => project.projectRoot === projectRoot
+      // )
+      // console.log(found)
+      // if (!found) {
+      //   console.log(projects)
+      //   const allProjects = [{ projectRoot }]
+      //   console.log(allProjects)
 
-      updateProjectList({ projects })
-      await startProjectRootChanged({ projectRoot })
-      await initializeGitStatus(projectRoot)
+      //   await createProject(projectRoot)
+      //   updateProjectList({})
+      //   await startProjectRootChanged({ projectRoot })
     }
   })
 )(function StackRouterImpl(props) {
