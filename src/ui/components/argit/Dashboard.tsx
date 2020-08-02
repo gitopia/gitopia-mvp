@@ -3,13 +3,20 @@ import { Link } from "react-router-dom"
 import { connector } from "../../actionCreators/index"
 import { lifecycle } from "recompose"
 import { arweave } from "../../../index"
-
 import {
   Repository,
   setIsAuthenticated,
   loadAddress,
   updateRepositories
 } from "../../reducers/argit"
+import { Root } from "../atoms/Root"
+import { GlobalHeader } from "../organisms/GlobalHeader"
+import { LayoutManager } from "../organisms/LayoutManager"
+import { Grid, GridArea } from "../utils/Grid"
+import { Button } from "@blueprintjs/core"
+import { openCreateRepoModal } from "../../reducers/app"
+import { CreateRepoModal } from "../organisms/CreateRepoModal"
+import { Repositories } from "./Repositories"
 
 type ConnectedProps = {
   isAuthenticated: boolean
@@ -17,9 +24,10 @@ type ConnectedProps = {
   setIsAuthenticated: typeof setIsAuthenticated
   loadAddress: typeof loadAddress
   updateRepositories: typeof updateRepositories
+  openCreateRepoModal: typeof openCreateRepoModal
 }
 
-export const Repositories = connector(
+export const Dashboard = connector(
   state => ({
     repositories: state.argit.repositories,
     address: state.argit.address,
@@ -27,7 +35,8 @@ export const Repositories = connector(
   }),
   actions => ({
     loadAddress: actions.argit.loadAddress,
-    updateRepositories: actions.argit.updateRepositories
+    updateRepositories: actions.argit.updateRepositories,
+    openCreateRepoModal: actions.app.openCreateRepoModal
   }),
   lifecycle<ConnectedProps, {}>({
     async componentDidMount() {
@@ -92,15 +101,38 @@ export const Repositories = connector(
   })
 )(function RepositoriesImpl(props) {
   return (
+    <Root data-testid="main">
+      {/* prettier-ignore */}
+      <Grid
+    columns={[]}
+    rows={[
+
+    ]}
+    areas={[
+
+    ]}
+    width="100vw"
+    height="100vh"
+  >
+    { props.isAuthenticated &&
+    <GridArea
+      name="content"
+    >
     <React.Fragment>
       <h1>
-        Repositories{" "}
-        <Link to="/new">
-          <i className="fa fa-plus-circle" aria-hidden="true" />
-        </Link>
+        Dashboard
+        <Button
+              className="bp3-outlined bp3-large bp3-minimal"
+              icon="folder-new"
+              onClick={() => props.openCreateRepoModal({})}
+            >
+              Create
+          </Button>
       </h1>
+    <h3>Total Repositories  = {props.repositories.length}</h3>
+    <Repositories />
 
-      {props.repositories &&
+      {/* {props.repositories &&
         props.repositories.map(
           repository =>
             repository.name && (
@@ -113,7 +145,13 @@ export const Repositories = connector(
                 </div>
               </div>
             )
-        )}
+        )} */}
     </React.Fragment>
+
+    </GridArea>
+}
+
+  </Grid>
+    </Root>
   )
 })

@@ -2,12 +2,19 @@ import { Button, Classes, Dialog } from "@blueprintjs/core"
 import path from "path"
 import React from "react"
 import { connector } from "../../actionCreators"
+import { Repositories } from "../argit/Repositories"
+import NewRepoForm from "../argit/newRepoForm"
+import { Repository } from "../../../ui/reducers/argit"
+import { closeCreateRepoModal } from "../../reducers/app"
+import { CreateRepoModal } from "./CreateRepoModal"
 
 // This is example reference
 export const CreateRepoModal = connector(
   state => {
     return {
-      openedCreateRepoModal: state.app.openedCreateRepoModal
+      openedCreateRepoModal: state.app.openedCreateRepoModal,
+      address: state.argit.address,
+      repositories: state.argit.repositories
     }
   },
   actions => {
@@ -23,7 +30,9 @@ export const CreateRepoModal = connector(
     openedCreateRepoModal,
     createNewProject,
     closeModal,
-    startProjectRootChanged
+    startProjectRootChanged,
+    address,
+    repositories
   } = props
   return (
     <Dialog
@@ -36,10 +45,11 @@ export const CreateRepoModal = connector(
     >
       <div className={Classes.DIALOG_BODY}>
         <ModalContent
+          address={address}
+          repositories={repositories}
+          closeCreateRepoModal={closeModal}
           onConfirm={async projectRoot => {
             const newProjectRoot = path.join("/", projectRoot)
-
-            closeModal({})
 
             createNewProject({ newProjectRoot })
             // TODO: fix it
@@ -63,6 +73,9 @@ export const CreateRepoModal = connector(
 class ModalContent extends React.Component<
   {
     onConfirm: (newProjectRoot: string) => void
+    address: string
+    repositories: Repository[]
+    closeCreateRepoModal: typeof closeCreateRepoModal
   },
   {
     isValidProjectName: boolean
@@ -76,8 +89,13 @@ class ModalContent extends React.Component<
   render() {
     return (
       <>
-        <h2>Create Project</h2>
-        <p>Create directory to local file system.</p>
+        <NewRepoForm
+          address={this.props.address}
+          repositories={this.props.repositories}
+          closeCreateRepoModal={this.props.closeCreateRepoModal}
+        />
+        {/* <h2>Create Project</h2>
+        <p>Create a new Repository to the local fs and arweave</p>
         <div>
           <input
             spellCheck={false}
@@ -94,7 +112,7 @@ class ModalContent extends React.Component<
           icon="confirm"
           text="create"
           onClick={() => this.props.onConfirm(this.state.newProjectRoot)}
-        />
+        /> */}
       </>
     )
   }

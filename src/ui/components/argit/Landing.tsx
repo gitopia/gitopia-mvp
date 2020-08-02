@@ -16,6 +16,7 @@ import Arweave from "arweave/web"
 import delay from "delay"
 import { Repositories } from "./Repositories"
 import { HomePage } from "./HomePage"
+import { Dashboard } from "./Dashboard"
 
 // export const GlobalHeader = connector(
 //     state => ({
@@ -70,7 +71,7 @@ export const Landing = connector(
          <GlobalHeader />
         </GridArea>
 }
-        { props.isAuthenticated &&  <Repositories />}
+        { props.isAuthenticated &&  <Dashboard />}
 
           {/* <LayoutManager /> */}
          {!props.isAuthenticated && <HomePage />}
