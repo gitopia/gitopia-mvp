@@ -18,7 +18,7 @@ import {
   initializeGitStatus
 } from "../../actionCreators/editorActions"
 import * as EditorActions from "../../actionCreators/editorActions"
-import { update } from "lodash"
+import _ from "lodash"
 
 type Project = {
   projectRoot: string
@@ -80,30 +80,23 @@ export const StackRouter = connector(
       } = this.props
       const projectRoot = `/${match.params.repo_name}`
       setActiveRepository({ activeRepository: match.params.repo_name })
-      console.log(projects)
-      createNewProject({ newProjectRoot: projectRoot })
-      // TODO: fix it
+      // createNewProject({ newProjectRoot })
+      // // TODO: fix it
 
-      await new Promise(r => setTimeout(r, 500))
-      loadProjectList({})
+      // await new Promise(r => setTimeout(r, 500))
+      // loadProjectList({ projects })
 
-      await startProjectRootChanged({
-        projectRoot: projectRoot
-      })
-      console.log(projects)
+      // await startProjectRootChanged({
+      //   projectRoot: newProjectRoot
+      // })
 
-      // const found = projects.some(
-      //   project => project.projectRoot === projectRoot
-      // )
-      // console.log(found)
-      // if (!found) {
-      //   console.log(projects)
-      //   const allProjects = [{ projectRoot }]
-      //   console.log(allProjects)
-
-      //   await createProject(projectRoot)
-      //   updateProjectList({})
-      //   await startProjectRootChanged({ projectRoot })
+      if (!_.some(projects, { projectRoot })) {
+        const allProjects = [...projects, { projectRoot }]
+        console.log(projects, allProjects)
+        await createProject(projectRoot)
+        updateProjectList({ projects: allProjects })
+        await startProjectRootChanged({ projectRoot })
+      }
     }
   })
 )(function StackRouterImpl(props) {

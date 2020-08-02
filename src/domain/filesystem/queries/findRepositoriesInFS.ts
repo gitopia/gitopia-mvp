@@ -7,6 +7,7 @@ import { existsPath } from ".."
 export async function findRepositoriesWithGit(
   currentDir: string = ""
 ): Promise<string[]> {
+  console.log(currentDir, "current")
   if (await existsPath(path.join(currentDir, ".git"))) {
     return [currentDir]
   }
