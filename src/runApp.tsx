@@ -3,41 +3,43 @@
 ;(process as any).browser = true
 
 // normalize
-import "normalize.css/normalize.css"
+// import "normalize.css/normalize.css"
 
 // global css
-import { injectGlobal } from "styled-components"
+// import { injectGlobal } from "styled-components"
 
-// tslint:disable-next-line:no-unused-expression
-injectGlobal`
-select {
-  font-family: monospace;
-}
+// // tslint:disable-next-line:no-unused-expression
+// injectGlobal`
+// select {
+//   font-family: monospace;
+// }
 
-textarea:focus,
-input:focus select:focus {
-  outline: none;
-}
+// textarea:focus,
+// input:focus select:focus {
+//   outline: none;
+// }
 
-::-webkit-scrollbar {
-  width: 5px;
-}
+// ::-webkit-scrollbar {
+//   width: 5px;
+// }
 
-::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 50, .5);
-  border-radius: 0px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, .3);
-}
-`
+// ::-webkit-scrollbar-thumb {
+//   background-color: rgba(0, 0, 50, .5);
+//   border-radius: 0px;
+//   box-shadow: 0 0 0 1px rgba(255, 255, 255, .3);
+// }
+// `
 
-import "bootstrap/dist/css/bootstrap.css"
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css"
+import { Provider } from "react-redux"
+import { PersistGate } from "redux-persist/integration/react"
+// // blueprint
+// import "@blueprintjs/core/lib/css/blueprint.css"
+// import "@blueprintjs/icons/lib/css/blueprint-icons.css"
 
-// blueprint
-import "@blueprintjs/core/lib/css/blueprint.css"
-import "@blueprintjs/icons/lib/css/blueprint-icons.css"
-
-// contextify
-import "react-contexify/dist/ReactContexify.css"
+// // contextify
+// import "react-contexify/dist/ReactContexify.css"
 
 import fs from "fs"
 import * as git from "isomorphic-git"
@@ -52,6 +54,8 @@ import * as git from "isomorphic-git"
 import React from "react"
 import ReactDOM from "react-dom"
 import { App } from "./ui/components/App"
+import LandingNew from "./ui/components/argit/LandingNew"
+import { configureStore } from "./ui/store/configureStore"
 
 export async function run(opts = {}) {
   // Run
@@ -66,8 +70,15 @@ export async function run(opts = {}) {
     // Skip
     console.error("init error", e)
   }
-
-  ReactDOM.render(<App />, document.querySelector(".root"))
+  // const { store, persistor } = configureStore()
+  ReactDOM.render(
+    <LandingNew />,
+    // <Provider store={store}>
+    //   {/* <PersistGate persistor={persistor}>
+    //   </PersistGate> */}
+    // </Provider>,
+    document.querySelector(".root")
+  )
 }
 
 async function setupFonts() {

@@ -99,6 +99,10 @@ module.exports = {
     noParse: /browserfs\.js/,
     rules: [
       {
+        test: /\.(jpg|jpeg)$/,
+        use: [{ loader: "url-loader" }]
+      },
+      {
         test: /\.tsx?$/,
         use: [
           {
@@ -128,6 +132,7 @@ module.exports = {
         test: /\.css$/,
         use: [{ loader: "style-loader/url" }, { loader: "file-loader" }]
       },
+
       {
         test: /\.mdx?$/,
         use: ["babel-loader", "@mdx-js/loader"]
