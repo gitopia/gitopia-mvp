@@ -34,6 +34,8 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css"
 import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
+import { LoginModal } from "./ui/components/argit/LoginModal"
+
 // // blueprint
 // import "@blueprintjs/core/lib/css/blueprint.css"
 // import "@blueprintjs/icons/lib/css/blueprint-icons.css"
@@ -54,7 +56,7 @@ import * as git from "isomorphic-git"
 import React from "react"
 import ReactDOM from "react-dom"
 import { App } from "./ui/components/App"
-import LandingNew from "./ui/components/argit/LandingNew"
+import { LandingNew } from "./ui/components/argit/LandingNew"
 import { configureStore } from "./ui/store/configureStore"
 
 export async function run(opts = {}) {
@@ -70,13 +72,14 @@ export async function run(opts = {}) {
     // Skip
     console.error("init error", e)
   }
-  // const { store, persistor } = configureStore()
+  const { store, persistor } = configureStore()
   ReactDOM.render(
-    <LandingNew />,
-    // <Provider store={store}>
-    //   {/* <PersistGate persistor={persistor}>
-    //   </PersistGate> */}
-    // </Provider>,
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <LandingNew />
+        <LoginModal />
+      </PersistGate>
+    </Provider>,
     document.querySelector(".root")
   )
 }
