@@ -10,6 +10,7 @@ import "./LandingNew.css"
 
 // import { Button, Navbar, Alignment } from "@blueprintjs/core"
 import { connector } from "../../actionCreators/index"
+import { Dashboard } from "./Dashboard"
 
 export const LandingNew = connector(
   state => ({
@@ -19,6 +20,8 @@ export const LandingNew = connector(
     openLoginModal: actions.argit.openLoginModal
   })
 )(function LandingNewImpl(props) {
+  if (props.isAuthenticated) return <Dashboard />
+
   return (
     <React.Fragment>
       {/* <header className="jumbotron jumbotron-fluid">
@@ -38,20 +41,6 @@ export const LandingNew = connector(
           </p>
         </div>
       </header> */}
-      <nav className="navbar navbar-light bg-light static-top">
-        <div className="container">
-          <a className="navbar-brand" href="#">
-            ArgitHub
-          </a>
-          <a
-            className="btn btn-primary"
-            href="#"
-            onClick={() => props.openLoginModal({})}
-          >
-            Login
-          </a>
-        </div>
-      </nav>
 
       <header className="masthead text-white text-center">
         <div className="overlay" />

@@ -73,15 +73,7 @@ export async function run(opts = {}) {
     console.error("init error", e)
   }
   const { store, persistor } = configureStore()
-  ReactDOM.render(
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <LandingNew />
-        <LoginModal />
-      </PersistGate>
-    </Provider>,
-    document.querySelector(".root")
-  )
+  ReactDOM.render(<App />, document.querySelector(".root"))
 }
 
 async function setupFonts() {

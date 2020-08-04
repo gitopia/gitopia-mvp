@@ -12,10 +12,11 @@ import { MediaDetector } from "./utils/MediaDetector"
 import { OnlineDetector } from "./utils/OnlineDetector"
 import { StackRouter } from "./utils/StackRouter"
 import { ThemeProvider } from "./utils/ThemeProvider"
-import { LoginModal } from "./argit/LoginModal"
+import { LoginModal } from "./argit/loginModal"
 import { Landing } from "./argit/Landing"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
-import NavBar from "./argit/navBar"
+import { NavBar } from "./argit/navBar"
+import { LandingNew } from "./argit/LandingNew"
 
 // debug area
 const ENTER_PLAYGROUND = false
@@ -30,23 +31,23 @@ export class App extends React.Component<{}> {
           <Provider store={store}>
             <PersistGate persistor={persistor}>
               <GlobalKeyHandler>
-                <ThemeProvider>
-                  <Initializer>
-                    {/* <NavBar /> */}
-                    <Switch>
-                      <Route
-                        path="/:wallet_address/:repo_name"
-                        component={StackRouter}
-                      />
-                      <Route exact path="/" component={Landing} />
-                    </Switch>
-                    <OnlineDetector />
-                    <LoginModal />
-                    <CreateRepoModal />
-                    <CloneRepoModal />
-                    <MediaDetector />
-                  </Initializer>
-                </ThemeProvider>
+                {/* <ThemeProvider> */}
+                {/* <Initializer> */}
+                <NavBar />
+                <Switch>
+                  <Route
+                    path="/:wallet_address/:repo_name"
+                    component={StackRouter}
+                  />
+                  <Route exact path="/" component={LandingNew} />
+                </Switch>
+                <OnlineDetector />
+                <LoginModal />
+                <CreateRepoModal />
+                <CloneRepoModal />
+                <MediaDetector />
+                {/* </Initializer>
+                </ThemeProvider> */}
               </GlobalKeyHandler>
             </PersistGate>
           </Provider>

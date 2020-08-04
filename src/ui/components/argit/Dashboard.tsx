@@ -17,6 +17,7 @@ import { Button } from "@blueprintjs/core"
 import { openCreateRepoModal } from "../../reducers/app"
 import { CreateRepoModal } from "../organisms/CreateRepoModal"
 import { Repositories } from "./Repositories"
+import { txQuery } from "../../../utils"
 
 type ConnectedProps = {
   isAuthenticated: boolean
@@ -51,19 +52,7 @@ export const Dashboard = connector(
         )
         actions.loadAddress({ address })
 
-        const txids = await arweave.arql({
-          op: "and",
-          expr1: {
-            op: "equals",
-            expr1: "from",
-            expr2: address
-          },
-          expr2: {
-            op: "equals",
-            expr1: "App-Name",
-            expr2: "test-repo"
-          }
-        })
+        const txids = await arweave.arql(txQuery(address, "create-repo"))
 
         const repositories = await Promise.all(
           txids.map(async txid => {
