@@ -139,7 +139,16 @@ module.exports = {
       },
       {
         test: /\.scss$/i,
-        use: [{ loader: "css-loader" }, { loader: "sass-loader" }]
+        use: [
+          { loader: "style-loader" },
+          {
+            loader: "typings-for-css-modules-loader",
+            options: {
+              modules: true
+            }
+          },
+          { loader: "sass-loader" }
+        ]
       }
     ]
   },

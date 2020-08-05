@@ -4,6 +4,7 @@ import { connector } from "../../../actionCreators/index"
 import { Switch, Route, withRouter, Redirect } from "react-router"
 import { TransitionGroup, CSSTransition } from "react-transition-group"
 import Hammer from "rc-hammerjs"
+import "../styles/theme.scss"
 
 // import UIIcons from "../../pages/components/icons";
 // import UINotifications from "../../pages/notifications";
