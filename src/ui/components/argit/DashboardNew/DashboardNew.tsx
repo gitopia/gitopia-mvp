@@ -20,7 +20,7 @@ import { Repositories } from "../Repositories"
 import { txQuery } from "../../../../utils"
 import { Row, Col, Progress, Table, Label, Input } from "reactstrap"
 import s from "./DashboardNew.module.scss"
-import Widget from "../Widget"
+import Widget from "../Widget/Widget"
 import AnimateNumber from "react-animated-number"
 
 type ConnectedProps = {
