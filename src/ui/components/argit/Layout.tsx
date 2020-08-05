@@ -13,9 +13,9 @@ import Hammer from "rc-hammerjs"
 // import Charts from "../../pages/components/charts/Charts";
 import { DashboardNew } from "./DashboardNew"
 
-// import Header from "../Header";
+import Header from "./Header"
 // import Sidebar from "../Sidebar";
-// import BreadcrumbHistory from "../BreadcrumbHistory";
+import BreadcrumbHistory from "./BreadcrumbHistory"
 import { openSidebar, closeSidebar } from "../../reducers/navigation"
 import s from "./Layout.module.scss"
 
@@ -24,7 +24,7 @@ export const Layout = connector(
     isAuthenticated: state.argit.isAuthenticated,
     sidebarPosition: state.navigation.sidebarPosition,
     sidebarVisibility: state.navigation.sidebarVisibility,
-    location: { key: "s" }
+    location: { key: "s", pathname: "a" }
   }),
   actions => ({
     openLoginModal: actions.argit.openLoginModal,
@@ -40,13 +40,13 @@ export const Layout = connector(
       ].join(" ")}
     >
       <div className={s.wrap}>
-        {/* <Header /> */}
+        <Header />
         {/* <Chat chatOpen={this.state.chatOpen} /> */}
         {/* <Helper /> */}
         {/* <Sidebar /> */}
         <Hammer>
           <main className={s.content}>
-            {/* <BreadcrumbHistory url={props.location.pathname} /> */}
+            <BreadcrumbHistory url={props.location.pathname} />
             <TransitionGroup>
               <CSSTransition
                 key={props.location.key}

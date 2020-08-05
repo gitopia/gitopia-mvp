@@ -33,7 +33,7 @@ export class App extends React.Component<{}> {
               <GlobalKeyHandler>
                 {/* <ThemeProvider> */}
                 {/* <Initializer> */}
-                <NavBar />
+                {/* <NavBar /> */}
                 <Switch>
                   <Route
                     path="/:wallet_address/:repo_name"
@@ -41,10 +41,10 @@ export class App extends React.Component<{}> {
                   />
                   <Route exact path="/" component={LandingNew} />
                 </Switch>
-                <OnlineDetector />
+                {/* <OnlineDetector />
                 <LoginModal />
                 <CreateRepoModal />
-                <CloneRepoModal />
+                <CloneRepoModal /> */}
                 {/* <MediaDetector /> */}
                 {/* </Initializer>
                 </ThemeProvider> */}
