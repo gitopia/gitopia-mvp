@@ -26,6 +26,8 @@ declare module "@textlint/textlint-plugin-markdown"
 declare module "textlint-rule-no-todo"
 declare module "textlint-rule-prh"
 declare module "uuid/v4"
-
+declare module "*.scss"
+declare module "react-animated-number"
+declare module "rc-hammerjs"
 declare var FontFace: any
 declare var NEPlugins: { [pluginName: string]: any }

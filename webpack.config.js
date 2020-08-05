@@ -89,7 +89,7 @@ module.exports = {
     // alias: {
     //   fs: path.join(__dirname, "src/lib/fs.ts")
     // },
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: [".ts", ".tsx", ".js", ".css", ".scss"]
   },
   node: {
     process: false,
@@ -138,22 +138,15 @@ module.exports = {
         use: ["babel-loader", "@mdx-js/loader"]
       },
       {
-        test: /\.s[ac]ss$/i,
-        use: [
-          // Creates `style` nodes from JS strings
-          "style-loader",
-          // Translates CSS into CommonJS
-          "css-loader",
-          // Compiles Sass to CSS
-          "sass-loader"
-        ]
+        test: /\.scss$/i,
+        use: [{ loader: "css-loader" }, { loader: "sass-loader" }]
       }
     ]
   },
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
-        cache: true,
+        cache: false,
         parallel: true,
         sourceMap: false // set to true if you want JS source maps
       }),

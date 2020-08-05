@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid"
 import classNames from "classnames"
 import AnimateHeight from "react-animate-height"
 import s from "./Widget.module.scss"
+import Loader from "./Loader" // eslint-disable-line css-modules/no-unused-class
 
 import {
   DropdownToggle,

@@ -45,7 +45,7 @@ export class App extends React.Component<{}> {
                 <LoginModal />
                 <CreateRepoModal />
                 <CloneRepoModal />
-                <MediaDetector />
+                {/* <MediaDetector /> */}
                 {/* </Initializer>
                 </ThemeProvider> */}
               </GlobalKeyHandler>

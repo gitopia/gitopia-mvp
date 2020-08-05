@@ -92,7 +92,8 @@ export const DashboardNew = connector(
       }
     }
   })
-)(function RepositoriesImpl(props) {
+)(function DashboardNew(props) {
+  console.log("s", s)
   return (
     <div className={s.root}>
       <h1 className="page-title">

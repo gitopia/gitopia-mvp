@@ -6,7 +6,8 @@ import * as git from "./git"
 import * as project from "./project"
 import * as repository from "./repository"
 import * as argit from "./argit"
-
+import * as navigation from "./navigation"
+import { NavigatorTitle } from "../components/atoms/NavgatorTitle"
 export type RootState = {
   app: app.AppState
   repository: repository.RepositoryState
@@ -15,6 +16,7 @@ export type RootState = {
   git: git.GitState
   config: config.ConfigState
   argit: argit.ArgitState
+  navigation: navigation.NavigationState
 }
 
 export const rootReducer: (
@@ -27,5 +29,6 @@ export const rootReducer: (
   repository: repository.reducer,
   git: git.reducer,
   config: config.reducer,
-  argit: argit.reducer
+  argit: argit.reducer,
+  navigation: navigation.reducer
 } as any)

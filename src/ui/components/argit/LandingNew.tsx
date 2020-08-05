@@ -5,12 +5,12 @@ import bgs3 from "./../../../../assets/bg-showcase-3.jpg"
 import t1 from "./../../../../assets/testimonials-1.jpg"
 import t2 from "./../../../../assets/testimonials-2.jpg"
 import t3 from "./../../../../assets/testimonials-3.jpg"
-
 import "./LandingNew.css"
 
 // import { Button, Navbar, Alignment } from "@blueprintjs/core"
 import { connector } from "../../actionCreators/index"
 import { DashboardNew } from "./DashboardNew"
+import { Layout } from "./Layout"
 
 export const LandingNew = connector(
   state => ({
@@ -20,7 +20,7 @@ export const LandingNew = connector(
     openLoginModal: actions.argit.openLoginModal
   })
 )(function LandingNewImpl(props) {
-  if (props.isAuthenticated) return <DashboardNew />
+  if (props.isAuthenticated) return <Layout />
 
   return (
     <React.Fragment>
