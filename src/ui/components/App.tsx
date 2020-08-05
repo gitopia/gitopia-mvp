@@ -12,7 +12,7 @@ import { GlobalKeyHandler } from "./utils/GlobalKeyHandler"
 // import { OnlineDetector } from "./utils/OnlineDetector"
 import { StackRouter } from "./utils/StackRouter"
 // import { ThemeProvider } from "./utils/ThemeProvider"
-// import { LoginModal } from "./argit/loginModal"
+import { LoginModal } from "./argit/loginModal"
 // import { Landing } from "./argit/Landing"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 // import { NavBar } from "./argit/navBar"
@@ -41,8 +41,9 @@ export class App extends React.Component<{}> {
                   />
                   <Route exact path="/" component={LandingNew} />
                 </Switch>
-                {/* <OnlineDetector />
                 <LoginModal />
+                {/* <OnlineDetector />
+                
                 <CreateRepoModal />
                 <CloneRepoModal /> */}
                 {/* <MediaDetector /> */}

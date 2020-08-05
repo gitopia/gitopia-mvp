@@ -8,9 +8,10 @@ import t3 from "./../../../../assets/testimonials-3.jpg"
 // import "./LandingNew.css"
 
 // import { Button, Navbar, Alignment } from "@blueprintjs/core"
+import { Button } from "reactstrap"
 import { connector } from "../../actionCreators/index"
 import { DashboardNew } from "./DashboardNew"
-import { Layout } from "./Layout"
+import { Layout } from "./Layout/Layout"
 
 export const LandingNew = connector(
   state => ({
@@ -24,23 +25,19 @@ export const LandingNew = connector(
 
   return (
     <React.Fragment>
-      {/* <header className="jumbotron jumbotron-fluid">
+      <header className="jumbotron jumbotron-fluid">
         <div className="container-fluid text-center">
           <h1 className="display-3">ArgitHub</h1>
           <p className="lead pb-4">
             Permanent Private Versioning for your Code
           </p>
           <p>
-            <Button
-              className="bp3-outlined bp3-large bp3-minimal"
-              icon="log-in"
-              onClick={() => props.openLoginModal({})}
-            >
+            <Button color="primary" onClick={() => props.openLoginModal({})}>
               Login
             </Button>
           </p>
         </div>
-      </header> */}
+      </header>
 
       <header className="masthead text-white text-center">
         <div className="overlay" />

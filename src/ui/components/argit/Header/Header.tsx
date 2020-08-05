@@ -31,13 +31,13 @@ import {
 import s from "./Header.module.scss"
 // import "animate.css"
 
-export interface HeaderProps {
+type HeaderProps = {
   dispatch: any
   sidebarPosition: string
   sidebarVisibility: string
 }
 
-export interface HeaderState {
+type HeaderState = {
   visible: boolean
   messagesOpen: boolean
   supportOpen: boolean

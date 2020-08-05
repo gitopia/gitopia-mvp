@@ -14,7 +14,7 @@ import "../styles/theme.scss"
 // import Charts from "../../pages/components/charts/Charts";
 
 import Header from "../Header/Header"
-// import Sidebar from "../Sidebar";
+import { Sidebar } from "../Sidebar/Sidebar"
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory"
 import { openSidebar, closeSidebar } from "../../../reducers/navigation"
 import s from "./Layout.module.scss"
@@ -44,7 +44,7 @@ export const Layout = connector(
         <Header />
         {/* <Chat chatOpen={this.state.chatOpen} /> */}
         {/* <Helper /> */}
-        {/* <Sidebar /> */}
+        <Sidebar />
         <Hammer>
           <main className={s.content}>
             <BreadcrumbHistory url={props.location.pathname} />
