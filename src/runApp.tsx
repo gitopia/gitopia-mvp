@@ -56,31 +56,30 @@ import * as git from "isomorphic-git"
 import React from "react"
 import ReactDOM from "react-dom"
 import { App } from "./ui/components/App"
-import { LandingNew } from "./ui/components/argit/LandingNew"
 import { configureStore } from "./ui/store/configureStore"
 
 export async function run(opts = {}) {
   // Run
-  await Promise.all([setupFonts(), loadBrowserFS()])
+  await Promise.all([loadBrowserFS()])
 
-  try {
-    const {
-      setupInitialRepository
-    } = await import("./domain/git/commands/setupInitialRepository")
-    await setupInitialRepository("/playground")
-  } catch (e) {
-    // Skip
-    console.error("init error", e)
-  }
+  // try {
+  //   const {
+  //     setupInitialRepository
+  //   } = await import("./domain/git/commands/setupInitialRepository")
+  //   await setupInitialRepository("/playground")
+  // } catch (e) {
+  //   // Skip
+  //   console.error("init error", e)
+  // }
   const { store, persistor } = configureStore()
   ReactDOM.render(<App />, document.querySelector(".root"))
 }
 
-async function setupFonts() {
-  const font = new FontFace("Inconsolata", "url(/assets/Inconsolata.otf)")
-  const loadedFace = await font.load()
-  ;(document as any).fonts.add(loadedFace)
-}
+// async function setupFonts() {
+//   const font = new FontFace("Inconsolata", "url(/assets/Inconsolata.otf)")
+//   const loadedFace = await font.load()
+//   ;(document as any).fonts.add(loadedFace)
+// }
 
 async function loadBrowserFS() {
   return new Promise(resolve => {

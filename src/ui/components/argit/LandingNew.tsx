@@ -5,7 +5,7 @@ import bgs3 from "./../../../../assets/bg-showcase-3.jpg"
 import t1 from "./../../../../assets/testimonials-1.jpg"
 import t2 from "./../../../../assets/testimonials-2.jpg"
 import t3 from "./../../../../assets/testimonials-3.jpg"
-import "./LandingNew.css"
+// import "./LandingNew.css"
 
 // import { Button, Navbar, Alignment } from "@blueprintjs/core"
 import { connector } from "../../actionCreators/index"
