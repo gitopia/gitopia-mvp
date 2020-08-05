@@ -1,26 +1,26 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { connector } from "../../actionCreators/index"
+import { connector } from "../../../actionCreators/index"
 import { lifecycle } from "recompose"
-import { arweave } from "../../../index"
+import { arweave } from "../../../../index"
 import {
   Repository,
   setIsAuthenticated,
   loadAddress,
   updateRepositories
-} from "../../reducers/argit"
-import { Root } from "../atoms/Root"
-import { GlobalHeader } from "../organisms/GlobalHeader"
-import { LayoutManager } from "../organisms/LayoutManager"
-import { Grid, GridArea } from "../utils/Grid"
+} from "../../../reducers/argit"
+import { Root } from "../../atoms/Root"
+import { GlobalHeader } from "../../organisms/GlobalHeader"
+import { LayoutManager } from "../../organisms/LayoutManager"
+import { Grid, GridArea } from "../../utils/Grid"
 import { Button } from "@blueprintjs/core"
-import { openCreateRepoModal } from "../../reducers/app"
-import { CreateRepoModal } from "../organisms/CreateRepoModal"
-import { Repositories } from "./Repositories"
-import { txQuery } from "../../../utils"
+import { openCreateRepoModal } from "../../../reducers/app"
+import { CreateRepoModal } from "../../organisms/CreateRepoModal"
+import { Repositories } from "../Repositories"
+import { txQuery } from "../../../../utils"
 import { Row, Col, Progress, Table, Label, Input } from "reactstrap"
 import s from "./DashboardNew.module.scss"
-import Widget from "./Widget"
+import Widget from "../Widget"
 import AnimateNumber from "react-animated-number"
 
 type ConnectedProps = {

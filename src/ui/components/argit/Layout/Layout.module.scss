@@ -1,8 +1,4 @@
-@import "../../../../node_modules/bootstrap/scss/functions";
-@import "./_variables.scss";
-@import "../../../../node_modules/bootstrap/scss/variables";
-@import "../../../../node_modules/bootstrap/scss/mixins";
-@import "./_mixins.scss";
+@import "../styles/app";
 
 .root {
   height: 100%;

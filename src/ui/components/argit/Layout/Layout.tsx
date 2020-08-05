@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { connector } from "../../actionCreators/index"
+import { connector } from "../../../actionCreators/index"
 import { Switch, Route, withRouter, Redirect } from "react-router"
 import { TransitionGroup, CSSTransition } from "react-transition-group"
 import Hammer from "rc-hammerjs"
@@ -11,13 +11,13 @@ import Hammer from "rc-hammerjs"
 // import MapsGoogle from "../../pages/components/maps/google";
 // import CoreTypography from "../../pages/typography";
 // import Charts from "../../pages/components/charts/Charts";
-import { DashboardNew } from "./DashboardNew"
 
-import Header from "./Header"
+import Header from "../Header/Header"
 // import Sidebar from "../Sidebar";
-import BreadcrumbHistory from "./BreadcrumbHistory"
-import { openSidebar, closeSidebar } from "../../reducers/navigation"
+import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory"
+import { openSidebar, closeSidebar } from "../../../reducers/navigation"
 import s from "./Layout.module.scss"
+import { DashboardNew } from "../DashboardNew/DashboardNew"
 
 export const Layout = connector(
   state => ({
