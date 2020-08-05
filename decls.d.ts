@@ -25,6 +25,7 @@ declare module "enzyme-adapter-react-16"
 declare module "@textlint/textlint-plugin-markdown"
 declare module "textlint-rule-no-todo"
 declare module "textlint-rule-prh"
+declare module "uuid/v4"
 
 declare var FontFace: any
 declare var NEPlugins: { [pluginName: string]: any }

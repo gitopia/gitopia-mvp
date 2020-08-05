@@ -10,7 +10,7 @@ import "./LandingNew.css"
 
 // import { Button, Navbar, Alignment } from "@blueprintjs/core"
 import { connector } from "../../actionCreators/index"
-import { Dashboard } from "./Dashboard"
+import { DashboardNew } from "./DashboardNew"
 
 export const LandingNew = connector(
   state => ({
@@ -20,7 +20,7 @@ export const LandingNew = connector(
     openLoginModal: actions.argit.openLoginModal
   })
 )(function LandingNewImpl(props) {
-  if (props.isAuthenticated) return <Dashboard />
+  if (props.isAuthenticated) return <DashboardNew />
 
   return (
     <React.Fragment>
