@@ -6,6 +6,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const HtmlPlugin = require("html-webpack-plugin")
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent")
 
 // Constants
 
@@ -19,7 +20,42 @@ const SRC_INCLUDES = [
   path.join(__dirname, "src"),
   ...(process.env.SRC ? [SRC] : [])
 ]
+const sassRegex = /\.(scss|sass)$/
+const sassModuleRegex = /\.module\.(scss|sass)$/
 
+const getStyleLoaders = (cssOptions, preProcessor) => {
+  const loaders = [
+    require.resolve("style-loader"),
+    {
+      loader: require.resolve("css-loader"),
+      options: cssOptions
+    },
+    {
+      // Options for PostCSS as we reference these options twice
+      // Adds vendor prefixing based on your specified browser support in
+      // package.json
+      loader: require.resolve("postcss-loader"),
+      options: {
+        // Necessary for external CSS imports to work
+        // https://github.com/facebook/create-react-app/issues/2677
+        ident: "postcss",
+        plugins: () => [
+          require("postcss-flexbugs-fixes"),
+          require("postcss-preset-env")({
+            autoprefixer: {
+              flexbox: "no-2009"
+            },
+            stage: 3
+          })
+        ]
+      }
+    }
+  ]
+  if (preProcessor) {
+    loaders.push(require.resolve(preProcessor))
+  }
+  return loaders
+}
 const COPY_RULES = [
   {
     from: path.join(__dirname, "src/manifest.json"),
@@ -152,18 +188,46 @@ module.exports = {
         test: /\.svg$/,
         loader: "file-loader"
       },
+      // {
+      //   test: sassRegex,
+      //   use: [
+      //     { loader: "style-loader" },
+      //     {
+      //       loader: "typings-for-css-modules-loader"
+      //     },
+      //     { loader: "sass-loader" }
+      //   ]
+      // },
+      // {
+      //   test: sassModuleRegex,
+      //   use: [
+      //     { loader: "style-loader" },
+      //     {
+      //       loader: "typings-for-css-modules-loader",
+      //       options: {
+      //         modules: true
+      //       }
+      //     },
+      //     { loader: "sass-loader" }
+      //   ]
+      // }
       {
-        test: /\.scss$/i,
-        use: [
-          { loader: "style-loader" },
+        test: sassRegex,
+        exclude: sassModuleRegex,
+        use: getStyleLoaders({ importLoaders: 2 }, "sass-loader")
+      },
+      // Adds support for CSS Modules, but using SASS
+      // using the extension .module.scss or .module.sass
+      {
+        test: sassModuleRegex,
+        use: getStyleLoaders(
           {
-            loader: "typings-for-css-modules-loader",
-            options: {
-              modules: true
-            }
+            importLoaders: 2,
+            modules: true,
+            getLocalIdent: getCSSModuleLocalIdent
           },
-          { loader: "sass-loader" }
-        ]
+          "sass-loader"
+        )
       }
     ]
   },

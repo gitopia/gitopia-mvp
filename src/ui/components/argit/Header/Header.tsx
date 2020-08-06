@@ -137,6 +137,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   }
 
   render() {
+    console.log("header", s)
     return (
       <Navbar className={`d-print-none ${s.root}`}>
         <UncontrolledAlert
