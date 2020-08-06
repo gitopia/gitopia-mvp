@@ -132,10 +132,10 @@ module.exports = {
       ".css",
       ".scss",
       ".ttf",
-      "*.woff",
-      "#.woff2",
-      "*.eot",
-      "*.svg"
+      ".woff",
+      ".woff2",
+      ".eot",
+      ".svg"
     ]
   },
   node: {
@@ -146,7 +146,7 @@ module.exports = {
     noParse: /browserfs\.js/,
     rules: [
       {
-        test: /\.(jpg|jpeg|png|woff2|ttf|woff|eot)$/,
+        test: /\.(jpg|jpeg|png)$/,
         use: [{ loader: "url-loader" }]
       },
       {
@@ -185,8 +185,15 @@ module.exports = {
         use: ["babel-loader", "@mdx-js/loader"]
       },
       {
-        test: /\.svg$/,
-        loader: "file-loader"
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]"
+            }
+          }
+        ]
       },
       // {
       //   test: sassRegex,

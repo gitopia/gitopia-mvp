@@ -120,6 +120,7 @@
     "date-fns": "1.29.0",
     "delay": "4.0.1",
     "diff3": "0.0.3",
+    "font-awesome": "4.7.0",
     "glyphicons-halflings": "^1.9.1",
     "hard-reducer": "2.3.0",
     "ini": "1.3.5",
