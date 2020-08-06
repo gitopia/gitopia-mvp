@@ -31,6 +31,10 @@ type ConnectedProps = {
   updateRepositories: typeof updateRepositories
   openCreateRepoModal: typeof openCreateRepoModal
 }
+import { peopleA1 } from "../images/people/a1.jpg"
+import { peopleA2 } from "../images/people/a2.jpg"
+import { peopleA4 } from "../images/people/a4.jpg"
+import { peopleA5 } from "../images/people/a5.jpg"
 
 export const DashboardNew = connector(
   state => ({
@@ -335,7 +339,7 @@ export const DashboardNew = connector(
               <div className="list-group list-group-lg">
                 <button className="list-group-item text-left">
                   <span className="thumb-sm float-left mr">
-                    {/* <img className="rounded-circle" src={peopleA2} alt="..." /> */}
+                    <img className="rounded-circle" src={peopleA2} alt="..." />
                     <i className="status status-bottom bg-success" />
                   </span>
                   <div>
@@ -347,7 +351,7 @@ export const DashboardNew = connector(
                 </button>
                 <button className="list-group-item text-left">
                   <span className="thumb-sm float-left mr">
-                    {/* <img className="rounded-circle" src={peopleA4} alt="..." /> */}
+                    <img className="rounded-circle" src={peopleA4} alt="..." />
                     <i className="status status-bottom bg-success" />
                   </span>
                   <div>
@@ -359,7 +363,7 @@ export const DashboardNew = connector(
                 </button>
                 <button className="list-group-item text-left">
                   <span className="thumb-sm float-left mr">
-                    {/* <img className="rounded-circle" src={peopleA1} alt="..." /> */}
+                    <img className="rounded-circle" src={peopleA1} alt="..." />
                     <i className="status status-bottom bg-default" />
                   </span>
                   <div>
@@ -371,7 +375,7 @@ export const DashboardNew = connector(
                 </button>
                 <button className="list-group-item text-left">
                   <span className="thumb-sm float-left mr">
-                    {/* <img className="rounded-circle" src={peopleA5} alt="..." /> */}
+                    <img className="rounded-circle" src={peopleA5} alt="..." />
                     <i className="status status-bottom bg-danger" />
                   </span>
                   <div>

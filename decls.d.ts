@@ -19,6 +19,7 @@ declare module "diff3"
 declare module "diff"
 declare module "*.json"
 declare module "*.jpg"
+declare module "*.png"
 declare module "*.css"
 declare module "*.md"
 declare module "enzyme-adapter-react-16"
@@ -27,7 +28,15 @@ declare module "textlint-rule-no-todo"
 declare module "textlint-rule-prh"
 declare module "uuid/v4"
 declare module "*.scss"
+declare module "*.ttf"
+declare module "*.woff"
+declare module "*.woff2"
+declare module "*.eot"
 declare module "react-animated-number"
 declare module "rc-hammerjs"
 declare var FontFace: any
 declare var NEPlugins: { [pluginName: string]: any }
+declare module "*.svg" {
+  const content: any
+  export default content
+}

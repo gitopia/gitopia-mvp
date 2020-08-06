@@ -89,7 +89,18 @@ module.exports = {
     // alias: {
     //   fs: path.join(__dirname, "src/lib/fs.ts")
     // },
-    extensions: [".ts", ".tsx", ".js", ".css", ".scss"]
+    extensions: [
+      ".ts",
+      ".tsx",
+      ".js",
+      ".css",
+      ".scss",
+      ".ttf",
+      "*.woff",
+      "#.woff2",
+      "*.eot",
+      "*.svg"
+    ]
   },
   node: {
     process: false,
@@ -99,7 +110,7 @@ module.exports = {
     noParse: /browserfs\.js/,
     rules: [
       {
-        test: /\.(jpg|jpeg)$/,
+        test: /\.(jpg|jpeg|png|woff2|ttf|woff|eot)$/,
         use: [{ loader: "url-loader" }]
       },
       {
@@ -136,6 +147,10 @@ module.exports = {
       {
         test: /\.mdx?$/,
         use: ["babel-loader", "@mdx-js/loader"]
+      },
+      {
+        test: /\.svg$/,
+        loader: "file-loader"
       },
       {
         test: /\.scss$/i,

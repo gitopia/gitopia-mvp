@@ -12,6 +12,7 @@ import { Button } from "reactstrap"
 import { connector } from "../../actionCreators/index"
 import { DashboardNew } from "./DashboardNew"
 import { Layout } from "./Layout/Layout"
+import "./styles/theme.scss"
 
 export const LandingNew = connector(
   state => ({

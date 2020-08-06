@@ -29,8 +29,12 @@ import {
   changeSidebarVisibility
 } from "../../../reducers/navigation"
 import s from "./Header.module.scss"
-// import "animate.css"
+import "animate.css"
+import sender1 from "../images/1.png"
+import sender2 from "../images/2.png"
+import sender3 from "../images/3.png"
 
+import avatar from "../images/people/a5.jpg"
 type HeaderProps = {
   dispatch: any
   sidebarPosition: string
@@ -60,12 +64,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 
   // import Notifications from '../Notifications';
   // import { logoutUser } from '../../actions/user';
-
-  // import sender1 from '../../images/1.png';
-  // import sender2 from '../../images/2.png';
-  // import sender3 from '../../images/3.png';
-
-  // import avatar from "../../images/people/a5.jpg"
 
   constructor(props: HeaderProps) {
     super(props)
@@ -210,7 +208,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                   s.avatar
                 } rounded-circle thumb-sm float-left mr-2`}
               >
-                {/* <img src={avatar} alt="..." /> */}
+                <img src={avatar} alt="..." />
               </span>
               <span className={`small ${s.accountCheck}`}>Philip smith</span>
               <Badge className={s.badge} color="primary">
@@ -245,14 +243,14 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             </DropdownToggle>
             <DropdownMenu className={`${s.dropdownMenu} ${s.messages}`}>
               <DropdownItem>
-                {/* <img className={s.image} src={sender1} alt="" /> */}
+                <img className={s.image} src={sender1} alt="" />
                 <div className={s.details}>
                   <div>Jane Hew</div>
                   <div className={s.text}>Hey, John! How is it going? ...</div>
                 </div>
               </DropdownItem>
               <DropdownItem>
-                {/* <img className={s.image} src={sender2} alt="" /> */}
+                <img className={s.image} src={sender2} alt="" />
                 <div className={s.details}>
                   <div>Alies Rumiancaŭ</div>
                   <div className={s.text}>
@@ -261,7 +259,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 </div>
               </DropdownItem>
               <DropdownItem>
-                {/* <img className={s.image} src={sender3} alt="" /> */}
+                <img className={s.image} src={sender3} alt="" />
                 <div className={s.details}>
                   <div>Michał Rumiancaŭ</div>
                   <div className={s.text}>
