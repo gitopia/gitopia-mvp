@@ -1,5 +1,5 @@
 import { Breadcrumb, BreadcrumbItem } from "reactstrap"
-import uuid from "uuid"
+import { v4 as uuid } from "uuid"
 import * as React from "react"
 import { Component } from "react"
 

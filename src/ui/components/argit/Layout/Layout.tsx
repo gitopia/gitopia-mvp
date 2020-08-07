@@ -25,8 +25,7 @@ export const Layout = connector(
   state => ({
     isAuthenticated: state.argit.isAuthenticated,
     sidebarPosition: state.navigation.sidebarPosition,
-    sidebarVisibility: state.navigation.sidebarVisibility,
-    location: { key: "s", pathname: "a" }
+    sidebarVisibility: state.navigation.sidebarVisibility
   }),
   actions => ({
     openLoginModal: actions.argit.openLoginModal,
