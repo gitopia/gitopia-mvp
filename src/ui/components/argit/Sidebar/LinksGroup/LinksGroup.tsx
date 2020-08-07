@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { NavLink, withRouter, Link } from "react-router-dom"
+import { NavLink, withRouter, Link, Route } from "react-router-dom"
 import { Collapse, Badge } from "reactstrap"
-import { Route } from "react-router"
 import classnames from "classnames"
 import { changeActiveSidebarItem } from "../../../../reducers/navigation"
 
@@ -93,7 +92,7 @@ export default class LinksGroup extends Component<LinksGroupProps, {}> {
                   9
                 </Badge>
               )}
-            </NavLink>
+            </NavLink>{" "}
           </li>
         )
       }
@@ -126,71 +125,72 @@ export default class LinksGroup extends Component<LinksGroupProps, {}> {
     }
     /* eslint-disable */
     return (
-      <div>test</div>
-      // <Route
-      //   path={this.props.link}
-      //   children={params => {
-      //     const { match } = params
-      //     return (
-      //       <li
-      //         className={classnames(
-      //           { [s.headerLink]: this.props.isHeader },
-      //           this.props.className
-      //         )}
-      //       >
-      //         <a
-      //           className={classnames(
-      //             s.accordionToggle,
-      //             { [s.headerLinkActive]: match },
-      //             { [s.collapsed]: isOpen },
-      //             "d-flex"
-      //           )}
-      //           style={{
-      //             paddingLeft: `${
-      //               this.props.deep == 0 ? 20 : 35 + 10 * (this.props.deep - 1)
-      //             }px`
-      //           }}
-      //           onClick={e => this.togglePanelCollapse(this.props.link, e)}
-      //           href="#"
-      //         >
-      //           {this.props.isHeader ? (
-      //             <span className={s.icon}>
-      //               <i className={`fi ${this.props.iconName}`} />
-      //             </span>
-      //           ) : null}
-      //           {this.props.header}{" "}
-      //           {this.props.label && (
-      //             <sup
-      //               className={`${s.headerLabel} text-${this.props.labelColor ||
-      //                 "warning"} ml-1`}
-      //             >
-      //               {this.props.label}
-      //             </sup>
-      //           )}
-      //           <b className={["fa fa-angle-left", s.caret].join(" ")} />
-      //         </a>
-      //         {/* eslint-enable */}
-      //         <Collapse className={s.panel} isOpen={isOpen}>
-      //           <ul>
-      //             {this.props.childrenLinks &&
-      //               this.props.childrenLinks.map((child, ind) => (
-      //                 <LinksGroup
-      //                   onActiveSidebarItemChange={changeActiveSidebarItem}
-      //                   activeItem={this.props.activeItem}
-      //                   header={child.header}
-      //                   link={child.link}
-      //                   index={child.index}
-      //                   childrenLinks={child.childrenLinks}
-      //                   deep={this.props.deep + 1}
-      //                   key={ind} // eslint-disable-line
-      //                 />
-      //               ))}
-      //           </ul>
-      //         </Collapse>
-      //       </li>
-      //     )
-      //   }}
-      // />
+      <Route
+        path={this.props.link}
+        children={params => {
+          const { match } = params
+          return (
+            <li
+              className={classnames(
+                { [s.headerLink]: this.props.isHeader },
+                this.props.className
+              )}
+            >
+              <a
+                className={classnames(
+                  s.accordionToggle,
+                  { [s.headerLinkActive]: match },
+                  { [s.collapsed]: isOpen },
+                  "d-flex"
+                )}
+                style={{
+                  paddingLeft: `${
+                    this.props.deep == 0 ? 20 : 35 + 10 * (this.props.deep - 1)
+                  }px`
+                }}
+                onClick={e => this.togglePanelCollapse(this.props.link, e)}
+                href="#"
+              >
+                {this.props.isHeader ? (
+                  <span className={s.icon}>
+                    <i className={`fi ${this.props.iconName}`} />
+                  </span>
+                ) : null}
+                {this.props.header}{" "}
+                {this.props.label && (
+                  <sup
+                    className={`${s.headerLabel} text-${this.props.labelColor ||
+                      "warning"} ml-1`}
+                  >
+                    {this.props.label}
+                  </sup>
+                )}
+                <b className={["fa fa-angle-left", s.caret].join(" ")} />
+              </a>
+              {/* eslint-enable */}
+              <Collapse className={s.panel} isOpen={isOpen}>
+                <ul>
+                  {this.props.childrenLinks &&
+                    this.props.childrenLinks.map((child, ind) => (
+                      <LinksGroup
+                        onActiveSidebarItemChange={
+                          this.props.onActiveSidebarItemChange
+                        }
+                        activeItem={this.props.activeItem}
+                        header={child.header}
+                        link={child.link}
+                        index={child.index}
+                        childrenLinks={child.childrenLinks}
+                        deep={this.props.deep + 1}
+                        key={ind} // eslint-disable-line
+                      />
+                    ))}
+                </ul>
+              </Collapse>
+            </li>
+          )
+        }}
+      />
     )
   }
 }

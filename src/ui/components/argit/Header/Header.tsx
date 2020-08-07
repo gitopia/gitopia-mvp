@@ -148,7 +148,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             s.alert
           } mr-3 d-lg-down-none animate__animated animate__bounceIn animate__delay-1s`}
         >
-          <i className="fa fa-info-circle mr-1" /> Check out Light Blue{" "}
+          <i className="fa fa-info-circle mr-1" /> Check out ArgitHub{" "}
           <button
             className="btn-link"
             onClick={() => this.setState({ settingsOpen: true })}

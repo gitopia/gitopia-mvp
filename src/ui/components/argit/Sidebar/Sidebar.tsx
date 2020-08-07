@@ -61,7 +61,7 @@ export const Sidebar = connector(
     >
       <header className={s.logo}>
         <a href="https://demo.flatlogic.com/light-blue-react/">
-          Light <span className="fw-bold">Blue</span>
+          Argit <span className="fw-bold">Hub</span>
         </a>
       </header>
       <ul className={s.nav}>
@@ -81,31 +81,31 @@ export const Sidebar = connector(
           header="Repositories"
           isHeader
           iconName="flaticon-archive"
-          link="/app/repositories"
-          index="core"
+          link="/app/main/repositories"
+          index="repositories"
         />
         <LinksGroup
           onActiveSidebarItemChange={props.changeActiveSidebarItem}
           activeItem={props.activeItem}
-          header="Tables Basic"
+          header="Pull Requests"
           isHeader
           iconName="flaticon-map-location"
-          link="/app/tables"
-          index="tables"
+          link="/app/main/pulls"
+          index="pulls"
         />
         <LinksGroup
           onActiveSidebarItemChange={props.changeActiveSidebarItem}
           activeItem={props.activeItem}
-          header="Notifications"
+          header="Issues"
           isHeader
           iconName="flaticon-layers"
-          link="/app/notifications"
-          index="ui"
+          link="/app/main/issues"
+          index="issues"
         />
-        <LinksGroup
+        {/* <LinksGroup
           onActiveSidebarItemChange={props.changeActiveSidebarItem}
           activeItem={props.activeItem}
-          header="Components"
+          header="Repositories"
           isHeader
           iconName="flaticon-list"
           link="/app/forms"
@@ -124,7 +124,7 @@ export const Sidebar = connector(
               link: "/app/maps"
             }
           ]}
-        />
+        /> */}
       </ul>
       <h5 className={s.navTitle}>
         LABELS
@@ -158,8 +158,8 @@ export const Sidebar = connector(
       </ul>
       {/* eslint-enable */}
       <h5 className={s.navTitle}>PROJECTS</h5>
-      {/* <div className={s.sidebarAlerts}>
-        {this.props.alertsList.map((
+      <div className={s.sidebarAlerts}>
+        {/* {props.alertsList.map((
           alert // eslint-disable-line
         ) => (
           <Alert
@@ -180,8 +180,8 @@ export const Sidebar = connector(
             />
             <small>{alert.footer}</small>
           </Alert>
-        ))}
-      </div> */}
+        ))} */}
+      </div>
     </nav>
   )
 })

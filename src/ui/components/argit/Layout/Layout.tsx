@@ -19,6 +19,7 @@ import s from "./Layout.module.scss"
 import { DashboardNew } from "../DashboardNew/DashboardNew"
 import { setIsAuthenticated } from "../../../reducers/argit"
 import { Repositories } from "../Repositories"
+import { StackRouter } from "../../utils/StackRouter"
 
 export const Layout = connector(
   state => ({
@@ -62,6 +63,11 @@ export const Layout = connector(
               >
                 <Switch>
                   <Route
+                    path="/app/main/repository/:wallet_address/:repo_name"
+                    exact
+                    component={StackRouter}
+                  />
+                  <Route
                     path="/app/main"
                     exact
                     render={() => <Redirect to="/app/main/dashboard" />}
@@ -72,10 +78,11 @@ export const Layout = connector(
                     component={DashboardNew}
                   />
                   <Route
-                    path="/app/repositories"
+                    path="/app/main/repositories"
                     exact
                     render={props => <Repositories {...props} />}
                   />
+
                   {/* <Route path="/app/icons" exact component={UIIcons} />
                   <Route
                     path="/app/notifications"
@@ -94,8 +101,8 @@ export const Layout = connector(
               </CSSTransition>
             </TransitionGroup>
             <footer className={s.contentFooter}>
-              Light Blue React Template - React admin template made by{" "}
-              <a href="https://flatlogic.com">Flatlogic</a>
+              ArgitHub - Open versioning Hub, made by{" "}
+              <a href="#">Tech Trap LLP</a>
             </footer>
           </main>
         </Hammer>

@@ -5,7 +5,7 @@ export const txQuery = (address, txType) => ({
     expr1: {
       op: "equals",
       expr1: "App-Name",
-      expr2: "test-repo"
+      expr2: "test-repo1"
     },
     expr2: {
       op: "equals",

@@ -99,7 +99,11 @@ export const Repositories = connector(
             repository.name && (
               <div key={repository.name} className="card mt-4">
                 <div className="card-body">
-                  <Link to={`/${props.address}/${repository.name}`}>
+                  <Link
+                    to={`/app/main/repository/${props.address}/${
+                      repository.name
+                    }`}
+                  >
                     {repository.name}
                   </Link>
                   <p>{repository.description}</p>

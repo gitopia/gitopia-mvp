@@ -44,7 +44,7 @@ export const ProjectManager = connector(
       }}
       onClickPushToArweave={async () => {
         const { projectRoot, address } = props
-        await git.addArweaveRemote({
+        await git.addRemote({
           fs,
           dir: projectRoot,
           remote: "arweave",
@@ -61,7 +61,7 @@ export const ProjectManager = connector(
       }}
       onClickFetchFromArweave={async () => {
         const { projectRoot, address } = props
-        await git.addArweaveRemote({
+        await git.addRemote({
           fs,
           dir: projectRoot,
           remote: "arweave",
