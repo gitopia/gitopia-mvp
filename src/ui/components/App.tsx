@@ -10,7 +10,6 @@ import { GlobalKeyHandler } from "./utils/GlobalKeyHandler"
 // import { Initializer } from "./utils/Initializer"
 // import { MediaDetector } from "./utils/MediaDetector"
 // import { OnlineDetector } from "./utils/OnlineDetector"
-import { StackRouter } from "./utils/StackRouter"
 // import { ThemeProvider } from "./utils/ThemeProvider"
 import { LoginModal } from "./argit/loginModal"
 // import { Landing } from "./argit/Landing"
@@ -26,34 +25,27 @@ export class App extends React.Component<{}> {
   render() {
     const { store, persistor } = configureStore()
     return (
-      <BrowserRouter>
-        <GlobalErrorBoundary>
-          <Provider store={store}>
-            <PersistGate persistor={persistor}>
-              <GlobalKeyHandler>
-                {/* <ThemeProvider> */}
-                {/* <Initializer> */}
-                {/* <NavBar /> */}
-                <Switch>
-                  <Route
-                    path="/:wallet_address/:repo_name"
-                    component={StackRouter}
-                  />
-                  <Route exact path="/" component={LandingNew} />
-                </Switch>
-                <LoginModal />
-                {/* <OnlineDetector />
+      <GlobalErrorBoundary>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <GlobalKeyHandler>
+              {/* <ThemeProvider> */}
+              {/* <Initializer> */}
+              {/* <NavBar /> */}
+              <LandingNew />
+
+              <LoginModal />
+              {/* <OnlineDetector />
                 
                 <CreateRepoModal />
                 <CloneRepoModal /> */}
-                {/* <MediaDetector /> */}
-                {/* </Initializer>
+              {/* <MediaDetector /> */}
+              {/* </Initializer>
                 </ThemeProvider> */}
-              </GlobalKeyHandler>
-            </PersistGate>
-          </Provider>
-        </GlobalErrorBoundary>
-      </BrowserRouter>
+            </GlobalKeyHandler>
+          </PersistGate>
+        </Provider>
+      </GlobalErrorBoundary>
     )
   }
 }

@@ -13,6 +13,9 @@ import { connector } from "../../actionCreators/index"
 import { DashboardNew } from "./DashboardNew"
 import { Layout } from "./Layout/Layout"
 import "./styles/theme.scss"
+import { HashRouter } from "react-router-dom"
+import { Route, Switch, Redirect } from "react-router-dom"
+import { StackRouter } from "../utils/StackRouter"
 
 export const LandingNew = connector(
   state => ({
@@ -22,7 +25,22 @@ export const LandingNew = connector(
     openLoginModal: actions.argit.openLoginModal
   })
 )(function LandingNewImpl(props) {
-  if (props.isAuthenticated) return <Layout />
+  if (props.isAuthenticated)
+    return (
+      <HashRouter>
+        <Switch>
+          <Route path="/" exact render={() => <Redirect to="/app/main" />} />
+          <Route path="/app" exact render={() => <Redirect to="/app/main" />} />
+          <Route path="/app" component={Layout} />
+          <Redirect from="*" to="/app/main/dashboard" />
+          {/* <Route
+            exact
+            path="/:wallet_address/:repo_name"
+            component={StackRouter}
+          /> */}
+        </Switch>
+      </HashRouter>
+    )
 
   return (
     <React.Fragment>

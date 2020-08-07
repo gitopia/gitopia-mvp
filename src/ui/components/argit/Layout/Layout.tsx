@@ -1,7 +1,6 @@
 import * as React from "react"
-import { Link } from "react-router-dom"
 import { connector } from "../../../actionCreators/index"
-import { Switch, Route, withRouter, Redirect } from "react-router"
+import { Switch, Route, withRouter, Redirect } from "react-router-dom"
 import { TransitionGroup, CSSTransition } from "react-transition-group"
 import Hammer from "rc-hammerjs"
 
@@ -53,8 +52,7 @@ export const Layout = connector(
                 classNames="fade"
                 timeout={200}
               >
-                <DashboardNew />
-                {/* <Switch>
+                <Switch>
                   <Route
                     path="/app/main"
                     exact
@@ -65,7 +63,7 @@ export const Layout = connector(
                     exact
                     component={DashboardNew}
                   />
-                  <Route path="/app/icons" exact component={UIIcons} />
+                  {/* <Route path="/app/icons" exact component={UIIcons} />
                   <Route
                     path="/app/notifications"
                     exact
@@ -78,8 +76,8 @@ export const Layout = connector(
                     path="/app/typography"
                     exact
                     component={CoreTypography}
-                  />
-                </Switch> */}
+                  /> */}
+                </Switch>
               </CSSTransition>
             </TransitionGroup>
             <footer className={s.contentFooter}>
