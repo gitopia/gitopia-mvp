@@ -35,10 +35,13 @@ import sender2 from "../images/2.png"
 import sender3 from "../images/3.png"
 
 import avatar from "../images/people/a5.jpg"
+import { setIsAuthenticated, updateRepositories } from "../../../reducers/argit"
 type HeaderProps = {
   dispatch: any
   sidebarPosition: string
   sidebarVisibility: string
+  setIsAuthenticated: typeof setIsAuthenticated
+  updateRepositories: typeof updateRepositories
 }
 
 type HeaderState = {
@@ -384,7 +387,13 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           </Dropdown>
           <NavItem>
             <NavLink
-              // onClick={this.doLogout}
+              onClick={() => {
+                sessionStorage.removeItem("keyfile") // Remove keyfile from sessionStorage
+                this.props.setIsAuthenticated({ isAuthenticated: false })
+                this.props.updateRepositories({ repositories: [] })
+                // window.location.reload()
+                this.props.history.replace("/")
+              }}
               className={`${s.navItem} text-white`}
               href="#"
             >

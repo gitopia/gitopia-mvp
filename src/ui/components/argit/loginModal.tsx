@@ -53,7 +53,7 @@ export const LoginModal = connector(
                   //   this.toggleModal() // Close login modal
                   props.closeLoginModal({})
                   props.setIsAuthenticated({ isAuthenticated: true })
-                  window.location.reload() // Reload page to get authenticated status
+                  // window.location.reload() // Reload page to get authenticated status
                 } else {
                   // If uploaded JSON is not keyfile
                   //   this.setState({

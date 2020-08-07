@@ -29,9 +29,8 @@ export const LandingNew = connector(
     return (
       <HashRouter>
         <Switch>
-          <Route path="/" exact render={() => <Redirect to="/app/main" />} />
           <Route path="/app" exact render={() => <Redirect to="/app/main" />} />
-          <Route path="/app" component={Layout} />
+          <Route path="/app" render={(props: any) => <Layout {...props} />} />
           <Redirect from="*" to="/app/main/dashboard" />
           {/* <Route
             exact

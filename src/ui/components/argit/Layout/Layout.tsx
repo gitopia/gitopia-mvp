@@ -17,6 +17,7 @@ import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory"
 import { openSidebar, closeSidebar } from "../../../reducers/navigation"
 import s from "./Layout.module.scss"
 import { DashboardNew } from "../DashboardNew/DashboardNew"
+import { setIsAuthenticated } from "../../../reducers/argit"
 
 export const Layout = connector(
   state => ({
@@ -27,7 +28,9 @@ export const Layout = connector(
   }),
   actions => ({
     openLoginModal: actions.argit.openLoginModal,
-    openSidebar: actions.navigation.openSidebar
+    openSidebar: actions.navigation.openSidebar,
+    setIsAuthenticated: actions.argit.setIsAuthenticated,
+    updateRepositories: actions.argit.updateRepositories
   })
 )(function LayoutImpl(props) {
   return (
@@ -39,7 +42,11 @@ export const Layout = connector(
       ].join(" ")}
     >
       <div className={s.wrap}>
-        <Header />
+        <Header
+          {...props}
+          setIsAuthenticated={props.setIsAuthenticated}
+          updateRepositories={props.updateRepositories}
+        />
         {/* <Chat chatOpen={this.state.chatOpen} /> */}
         {/* <Helper /> */}
         <Sidebar />
