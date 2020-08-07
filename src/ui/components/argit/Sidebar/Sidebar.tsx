@@ -3,7 +3,7 @@ import cx from "classnames"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { Progress, Alert } from "reactstrap"
-import { withRouter } from "react-router-dom"
+import { Link } from "react-router-dom"
 import s from "./Sidebar.module.scss"
 import LinksGroup from "./LinksGroup/LinksGroup"
 
@@ -60,9 +60,9 @@ export const Sidebar = connector(
       }}
     >
       <header className={s.logo}>
-        <a href="https://demo.flatlogic.com/light-blue-react/">
+        <Link to="/">
           Argit <span className="fw-bold">Hub</span>
-        </a>
+        </Link>
       </header>
       <ul className={s.nav}>
         <LinksGroup

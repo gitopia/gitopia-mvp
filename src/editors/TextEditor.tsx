@@ -2,6 +2,7 @@ import { darken } from "polished"
 import React from "react"
 import styled from "styled-components"
 import { EditorInterface } from "./EditorInterface"
+import darkTheme from "../ui/themes/dark"
 
 type Props = EditorInterface
 
@@ -30,7 +31,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   padding: 4px;
-  background: ${p => darken(0.05, p.theme.main)};
+  background: ${p => darken(0.05, darkTheme.main)};
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow (rgba(255, 255, 255, .3) -1px 0 0);
   overflow: auto;
@@ -51,8 +52,8 @@ const StyledTextarea: React.ComponentType<StyledTextareaType> = styled.textarea`
   -webkit-font-smoothing: antialiased;
   line-height: 1.5em;
   padding: 3px 5px 3px 10px;
-  background: ${p => darken(0.02, p.theme.main)};
-  color: ${p => p.theme.textColor};
+  background: ${p => darken(0.02, darkTheme.main)};
+  color: ${p => darkTheme.textColor};
   width: 100%;
   height: 100%;
   resize: none;
