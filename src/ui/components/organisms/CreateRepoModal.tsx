@@ -6,7 +6,7 @@ import { Repositories } from "../argit/Repositories"
 import NewRepoForm from "../argit/newRepoForm"
 import { Repository } from "../../../ui/reducers/argit"
 import { closeCreateRepoModal } from "../../reducers/app"
-import { CreateRepoModal } from "./CreateRepoModal"
+import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap"
 
 // This is example reference
 export const CreateRepoModal = connector(
@@ -35,7 +35,7 @@ export const CreateRepoModal = connector(
     repositories
   } = props
   return (
-    <Dialog
+    <Modal
       autoFocus
       canEscapeKeyClose
       isOpen={openedCreateRepoModal}
@@ -43,30 +43,53 @@ export const CreateRepoModal = connector(
         closeModal({})
       }}
     >
-      <div className={Classes.DIALOG_BODY}>
-        <ModalContent
-          address={address}
-          repositories={repositories}
-          closeCreateRepoModal={closeModal}
-          onConfirm={async projectRoot => {
-            const newProjectRoot = path.join("/", projectRoot)
+      <ModalHeader toggle={closeModal}>Login</ModalHeader>
 
-            createNewProject({ newProjectRoot })
-            // TODO: fix it
-
-            await new Promise(r => setTimeout(r, 500))
-            props.loadProjectList({})
-
-            startProjectRootChanged({
-              projectRoot: newProjectRoot
-            })
-          }}
+      <ModalBody>
+        <NewRepoForm
+          address={props.address}
+          repositories={props.repositories}
+          closeCreateRepoModal={props.closeModal}
         />
-      </div>
-      <div className={Classes.DIALOG_FOOTER}>
-        <Button text="cancel" onClick={() => closeModal({})} />
-      </div>
-    </Dialog>
+      </ModalBody>
+      <ModalFooter>
+        <Button color="secondary" onClick={props.closeModal}>
+          Close
+        </Button>
+      </ModalFooter>
+    </Modal>
+    // <Dialog
+    //   autoFocus
+    //   canEscapeKeyClose
+    //   isOpen={openedCreateRepoModal}
+    //   onClose={() => {
+    //     closeModal({})
+    //   }}
+    // >
+    //   <div className={Classes.DIALOG_BODY}>
+    //     <ModalContent
+    //       address={address}
+    //       repositories={repositories}
+    //       closeCreateRepoModal={closeModal}
+    //       onConfirm={async projectRoot => {
+    //         const newProjectRoot = path.join("/", projectRoot)
+
+    //         createNewProject({ newProjectRoot })
+    //         // TODO: fix it
+
+    //         await new Promise(r => setTimeout(r, 500))
+    //         props.loadProjectList({})
+
+    //         startProjectRootChanged({
+    //           projectRoot: newProjectRoot
+    //         })
+    //       }}
+    //     />
+    //   </div>
+    //   <div className={Classes.DIALOG_FOOTER}>
+    //     <Button text="cancel" onClick={() => closeModal({})} />
+    //   </div>
+    // </Dialog>
   )
 })
 

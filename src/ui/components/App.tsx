@@ -16,6 +16,7 @@ import { LoginModal } from "./argit/loginModal"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 // import { NavBar } from "./argit/navBar"
 import { LandingNew } from "./argit/LandingNew"
+import { CreateRepoModal } from "./organisms/CreateRepoModal"
 
 // debug area
 const ENTER_PLAYGROUND = false
@@ -35,9 +36,10 @@ export class App extends React.Component<{}> {
               <LandingNew />
 
               <LoginModal />
+              <CreateRepoModal />
+
               {/* <OnlineDetector />
                 
-                <CreateRepoModal />
                 <CloneRepoModal /> */}
               {/* <MediaDetector /> */}
               {/* </Initializer>

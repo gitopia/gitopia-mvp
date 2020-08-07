@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { connector } from "../../actionCreators/index"
 import { lifecycle } from "recompose"
 import { arweave } from "../../../index"
+import { Button } from "reactstrap"
 
 import {
   Repository,
@@ -11,6 +12,7 @@ import {
   updateRepositories
 } from "../../reducers/argit"
 import { txQuery } from "../../../utils"
+import { openCreateRepoModal } from "../../reducers/app"
 
 type ConnectedProps = {
   isAuthenticated: boolean
@@ -18,6 +20,7 @@ type ConnectedProps = {
   setIsAuthenticated: typeof setIsAuthenticated
   loadAddress: typeof loadAddress
   updateRepositories: typeof updateRepositories
+  openCreateRepoModal: typeof openCreateRepoModal
 }
 
 export const Repositories = connector(
@@ -28,7 +31,8 @@ export const Repositories = connector(
   }),
   actions => ({
     loadAddress: actions.argit.loadAddress,
-    updateRepositories: actions.argit.updateRepositories
+    updateRepositories: actions.argit.updateRepositories,
+    openCreateRepoModal: actions.app.openCreateRepoModal
   }),
   lifecycle<ConnectedProps, {}>({
     async componentDidMount() {
@@ -84,9 +88,9 @@ export const Repositories = connector(
     <React.Fragment>
       <h1>
         Repositories{" "}
-        <Link to="/new">
+        <Button onClick={() => props.openCreateRepoModal({})}>
           <i className="fa fa-plus-circle" aria-hidden="true" />
-        </Link>
+        </Button>
       </h1>
 
       {props.repositories &&

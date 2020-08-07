@@ -78,10 +78,10 @@ export const Sidebar = connector(
         <LinksGroup
           onActiveSidebarItemChange={props.changeActiveSidebarItem}
           activeItem={props.activeItem}
-          header="Typography"
+          header="Repositories"
           isHeader
-          iconName="flaticon-network"
-          link="/app/typography"
+          iconName="flaticon-archive"
+          link="/app/repositories"
           index="core"
         />
         <LinksGroup

@@ -18,6 +18,7 @@ import { openSidebar, closeSidebar } from "../../../reducers/navigation"
 import s from "./Layout.module.scss"
 import { DashboardNew } from "../DashboardNew/DashboardNew"
 import { setIsAuthenticated } from "../../../reducers/argit"
+import { Repositories } from "../Repositories"
 
 export const Layout = connector(
   state => ({
@@ -69,6 +70,11 @@ export const Layout = connector(
                     path="/app/main/dashboard"
                     exact
                     component={DashboardNew}
+                  />
+                  <Route
+                    path="/app/repositories"
+                    exact
+                    render={props => <Repositories {...props} />}
                   />
                   {/* <Route path="/app/icons" exact component={UIIcons} />
                   <Route

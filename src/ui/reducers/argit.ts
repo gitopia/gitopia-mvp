@@ -26,11 +26,11 @@ export const setIsAuthenticated: ActionCreator<{
 }> = createAction("set-is-authenticated")
 
 export const openLoginModal: ActionCreator<{}> = createAction(
-  "open-create-repo-modal"
+  "open-login-modal"
 )
 
 export const closeLoginModal: ActionCreator<{}> = createAction(
-  "close-create-repo-modal"
+  "close-login-modal"
 )
 
 export const setActiveRepository: ActionCreator<{
