@@ -14,7 +14,6 @@ export const RepositoryBrowser = connector(
   },
   () => ({})
 )(function RepositoryBrowserImpl(props: Props) {
-  console.log("dir", props)
   return (
     <Card style={{ height: "100%", padding: 10, margin: 0 }}>
       {/* <fieldset style={{ padding: 0 }}> */}

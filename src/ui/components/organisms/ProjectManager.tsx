@@ -123,7 +123,7 @@ class ProjectManagerImpl extends React.Component<{
 
     return (
       <Card style={{ height: "100%", borderRadius: 0 }}>
-        <div>
+        {/* <div>
           <div className="bp3-select .modifier">
             <select
               value={projectRoot}
@@ -142,8 +142,8 @@ class ProjectManagerImpl extends React.Component<{
             </select>
           </div>
         </div>
-        <div style={{ height: "5px" }} />
-        <ButtonGroup>
+        <div style={{ height: "5px" }} /> */}
+        {/* <ButtonGroup>
           <Button
             disabled={projectRoot === "/playground"}
             icon="trash"
@@ -153,23 +153,23 @@ class ProjectManagerImpl extends React.Component<{
                 onDeleteProject(projectRoot)
               }
             }}
-          />
+          /> */}
 
-          {/* <Button
+        {/* <Button
             text="Add"
             icon="add"
             onClick={() => {
               onClickNewProject()
             }}
           /> */}
-          {/* <Button
+        {/* <Button
             text="Clone"
             icon="git-repo"
             onClick={() => {
               onClickCloneProject()
             }}
           /> */}
-          <Button
+        {/* <Button
             text="Push To Arweave"
             icon="git-push"
             onClick={() => {
@@ -182,8 +182,8 @@ class ProjectManagerImpl extends React.Component<{
             onClick={() => {
               onClickFetchFromArweave()
             }}
-          />
-        </ButtonGroup>
+          /> */}
+        {/* </ButtonGroup> */}
       </Card>
     )
   }

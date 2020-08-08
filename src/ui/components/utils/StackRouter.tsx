@@ -19,14 +19,21 @@ import {
 } from "../../actionCreators/editorActions"
 import * as EditorActions from "../../actionCreators/editorActions"
 import _ from "lodash"
+import { RepositoryBrowser } from "../organisms/RepositoryBrowser"
+import { Editor } from "../../components/argit/editor"
+import { Card, CardBody, Container, Row, Col } from "reactstrap"
+import { arweave } from "../../../index"
+import * as git from "isomorphic-git"
+import fs from "fs"
 
 type Project = {
   projectRoot: string
 }
 
-type CustomProps = {
+type StackRouterProps = {
   currentScene: string
   projectRoot: string
+  address: string
   setActiveRepository: typeof setActiveRepository
   match: any
   updateProjectList: typeof updateProjectList
@@ -48,7 +55,8 @@ export const StackRouter = connector(
     currentScene: state.app.sceneStack[state.app.sceneStack.length - 1],
     projectRoot: state.project.projectRoot,
     setActiveRepository: state.argit.activeRepository,
-    projects: state.project.projects
+    projects: state.project.projects,
+    address: state.argit.address
   }),
   actions => ({
     setActiveRepository: actions.argit.setActiveRepository,
@@ -68,7 +76,7 @@ export const StackRouter = connector(
   //     }
   //   }
   // }),
-  lifecycle<CustomProps, {}>({
+  lifecycle<StackRouterProps, {}>({
     async componentDidMount() {
       const {
         match,
@@ -76,10 +84,10 @@ export const StackRouter = connector(
         updateProjectList,
         startProjectRootChanged,
         loadProjectList,
-        projects
+        projects,
+        address
       } = this.props
       const projectRoot = `/${match.params.repo_name}`
-      setActiveRepository({ activeRepository: match.params.repo_name })
       // createNewProject({ newProjectRoot })
       // // TODO: fix it
 
@@ -92,9 +100,16 @@ export const StackRouter = connector(
 
       if (!_.some(projects, { projectRoot })) {
         const allProjects = [...projects, { projectRoot }]
-        console.log(projects, allProjects)
         await createProject(projectRoot)
         updateProjectList({ projects: allProjects })
+        await git.cloneFromArweave({
+          fs,
+          dir: projectRoot,
+          url: `argit://${address}${projectRoot}`,
+          ref: "master",
+          arweave
+        })
+        console.info("clone: done")
         await startProjectRootChanged({ projectRoot })
       }
     }
@@ -102,7 +117,18 @@ export const StackRouter = connector(
 )(function StackRouterImpl(props) {
   switch (props.currentScene) {
     case "main": {
-      return <Main />
+      return (
+        <Container>
+          <Card>
+            <CardBody>
+              <RepositoryBrowser />
+            </CardBody>
+          </Card>
+          <div className="mt-4">
+            <Editor />
+          </div>
+        </Container>
+      )
     }
     case "edit": {
       return <Edit />

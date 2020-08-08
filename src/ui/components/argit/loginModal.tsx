@@ -86,7 +86,7 @@ export const LoginModal = connector(
             // })
           }}
         >
-          Drop your KeyFile
+          Drop your Arweave wallet keyfile here or Click here
         </Dropzone>
       </ModalBody>
       <ModalFooter>
