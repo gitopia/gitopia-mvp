@@ -100,6 +100,8 @@ export const Editor = connector(
     )
   }
 
+  const url = `argit://${props.address}${props.projectRoot}`
+
   return (
     <Card>
       <CardBody>
@@ -108,10 +110,9 @@ export const Editor = connector(
           Run the following commands in your existing git repository to push
         </p>
         <code>
-          // For initializing new git repo // argit init export
+          // For initializing new git repo<br/> // argit init export
           ARWEAVE_WALLET_PATH="PATH_OF_YOUR_ARWEAVE_KEYFILE" <br />
-          argit addRemote --remote=origin --url=`argit://$
-          {props.address}${props.projectRoot}`<br />
+          argit addRemote --remote=origin --url=${url} <br />
           argit pushToArweave --remote=origin --ref=master
         </code>
       </CardBody>

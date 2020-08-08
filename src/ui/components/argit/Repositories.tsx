@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { connector } from "../../actionCreators/index"
 import { lifecycle } from "recompose"
 import { arweave } from "../../../index"
-import { Button } from "reactstrap"
+import styled from "styled-components"
 
 import {
   Repository,
@@ -84,13 +84,19 @@ export const Repositories = connector(
     }
   })
 )(function RepositoriesImpl(props) {
+  const Button = styled.i`
+    cursor: pointer;
+  `
+
   return (
     <React.Fragment>
       <h1>
         Repositories{" "}
-        <Button onClick={() => props.openCreateRepoModal({})}>
-          <i className="fa fa-plus-circle" aria-hidden="true" />
-        </Button>
+        <Button
+          onClick={() => props.openCreateRepoModal({})}
+          className="fa fa-plus-circle"
+          aria-hidden="true"
+        />
       </h1>
 
       {props.repositories &&

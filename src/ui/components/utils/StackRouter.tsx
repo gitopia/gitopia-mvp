@@ -25,6 +25,7 @@ import { Card, CardBody, Container, Row, Col } from "reactstrap"
 import { arweave } from "../../../index"
 import * as git from "isomorphic-git"
 import fs from "fs"
+import { CloneButton } from "../argit/cloneButton"
 
 type Project = {
   projectRoot: string
@@ -121,6 +122,7 @@ export const StackRouter = connector(
         <Container>
           <Card>
             <CardBody>
+              <CloneButton />
               <RepositoryBrowser />
             </CardBody>
           </Card>
