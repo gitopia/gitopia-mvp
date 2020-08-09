@@ -1,6 +1,11 @@
-import React, { useState } from "react"
+import * as React from "react"
 import { connector } from "../../actionCreators/index"
-import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap"
+import {
+  Button,
+  UncontrolledPopover,
+  PopoverHeader,
+  PopoverBody
+} from "reactstrap"
 
 type CloneButtonProps = {
   address: string
@@ -14,8 +19,6 @@ export const CloneButton = connector(
   }),
   actions => ({})
 )(function CloneButtonImpl(props: CloneButtonProps) {
-  const [popoverOpen, setPopoverOpen] = useState(false)
-  const toggle = () => setPopoverOpen(!popoverOpen)
   const url = `argit://${props.address}${props.projectRoot}`
 
   return (
@@ -28,18 +31,13 @@ export const CloneButton = connector(
       >
         Clone
       </Button>
-      <Popover
-        placement="bottom"
-        isOpen={popoverOpen}
-        target="Popover1"
-        toggle={toggle}
-      >
+      <UncontrolledPopover placement="bottom" trigger="focus" target="Popover1">
         <PopoverHeader>Clone with argit</PopoverHeader>
         <PopoverBody>
           argit cloneFromArweave --url=$
           {url}
         </PopoverBody>
-      </Popover>
+      </UncontrolledPopover>
     </div>
   )
 })

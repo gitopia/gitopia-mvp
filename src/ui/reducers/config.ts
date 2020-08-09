@@ -3,7 +3,7 @@ import v8n from "v8n"
 
 v8n.extend({
   acceptableTheme() {
-    return (value: string) => ["dark", "default"].includes(value)
+    return (value: string) => ["github", "monokai"].includes(value)
   }
 })
 

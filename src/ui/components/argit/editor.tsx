@@ -1,10 +1,13 @@
 import * as React from "react"
 import { connector } from "../../actionCreators/index"
 import { lifecycle } from "recompose"
+import path from "path"
 import AceEditor from "react-ace"
 import { Table, Card, CardBody } from "reactstrap"
-import path from "path"
+import { ThemeToggleButton } from './themeToggleButton';
 
+
+import "ace-builds/src-noconflict/theme-github"
 import "ace-builds/src-noconflict/theme-monokai"
 import "ace-builds/src-noconflict/mode-jsx"
 
@@ -54,6 +57,7 @@ type EditorProps = {
   address: string
   projectRoot: string
   unloadFile: any
+  theme: string
 }
 
 export const Editor = connector(
@@ -61,7 +65,8 @@ export const Editor = connector(
     value: state.buffer.value,
     filepath: state.buffer.filepath,
     address: state.argit.address,
-    projectRoot: state.project.projectRoot
+    projectRoot: state.project.projectRoot,
+    theme: state.config.theme
   }),
   actions => ({
     unloadFile: actions.buffer.unloadFile
@@ -77,13 +82,13 @@ export const Editor = connector(
 
     return (
       <Table>
-        <thead>{props.filepath}</thead>
+        <thead>{props.filepath}<ThemeToggleButton/></thead>
         <tbody>
           <tr>
             {props.value && (
               <AceEditor
                 mode={mode}
-                theme="monokai"
+                theme={props.theme}
                 name="ace"
                 value={props.value}
                 readOnly={true}
