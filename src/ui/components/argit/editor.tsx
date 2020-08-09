@@ -117,7 +117,7 @@ export const Editor = connector(
         <code>
           // For initializing new git repo<br/> // argit init export
           ARWEAVE_WALLET_PATH="PATH_OF_YOUR_ARWEAVE_KEYFILE" <br />
-          argit addRemote --remote=origin --url=${url} <br />
+          argit addRemote --remote=origin --url="{url}" <br />
           argit pushToArweave --remote=origin --ref=master
         </code>
       </CardBody>

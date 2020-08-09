@@ -34,8 +34,8 @@ export const CloneButton = connector(
       <UncontrolledPopover placement="bottom" trigger="focus" target="Popover1">
         <PopoverHeader>Clone with argit</PopoverHeader>
         <PopoverBody>
-          argit cloneFromArweave --url=$
-          {url}
+          argit cloneFromArweave --url="
+          {url}"
         </PopoverBody>
       </UncontrolledPopover>
     </div>
