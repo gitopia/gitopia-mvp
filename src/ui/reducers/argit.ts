@@ -99,6 +99,7 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
     return { ...state, keyFileName: payload.keyFileName }
   })
   .case(loadNotifications, (state, payload) => {
+    console.log(payload.notifications)
     return { ...state, notifications: payload.notifications }
   })
   .case(setActiveRepository, (state, payload) => {

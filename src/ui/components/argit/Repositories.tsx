@@ -15,6 +15,7 @@ import {
 } from "../../reducers/argit"
 import { txQuery } from "../../../utils"
 import { openCreateRepoModal } from "../../reducers/app"
+import { object } from "prop-types"
 
 type ConnectedProps = {
   isAuthenticated: boolean
@@ -55,27 +56,35 @@ export const Repositories = connector(
 
         const txids = await arweave.arql(txQuery(address, "create-repo"))
         let notifications: Notification[] = []
+        let completed_txids: String[] = []
         const repositories = await Promise.all(
           txids.map(async txid => {
             let repository = {} as Repository
-            const data: any = await arweave.transactions.getData(txid, {
-              decode: true,
-              string: true
-            })
             try {
+              const data: any = await arweave.transactions.getData(txid, {
+                decode: true,
+                string: true
+              })
+              console.log(typeof data, typeof Uint8Array)
+              if (typeof data === "object") {
+                console.log(new TextDecoder("utf-8").decode(data))
+              }
+
               const decoded: any = JSON.parse(data)
               repository = {
                 name: decoded.name,
                 description: decoded.description
               }
+              completed_txids.push(txid)
             } catch (error) {
+              console.log("error", error)
               repository = {
                 name: txid,
                 description: "Pending confirmation"
               }
               notifications.push({
                 type: "pending",
-                action: "create-repo",
+                action: "Create Repo",
                 txid: txid
               })
             }
@@ -90,8 +99,28 @@ export const Repositories = connector(
             return repository
           })
         )
-        console.log("not", notifications)
-        actions.loadNotifications({ notifications })
+        const newNotifications = this.props.notifications.map(notif => {
+          console.log(
+            notif.txid,
+            completed_txids,
+            completed_txids.includes(notif.txid)
+          )
+          if (notif.type == "pending" && completed_txids.includes(notif.txid)) {
+            return {
+              type: "confirmed",
+              action: "Create Repo",
+              txid: notif.txid
+            }
+          } else {
+            return {
+              type: "pending",
+              action: "Create Repo",
+              txid: notif.txid
+            }
+          }
+        })
+        console.log("not", notifications, newNotifications)
+        actions.loadNotifications({ notifications: newNotifications })
         actions.updateRepositories({ repositories })
       }
     }

@@ -17,15 +17,23 @@ class Confirmed extends React.Component<ConfirmedProps, ConfirmedState> {
   render() {
     return (
       <ListGroup className={[s.listGroup, "thin-scroll"].join(" ")}>
-        <ListGroupItem className={s.listGroupItem}>
-          <span className={[s.notificationIcon, "thumb-sm"].join(" ")}>
-            <i className="glyphicon glyphicon-upload fa-lg" />
-          </span>
-          <p className="text-ellipsis m-0">
-            Repo Name Created
-            <time className="help-block m-0">5h ago</time>
-          </p>
-        </ListGroupItem>
+        {this.props.notifications.map(notif => {
+          console.log(notif)
+          if (notif.type === "confirmed") {
+            console.log("enter")
+            return (
+              <ListGroupItem className={s.listGroupItem}>
+                <span className={[s.notificationIcon, "thumb-sm"].join(" ")}>
+                  <i className="glyphicon glyphicon-upload fa-lg" />
+                </span>
+                <p className="text-ellipsis m-0">
+                  {notif.action}
+                  <time className="help-block m-0">{notif.txid}</time>
+                </p>
+              </ListGroupItem>
+            )
+          }
+        })}
       </ListGroup>
     )
   }

@@ -37,7 +37,6 @@ export const CreateRepoModal = connector(
   return (
     <Modal
       autoFocus
-      canEscapeKeyClose
       isOpen={openedCreateRepoModal}
       onClose={() => {
         closeModal({})
