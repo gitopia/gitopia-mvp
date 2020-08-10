@@ -18,9 +18,7 @@ class Confirmed extends React.Component<ConfirmedProps, ConfirmedState> {
     return (
       <ListGroup className={[s.listGroup, "thin-scroll"].join(" ")}>
         {this.props.notifications.map(notif => {
-          console.log(notif)
           if (notif.type === "confirmed") {
-            console.log("enter")
             return (
               <ListGroupItem className={s.listGroupItem}>
                 <span className={[s.notificationIcon, "thumb-sm"].join(" ")}>

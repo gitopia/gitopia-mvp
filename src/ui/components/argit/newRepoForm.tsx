@@ -74,7 +74,7 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
     let tx = await arweave.createTransaction({ data }, wallet)
 
     tx.addTag("Content-Type", "application/json")
-    tx.addTag("App-Name", "test-repo1")
+    tx.addTag("App-Name", "test-repo2")
     tx.addTag("version", "0.0.1")
     tx.addTag("Unix-Time", String(Math.round(new Date().getTime() / 1000))) // Add Unix timestamp
     tx.addTag("Type", "create-repo")

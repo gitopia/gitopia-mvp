@@ -30,7 +30,7 @@ export const Commits = connector(
         <Table className="table-hover">
           <tbody>
             {props.history.map(description => (
-              <tr>
+              <tr key={description.oid}>
                 <td>{description.oid}</td>
                 <td>
                   {format(

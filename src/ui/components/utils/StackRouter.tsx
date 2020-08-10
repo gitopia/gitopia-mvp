@@ -122,8 +122,9 @@ export const StackRouter = connector(
   switch (props.currentScene) {
     case "main": {
       let header = ""
-      if (props.history) {
+      if (props.history.length) {
         const lastCommit = props.history[props.history.length - 1]
+        console.log(lastCommit, props.history)
         header = ` Latest commit: ${lastCommit.commit.committer.name} ${
           lastCommit.commit.message
         } ${lastCommit.oid.slice(0, 7)} ${format(

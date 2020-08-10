@@ -77,11 +77,10 @@ export const DashboardNew = connector(
                 decode: true,
                 string: true
               })
-              console.log(typeof data, typeof Uint8Array)
 
-              if (typeof data === "object") {
-                console.log(new TextDecoder("utf-8").decode(data))
-              }
+              // if (typeof data === "object") {
+              //   console.log(new TextDecoder("utf-8").decode(data))
+              // }
 
               const decoded: any = JSON.parse(data)
               repository = {
@@ -90,7 +89,6 @@ export const DashboardNew = connector(
               }
               completed_txids.push(txid)
             } catch (error) {
-              console.log("error", error)
               repository = {
                 name: txid,
                 description: "Pending confirmation"
@@ -113,11 +111,6 @@ export const DashboardNew = connector(
           })
         )
         const newNotifications = notifications.map(notif => {
-          console.log(
-            notif.txid,
-            completed_txids,
-            completed_txids.includes(notif.txid)
-          )
           if (notif.type == "pending" && completed_txids.includes(notif.txid)) {
             return {
               type: "confirmed",
@@ -132,7 +125,6 @@ export const DashboardNew = connector(
             }
           }
         })
-        console.log("not", notifications, newNotifications)
         actions.loadNotifications({ notifications: newNotifications })
         actions.updateRepositories({ repositories })
       }

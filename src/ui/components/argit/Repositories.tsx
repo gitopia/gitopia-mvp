@@ -65,11 +65,9 @@ export const Repositories = connector(
                 decode: true,
                 string: true
               })
-              console.log(typeof data, typeof Uint8Array)
-              if (typeof data === "object") {
-                console.log(new TextDecoder("utf-8").decode(data))
-              }
-
+              // if (typeof data === "object") {
+              //   console.log(new TextDecoder("utf-8").decode(data))
+              // }
               const decoded: any = JSON.parse(data)
               repository = {
                 name: decoded.name,
@@ -77,7 +75,6 @@ export const Repositories = connector(
               }
               completed_txids.push(txid)
             } catch (error) {
-              console.log("error", error)
               repository = {
                 name: txid,
                 description: "Pending confirmation"
@@ -99,28 +96,18 @@ export const Repositories = connector(
             return repository
           })
         )
-        const newNotifications = this.props.notifications.map(notif => {
-          console.log(
-            notif.txid,
-            completed_txids,
-            completed_txids.includes(notif.txid)
+        const newNotifications = this.props.notifications
+          .filter(
+            notif =>
+              notif.type == "pending" && completed_txids.includes(notif.txid)
           )
-          if (notif.type == "pending" && completed_txids.includes(notif.txid)) {
-            return {
-              type: "confirmed",
-              action: "Create Repo",
-              txid: notif.txid
-            }
-          } else {
-            return {
-              type: "pending",
-              action: "Create Repo",
-              txid: notif.txid
-            }
-          }
-        })
-        console.log("not", notifications, newNotifications)
-        actions.loadNotifications({ notifications: newNotifications })
+          .map(notif => ({
+            type: "confirmed",
+            action: "Create Repo",
+            txid: notif.txid
+          }))
+        let finalNotifications = [...notifications, ...newNotifications]
+        actions.loadNotifications({ notifications: finalNotifications })
         actions.updateRepositories({ repositories })
       }
     }
