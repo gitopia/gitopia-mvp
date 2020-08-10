@@ -7,9 +7,12 @@ import {
 import * as git from "isomorphic-git"
 import { RootState } from "."
 import * as Git from "../../domain/git"
-import { GitStatusString, StatusMatrix } from "../../domain/types"
+import {
+  GitStatusString,
+  StatusMatrix,
+  ReadCommitResult
+} from "../../domain/types"
 import { projectChanged } from "../actionCreators/globalActions"
-import { CommitDescription } from "./../../domain/types"
 import fs from "fs"
 
 const {
@@ -25,7 +28,7 @@ const {
 export const failInitialize: ActionCreator<{}> = createAction("fail-initialize")
 
 export const endInitialize: ActionCreator<{
-  history: CommitDescription[]
+  history: ReadCommitResult[]
   currentBranch: string
   branches: string[]
   remotes: string[]
@@ -195,7 +198,7 @@ export type GitState = {
   branches: string[]
   remotes: string[]
   remoteBranches: string[]
-  history: CommitDescription[]
+  history: ReadCommitResult[]
   statusMatrix: StatusMatrix | null
   stagingLoading: boolean
 }

@@ -1,5 +1,5 @@
 import * as git from "isomorphic-git"
-import { CommitDescription } from "./../../types"
+import { ReadCommitResult } from "./../../types"
 import fs from "fs"
 
 export async function isFastForward(
@@ -13,11 +13,11 @@ export async function isFastForward(
   | {
       fastForward: true
       self: boolean
-      commits: CommitDescription[]
+      commits: ReadCommitResult[]
     }
 > {
-  const logA: CommitDescription[] = await git.log({ fs, dir, ref: refA })
-  const logB: CommitDescription[] = await git.log({ fs, dir, ref: refB })
+  const logA: ReadCommitResult[] = await git.log({ fs, dir, ref: refA })
+  const logB: ReadCommitResult[] = await git.log({ fs, dir, ref: refB })
   const fastForward: boolean = isFastForwardByCommits(logA, logB)
   if (fastForward) {
     const oid = logA[logA.length - 1].oid
@@ -35,8 +35,8 @@ export async function isFastForward(
 }
 
 export function isFastForwardByCommits(
-  logA: CommitDescription[],
-  logB: CommitDescription[]
+  logA: ReadCommitResult[],
+  logB: ReadCommitResult[]
 ): boolean {
   const base = logA.map(i => i.oid).reverse()
   const other = logB.map(i => i.oid).reverse()

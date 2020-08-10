@@ -5,6 +5,7 @@ import path from "path"
 import AceEditor from "react-ace"
 import { Table, Card, CardBody } from "reactstrap"
 import { ThemeToggleButton } from './themeToggleButton';
+import { ReadCommitResult } from "../../../domain/types"
 
 
 import "ace-builds/src-noconflict/theme-github"
@@ -58,6 +59,7 @@ type EditorProps = {
   projectRoot: string
   unloadFile: any
   theme: string
+  history: ReadCommitResult[]
 }
 
 export const Editor = connector(
@@ -66,7 +68,8 @@ export const Editor = connector(
     filepath: state.buffer.filepath,
     address: state.argit.address,
     projectRoot: state.project.projectRoot,
-    theme: state.config.theme
+    theme: state.config.theme,
+    history: state.git.history
   }),
   actions => ({
     unloadFile: actions.buffer.unloadFile
@@ -77,32 +80,29 @@ export const Editor = connector(
     }
   })
 )(function EditorImpl(props) {
-  if (props.value) {
-    const mode = extToAceMode(props.filepath)
+  if (props.history.length) {
+    if(props.value) {
+      const mode = extToAceMode(props.filepath)
 
-    return (
-      <Table>
-        <thead>{props.filepath}<ThemeToggleButton/></thead>
-        <tbody>
-          <tr>
-            {props.value && (
-              <AceEditor
-                mode={mode}
-                theme={props.theme}
-                name="ace"
-                value={props.value}
-                readOnly={true}
-                fontSize={14}
-                highlightActiveLine={false}
-                width="100%"
-                showPrintMargin={false}
-                editorProps={{ $blockScrolling: true }}
-              />
-            )}
-          </tr>
-        </tbody>
-      </Table>
-    )
+      return (
+        <div>
+          {props.filepath}<ThemeToggleButton/>
+          <AceEditor
+            mode={mode}
+            theme={props.theme}
+            name="ace"
+            value={props.value}
+            readOnly={true}
+            fontSize={14}
+            highlightActiveLine={false}
+            width="100%"
+            showPrintMargin={false}
+            editorProps={{ $blockScrolling: true }}
+          />
+        </div>
+      )
+    }
+    return (null)
   }
 
   const url = `argit://${props.address}${props.projectRoot}`

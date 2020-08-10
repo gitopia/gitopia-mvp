@@ -1,6 +1,6 @@
 import * as git from "isomorphic-git"
 import flatten from "lodash/flatten"
-import { CommitDescription } from "../../types"
+import { ReadCommitResult } from "../../types"
 import { getHistory } from "./getHistory"
 import { getRemotes } from "./getRemotes"
 import { listRemoteBranches } from "./listBranches"
@@ -11,7 +11,7 @@ export async function getBranchStatus(
 ): Promise<{
   currentBranch: string
   branches: string[]
-  history: CommitDescription[]
+  history: ReadCommitResult[]
   remotes: string[]
   remoteBranches: string[]
 }> {

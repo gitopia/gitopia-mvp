@@ -1,7 +1,7 @@
 import { Button } from "@blueprintjs/core"
 import format from "date-fns/format"
 import React from "react"
-import { CommitDescription } from "../../../domain/types"
+import { ReadCommitResult } from "../../../domain/types"
 import { connector } from "../../actionCreators"
 
 export const GitBriefHistory = connector(
@@ -22,7 +22,7 @@ export const GitBriefHistory = connector(
 class GitBriefHistoryContent extends React.Component<
   {
     branch: string
-    history: CommitDescription[]
+    history: ReadCommitResult[]
   },
   { opened: boolean }
 > {

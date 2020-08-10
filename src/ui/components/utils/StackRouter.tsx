@@ -3,9 +3,7 @@ import { connector } from "../../actionCreators"
 import { RootState } from "../../reducers"
 import { Config } from "../pages/Config"
 import { Edit } from "../pages/Edit"
-import { Main } from "../pages/Main"
 import { setActiveRepository } from "../../reducers/argit"
-import { DIALOG_FOOTER_ACTIONS } from "@blueprintjs/core/lib/esm/common/classes"
 import { lifecycle } from "recompose"
 import {
   updateProjectList,
@@ -26,6 +24,9 @@ import { arweave } from "../../../index"
 import * as git from "isomorphic-git"
 import fs from "fs"
 import { CloneButton } from "../argit/cloneButton"
+import { Link } from "react-router-dom"
+import { ReadCommitResult } from "../../../domain/types"
+import { format } from "date-fns"
 
 type Project = {
   projectRoot: string
@@ -42,6 +43,7 @@ type StackRouterProps = {
   createNewProject: typeof createNewProject
   loadProjectList: typeof loadProjectList
   projects: Project[]
+  history: ReadCommitResult[]
 }
 
 // const selector = (state: RootState): Props => {
@@ -57,7 +59,8 @@ export const StackRouter = connector(
     projectRoot: state.project.projectRoot,
     setActiveRepository: state.argit.activeRepository,
     projects: state.project.projects,
-    address: state.argit.address
+    address: state.argit.address,
+    history: state.git.history
   }),
   actions => ({
     setActiveRepository: actions.argit.setActiveRepository,
@@ -118,17 +121,57 @@ export const StackRouter = connector(
 )(function StackRouterImpl(props) {
   switch (props.currentScene) {
     case "main": {
+      let header = ""
+      if (props.history) {
+        const lastCommit = props.history[props.history.length - 1]
+        header = ` Latest commit: ${lastCommit.commit.committer.name} ${
+          lastCommit.commit.message
+        } ${lastCommit.oid.slice(0, 7)} ${format(
+          lastCommit.commit.author.timestamp * 1000,
+          "MM/DD HH:mm"
+        )}`
+      }
+
       return (
         <Container>
-          <Card>
-            <CardBody>
-              <CloneButton />
-              <RepositoryBrowser />
-            </CardBody>
-          </Card>
-          <div className="mt-4">
-            <Editor />
-          </div>
+          <Row>
+            <Col>
+              <div className="float-right">
+                <CloneButton />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Card>
+                <div>
+                  <div>
+                    {header}
+                    <div className="float-right">
+                      <Link
+                        to={`/app/main/repository/${props.address}${
+                          props.projectRoot
+                        }/commits`}
+                      >
+                        <i className="fa fa-history" aria-hidden="true" />
+                        {`${props.history.length} commits `}
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+                <CardBody>
+                  <RepositoryBrowser />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div className="mt-4">
+                <Editor />
+              </div>
+            </Col>
+          </Row>
         </Container>
       )
     }

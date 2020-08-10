@@ -22,13 +22,8 @@ export const CloneButton = connector(
   const url = `argit://${props.address}${props.projectRoot}`
 
   return (
-    <div>
-      <Button
-        className="float-right"
-        color="primary"
-        id="Popover1"
-        type="button"
-      >
+    <>
+      <Button color="primary" id="Popover1" type="button">
         Clone
       </Button>
       <UncontrolledPopover placement="bottom" trigger="focus" target="Popover1">
@@ -38,6 +33,6 @@ export const CloneButton = connector(
           {url}"
         </PopoverBody>
       </UncontrolledPopover>
-    </div>
+    </>
   )
 })

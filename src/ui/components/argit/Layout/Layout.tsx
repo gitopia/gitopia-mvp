@@ -20,6 +20,7 @@ import { DashboardNew } from "../DashboardNew/DashboardNew"
 import { setIsAuthenticated } from "../../../reducers/argit"
 import { Repositories } from "../Repositories"
 import { StackRouter } from "../../utils/StackRouter"
+import { Commits } from "../commits"
 
 export const Layout = connector(
   state => ({
@@ -65,6 +66,11 @@ export const Layout = connector(
                     path="/app/main/repository/:wallet_address/:repo_name"
                     exact
                     component={StackRouter}
+                  />
+                  <Route
+                    path="/app/main/repository/:wallet_address/:repo_name/commits"
+                    exact
+                    component={Commits}
                   />
                   <Route
                     path="/app/main"
