@@ -35,13 +35,23 @@ import sender2 from "../images/2.png"
 import sender3 from "../images/3.png"
 
 import avatar from "../images/people/a5.jpg"
-import { setIsAuthenticated, updateRepositories } from "../../../reducers/argit"
+import Notifications from "../Notifications/Notifications"
+
+import {
+  setIsAuthenticated,
+  updateRepositories,
+  loadNotifications,
+  Notification
+} from "../../../reducers/argit"
 type HeaderProps = {
   dispatch: any
   sidebarPosition: string
   sidebarVisibility: string
   setIsAuthenticated: typeof setIsAuthenticated
   updateRepositories: typeof updateRepositories
+  loadNotifications: typeof loadNotifications
+  notifications: typeof Notification[]
+  address: string
 }
 
 type HeaderState = {
@@ -52,6 +62,7 @@ type HeaderState = {
   searchFocused: boolean
   searchOpen: boolean
   notificationsOpen: boolean
+  // accountOpen: boolean
 }
 
 class Header extends React.Component<HeaderProps, HeaderState> {
@@ -63,9 +74,9 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     searchFocused: false,
     searchOpen: false,
     notificationsOpen: false
+    // accountOpen: false
   }
 
-  // import Notifications from '../Notifications';
   // import { logoutUser } from '../../actions/user';
 
   constructor(props: HeaderProps) {
@@ -81,11 +92,11 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     this.toggleSearchOpen = this.toggleSearchOpen.bind(this)
   }
 
-  // toggleNotifications = () => {
-  //   this.setState({
-  //     notificationsOpen: !this.state.notificationsOpen
-  //   })
-  // }
+  toggleNotifications = () => {
+    this.setState({
+      notificationsOpen: !this.state.notificationsOpen
+    })
+  }
 
   onDismiss() {
     this.setState({ visible: false })
@@ -200,7 +211,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           <Dropdown
             nav
             isOpen={this.state.notificationsOpen}
-            // toggle={this.toggleNotifications}
+            toggle={this.toggleNotifications}
             id="basic-nav-dropdown"
             className={`${s.notificationsMenu}`}
             style={{ marginRight: "auto" }}
@@ -215,7 +226,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               </span>
               <span className={`small ${s.accountCheck}`}>Philip smith</span>
               <Badge className={s.badge} color="primary">
-                13
+                {this.props.notifications.length}
               </Badge>
             </DropdownToggle>
             <DropdownMenu
@@ -224,7 +235,11 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 s.notificationsWrapper
               } py-0 animate__animated animate__faster animate__fadeInUp`}
             >
-              {/* <Notifications /> */}
+              <Notifications
+                notifications={this.props.notifications}
+                loadNotifications={this.props.loadNotifications}
+                address={this.props.address}
+              />
             </DropdownMenu>
           </Dropdown>
           <NavItem className="d-lg-none d-md-block d-sm-none">

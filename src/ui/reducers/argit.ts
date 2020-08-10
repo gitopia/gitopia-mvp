@@ -37,9 +37,18 @@ export const setActiveRepository: ActionCreator<{
   activeRepository: string
 }> = createAction("set-active-repo")
 
+export const loadNotifications: ActionCreator<{
+  notifications: Notification[]
+}> = createAction("load-notifications")
+
 export type Repository = {
   name: string
   description: string
+}
+export type Notification = {
+  type: string
+  action: string
+  txid: string
 }
 export type ArgitState = {
   repositories: Repository[]
@@ -48,6 +57,7 @@ export type ArgitState = {
   openedLoginModal: boolean
   keyFileName: string | null
   activeRepository: string | null
+  notifications: Notification[]
 }
 
 const initialState: ArgitState = {
@@ -56,7 +66,8 @@ const initialState: ArgitState = {
   address: null,
   openedLoginModal: false,
   keyFileName: null,
-  activeRepository: null
+  activeRepository: null,
+  notifications: []
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -86,6 +97,9 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   })
   .case(loadKeyFile, (state, payload) => {
     return { ...state, keyFileName: payload.keyFileName }
+  })
+  .case(loadNotifications, (state, payload) => {
+    return { ...state, notifications: payload.notifications }
   })
   .case(setActiveRepository, (state, payload) => {
     return { ...state, activeRepository: payload.activeRepository }

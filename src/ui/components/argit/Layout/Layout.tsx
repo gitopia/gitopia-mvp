@@ -17,22 +17,25 @@ import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory"
 import { openSidebar, closeSidebar } from "../../../reducers/navigation"
 import s from "./Layout.module.scss"
 import { DashboardNew } from "../DashboardNew/DashboardNew"
-import { setIsAuthenticated } from "../../../reducers/argit"
+import { setIsAuthenticated, loadNotifications } from "../../../reducers/argit"
 import { Repositories } from "../Repositories"
 import { StackRouter } from "../../utils/StackRouter"
 import { Commits } from "../commits"
 
 export const Layout = connector(
   state => ({
+    address: state.argit.address,
     isAuthenticated: state.argit.isAuthenticated,
     sidebarPosition: state.navigation.sidebarPosition,
-    sidebarVisibility: state.navigation.sidebarVisibility
+    sidebarVisibility: state.navigation.sidebarVisibility,
+    notifications: state.argit.notifications
   }),
   actions => ({
     openLoginModal: actions.argit.openLoginModal,
     openSidebar: actions.navigation.openSidebar,
     setIsAuthenticated: actions.argit.setIsAuthenticated,
-    updateRepositories: actions.argit.updateRepositories
+    updateRepositories: actions.argit.updateRepositories,
+    loadNotifications: actions.argit.loadNotifications
   })
 )(function LayoutImpl(props) {
   return (
@@ -48,6 +51,9 @@ export const Layout = connector(
           {...props}
           setIsAuthenticated={props.setIsAuthenticated}
           updateRepositories={props.updateRepositories}
+          updateNotifications={props.loadNotifications}
+          notifications={props.notifications}
+          address={props.address}
         />
         {/* <Chat chatOpen={this.state.chatOpen} /> */}
         {/* <Helper /> */}

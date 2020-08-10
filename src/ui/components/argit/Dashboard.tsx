@@ -7,7 +7,9 @@ import {
   Repository,
   setIsAuthenticated,
   loadAddress,
-  updateRepositories
+  updateRepositories,
+  loadNotifications,
+  Notification
 } from "../../reducers/argit"
 import { Root } from "../atoms/Root"
 import { GlobalHeader } from "../organisms/GlobalHeader"
@@ -26,18 +28,22 @@ type ConnectedProps = {
   loadAddress: typeof loadAddress
   updateRepositories: typeof updateRepositories
   openCreateRepoModal: typeof openCreateRepoModal
+  loadNotifications: typeof loadNotifications
+  notifications: typeof Notification[]
 }
 
 export const Dashboard = connector(
   state => ({
     repositories: state.argit.repositories,
     address: state.argit.address,
-    isAuthenticated: state.argit.isAuthenticated
+    isAuthenticated: state.argit.isAuthenticated,
+    notifications: state.argit.notifications
   }),
   actions => ({
     loadAddress: actions.argit.loadAddress,
     updateRepositories: actions.argit.updateRepositories,
-    openCreateRepoModal: actions.app.openCreateRepoModal
+    openCreateRepoModal: actions.app.openCreateRepoModal,
+    loadNotifications: actions.argit.loadNotifications
   }),
   lifecycle<ConnectedProps, {}>({
     async componentDidMount() {
@@ -53,7 +59,7 @@ export const Dashboard = connector(
         actions.loadAddress({ address })
 
         const txids = await arweave.arql(txQuery(address, "create-repo"))
-
+        let notifications: Notification[] = []
         const repositories = await Promise.all(
           txids.map(async txid => {
             let repository = {} as Repository
@@ -72,6 +78,12 @@ export const Dashboard = connector(
                 name: txid,
                 description: "Pending confirmation"
               }
+              notifications.push({
+                type: "pending",
+                action: "create-repo",
+                txid: txid
+              })
+              console.log(notifications)
             }
 
             if (!repository) {
@@ -84,6 +96,8 @@ export const Dashboard = connector(
             return repository
           })
         )
+        console.log(notifications)
+        actions.loadNotifications({ notifications })
         actions.updateRepositories({ repositories })
       }
     }
