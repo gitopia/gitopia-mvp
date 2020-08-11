@@ -44,6 +44,8 @@ export const loadNotifications: ActionCreator<{
 export type Repository = {
   name: string
   description: string
+  txid: string
+  status: string
 }
 export type Notification = {
   type: string

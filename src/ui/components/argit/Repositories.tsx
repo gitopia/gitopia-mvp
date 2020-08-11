@@ -16,6 +16,8 @@ import {
 import { txQuery } from "../../../utils"
 import { openCreateRepoModal } from "../../reducers/app"
 import { object } from "prop-types"
+import { Table, Button } from "reactstrap"
+import { decode } from "punycode"
 
 type ConnectedProps = {
   isAuthenticated: boolean
@@ -71,13 +73,17 @@ export const Repositories = connector(
               const decoded: any = JSON.parse(data)
               repository = {
                 name: decoded.name,
-                description: decoded.description
+                description: decoded.description,
+                txid: txid,
+                status: "confirmed"
               }
               completed_txids.push(txid)
             } catch (error) {
               repository = {
-                name: txid,
-                description: "Pending confirmation"
+                name: "Pending",
+                txid: txid,
+                status: "pending",
+                description: "Pending"
               }
               notifications.push({
                 type: "pending",
@@ -88,8 +94,10 @@ export const Repositories = connector(
 
             if (!repository) {
               repository = {
-                name: txid,
-                description: "null"
+                txid: txid,
+                description: "Pending",
+                status: "pending",
+                name: "Pending"
               }
             }
 
@@ -123,29 +131,58 @@ export const Repositories = connector(
         Repositories{" "}
         <Button
           onClick={() => props.openCreateRepoModal({})}
-          className="fa fa-plus-circle"
+          className="fa fa-plus-square-o"
           aria-hidden="true"
         />
+        <br />
       </h1>
-
-      {props.repositories &&
-        props.repositories.map(
-          repository =>
-            repository.name && (
-              <div key={repository.name} className="card mt-4">
-                <div className="card-body">
-                  <Link
-                    to={`/app/main/repository/${props.address}/${
-                      repository.name
-                    }`}
-                  >
-                    {repository.name}
-                  </Link>
-                  <p>{repository.description}</p>
-                </div>
-              </div>
-            )
-        )}
+      <Table bordered>
+        <thead>
+          <tr className="fs-sm">
+            <th>Name</th>
+            <th className="hidden-sm-down">tx-id</th>
+            <th className="hidden-sm-down">Tx Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.repositories &&
+            props.repositories.map(
+              repository =>
+                repository.status === "confirmed" && (
+                  <tr key={repository.txid}>
+                    <td>
+                      <Link
+                        to={`/app/main/repository/${props.address}/${
+                          repository.name
+                        }`}
+                      >
+                        {repository.name}
+                      </Link>
+                    </td>
+                    <td>{repository.txid}</td>
+                    {repository.status && (
+                      <td>
+                        <i className="fa fa-check-circle" aria-hidden="true" />
+                      </td>
+                    )}
+                  </tr>
+                )
+            )}
+        </tbody>
+      </Table>
     </React.Fragment>
   )
 })
+
+// <div key={repository.name} className="card mt-4">
+//   <div className="card-body">
+//     <Link
+//       to={`/app/main/repository/${props.address}/${
+//         repository.name
+//       }`}
+//     >
+//       {repository.name}
+//     </Link>
+//     <p>{repository.description}</p>
+//   </div>
+// </div>
