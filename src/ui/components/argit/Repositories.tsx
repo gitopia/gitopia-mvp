@@ -70,15 +70,30 @@ export const Repositories = connector(
               // if (typeof data === "object") {
               //   console.log(new TextDecoder("utf-8").decode(data))
               // }
-              const decoded: any = JSON.parse(data)
-              repository = {
-                name: decoded.name,
-                description: decoded.description,
-                txid: txid,
-                status: "confirmed"
+              console.log(typeof data, "data", txid)
+              if (typeof data === "string" && data !== "") {
+                const decoded: any = JSON.parse(data)
+                repository = {
+                  name: decoded.name,
+                  description: decoded.description,
+                  txid: txid,
+                  status: "confirmed"
+                }
+                completed_txids.push(txid)
+              } else if (data === "") {
+                repository = {
+                  name: "Arweave server error",
+                  description: "Arweave server error",
+                  txid: txid,
+                  status: "confirmed"
+                }
+                completed_txids.push(txid)
+              } else {
+                console.log(typeof data, data)
+                throw new Error("Pendng Transaction")
               }
-              completed_txids.push(txid)
             } catch (error) {
+              console.log(error, "err")
               repository = {
                 name: "Pending",
                 txid: txid,
@@ -93,6 +108,7 @@ export const Repositories = connector(
             }
 
             if (!repository) {
+              console.log(repository, "repo")
               repository = {
                 txid: txid,
                 description: "Pending",
@@ -146,28 +162,30 @@ export const Repositories = connector(
         </thead>
         <tbody>
           {props.repositories &&
-            props.repositories.map(
-              repository =>
-                repository.status === "confirmed" && (
-                  <tr key={repository.txid}>
-                    <td>
-                      <Link
-                        to={`/app/main/repository/${props.address}/${
-                          repository.name
-                        }`}
-                      >
-                        {repository.name}
-                      </Link>
-                    </td>
-                    <td>{repository.txid}</td>
-                    {repository.status && (
-                      <td>
-                        <i className="fa fa-check-circle" aria-hidden="true" />
-                      </td>
-                    )}
-                  </tr>
-                )
-            )}
+            props.repositories.map(repository => (
+              <tr key={repository.txid}>
+                <td>
+                  <Link
+                    to={`/app/main/repository/${props.address}/${
+                      repository.name
+                    }`}
+                  >
+                    {repository.name}
+                  </Link>
+                </td>
+                <td>{repository.txid}</td>
+                {repository.status === "confirmed" && (
+                  <td>
+                    <i className="fa fa-check-circle" aria-hidden="true" />
+                  </td>
+                )}
+                {repository.status === "pending" && (
+                  <td>
+                    <i className="fa fa-spinner" aria-hidden="true" />
+                  </td>
+                )}
+              </tr>
+            ))}
         </tbody>
       </Table>
     </React.Fragment>

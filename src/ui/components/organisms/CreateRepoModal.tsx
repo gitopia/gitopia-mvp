@@ -7,6 +7,7 @@ import NewRepoForm from "../argit/newRepoForm"
 import { Repository } from "../../../ui/reducers/argit"
 import { closeCreateRepoModal } from "../../reducers/app"
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap"
+import { updateRepositories } from "../../reducers/navigation"
 
 // This is example reference
 export const CreateRepoModal = connector(
@@ -22,7 +23,8 @@ export const CreateRepoModal = connector(
       createNewProject: actions.project.createNewProject,
       closeModal: actions.app.closeCreateRepoModal,
       loadProjectList: actions.project.loadProjectList,
-      startProjectRootChanged: actions.editor.startProjectRootChanged
+      startProjectRootChanged: actions.editor.startProjectRootChanged,
+      updateRepositories: actions.argit.updateRepositories
     }
   }
 )(function CreateRepoModalImpl(props) {
@@ -46,6 +48,7 @@ export const CreateRepoModal = connector(
 
       <ModalBody>
         <NewRepoForm
+          updateRepositories={props.updateRepositories}
           address={props.address}
           repositories={props.repositories}
           closeCreateRepoModal={props.closeModal}

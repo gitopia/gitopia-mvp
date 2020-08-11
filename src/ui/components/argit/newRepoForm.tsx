@@ -6,11 +6,13 @@ import Arweave from "arweave/web" // Arweave
 import { Repository as Repo } from "../../../ui/reducers/argit"
 import { closeCreateRepoModal } from "../../reducers/app"
 // import NewRepoForm from "./newRepoForm"
+import { updateRepositories } from "../../reducers/argit"
 
 type NewRepoFormProps = {
   address: string
   repositories: Repo[]
   closeCreateRepoModal: typeof closeCreateRepoModal
+  updateRepositories: typeof updateRepositories
 }
 
 type NewRepoFormState = {
@@ -104,9 +106,18 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
     await arweave.transactions.post(tx) // Post transaction
 
     this.setState({ transactionLoading: false }) // Set loading status to false
+    this.props.closeCreateRepoModal({})
 
     console.log(tx)
-    this.props.closeCreateRepoModal({})
+    const repository = {
+      name: name,
+      description: description,
+      status: "pending",
+      txid: tx.id
+    }
+    this.props.updateRepositories({
+      repositories: [...this.props.repositories, repository]
+    })
   }
 
   handleSubmit = e => {

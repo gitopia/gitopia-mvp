@@ -20,7 +20,7 @@ class Confirmed extends React.Component<ConfirmedProps, ConfirmedState> {
         {this.props.notifications.map(notif => {
           if (notif.type === "confirmed") {
             return (
-              <ListGroupItem className={s.listGroupItem}>
+              <ListGroupItem key={notif.txid} className={s.listGroupItem}>
                 <span className={[s.notificationIcon, "thumb-sm"].join(" ")}>
                   <i className="glyphicon glyphicon-upload fa-lg" />
                 </span>
