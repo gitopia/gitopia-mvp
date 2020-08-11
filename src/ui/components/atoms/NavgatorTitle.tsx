@@ -6,7 +6,7 @@ export function NavigatorTitle(props: { networkOnline: boolean }) {
   return (
     <>
       <Link className="navbar-brand" to="/" style={{ color: "#FFF" }}>
-        ArgitHub &nbsp;
+        dgit &nbsp;
       </Link>
       <Tooltip
         content={props.networkOnline ? "online mode" : "offline mode"}

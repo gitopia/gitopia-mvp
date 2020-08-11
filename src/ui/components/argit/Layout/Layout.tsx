@@ -112,8 +112,7 @@ export const Layout = connector(
               </CSSTransition>
             </TransitionGroup>
             <footer className={s.contentFooter}>
-              ArgitHub - Open versioning Hub, made by{" "}
-              <a href="#">Tech Trap LLP</a>
+              dgit - Open versioning Hub, made by <a href="#">Tech Trap LLP</a>
             </footer>
           </main>
         </Hammer>

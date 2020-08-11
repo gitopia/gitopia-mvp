@@ -45,7 +45,7 @@ export const LandingNew = connector(
     <React.Fragment>
       <header className="jumbotron jumbotron-fluid">
         <div className="container-fluid text-center">
-          <h1 className="display-3">ArgitHub</h1>
+          <h1 className="display-3">dgit</h1>
           <p className="lead pb-4">
             Permanent Private Versioning for your Code
           </p>

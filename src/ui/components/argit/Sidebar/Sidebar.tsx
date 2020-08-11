@@ -61,7 +61,7 @@ export const Sidebar = connector(
     >
       <header className={s.logo}>
         <Link to="/">
-          Argit <span className="fw-bold">Hub</span>
+          d<span className="fw-bold">git</span>
         </Link>
       </header>
       <ul className={s.nav}>
@@ -74,7 +74,7 @@ export const Sidebar = connector(
           link="/app/main"
           index="main"
         />
-        <h5 className={[s.navTitle, s.groupTitle].join(" ")}>TEMPLATE</h5>
+        {/* <h5 className={[s.navTitle, s.groupTitle].join(" ")}>TEMPLATE</h5> */}
         <LinksGroup
           onActiveSidebarItemChange={props.changeActiveSidebarItem}
           activeItem={props.activeItem}
@@ -126,62 +126,6 @@ export const Sidebar = connector(
           ]}
         /> */}
       </ul>
-      <h5 className={s.navTitle}>
-        LABELS
-        {/* eslint-disable-next-line */}
-        <a className={s.actionLink}>
-          <i
-            className={`${s.glyphiconSm} glyphicon glyphicon-plus float-right`}
-          />
-        </a>
-      </h5>
-      {/* eslint-disable */}
-      <ul className={s.sidebarLabels}>
-        <li>
-          <a href="#">
-            <i className="fa fa-circle text-success mr-2" />
-            <span className={s.labelName}>My Recent</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i className="fa fa-circle text-primary mr-2" />
-            <span className={s.labelName}>Starred</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i className="fa fa-circle text-danger mr-2" />
-            <span className={s.labelName}>Background</span>
-          </a>
-        </li>
-      </ul>
-      {/* eslint-enable */}
-      <h5 className={s.navTitle}>PROJECTS</h5>
-      <div className={s.sidebarAlerts}>
-        {/* {props.alertsList.map((
-          alert // eslint-disable-line
-        ) => (
-          <Alert
-            key={alert.id}
-            className={s.sidebarAlert}
-            color="transparent"
-            isOpen={true} // eslint-disable-line
-            toggle={() => {
-              this.dismissAlert(alert.id)
-            }}
-          >
-            <span>{alert.title}</span>
-            <br />
-            <Progress
-              className={`bg-custom-dark progress-xs mt-1`}
-              color={alert.color}
-              value={alert.value}
-            />
-            <small>{alert.footer}</small>
-          </Alert>
-        ))} */}
-      </div>
     </nav>
   )
 })

@@ -34,7 +34,6 @@ import sender1 from "../images/1.png"
 import sender2 from "../images/2.png"
 import sender3 from "../images/3.png"
 
-import avatar from "../images/people/a5.jpg"
 import Notifications from "../Notifications/Notifications"
 
 import {
@@ -153,12 +152,12 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   render() {
     return (
       <Navbar className={`d-print-none ${s.root}`}>
-        <UncontrolledAlert
+        {/* <UncontrolledAlert
           className={`${
             s.alert
           } mr-3 d-lg-down-none animate__animated animate__bounceIn animate__delay-1s`}
         >
-          <i className="fa fa-info-circle mr-1" /> Check out ArgitHub{" "}
+          <i className="fa fa-info-circle mr-1" /> Check out dgit{" "}
           <button
             className="btn-link"
             onClick={() => this.setState({ settingsOpen: true })}
@@ -166,7 +165,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             settings
           </button>{" "}
           on the right!
-        </UncontrolledAlert>
+        </UncontrolledAlert> */}
         <Collapse
           className={`${s.searchCollapse} ml-lg-0 mr-md-3`}
           isOpen={this.state.searchOpen}
@@ -222,9 +221,16 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                   s.avatar
                 } rounded-circle thumb-sm float-left mr-2`}
               >
-                <img src={avatar} alt="..." />
+                <img
+                  src={`https://api.adorable.io/avatars/100/${
+                    this.props.address
+                  }.png`}
+                  alt="..."
+                />
               </span>
-              <span className={`small ${s.accountCheck}`}>Philip smith</span>
+              <span className={`small ${s.accountCheck}`}>
+                {this.props.address}
+              </span>
               <Badge className={s.badge} color="primary">
                 {this.props.notifications.length}
               </Badge>
@@ -251,50 +257,9 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               <i className="glyphicon glyphicon-search text-white" />
             </NavLink>
           </NavItem>
-          <Dropdown
-            nav
-            isOpen={this.state.messagesOpen}
-            toggle={this.toggleMessagesDropdown}
-          >
-            <DropdownToggle nav className={`${s.navItem} text-white`}>
-              <i className="glyphicon glyphicon-comments" />
-            </DropdownToggle>
-            <DropdownMenu className={`${s.dropdownMenu} ${s.messages}`}>
-              <DropdownItem>
-                <img className={s.image} src={sender1} alt="" />
-                <div className={s.details}>
-                  <div>Jane Hew</div>
-                  <div className={s.text}>Hey, John! How is it going? ...</div>
-                </div>
-              </DropdownItem>
-              <DropdownItem>
-                <img className={s.image} src={sender2} alt="" />
-                <div className={s.details}>
-                  <div>Alies Rumiancaŭ</div>
-                  <div className={s.text}>
-                    I will definitely buy this template
-                  </div>
-                </div>
-              </DropdownItem>
-              <DropdownItem>
-                <img className={s.image} src={sender3} alt="" />
-                <div className={s.details}>
-                  <div>Michał Rumiancaŭ</div>
-                  <div className={s.text}>
-                    Is it really Lore ipsum? Lore ...
-                  </div>
-                </div>
-              </DropdownItem>
-              <DropdownItem>
-                {/* eslint-disable-next-line */}
-                <a href="#" className="text-white">
-                  See all messages <i className="fa fa-arrow-right" />
-                </a>
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+
           <NavItem className={`${s.divider} text-white`} />
-          <Dropdown
+          {/* <Dropdown
             nav
             isOpen={this.state.settingsOpen}
             toggle={this.toggleSettingsDropdown}
@@ -346,8 +311,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 </Button>
               </ButtonGroup>
             </DropdownMenu>
-          </Dropdown>
-          <Dropdown
+          </Dropdown> */}
+          {/* <Dropdown
             nav
             isOpen={this.state.supportOpen}
             toggle={this.toggleSupportDropdown}
@@ -392,13 +357,13 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 </div>
               </DropdownItem>
               <DropdownItem>
-                {/* eslint-disable-next-line */}
+                {/* eslint-disable-next-line 
                 <a href="#" className="text-white">
                   See all tickets <i className="fa fa-arrow-right" />
                 </a>
               </DropdownItem>
             </DropdownMenu>
-          </Dropdown>
+          </Dropdown> */}
           <NavItem>
             <NavLink
               onClick={() => {

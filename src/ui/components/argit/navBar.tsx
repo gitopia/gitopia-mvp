@@ -13,7 +13,7 @@ export const NavBar = connector(
     <nav className="navbar navbar-light bg-light static-top">
       <div className="container">
         <a className="navbar-brand" href="#">
-          ArgitHub
+          dgit
         </a>
         <a
           className="btn btn-primary"
