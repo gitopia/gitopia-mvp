@@ -3,20 +3,12 @@ import { connector } from "../../actionCreators"
 import { RootState } from "../../reducers"
 import { Config } from "../pages/Config"
 import { Edit } from "../pages/Edit"
-import { setActiveRepository } from "../../reducers/argit"
 import { lifecycle } from "recompose"
-import {
-  updateProjectList,
-  createNewProject,
-  loadProjectList
-} from "../../reducers/project"
-import { cloneRepository, createProject } from "../../../domain/git"
+import { createNewProject } from "../../reducers/project"
 import {
   startProjectRootChanged,
-  initializeGitStatus
+  deleteProject
 } from "../../actionCreators/editorActions"
-import * as EditorActions from "../../actionCreators/editorActions"
-import _ from "lodash"
 import { RepositoryBrowser } from "../organisms/RepositoryBrowser"
 import { Editor } from "../../components/argit/editor"
 import { Card, CardBody, Container, Row, Col } from "reactstrap"
@@ -27,6 +19,8 @@ import { CloneButton } from "../argit/cloneButton"
 import { Link } from "react-router-dom"
 import { ReadCommitResult } from "../../../domain/types"
 import { format } from "date-fns"
+import { getRef } from "isomorphic-git/src/utils/arweave"
+import { setTxLoading } from "../../reducers/argit"
 
 type Project = {
   projectRoot: string
@@ -36,14 +30,14 @@ type StackRouterProps = {
   currentScene: string
   projectRoot: string
   address: string
-  setActiveRepository: typeof setActiveRepository
   match: any
-  updateProjectList: typeof updateProjectList
   startProjectRootChanged: typeof startProjectRootChanged
   createNewProject: typeof createNewProject
-  loadProjectList: typeof loadProjectList
+  deleteProject: typeof deleteProject
   projects: Project[]
   history: ReadCommitResult[]
+  txLoading: boolean
+  setTxLoading: typeof setTxLoading
 }
 
 // const selector = (state: RootState): Props => {
@@ -57,65 +51,53 @@ export const StackRouter = connector(
   state => ({
     currentScene: state.app.sceneStack[state.app.sceneStack.length - 1],
     projectRoot: state.project.projectRoot,
-    setActiveRepository: state.argit.activeRepository,
-    projects: state.project.projects,
     address: state.argit.address,
-    history: state.git.history
+    history: state.git.history,
+    txLoading: state.argit.txLoading
   }),
   actions => ({
-    setActiveRepository: actions.argit.setActiveRepository,
     updateProjectList: actions.project.updateProjectList,
     startProjectRootChanged: actions.editor.startProjectRootChanged,
     createNewProject: actions.project.createNewProject,
-    loadProjectList: actions.project.loadProjectList
+    deleteProject: actions.editor.deleteProject,
+    setTxLoading: actions.argit.setTxLoading
   }),
-  // lifecycle<CustomProps, {}>({
-  //   componentDidUpdate(prevProps, prevState) {
-  //     const { projectRoot, activeRepository, match, ...actions } = this.props
-  //     console.log("here")
-  //     if (activeRepository !== prevProps.activeRepository) {
-  //       console.log(projectRoot)
-  //       console.log(match)
-  //       const activeRepository = match.params.repo_name
-  //     }
-  //   }
-  // }),
   lifecycle<StackRouterProps, {}>({
     async componentDidMount() {
       const {
         match,
-        setActiveRepository,
-        updateProjectList,
         startProjectRootChanged,
-        loadProjectList,
-        projects,
-        address
+        address,
+        setTxLoading
       } = this.props
-      const projectRoot = `/${match.params.repo_name}`
-      // createNewProject({ newProjectRoot })
-      // // TODO: fix it
+      const newProjectRoot = `/${match.params.repo_name}`
 
-      // await new Promise(r => setTimeout(r, 500))
-      // loadProjectList({ projects })
+      setTxLoading({ loading: true })
 
-      // await startProjectRootChanged({
-      //   projectRoot: newProjectRoot
-      // })
+      createNewProject({ newProjectRoot })
 
-      if (!_.some(projects, { projectRoot })) {
-        const allProjects = [...projects, { projectRoot }]
-        await createProject(projectRoot)
-        updateProjectList({ projects: allProjects })
+      const url = `argit://${address}${newProjectRoot}`
+      const oid = await getRef(arweave, url, "refs/heads/master")
+
+      if (oid !== "0000000000000000000000000000000000000000" && oid !== "") {
         await git.cloneFromArweave({
           fs,
-          dir: projectRoot,
-          url: `argit://${address}${projectRoot}`,
+          dir: newProjectRoot,
+          url,
           ref: "master",
           arweave
         })
         console.info("clone: done")
-        await startProjectRootChanged({ projectRoot })
       }
+
+      await startProjectRootChanged({
+        projectRoot: newProjectRoot
+      })
+
+      setTxLoading({ loading: false })
+    },
+    componentWillUnmount() {
+      this.props.deleteProject({ dirpath: this.props.projectRoot })
     }
   })
 )(function StackRouterImpl(props) {
@@ -124,7 +106,6 @@ export const StackRouter = connector(
       let header = ""
       if (props.history.length) {
         const lastCommit = props.history[props.history.length - 1]
-        console.log(lastCommit, props.history)
         header = ` Latest commit: ${lastCommit.commit.committer.name} ${
           lastCommit.commit.message
         } ${lastCommit.oid.slice(0, 7)} ${format(
@@ -133,39 +114,53 @@ export const StackRouter = connector(
         )}`
       }
 
+      if (props.txLoading)
+        return (
+          <>
+            <i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
+            <span className="sr-only">Loading...</span>
+          </>
+        )
+
       return (
         <Container>
-          <Row>
-            <Col>
-              <div className="float-right">
-                <CloneButton />
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Card>
-                <div>
-                  <div>
-                    {header}
-                    <div className="float-right">
-                      <Link
-                        to={`/app/main/repository/${props.address}${
-                          props.projectRoot
-                        }/commits`}
-                      >
-                        <i className="fa fa-history" aria-hidden="true" />
-                        {`${props.history.length} commits `}
-                      </Link>
-                    </div>
+          {props.history.length === 0 ? (
+            <></>
+          ) : (
+            <>
+              <Row>
+                <Col>
+                  <div className="float-right">
+                    <CloneButton />
                   </div>
-                </div>
-                <CardBody>
-                  <RepositoryBrowser />
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Card>
+                    <div>
+                      <div>
+                        {header}
+                        <div className="float-right">
+                          <Link
+                            to={`/app/main/repository/${props.address}${
+                              props.projectRoot
+                            }/commits`}
+                          >
+                            <i className="fa fa-history" aria-hidden="true" />
+                            {`${props.history.length} commits `}
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                    <CardBody>
+                      <RepositoryBrowser />
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
+            </>
+          )}
           <Row>
             <Col>
               <div className="mt-4">

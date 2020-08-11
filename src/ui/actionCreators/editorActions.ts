@@ -15,6 +15,7 @@ import * as RepositoryActions from "../reducers/repository"
 import { RootState } from "./../reducers"
 import * as GlobalActions from "./globalActions"
 import fs from "fs"
+import { ReadCommitResult } from "../../domain/types"
 // Action
 const { createThunkAction } = buildActionCreator({
   prefix: "editor/"
@@ -251,10 +252,15 @@ export async function initializeGitStatus(projectRoot: string) {
       remotes,
       remoteBranches
     } = await Git.getBranchStatus(projectRoot)
-    const history = await Git.getHistory(projectRoot, { ref: currentBranch })
-    console.log(history)
+
+    let history: ReadCommitResult[] = []
+    try {
+      history = await Git.getHistory(projectRoot, { ref: currentBranch })
+    } catch (error) {
+      // Empty git repository
+    }
+
     const matrix = await git.statusMatrix({ fs, dir: projectRoot })
-    console.log(history, matrix)
 
     dispatch(
       GitActions.endInitialize({

@@ -15,7 +15,20 @@ export async function getBranchStatus(
   remotes: string[]
   remoteBranches: string[]
 }> {
-  const currentBranch = await git.currentBranch({ fs, dir: projectRoot })
+  let currentBranch: string = ""
+  try {
+    currentBranch = await git.currentBranch({ fs, dir: projectRoot })
+  } catch (error) {
+    // Empty git repository
+    return {
+      currentBranch: "",
+      branches: [],
+      history: [],
+      remotes: [],
+      remoteBranches: []
+    }
+  }
+
   const branches = await git.listBranches({ fs, dir: projectRoot })
   const remotes: string[] = (await git.listRemotes({
     fs,

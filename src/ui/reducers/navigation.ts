@@ -29,10 +29,6 @@ export const openSidebar: ActionCreator<{}> = createAction("open-sidebar")
 
 export const closeSidebar: ActionCreator<{}> = createAction("close-sidebar")
 
-export const setActiveRepository: ActionCreator<{
-  activeRepository: string
-}> = createAction("set-active-repo")
-
 export type Repository = {
   name: string
   description: string

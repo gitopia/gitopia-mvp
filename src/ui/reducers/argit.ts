@@ -33,13 +33,13 @@ export const closeLoginModal: ActionCreator<{}> = createAction(
   "close-login-modal"
 )
 
-export const setActiveRepository: ActionCreator<{
-  activeRepository: string
-}> = createAction("set-active-repo")
-
 export const loadNotifications: ActionCreator<{
   notifications: Notification[]
 }> = createAction("load-notifications")
+
+export const setTxLoading: ActionCreator<{
+  loading: boolean
+}> = createAction("set-tx-loading")
 
 export type Repository = {
   name: string
@@ -60,6 +60,7 @@ export type ArgitState = {
   keyFileName: string | null
   activeRepository: string | null
   notifications: Notification[]
+  txLoading: boolean
 }
 
 const initialState: ArgitState = {
@@ -69,7 +70,8 @@ const initialState: ArgitState = {
   openedLoginModal: false,
   keyFileName: null,
   activeRepository: null,
-  notifications: []
+  notifications: [],
+  txLoading: false
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -103,6 +105,6 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   .case(loadNotifications, (state, payload) => {
     return { ...state, notifications: payload.notifications }
   })
-  .case(setActiveRepository, (state, payload) => {
-    return { ...state, activeRepository: payload.activeRepository }
+  .case(setTxLoading, (state, payload) => {
+    return { ...state, txLoading: payload.loading }
   })

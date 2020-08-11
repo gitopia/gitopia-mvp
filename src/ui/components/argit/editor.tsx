@@ -4,9 +4,8 @@ import { lifecycle } from "recompose"
 import path from "path"
 import AceEditor from "react-ace"
 import { Table, Card, CardBody } from "reactstrap"
-import { ThemeToggleButton } from './themeToggleButton';
+import { ThemeToggleButton } from "./themeToggleButton"
 import { ReadCommitResult } from "../../../domain/types"
-
 
 import "ace-builds/src-noconflict/theme-github"
 import "ace-builds/src-noconflict/theme-monokai"
@@ -81,12 +80,13 @@ export const Editor = connector(
   })
 )(function EditorImpl(props) {
   if (props.history.length) {
-    if(props.value) {
+    if (props.value) {
       const mode = extToAceMode(props.filepath)
 
       return (
         <div>
-          {props.filepath}<ThemeToggleButton/>
+          {props.filepath}
+          <ThemeToggleButton />
           <AceEditor
             mode={mode}
             theme={props.theme}
@@ -102,7 +102,7 @@ export const Editor = connector(
         </div>
       )
     }
-    return (null)
+    return null
   }
 
   const url = `argit://${props.address}${props.projectRoot}`
@@ -115,10 +115,11 @@ export const Editor = connector(
           Run the following commands in your existing git repository to push
         </p>
         <code>
-          // For initializing new git repo<br/> // argit init export
-          ARWEAVE_WALLET_PATH="PATH_OF_YOUR_ARWEAVE_KEYFILE" <br />
-          argit addRemote --remote=origin --url="{url}" <br />
-          argit pushToArweave --remote=origin --ref=master
+          export ARWEAVE_WALLET_PATH="PATH_OF_YOUR_ARWEAVE_KEYFILE" <br />
+          <br />
+          dgit remote add origin "{url}" <br />
+          <br />
+          dgit push origin master
         </code>
       </CardBody>
     </Card>
