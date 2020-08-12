@@ -41,6 +41,10 @@ export const setTxLoading: ActionCreator<{
   loading: boolean
 }> = createAction("set-tx-loading")
 
+export const loadActivities: ActionCreator<{
+  activities: Activity[]
+}> = createAction("load-activities")
+
 export type Repository = {
   name: string
   description: string
@@ -52,6 +56,16 @@ export type Notification = {
   action: string
   txid: string
 }
+
+export type Activity = {
+  txid: string
+  type: string
+  repoName: string
+  key: string
+  value: string
+  unixTime: string
+}
+
 export type ArgitState = {
   repositories: Repository[]
   isAuthenticated: boolean
@@ -61,6 +75,7 @@ export type ArgitState = {
   activeRepository: string | null
   notifications: Notification[]
   txLoading: boolean
+  activities: Activity[]
 }
 
 const initialState: ArgitState = {
@@ -71,7 +86,8 @@ const initialState: ArgitState = {
   keyFileName: null,
   activeRepository: null,
   notifications: [],
-  txLoading: false
+  txLoading: false,
+  activities: []
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -107,4 +123,7 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   })
   .case(setTxLoading, (state, payload) => {
     return { ...state, txLoading: payload.loading }
+  })
+  .case(loadActivities, (state, payload) => {
+    return { ...state, activities: payload.activities }
   })
