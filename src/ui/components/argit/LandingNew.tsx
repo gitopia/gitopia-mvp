@@ -54,12 +54,13 @@ export const LandingNew = connector(
       </nav>
       <div className="pt-24">
         <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
-          <div className="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
+          <div className="flex flex-col w-full md:w-2/5  text-center md:text-left">
             {/* <p className="uppercase tracking-loose w-full">
               What business are you?
             </p> */}
             <h1 className="mx-12 my-3 text-6xl font-bold leading-tight">
-              dgit
+              <span className="font-hairline">d</span>
+              <span className="font-extrabold">git</span>
             </h1>
             <p className="leading-normal text-2xl mb-8">
               Permanent versioning for your&nbsp; Code
@@ -69,7 +70,7 @@ export const LandingNew = connector(
               onClick={() => props.openLoginModal({})}
               className="mx-12 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg"
             >
-              Login
+              <span className="text-lg">Login</span>
             </button>
           </div>
           <div className="w-full md:w-3/5 py-6 text-center">
@@ -129,10 +130,9 @@ export const LandingNew = connector(
                 Permanent home for your code
               </h3>
               <p className="text-gray-600 mb-8">
-                All your code is stored on the blockchain, so you don't need to
-                rely on any centralized server. Any code stored on the
-                blockchain will never be lost, even when you accidently force
-                push :D
+                All your code is stored on the blockchain forever so anything
+                stored with dgit will never be lost, even when you accidently
+                force push :D
                 <br />
                 <br />
               </p>
@@ -160,23 +160,6 @@ export const LandingNew = connector(
                 </p>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="flex flex-wrap">
-          <div className="w-5/6 sm:w-1/2 p-6">
-            <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
-              Open Source
-            </h3>
-            <p className="text-gray-600 mb-8">
-              All our code is open source, so trust the code. You can run your
-              own service if you feel adventurous.
-              <br />
-              <br />
-            </p>
-          </div>
-          <div className="w-full sm:w-1/2 p-6">
-            <img src={hero} />
           </div>
         </div>
       </section>
@@ -214,172 +197,37 @@ export const LandingNew = connector(
       </svg>
       <section className="container mx-auto text-center py-6 mb-12">
         <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
-          Enough talk, lets try
+          Enough talk, lets dgit
         </h1>
         <div className="w-full mb-4">
           <div className="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t" />
         </div>
 
-        <h3 className="my-4 text-3xl leading-tight">
-          Main Hero Message to sell yourself!
-        </h3>
-
         <button
           onClick={() => props.openLoginModal({})}
-          className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg"
+          className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold  rounded-full my-6 py-4 px-8 shadow-lg"
         >
-          Login
+          <span className="text-lg">Login</span>
         </button>
       </section>
 
       <footer className="bg-white">
         <div className="container mx-auto  px-8">
-          <div className="w-full flex flex-col md:flex-row py-6">
+          <div className="w-full flex flex-col md:flex-row py-2">
             <div className="flex-1 mb-6">
-              <a
-                className="text-orange-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
-                href="#"
-              >
-                <svg
-                  className="h-8 fill-current inline"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512.005 512.005"
-                >
-                  <rect
-                    fill="#2a2a31"
-                    x="16.539"
-                    y="425.626"
-                    width="479.767"
-                    height="50.502"
-                    transform="matrix(1,0,0,1,0,0)"
-                    fill="rgb(0,0,0)"
-                  />
-                  <path
-                    className="plane-take-off"
-                    d=" M 510.7 189.151 C 505.271 168.95 484.565 156.956 464.365 162.385 L 330.156 198.367 L 155.924 35.878 L 107.19 49.008 L 211.729 230.183 L 86.232 263.767 L 36.614 224.754 L 0 234.603 L 45.957 314.27 L 65.274 347.727 L 105.802 336.869 L 240.011 300.886 L 349.726 271.469 L 483.935 235.486 C 504.134 230.057 516.129 209.352 510.7 189.151 Z "
-                  />
-                </svg>{" "}
-                LANDING
-              </a>
-            </div>
-
-            <div className="flex-1">
-              <p className="uppercase text-gray-500 md:mb-6">Links</p>
-              <ul className="list-reset mb-6">
-                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                  <a
-                    href="#"
-                    className="no-underline hover:underline text-gray-800 hover:text-orange-500"
-                  >
-                    FAQ
-                  </a>
-                </li>
-                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                  <a
-                    href="#"
-                    className="no-underline hover:underline text-gray-800 hover:text-orange-500"
-                  >
-                    Help
-                  </a>
-                </li>
-                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                  <a
-                    href="#"
-                    className="no-underline hover:underline text-gray-800 hover:text-orange-500"
-                  >
-                    Support
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="flex-1">
-              <p className="uppercase text-gray-500 md:mb-6">Legal</p>
-              <ul className="list-reset mb-6">
-                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                  <a
-                    href="#"
-                    className="no-underline hover:underline text-gray-800 hover:text-orange-500"
-                  >
-                    Terms
-                  </a>
-                </li>
-                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                  <a
-                    href="#"
-                    className="no-underline hover:underline text-gray-800 hover:text-orange-500"
-                  >
-                    Privacy
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="flex-1">
-              <p className="uppercase text-gray-500 md:mb-6">Social</p>
-              <ul className="list-reset mb-6">
-                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                  <a
-                    href="#"
-                    className="no-underline hover:underline text-gray-800 hover:text-orange-500"
-                  >
-                    Facebook
-                  </a>
-                </li>
-                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                  <a
-                    href="#"
-                    className="no-underline hover:underline text-gray-800 hover:text-orange-500"
-                  >
-                    Linkedin
-                  </a>
-                </li>
-                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                  <a
-                    href="#"
-                    className="no-underline hover:underline text-gray-800 hover:text-orange-500"
-                  >
-                    Twitter
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="flex-1">
-              <p className="uppercase text-gray-500 md:mb-6">Company</p>
-              <ul className="list-reset mb-6">
-                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                  <a
-                    href="#"
-                    className="no-underline hover:underline text-gray-800 hover:text-orange-500"
-                  >
-                    Official Blog
-                  </a>
-                </li>
-                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                  <a
-                    href="#"
-                    className="no-underline hover:underline text-gray-800 hover:text-orange-500"
-                  >
-                    About Us
-                  </a>
-                </li>
-                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                  <a
-                    href="#"
-                    className="no-underline hover:underline text-gray-800 hover:text-orange-500"
-                  >
-                    Contact
-                  </a>
-                </li>
-              </ul>
+              <h1 className="mx-12 my-0 text-6xl font-bold leading-tight">
+                <span className="font-hairline text-black">d</span>
+                <span className="font-extrabold text-black">git</span>
+              </h1>
+              <div className="flex-1">
+                <h4 className="text-black">
+                  Made with <span style={{ color: "#e25555" }}>&#9829;</span>
+                  &nbsp; by <span className="font-bold">TechTrap LLP</span>
+                </h4>
+              </div>
             </div>
           </div>
         </div>
-
-        <a
-          href="https://www.freepik.com/free-photos-vectors/background"
-          className="text-gray-500"
-        >
-          Background vector created by freepik - www.freepik.com
-        </a>
       </footer>
     </React.Fragment>
   )
