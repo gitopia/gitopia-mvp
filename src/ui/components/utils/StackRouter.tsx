@@ -106,7 +106,7 @@ export const StackRouter = connector(
       let header = ""
       if (props.history.length) {
         const lastCommit = props.history[props.history.length - 1]
-        header = ` Latest commit: ${lastCommit.commit.committer.name} ${
+        header = `Latest commit: ${lastCommit.commit.committer.name} ${
           lastCommit.commit.message
         } ${lastCommit.oid.slice(0, 7)} ${format(
           lastCommit.commit.author.timestamp * 1000,
@@ -137,9 +137,10 @@ export const StackRouter = connector(
               </Row>
               <Row>
                 <Col>
-                  <Card>
+                  <div className="card-dgit">
                     <div>
                       <div>
+                        &nbsp; &nbsp;
                         {header}
                         <div className="float-right">
                           <Link
@@ -148,7 +149,8 @@ export const StackRouter = connector(
                             }/commits`}
                           >
                             <i className="fa fa-history" aria-hidden="true" />
-                            {`${props.history.length} commits `}
+                            {`${props.history.length} commits`}
+                            &nbsp;&nbsp;
                           </Link>
                         </div>
                       </div>
@@ -156,7 +158,7 @@ export const StackRouter = connector(
                     <CardBody>
                       <RepositoryBrowser />
                     </CardBody>
-                  </Card>
+                  </div>
                 </Col>
               </Row>
             </>

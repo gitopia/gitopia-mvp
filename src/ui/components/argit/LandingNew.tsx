@@ -24,15 +24,6 @@ export const LandingNew = connector(
   }),
   actions => ({
     openLoginModal: actions.argit.openLoginModal
-  }),
-  lifecycle<{}, {}>({
-    componentDidMount() {
-      const script = document.createElement("script")
-      script.src = "./script.js"
-      script.async = true
-
-      document.body.appendChild(script)
-    }
   })
 )(function LandingNewImpl(props) {
   if (props.isAuthenticated)

@@ -27,7 +27,7 @@ export const Commits = connector(
       }
     >
       <div className="table-responsive">
-        <Table className="table-hover">
+        <Table>
           <tbody>
             {props.history.map(description => (
               <tr key={description.oid}>

@@ -149,26 +149,35 @@ export const DashboardNew = connector(
         <Col lg={7}>
           {props.activities.map(activity => (
             <div key={activity.txid}>
-              <span
-                className={`${
-                  s.avatar
-                } rounded-circle thumb-sm float-left mr-2`}
-              >
-                <img
-                  src={`https://api.adorable.io/avatars/100/${
-                    props.address
-                  }.png`}
-                  alt="..."
-                />
-              </span>
-              <span>
-                {activity.type === "create-repo"
-                  ? " created a new repository"
-                  : "pushed to repository"}
-              </span>
-              <Card className="mt-3 mb-4">
+              <div className="card-dgit mt-3 mb-4">
                 <CardBody>
                   <CardTitle>
+                    {/* <span
+                      className={`${
+                        s.avatar
+                      } rounded-circle thumb-sm float-left mr-2`}
+                    >
+                      <img
+                        src={`https://api.adorable.io/avatars/100/${
+                          props.address
+                        }.png`}
+                        alt="..."
+                      />
+                    </span> */}
+                    <img
+                      className="inline-block h-10 w-10 rounded-full text-white shadow-solid"
+                      src={`https://api.adorable.io/avatars/100/${
+                        props.address
+                      }.png`}
+                      alt=""
+                    />
+                    <span className="ml-2">
+                      {activity.type === "create-repo"
+                        ? " New Repo Created"
+                        : "Repo Updated"}
+                    </span>
+                  </CardTitle>
+                  <CardText>
                     <Link
                       to={`/app/main/repository/${
                         props.address
@@ -182,14 +191,14 @@ export const DashboardNew = connector(
                         "MM/DD HH:mm"
                       )}
                     </div>
-                  </CardTitle>
-                  <CardText>
-                    {activity.type === "create-repo"
-                      ? activity.value
-                      : `Updated ref ${activity.key} => ${activity.value}`}
+                    <div>
+                      {activity.type === "create-repo"
+                        ? activity.value
+                        : `Updated ref ${activity.key} => ${activity.value}`}
+                    </div>
                   </CardText>
                 </CardBody>
-              </Card>
+              </div>
             </div>
           ))}
         </Col>
@@ -208,13 +217,17 @@ export const DashboardNew = connector(
             <div className="widget-body">
               {props.repositories.map(repository => (
                 <div key={repository.name} className="list-group list-group-lg">
-                  <Link
-                    to={`/app/main/repository/${props.address}/${
-                      repository.name
-                    }`}
-                  >
-                    {repository.name}
-                  </Link>
+                  <span>
+                    <i className="fa fa-code-fork" />
+                    &nbsp;&nbsp;&nbsp;
+                    <Link
+                      to={`/app/main/repository/${props.address}/${
+                        repository.name
+                      }`}
+                    >
+                      {repository.name}
+                    </Link>
+                  </span>
                 </div>
               ))}
             </div>
