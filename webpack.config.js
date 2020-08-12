@@ -74,6 +74,10 @@ const COPY_RULES = [
     to: path.join(__dirname, "dist/landing.html")
   },
   {
+    from: path.join(__dirname, "src/ui/components/argit/script.js"),
+    to: path.join(__dirname, "dist/script.js")
+  },
+  {
     from: path.join(__dirname, "assets/**"),
     to: path.join(__dirname, "dist")
   },

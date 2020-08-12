@@ -7,15 +7,20 @@
   <meta name="Description" content="Editor with git for everyone">
   <meta charset="utf8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="viewport">
-  <meta name="theme-color" content="#000000" />
 
-  <meta name="mobile-web-app-capable" content="no" />
-  <meta name="apple-mobile-web-app-capable" content="no" />
-  <meta name="application-name" content="NextEditor" />
-  <meta name="apple-mobile-web-app-title" content="NextEditor" />
-  <meta name="msapplication-starturl" content="/" />
+
+
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css">
+  <!--Replace with your tailwind.css once created-->
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
   <link rel="preload" href="/main.js" as="text/javascript">
+  <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+  <style>
+    .gradient {
+      background: radial-gradient(farthest-side ellipse at 10% 0, #333867 20%, #17193B);
+    }
+  </style>
   <!-- <style>
     html,
     body {
@@ -35,7 +40,7 @@
   </style> -->
 </head>
 
-<body data-testid="body">
+<body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
   <div class=root>
 
   </div>
@@ -46,6 +51,7 @@
   // relative path from root
   <%= require('fs').readFileSync('./src/_intro.js').toString() %>
   </script>
+
 </body>
 
 </html>

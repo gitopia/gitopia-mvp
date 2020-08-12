@@ -30,8 +30,8 @@
 // }
 // `
 
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
-import "@fortawesome/fontawesome-free/css/fontawesome.min.css"
+// import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+// import "@fortawesome/fontawesome-free/css/fontawesome.min.css"
 import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 import { LoginModal } from "./ui/components/argit/LoginModal"

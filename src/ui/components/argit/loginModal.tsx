@@ -2,6 +2,7 @@ import * as React from "react"
 import { connector } from "../../actionCreators/index"
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
 import Dropzone, { ImageFile } from "react-dropzone"
+// import "./styles/theme.scss"
 
 export const LoginModal = connector(
   state => ({

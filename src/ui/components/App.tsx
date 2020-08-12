@@ -33,6 +33,7 @@ export class App extends React.Component<{}> {
               {/* <ThemeProvider> */}
               {/* <Initializer> */}
               {/* <NavBar /> */}
+              {/* <TailwindLanding /> */}
               <LandingNew />
 
               <LoginModal />
