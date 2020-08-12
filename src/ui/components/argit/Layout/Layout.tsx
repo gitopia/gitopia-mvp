@@ -22,6 +22,7 @@ import { setIsAuthenticated, loadNotifications } from "../../../reducers/argit"
 import { Repositories } from "../Repositories"
 import { StackRouter } from "../../utils/StackRouter"
 import { Commits } from "../commits"
+import PullRequest from "../PullRequest"
 
 export const Layout = connector(
   state => ({
@@ -93,6 +94,11 @@ export const Layout = connector(
                     path="/app/main/repositories"
                     exact
                     render={props => <Repositories {...props} />}
+                  />
+                  <Route
+                    path="/app/main/pulls"
+                    exact
+                    render={props => <PullRequest />}
                   />
 
                   {/* <Route path="/app/icons" exact component={UIIcons} />
