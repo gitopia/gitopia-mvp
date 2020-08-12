@@ -117,7 +117,7 @@ export const LandingNew = connector(
       <section className="bg-white border-b py-8">
         <div className="container max-w-5xl mx-auto m-8">
           <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-            Title
+            What makes us different?
           </h1>
           <div className="w-full mb-4">
             <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t" />
@@ -126,20 +126,15 @@ export const LandingNew = connector(
           <div className="flex flex-wrap">
             <div className="w-5/6 sm:w-1/2 p-6">
               <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
-                Lorem ipsum dolor sit amet
+                Permanent home for your code
               </h3>
               <p className="text-gray-600 mb-8">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                at ipsum eu nunc commodo posuere et sit amet ligula.
+                All your code is stored on the blockchain, so you don't need to
+                rely on any centralized server. Any code stored on the
+                blockchain will never be lost, even when you accidently force
+                push :D
                 <br />
                 <br />
-                Images from:{" "}
-                <a
-                  className="text-orange-500 underline"
-                  href="https://undraw.co/"
-                >
-                  undraw.co
-                </a>
               </p>
             </div>
             <div className="w-full sm:w-1/2 p-6">
@@ -154,23 +149,34 @@ export const LandingNew = connector(
             <div className="w-full sm:w-1/2 p-6 mt-6">
               <div className="align-middle">
                 <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
-                  Lorem ipsum dolor sit amet
+                  Always available for you
                 </h3>
                 <p className="text-gray-600 mb-8">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
+                  All your code is mirrored across the distributed network of
+                  blockchain nodes, so you don't need to rely on a centralized
+                  server.
                   <br />
                   <br />
-                  Images from:{" "}
-                  <a
-                    className="text-orange-500 underline"
-                    href="https://undraw.co/"
-                  >
-                    undraw.co
-                  </a>
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap">
+          <div className="w-5/6 sm:w-1/2 p-6">
+            <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
+              Open Source
+            </h3>
+            <p className="text-gray-600 mb-8">
+              All our code is open source, so trust the code. You can run your
+              own service if you feel adventurous.
+              <br />
+              <br />
+            </p>
+          </div>
+          <div className="w-full sm:w-1/2 p-6">
+            <img src={hero} />
           </div>
         </div>
       </section>
@@ -208,7 +214,7 @@ export const LandingNew = connector(
       </svg>
       <section className="container mx-auto text-center py-6 mb-12">
         <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
-          Call to Action
+          Enough talk, lets try
         </h1>
         <div className="w-full mb-4">
           <div className="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t" />
@@ -218,8 +224,11 @@ export const LandingNew = connector(
           Main Hero Message to sell yourself!
         </h3>
 
-        <button className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg">
-          Action!
+        <button
+          onClick={() => props.openLoginModal({})}
+          className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg"
+        >
+          Login
         </button>
       </section>
 
