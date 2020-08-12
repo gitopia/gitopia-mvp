@@ -8040,7 +8040,7 @@ isomorphic-fetch@^2.1.1:
 
 "isomorphic-git@https://github.com/TheTechTrap/isomorphic-git.git":
   version "0.0.0-development"
-  resolved "https://github.com/TheTechTrap/isomorphic-git.git#10a0fe0cef41a6a9314512bc7538cb8258ba092c"
+  resolved "https://github.com/TheTechTrap/isomorphic-git.git#e022f0ee58e87797f2690a8f51f54c929b9282ad"
   dependencies:
     arweave "^1.8.0"
     async-lock "^1.1.0"

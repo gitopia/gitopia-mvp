@@ -76,7 +76,7 @@ export const StackRouter = connector(
 
       createNewProject({ newProjectRoot })
 
-      const url = `argit://${address}${newProjectRoot}`
+      const url = `dgit://${address}${newProjectRoot}`
       const oid = await getRef(arweave, url, "refs/heads/master")
 
       if (oid !== "0000000000000000000000000000000000000000" && oid !== "") {

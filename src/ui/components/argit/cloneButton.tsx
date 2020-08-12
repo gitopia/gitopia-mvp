@@ -19,7 +19,7 @@ export const CloneButton = connector(
   }),
   actions => ({})
 )(function CloneButtonImpl(props: CloneButtonProps) {
-  const url = `argit://${props.address}${props.projectRoot}`
+  const url = `dgit://${props.address}${props.projectRoot}`
 
   return (
     <>

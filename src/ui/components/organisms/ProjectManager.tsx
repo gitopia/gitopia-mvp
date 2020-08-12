@@ -42,39 +42,6 @@ export const ProjectManager = connector(
       onClickCloneProject={() => {
         props.openCloneRepoModal({})
       }}
-      onClickPushToArweave={async () => {
-        const { projectRoot, address } = props
-        await git.addRemote({
-          fs,
-          dir: projectRoot,
-          remote: "arweave",
-          url: `argit://${address}${projectRoot}`
-        })
-
-        await git.pushToArweave({
-          fs,
-          dir: projectRoot,
-          remote: "arweave",
-          arweave,
-          wallet: JSON.parse(sessionStorage.getItem("keyfile") || "")
-        })
-      }}
-      onClickFetchFromArweave={async () => {
-        const { projectRoot, address } = props
-        await git.addRemote({
-          fs,
-          dir: projectRoot,
-          remote: "arweave",
-          url: `argit://${address}${projectRoot}`
-        })
-
-        await git.fetchFromArweave({
-          fs,
-          dir: projectRoot,
-          remote: "arweave",
-          arweave
-        })
-      }}
       onCloneEnd={projectRoot => {
         props.startProjectRootChanged({ projectRoot })
       }}

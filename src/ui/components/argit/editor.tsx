@@ -105,7 +105,7 @@ export const Editor = connector(
     return null
   }
 
-  const url = `argit://${props.address}${props.projectRoot}`
+  const url = `dgit://${props.address}${props.projectRoot}`
 
   return (
     <Card>
