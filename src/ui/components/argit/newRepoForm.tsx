@@ -48,6 +48,9 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
     console.log(this.checkIfExists(repo.name))
     if (repo.name.trim() === "") {
       errors.name = "Repository Name is required"
+    } else if (/[A-Za-z0-9_.-]*/.test(repo.name)) {
+      errors.name =
+        "Repository name should only include alphanumeric characters, _, . or -"
     } else if (this.checkIfExists(repo.name)) {
       errors.name = "Repository Name already exists"
     } else {
@@ -100,9 +103,7 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
       return
     }
 
-    // PST Fee handling
-
-    await arweave.transactions.post(tx) // Post transaction
+    // await arweave.transactions.post(tx) // Post transaction
 
     this.setState({ transactionLoading: false }) // Set loading status to false
     this.props.closeCreateRepoModal({})
