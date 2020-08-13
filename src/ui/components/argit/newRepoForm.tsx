@@ -103,7 +103,7 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
       return
     }
 
-    // await arweave.transactions.post(tx) // Post transaction
+    await arweave.transactions.post(tx) // Post transaction
 
     this.setState({ transactionLoading: false }) // Set loading status to false
     this.props.closeCreateRepoModal({})
