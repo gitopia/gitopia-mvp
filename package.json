@@ -1,7 +1,7 @@
 {
   "name": "dgit",
   "author": "Tech Trap LLP",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "scripts": {
     "watch": "webpack-serve --no-reload --port 8099",

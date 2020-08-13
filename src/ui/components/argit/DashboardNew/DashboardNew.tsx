@@ -16,15 +16,7 @@ import {
 } from "../../../reducers/argit"
 import { openCreateRepoModal } from "../../../reducers/app"
 import { txQuery, getAllActivities } from "../../../../utils"
-import {
-  Row,
-  Col,
-  Progress,
-  Card,
-  CardBody,
-  CardTitle,
-  CardText
-} from "reactstrap"
+import { Row, Col, Progress, Card, CardBody, CardTitle, div } from "reactstrap"
 import s from "./DashboardNew.module.scss"
 import Widget from "../Widget/Widget"
 import AnimateNumber from "react-animated-number"
@@ -72,7 +64,7 @@ export const DashboardNew = connector(
 
         const activities = await getAllActivities(arweave, address)
         actions.loadActivities({ activities })
-
+        console.log(activities)
         const txids = await arweave.arql(txQuery(address, "create-repo"))
         let notifications: Notification[] = []
         let completed_txids: String[] = []
@@ -138,7 +130,6 @@ export const DashboardNew = connector(
     }
   })
 )(function DashboardNew(props) {
-  console.log(props.repositories)
   return (
     <div className={s.root}>
       <h1 className="page-title">
@@ -177,7 +168,7 @@ export const DashboardNew = connector(
                         : "Repo Updated"}
                     </span>
                   </CardTitle>
-                  <CardText>
+                  <div>
                     <Link
                       to={`/app/main/repository/${
                         props.address
@@ -196,7 +187,7 @@ export const DashboardNew = connector(
                         ? activity.value
                         : `Updated ref ${activity.key} => ${activity.value}`}
                     </div>
-                  </CardText>
+                  </div>
                 </CardBody>
               </div>
             </div>

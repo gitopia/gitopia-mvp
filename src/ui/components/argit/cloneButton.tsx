@@ -26,7 +26,11 @@ export const CloneButton = connector(
       <Button color="primary" id="Popover1" type="button">
         Clone
       </Button>
-      <UncontrolledPopover placement="bottom" trigger="focus" target="Popover1">
+      <UncontrolledPopover
+        placement="bottom"
+        trigger="legacy"
+        target="Popover1"
+      >
         <PopoverHeader>Clone with argit</PopoverHeader>
         <PopoverBody>dgit clone "{url}"</PopoverBody>
       </UncontrolledPopover>

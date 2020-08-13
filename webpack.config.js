@@ -70,10 +70,6 @@ const COPY_RULES = [
     to: path.join(__dirname, "/dist/image.jpg")
   },
   {
-    from: path.join(__dirname, "assets/landing.html"),
-    to: path.join(__dirname, "dist/landing.html")
-  },
-  {
     from: path.join(__dirname, "assets/**"),
     to: path.join(__dirname, "dist")
   },

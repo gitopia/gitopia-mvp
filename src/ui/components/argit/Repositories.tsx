@@ -70,7 +70,6 @@ export const Repositories = connector(
               // if (typeof data === "object") {
               //   console.log(new TextDecoder("utf-8").decode(data))
               // }
-              console.log(typeof data, "data", txid)
               if (typeof data === "string" && data !== "") {
                 const decoded: any = JSON.parse(data)
                 repository = {
@@ -89,11 +88,9 @@ export const Repositories = connector(
                 }
                 completed_txids.push(txid)
               } else {
-                console.log(typeof data, data)
                 throw new Error("Pendng Transaction")
               }
             } catch (error) {
-              console.log(error, "err")
               repository = {
                 name: "Pending",
                 txid: txid,
@@ -108,7 +105,6 @@ export const Repositories = connector(
             }
 
             if (!repository) {
-              console.log(repository, "repo")
               repository = {
                 txid: txid,
                 description: "Pending",
@@ -163,7 +159,7 @@ export const Repositories = connector(
         <tbody>
           {props.repositories &&
             props.repositories.map(repository => (
-              <tr key={repository.txid}>
+              <tr key={repository.name}>
                 <td>
                   <Link
                     to={`/app/main/repository/${props.address}/${
