@@ -43,12 +43,12 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
   }
 
   validate = () => {
-    const errors = { name: "" }
+    let errors = { name: "" }
     const { repo } = this.state
     console.log(this.checkIfExists(repo.name))
     if (repo.name.trim() === "") {
       errors.name = "Repository Name is required"
-    } else if (/[A-Za-z0-9_.-]*/.test(repo.name)) {
+    } else if (!/[A-Za-z0-9_.-]*/.test(repo.name)) {
       errors.name =
         "Repository name should only include alphanumeric characters, _, . or -"
     } else if (this.checkIfExists(repo.name)) {

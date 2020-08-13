@@ -241,7 +241,7 @@ module.exports = {
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
-        cache: false,
+        cache: true,
         parallel: true,
         sourceMap: false // set to true if you want JS source maps
       }),
