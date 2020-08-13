@@ -40,6 +40,8 @@
 
 <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
   <div class=root>
+    <div class="content-skeleton"></div>
+
 
   </div>
   <script nomodule type=text/javascript>
@@ -47,7 +49,37 @@
   </script>
   <script type=module>
   // relative path from root
-  <%= require('fs').readFileSync('./src/_intro.js').toString() %>
+  const IS_LOCALHOST = location.href.indexOf("localhost") > -1
+const USE_SW = !IS_LOCALHOST
+
+console.log(USE_SW)
+
+;(async () => {
+  try {
+    // SW
+    if (USE_SW) {
+      console.time("loading:sw")
+
+      // start sw handling
+    
+
+      // start sw check
+
+      console.timeEnd("loading:sw")
+    }
+
+    // Plugin namespace
+    window.NEPlugins = {}
+
+    console.time("loading:main")
+    await import(/* webpackIgnore: true */ "./main.js")
+    console.timeEnd("loading:main")
+  } catch (e) {
+    console.log(e)
+    // TODO: Show restore guide
+  }
+})()
+
   </script>
 
 </body>

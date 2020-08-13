@@ -2,11 +2,11 @@ import React, { Component } from "react"
 import { Link } from "react-router-dom"
 // import Repository from "../repository";
 import Input from "../../../ui/components/utils/input"
-import Arweave from "arweave/web" // Arweave
 import { Repository as Repo } from "../../../ui/reducers/argit"
 import { closeCreateRepoModal } from "../../reducers/app"
 // import NewRepoForm from "./newRepoForm"
 import { updateRepositories } from "../../reducers/argit"
+import { arweave } from "../../../index"
 
 type NewRepoFormProps = {
   address: string
@@ -66,7 +66,6 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
     this.setState({ transactionLoading: true })
 
     const { name, description } = this.state.repo
-    const arweave = Arweave.init({})
     let wallet = JSON.parse(sessionStorage.getItem("keyfile"))
     const data = JSON.stringify({
       name: name,
