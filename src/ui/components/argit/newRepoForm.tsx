@@ -43,20 +43,21 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
   }
 
   validate = () => {
-    let errors = { name: "" }
+    const errors = { name: "" }
     const { repo } = this.state
-    console.log(this.checkIfExists(repo.name))
     if (repo.name.trim() === "") {
       errors.name = "Repository Name is required"
-    } else if (!/[A-Za-z0-9_.-]*/.test(repo.name)) {
+    }
+    if (!/^[A-Za-z0-9_.-]*$/.test(repo.name)) {
       errors.name =
         "Repository name should only include alphanumeric characters, _, . or -"
-    } else if (this.checkIfExists(repo.name)) {
+    }
+    if (this.checkIfExists(repo.name)) {
       errors.name = "Repository Name already exists"
-    } else {
+    }
+    if (errors.name == "") {
       return null
     }
-    console.log(errors)
     return errors
   }
 
@@ -141,8 +142,7 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
     const { repo, errors } = this.state
     return (
       <div>
-        <h2>Create Project</h2>
-        <p>Create a new Repository to the local fs and arweave</p>
+        <h2>Create Repository</h2>
         <br />
         <form onSubmit={this.handleSubmit}>
           <Input

@@ -44,7 +44,7 @@ export const CreateRepoModal = connector(
         closeModal({})
       }}
     >
-      <ModalHeader toggle={closeModal}>Login</ModalHeader>
+      <ModalHeader toggle={closeModal} />
 
       <ModalBody>
         <NewRepoForm
