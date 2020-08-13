@@ -108,7 +108,7 @@ export const Editor = connector(
   const url = `dgit://${props.address}${props.projectRoot}`
 
   return (
-    <Card>
+    <div className="card-dgit">
       <CardBody>
         <h1>Repository is empty!</h1>
         <p>
@@ -122,6 +122,6 @@ export const Editor = connector(
           dgit push origin master
         </code>
       </CardBody>
-    </Card>
+    </div>
   )
 })
