@@ -8113,7 +8113,7 @@ isomorphic-fetch@^2.1.1:
 
 "isomorphic-git@https://github.com/TheTechTrap/dgit-cli.git":
   version "0.0.0-development"
-  resolved "https://github.com/TheTechTrap/dgit-cli.git#9b1fe518b46190883aeae491c861e25dee6b0274"
+  resolved "https://github.com/TheTechTrap/dgit-cli.git#4cbce9c3e1e96731143b39d42b04e32e96aff813"
   dependencies:
     arweave "^1.8.0"
     async-lock "^1.1.0"
