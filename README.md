@@ -1,6 +1,6 @@
 # d**git** - web
 
-[Permaweb link](https://arweave.net/CvDtHEdfFLjceZFS9wO9russvfBsAxYZGDl42j8Yey8)
+[Permaweb link](https://arweave.net/H8h680dQsBnnY0EZFw72O-TPGuObdOzRHpXnAChc4pI)
 
 ## Steps to Install
 - `git clone https://github.com/TheTechTrap/dgit.git` 
