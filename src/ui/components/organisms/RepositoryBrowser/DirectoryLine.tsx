@@ -183,7 +183,7 @@ const DirectoryLineContent: React.ComponentClass<
               }}
             >
               <div style={{ display: "flex", flexDirection: "row" }}>
-                <div style={{ flex: 1 }}>
+                <div style={{ display: "inline-flex" }}>
                   <Prefix depth={depth} />
                   {opened ? (
                     <Icon icon="folder-open" />
@@ -195,35 +195,6 @@ const DirectoryLineContent: React.ComponentClass<
                     {basename || `${dirpath}`}
                   </Pathname>
                 </div>
-                {this.state.hovered && (
-                  <HoveredMenu
-                    root={root}
-                    basename={basename}
-                    dirpath={dirpath}
-                    onClickFile={event => {
-                      event.stopPropagation()
-                      this.setState({ opened: true }, () => {
-                        this.props.startFileCreating({
-                          fileCreatingDir: dirpath
-                        })
-                      })
-                    }}
-                    onClickDir={event => {
-                      event.stopPropagation()
-                      this.setState({ opened: true }, () => {
-                        this.props.startDirCreating({
-                          dirCreatingDir: dirpath
-                        })
-                      })
-                    }}
-                    onClickRemove={event => {
-                      event.stopPropagation()
-                      if (window.confirm(`Confirm: delete ${dirpath}`)) {
-                        this.props.deleteDirectory({ dirpath })
-                      }
-                    }}
-                  />
-                )}
               </div>
             </Draggable>
             {opened && (

@@ -93,6 +93,7 @@ export const FileLine: React.ComponentType<OwnProps> = connector(
       >
         <Container selected={editingFilepath === filepath}>
           <div
+            style={{ display: "inline-flex" }}
             onClick={() => {
               props.loadFile({ filepath })
               if (props.isMobile) {
