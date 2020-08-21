@@ -1,8 +1,8 @@
-import * as React from "react"
+import React, { useState } from "react"
 import { connector } from "../../actionCreators/index"
 import { ReadCommitResult } from "../../../domain/types"
 import Widget from "./Widget/Widget"
-import { Table } from "reactstrap"
+import { Button, Table } from "reactstrap"
 import format from "date-fns/format"
 
 type CommitsProps = {
@@ -17,7 +17,10 @@ export const Commits = connector(
   }),
   actions => ({})
 )(function CommitsImpl(props: CommitsProps) {
-  console.log(props.history)
+  const [offset, setOffset] = useState(0)
+  const numCommits = 15
+  const commits = props.history.slice(offset, offset + numCommits)
+
   return (
     <Widget
       title={
@@ -29,7 +32,7 @@ export const Commits = connector(
       <div className="table-responsive">
         <Table>
           <tbody>
-            {props.history.map(description => (
+            {commits.map(description => (
               <tr key={description.oid}>
                 <td>{description.oid}</td>
                 <td>
@@ -45,6 +48,20 @@ export const Commits = connector(
           </tbody>
         </Table>
       </div>
+      {offset - numCommits >= 0 && (
+        <Button color="primary" onClick={() => setOffset(offset - numCommits)}>
+          Newer
+        </Button>
+      )}
+      {offset + numCommits < props.history.length && (
+        <Button
+          className="float-right"
+          color="primary"
+          onClick={() => setOffset(offset + numCommits)}
+        >
+          Older
+        </Button>
+      )}
     </Widget>
   )
 })
