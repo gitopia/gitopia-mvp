@@ -5,7 +5,8 @@ import Arweave from "arweave/web"
 export const arweave = Arweave.init({
   host: "arweave.net",
   port: 443,
-  protocol: "https"
+  protocol: "https",
+  timeout: 300000
 })
 
 run()
