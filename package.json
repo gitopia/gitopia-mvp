@@ -67,7 +67,7 @@
     "postcss-preset-env": "^6.7.0",
     "power-assert": "1.6.1",
     "prettier": "1.14.3",
-    "puppeteer": "1.8.0",
+    "puppeteer": "1.13.0",
     "react-test-renderer": "16.5.2",
     "rimraf": "2.6.2",
     "sass": "^1.26.10",
