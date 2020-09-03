@@ -1,10 +1,7 @@
-import { Button, ButtonGroup, Card } from "@blueprintjs/core"
+import { Card } from "@blueprintjs/core"
 import React from "react"
 import { lifecycle } from "recompose"
 import { connector } from "../../actionCreators"
-import { arweave } from "../../../index"
-import * as git from "isomorphic-git"
-import fs from "fs"
 
 export const ProjectManager = connector(
   state => {

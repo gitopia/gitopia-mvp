@@ -1,11 +1,7 @@
 import React from "react"
-import { ListGroup, ListGroupItem, Button } from "reactstrap"
-
-import s from "./ListGroup.module.scss"
-
-import a3 from "../../images/people/a3.jpg"
-import a5 from "../../images/people/a5.jpg"
+import { ListGroup, ListGroupItem } from "reactstrap"
 import { Notification } from "../../../../reducers/argit"
+import s from "./ListGroup.module.scss"
 
 export interface ConfirmedProps {
   notifications: Notification[]

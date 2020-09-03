@@ -3,22 +3,16 @@ import {
   Button,
   Classes,
   Menu,
-  MenuDivider,
   MenuItem,
   Navbar,
   NavbarDivider,
   NavbarGroup,
-  NavbarHeading,
-  Popover,
-  Position
+  NavbarHeading
 } from "@blueprintjs/core"
 import React from "react"
 import styled from "styled-components"
 import { connector } from "../../actionCreators"
 import { NavigatorTitle } from "../atoms/NavgatorTitle"
-import { LoginModal } from "../argit/LoginModal"
-import { openLoginModal } from "../../reducers/argit"
-import { updateBranchStatus } from "../../reducers/git"
 
 export const GlobalHeader = connector(
   state => ({
@@ -43,35 +37,8 @@ export const GlobalHeader = connector(
           <NavigatorTitle networkOnline={props.networkOnline} />
         </NavbarHeading>
         <NavbarDivider />
-
-        {/* <Popover
-          content={<RepositoryMenu />}
-          position={Position.BOTTOM_LEFT}
-          minimal={true}
-          lazy={false}
-        >
-          <Button className="bp3-minimal" icon="projects" text="Repository" />
-        </Popover>
-
-        <Popover
-          content={<ViewMenu />}
-          position={Position.BOTTOM_LEFT}
-          minimal={true}
-          lazy={false}
-        >
-          <Button className="bp3-minimal" icon="grid-view" text="View" />
-        </Popover> */}
       </NavbarGroup>
 
-      {/* <NavbarGroup align={Alignment.RIGHT} style={sharedNavbarStyle}>
-        <Button
-          className="bp3-minimal"
-          icon="cog"
-          onClick={() => {
-            props.pushScene({ nextScene: "config" })
-          }}
-        />
-      </NavbarGroup> */}
       {props.isAuthenticated ? (
         <NavbarGroup align={Alignment.RIGHT} style={sharedNavbarStyle}>
           <Button

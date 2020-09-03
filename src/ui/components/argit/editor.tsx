@@ -1,16 +1,14 @@
-import * as React from "react"
-import { connector } from "../../actionCreators/index"
-import { lifecycle } from "recompose"
 import path from "path"
+import * as React from "react"
 import AceEditor from "react-ace"
-import { Table, Card, CardBody } from "reactstrap"
-import { ThemeToggleButton } from "./themeToggleButton"
+import { CardBody } from "reactstrap"
+import { lifecycle } from "recompose"
 import { ReadCommitResult } from "../../../domain/types"
-
+import { connector } from "../../actionCreators/index"
+import { ThemeToggleButton } from "./themeToggleButton"
+import "ace-builds/src-noconflict/mode-jsx"
 import "ace-builds/src-noconflict/theme-github"
 import "ace-builds/src-noconflict/theme-monokai"
-import "ace-builds/src-noconflict/mode-jsx"
-
 const languages = [
   "javascript",
   "java",

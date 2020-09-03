@@ -1,15 +1,8 @@
 import * as React from "react"
-
-// import "./LandingNew.css"
-import "./styles/theme.scss"
-
-// import { Button, Navbar, Alignment } from "@blueprintjs/core"
-import { connector } from "../../actionCreators/index"
-import { Layout } from "./Layout/Layout"
-import { HashRouter } from "react-router-dom"
-import { Route, Switch, Redirect } from "react-router-dom"
 import { lifecycle } from "recompose"
+import { connector } from "../../actionCreators/index"
 import LandingNew from "./LandingNew"
+import "./styles/theme.scss"
 import TailwindLanding from "./TailwindLanding"
 
 export const MainApp = connector(

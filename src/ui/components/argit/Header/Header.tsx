@@ -1,47 +1,27 @@
+import "animate.css"
 import * as React from "react"
-import { Component } from "react"
-import { withRouter } from "react-router"
 import {
-  Navbar,
-  Nav,
-  NavItem,
-  NavLink,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Input,
-  UncontrolledAlert,
-  Dropdown,
-  Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   Badge,
-  ButtonGroup,
-  Button,
-  Form,
-  FormGroup
+  Dropdown,
+  DropdownMenu,
+  DropdownToggle,
+  Nav,
+  Navbar,
+  NavItem,
+  NavLink
 } from "reactstrap"
 import {
-  openSidebar,
-  closeSidebar,
+  loadNotifications,
+  setIsAuthenticated,
+  updateRepositories
+} from "../../../reducers/argit"
+import {
   changeSidebarPosition,
   changeSidebarVisibility
 } from "../../../reducers/navigation"
-import s from "./Header.module.scss"
-import "animate.css"
-import sender1 from "../images/1.png"
-import sender2 from "../images/2.png"
-import sender3 from "../images/3.png"
-
 import Notifications from "../Notifications/Notifications"
+import s from "./Header.module.scss"
 
-import {
-  setIsAuthenticated,
-  updateRepositories,
-  loadNotifications,
-  Notification
-} from "../../../reducers/argit"
 type HeaderProps = {
   dispatch: any
   sidebarPosition: string
@@ -73,21 +53,16 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     searchFocused: false,
     searchOpen: false,
     notificationsOpen: false
-    // accountOpen: false
   }
-
-  // import { logoutUser } from '../../actions/user';
 
   constructor(props: HeaderProps) {
     super(props)
 
-    // this.doLogout = this.doLogout.bind(this)
     this.onDismiss = this.onDismiss.bind(this)
     this.toggleMessagesDropdown = this.toggleMessagesDropdown.bind(this)
     this.toggleSupportDropdown = this.toggleSupportDropdown.bind(this)
     this.toggleSettingsDropdown = this.toggleSettingsDropdown.bind(this)
-    // this.toggleAccountDropdown = this.toggleAccountDropdown.bind(this)
-    // this.toggleSidebar = this.toggleSidebar.bind(this)
+
     this.toggleSearchOpen = this.toggleSearchOpen.bind(this)
   }
 
@@ -100,10 +75,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   onDismiss() {
     this.setState({ visible: false })
   }
-
-  // doLogout() {
-  //   this.props.dispatch(logoutUser())
-  // }
 
   toggleMessagesDropdown() {
     this.setState({
@@ -135,12 +106,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     })
   }
 
-  // toggleSidebar() {
-  //   props.isSidebarOpened
-  //     ? this.props.dispatch(closeSidebar())
-  //     : this.props.dispatch(openSidebar())
-  // }
-
   moveSidebar(position) {
     this.props.dispatch(changeSidebarPosition(position))
   }
@@ -152,21 +117,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   render() {
     return (
       <Navbar className={`d-print-none ${s.root}`}>
-        {/* <UncontrolledAlert
-          className={`${
-            s.alert
-          } mr-3 d-lg-down-none animate__animated animate__bounceIn animate__delay-1s`}
-        >
-          <i className="fa fa-info-circle mr-1" /> Check out dgit{" "}
-          <button
-            className="btn-link"
-            onClick={() => this.setState({ settingsOpen: true })}
-          >
-            settings
-          </button>{" "}
-          on the right!
-        </UncontrolledAlert> */}
-
         <Nav className="ml-md-0 d-flex nav-responsive">
           <Dropdown
             nav

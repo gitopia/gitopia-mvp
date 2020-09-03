@@ -1,11 +1,11 @@
 import * as React from "react"
-import { connector } from "../../actionCreators/index"
 import {
   Button,
-  UncontrolledPopover,
+  PopoverBody,
   PopoverHeader,
-  PopoverBody
+  UncontrolledPopover
 } from "reactstrap"
+import { connector } from "../../actionCreators/index"
 
 type CloneButtonProps = {
   address: string

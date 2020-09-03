@@ -1,7 +1,6 @@
+import * as React from "react"
 import { Breadcrumb, BreadcrumbItem } from "reactstrap"
 import { v4 as uuid } from "uuid"
-import * as React from "react"
-import { Component } from "react"
 
 export interface BreadcrumbHistoryProps {
   url: string

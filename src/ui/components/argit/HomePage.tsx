@@ -1,17 +1,8 @@
+import { Button } from "@blueprintjs/core"
 import * as React from "react"
-import { Link } from "react-router-dom"
 import { connector } from "../../actionCreators/index"
-import { lifecycle } from "recompose"
-import { arweave } from "../../../index"
 import "./HomePage.css"
 
-import {
-  Repository,
-  setIsAuthenticated,
-  loadAddress,
-  updateRepositories
-} from "../../reducers/argit"
-import { Button } from "@blueprintjs/core"
 export const HomePage = connector(
   state => ({
     isAuthenticated: state.argit.isAuthenticated

@@ -1,14 +1,12 @@
-import { ButtonGroup, Button } from "reactstrap"
 import classnames from "classnames"
-import Confirmed from "./notifications-demo/Confirmed"
-import NewNotificationsDemo from "./notifications-demo/NewNotifications"
-import MessagesDemo from "./notifications-demo/Messages"
-import Pending from "./notifications-demo/Pending"
-
-import s from "./Notifications.module.scss"
 import * as React from "react"
-import { Component } from "react"
+import { Button, ButtonGroup } from "reactstrap"
 import { loadNotifications, Notification } from "../../../reducers/argit"
+import Confirmed from "./notifications-demo/Confirmed"
+import MessagesDemo from "./notifications-demo/Messages"
+import NewNotificationsDemo from "./notifications-demo/NewNotifications"
+import Pending from "./notifications-demo/Pending"
+import s from "./Notifications.module.scss"
 
 export interface NotificationsProps {
   loadNotifications: typeof loadNotifications
@@ -93,16 +91,7 @@ class Notifications extends React.Component<
             >
               Confirmed
             </Button>
-            {/* <Button
-              outline
-              color="default"
-              size="sm"
-              className={s.notificationButton}
-              onClick={() => this.changeNotificationsTab(2)}
-              active={this.state.notificationsTabSelected === 2}
-            >
-              Messages
-            </Button> */}
+
             <Button
               outline
               color="default"

@@ -1,25 +1,24 @@
+import { format } from "date-fns"
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { connector } from "../../../actionCreators/index"
+import { CardBody, CardTitle, Col, Row } from "reactstrap"
 import { lifecycle } from "recompose"
 import { arweave } from "../../../../index"
-import { format } from "date-fns"
+import { getAllActivities, txQuery } from "../../../../utils"
+import { connector } from "../../../actionCreators/index"
+import { openCreateRepoModal } from "../../../reducers/app"
 import {
-  Repository,
-  setIsAuthenticated,
+  Activity,
+  loadActivities,
   loadAddress,
-  updateRepositories,
   loadNotifications,
   Notification,
-  loadActivities,
-  Activity
+  Repository,
+  setIsAuthenticated,
+  updateRepositories
 } from "../../../reducers/argit"
-import { openCreateRepoModal } from "../../../reducers/app"
-import { txQuery, getAllActivities } from "../../../../utils"
-import { Row, Col, Progress, Card, CardBody, CardTitle, div } from "reactstrap"
-import s from "./DashboardNew.module.scss"
 import Widget from "../Widget/Widget"
-import AnimateNumber from "react-animated-number"
+import s from "./DashboardNew.module.scss"
 
 type ConnectedProps = {
   isAuthenticated: boolean
@@ -76,10 +75,6 @@ export const DashboardNew = connector(
                 decode: true,
                 string: true
               })
-
-              // if (typeof data === "object") {
-              //   console.log(new TextDecoder("utf-8").decode(data))
-              // }
 
               const decoded: any = JSON.parse(data)
               repository = {

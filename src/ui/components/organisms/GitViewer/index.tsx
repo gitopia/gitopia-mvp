@@ -76,22 +76,6 @@ export const GitViewer = connector(
             onChangeBranch={async (branchName: string) => {
               // TODO Confirm
               await props.moveToBranch({ projectRoot, branch: branchName })
-              // if (statusMatrix) {
-              //   const data = buildGroupedGitStatus(staging)
-              //   if (data.hasStaged || data.hasModified) {
-              //     const checked = window.confirm(
-              //       `You have staged or modified changes.Checkout really?`
-              //     )
-              //     if (checked) {
-              //       await props.moveToBranch({
-              //         projectRoot,
-              //         branch: branchName
-              //       })
-              //     }
-              //   } else {
-              //     await props.moveToBranch({ projectRoot, branch: branchName })
-              //   }
-              // }
             }}
             onClickCreateBranch={async (newBranchName: string) => {
               await props.checkoutNewBranch({

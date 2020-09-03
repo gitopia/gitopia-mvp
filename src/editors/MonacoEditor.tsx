@@ -1,6 +1,5 @@
 // from react-monaco-editor
 import * as monaco from "monaco-editor"
-import PropTypes from "prop-types"
 import React from "react"
 
 function noop() {
@@ -150,16 +149,3 @@ export default class MonacoEditor extends React.Component<any, any> {
     )
   }
 }
-
-// MonacoEditor.propTypes = {
-//   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//   value: PropTypes.string,
-//   defaultValue: PropTypes.string,
-//   language: PropTypes.string,
-//   theme: PropTypes.string,
-//   options: PropTypes.object,
-//   editorDidMount: PropTypes.func,
-//   editorWillMount: PropTypes.func,
-//   onChange: PropTypes.func
-// }

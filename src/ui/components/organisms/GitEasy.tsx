@@ -8,7 +8,6 @@ import * as Parser from "../../../domain/git/queries/parseStatusMatrix"
 import { connector } from "../../actionCreators"
 import { toast } from "../utils/toast"
 import { GitBriefHistory } from "./GitBriefHistory"
-import Octokit from "@octokit/rest"
 
 // This is example reference
 export const GitEasy = connector(

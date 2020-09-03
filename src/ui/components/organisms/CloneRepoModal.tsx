@@ -115,11 +115,6 @@ class ModalContent extends React.Component<
                 }
               }}
             />
-            {/* {typeof this.state.depth === "number" && (
-              <NumericInput value={this.state.depth} onChange={() => {
-                ev.
-              }} disabled={true} />
-            )} */}
           </label>
         </div>
 

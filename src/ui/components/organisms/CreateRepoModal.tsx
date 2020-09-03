@@ -1,13 +1,10 @@
-import { Button, Classes, Dialog } from "@blueprintjs/core"
-import path from "path"
+import { Button } from "@blueprintjs/core"
 import React from "react"
-import { connector } from "../../actionCreators"
-import { Repositories } from "../argit/Repositories"
-import NewRepoForm from "../argit/newRepoForm"
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { Repository } from "../../../ui/reducers/argit"
+import { connector } from "../../actionCreators"
 import { closeCreateRepoModal } from "../../reducers/app"
-import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap"
-import { updateRepositories } from "../../reducers/navigation"
+import NewRepoForm from "../argit/newRepoForm"
 
 // This is example reference
 export const CreateRepoModal = connector(
@@ -60,38 +57,6 @@ export const CreateRepoModal = connector(
         </Button>
       </ModalFooter>
     </Modal>
-    // <Dialog
-    //   autoFocus
-    //   canEscapeKeyClose
-    //   isOpen={openedCreateRepoModal}
-    //   onClose={() => {
-    //     closeModal({})
-    //   }}
-    // >
-    //   <div className={Classes.DIALOG_BODY}>
-    //     <ModalContent
-    //       address={address}
-    //       repositories={repositories}
-    //       closeCreateRepoModal={closeModal}
-    //       onConfirm={async projectRoot => {
-    //         const newProjectRoot = path.join("/", projectRoot)
-
-    //         createNewProject({ newProjectRoot })
-    //         // TODO: fix it
-
-    //         await new Promise(r => setTimeout(r, 500))
-    //         props.loadProjectList({})
-
-    //         startProjectRootChanged({
-    //           projectRoot: newProjectRoot
-    //         })
-    //       }}
-    //     />
-    //   </div>
-    //   <div className={Classes.DIALOG_FOOTER}>
-    //     <Button text="cancel" onClick={() => closeModal({})} />
-    //   </div>
-    // </Dialog>
   )
 })
 
@@ -119,25 +84,6 @@ class ModalContent extends React.Component<
           repositories={this.props.repositories}
           closeCreateRepoModal={this.props.closeCreateRepoModal}
         />
-        {/* <h2>Create Project</h2>
-        <p>Create a new Repository to the local fs and arweave</p>
-        <div>
-          <input
-            spellCheck={false}
-            style={{ width: "100%" }}
-            value={this.state.newProjectRoot}
-            onChange={event => {
-              const value = event.target.value
-              this.setState({ newProjectRoot: value })
-            }}
-          />
-        </div>
-        <Button
-          disabled={this.state.newProjectRoot.length === 0}
-          icon="confirm"
-          text="create"
-          onClick={() => this.props.onConfirm(this.state.newProjectRoot)}
-        /> */}
       </>
     )
   }

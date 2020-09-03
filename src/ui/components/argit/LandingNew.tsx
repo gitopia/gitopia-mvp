@@ -1,25 +1,11 @@
 import * as React from "react"
-import bgs1 from "./../../../../assets/bg-showcase-1.jpg"
-import bgs2 from "./../../../../assets/bg-showcase-2.jpg"
-import bgs3 from "./../../../../assets/bg-showcase-3.jpg"
-import t1 from "./../../../../assets/testimonials-1.jpg"
-import t2 from "./../../../../assets/testimonials-2.jpg"
-import t3 from "./../../../../assets/testimonials-3.jpg"
-// import "./LandingNew.css"
-import "./styles/theme.scss"
-import hero from "../argit/images/hero.svg"
-import heromain from "../argit/images/heromain.svg"
-import hero2 from "../argit/images/hero2.svg"
-
-// import { Button, Navbar, Alignment } from "@blueprintjs/core"
+import { HashRouter, Redirect, Route, Switch } from "react-router-dom"
 import { connector } from "../../actionCreators/index"
-import { DashboardNew } from "./DashboardNew"
+import hero from "../argit/images/hero.svg"
+import hero2 from "../argit/images/hero2.svg"
+import heromain from "../argit/images/heromain.svg"
 import { Layout } from "./Layout/Layout"
-import { HashRouter } from "react-router-dom"
-import { Route, Switch, Redirect } from "react-router-dom"
-import { StackRouter } from "../utils/StackRouter"
-import { lifecycle } from "recompose"
-import { Button } from "reactstrap"
+import "./styles/theme.scss"
 
 export const LandingNew = connector(
   state => ({
@@ -36,11 +22,6 @@ export const LandingNew = connector(
           <Route path="/app" exact render={() => <Redirect to="/app/main" />} />
           <Route path="/app" render={(props: any) => <Layout {...props} />} />
           <Redirect from="*" to="/app/main/dashboard" />
-          {/* <Route
-            exact
-            path="/:wallet_address/:repo_name"
-            component={StackRouter}
-          /> */}
         </Switch>
       </HashRouter>
     )
@@ -55,9 +36,6 @@ export const LandingNew = connector(
       <div className="pt-24">
         <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
           <div className="flex flex-col w-full md:w-2/5  text-center md:text-left">
-            {/* <p className="uppercase tracking-loose w-full">
-              What business are you?
-            </p> */}
             <h1 className="mx-12 my-3 text-6xl font-bold leading-tight">
               <span className="font-hairline">d</span>
               <span className="font-extrabold">git</span>

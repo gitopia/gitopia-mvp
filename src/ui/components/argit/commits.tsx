@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import { connector } from "../../actionCreators/index"
-import { ReadCommitResult } from "../../../domain/types"
-import Widget from "./Widget/Widget"
-import { Button, Table } from "reactstrap"
 import format from "date-fns/format"
+import React, { useState } from "react"
+import { Button, Table } from "reactstrap"
+import { ReadCommitResult } from "../../../domain/types"
+import { connector } from "../../actionCreators/index"
+import Widget from "./Widget/Widget"
 
 type CommitsProps = {
   currentBranch: string

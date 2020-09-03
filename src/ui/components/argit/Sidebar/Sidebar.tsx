@@ -1,15 +1,11 @@
-import React from "react"
 import cx from "classnames"
-import PropTypes from "prop-types"
-import { connect } from "react-redux"
-import { Progress, Alert } from "reactstrap"
+import React from "react"
 import { Link } from "react-router-dom"
-import s from "./Sidebar.module.scss"
-import LinksGroup from "./LinksGroup/LinksGroup"
-
-import { changeActiveSidebarItem } from "../../../reducers/navigation"
-import { connector } from "../../../actionCreators/index"
 import { lifecycle } from "recompose"
+import { connector } from "../../../actionCreators/index"
+import { changeActiveSidebarItem } from "../../../reducers/navigation"
+import LinksGroup from "./LinksGroup/LinksGroup"
+import s from "./Sidebar.module.scss"
 
 export interface SidebarProps {
   sidebarOpened: boolean

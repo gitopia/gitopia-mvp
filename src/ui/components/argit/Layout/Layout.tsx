@@ -1,28 +1,17 @@
-import * as React from "react"
-import { connector } from "../../../actionCreators/index"
-import { Switch, Route, withRouter, Redirect } from "react-router-dom"
-import { TransitionGroup, CSSTransition } from "react-transition-group"
 import Hammer from "rc-hammerjs"
-// import "../styles/theme.scss"
-
-// import UIIcons from "../../pages/components/icons";
-// import UINotifications from "../../pages/notifications";
-// import TablesStatic from "../../pages/tables/static";
-// import MapsGoogle from "../../pages/components/maps/google";
-// import CoreTypography from "../../pages/typography";
-// import Charts from "../../pages/components/charts/Charts";
-
-import Header from "../Header/Header"
-import { Sidebar } from "../Sidebar/Sidebar"
-import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory"
-import { openSidebar, closeSidebar } from "../../../reducers/navigation"
-import s from "./Layout.module.scss"
-import { DashboardNew } from "../DashboardNew/DashboardNew"
-import { setIsAuthenticated, loadNotifications } from "../../../reducers/argit"
-import { Repositories } from "../Repositories"
+import * as React from "react"
+import { Redirect, Route, Switch } from "react-router-dom"
+import { CSSTransition, TransitionGroup } from "react-transition-group"
+import { connector } from "../../../actionCreators/index"
 import { StackRouter } from "../../utils/StackRouter"
+import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory"
 import { Commits } from "../commits"
+import { DashboardNew } from "../DashboardNew/DashboardNew"
+import Header from "../Header/Header"
 import PullRequest from "../PullRequest"
+import { Repositories } from "../Repositories"
+import { Sidebar } from "../Sidebar/Sidebar"
+import s from "./Layout.module.scss"
 
 export const Layout = connector(
   state => ({
@@ -57,8 +46,7 @@ export const Layout = connector(
           notifications={props.notifications}
           address={props.address}
         />
-        {/* <Chat chatOpen={this.state.chatOpen} /> */}
-        {/* <Helper /> */}
+
         <Sidebar />
         <Hammer>
           <main className={s.content}>
@@ -100,21 +88,6 @@ export const Layout = connector(
                     exact
                     render={props => <PullRequest />}
                   />
-
-                  {/* <Route path="/app/icons" exact component={UIIcons} />
-                  <Route
-                    path="/app/notifications"
-                    exact
-                    component={UINotifications}
-                  />
-                  <Route path="/app/charts" exact component={Charts} />
-                  <Route path="/app/tables" exact component={TablesStatic} />
-                  <Route path="/app/maps" exact component={MapsGoogle} />
-                  <Route
-                    path="/app/typography"
-                    exact
-                    component={CoreTypography}
-                  /> */}
                 </Switch>
               </CSSTransition>
             </TransitionGroup>

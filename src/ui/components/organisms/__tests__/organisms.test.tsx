@@ -4,10 +4,9 @@ import React from "react"
 import { Provider } from "react-redux"
 import { CloneRepoModal } from "../CloneRepoModal"
 import { CreateRepoModal } from "../CreateRepoModal"
-import { configureTestStore } from "./createTestStore"
-
-import { _Example } from "../_Example"
 import { RepositoryMenu, ViewMenu } from "../GlobalHeader"
+import { _Example } from "../_Example"
+import { configureTestStore } from "./createTestStore"
 
 configure({ adapter: new Adapter() })
 

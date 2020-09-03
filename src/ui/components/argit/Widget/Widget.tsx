@@ -1,23 +1,21 @@
-import * as React from "react"
-import { Component } from "react"
-import { UncontrolledTooltip } from "reactstrap"
-import { v4 as uuidv4 } from "uuid"
 import classNames from "classnames"
+import * as React from "react"
 import AnimateHeight from "react-animate-height"
-import s from "./Widget.module.scss"
-import Loader from "../Loader/Loader" // eslint-disable-line css-modules/no-unused-class
-
 import {
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
   Button,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
   Modal,
-  ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
+  ModalHeader,
+  UncontrolledDropdown,
+  UncontrolledTooltip
 } from "reactstrap"
+import { v4 as uuidv4 } from "uuid"
+import Loader from "../Loader/Loader" // eslint-disable-line css-modules/no-unused-class
+import s from "./Widget.module.scss"
 
 export interface WidgetProps {
   title: any

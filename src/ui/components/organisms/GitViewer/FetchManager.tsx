@@ -1,8 +1,8 @@
 import { Intent } from "@blueprintjs/core"
+import fs from "fs"
 import * as git from "isomorphic-git"
 import React from "react"
 import { toast } from "../../utils/toast"
-import fs from "fs"
 
 type Props = {
   projectRoot: string

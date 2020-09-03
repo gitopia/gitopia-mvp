@@ -1,8 +1,7 @@
 import * as React from "react"
+import Dropzone from "react-dropzone"
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { connector } from "../../actionCreators/index"
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
-import Dropzone, { ImageFile } from "react-dropzone"
-// import "./styles/theme.scss"
 
 export const LoginModal = connector(
   state => ({
@@ -22,7 +21,6 @@ export const LoginModal = connector(
       <ModalBody>
         <Dropzone
           onDrop={async acceptedFiles => {
-            // const newProjectRoot = path.join("/", projectRoot)
             if (
               acceptedFiles[0].name
                 .split(".")
@@ -36,11 +34,6 @@ export const LoginModal = connector(
                   : upload.name // Concatenate filename for dropzone
 
               props.loadKeyFile({ keyFileName })
-
-              //   this.setState({
-              //     keyFileName: fileName,
-              //     isLoading: true // Set loading to true
-              //   })
 
               const reader = new FileReader() // Initiate FileReader
               reader.readAsText(upload) // Read content as text
@@ -56,35 +49,14 @@ export const LoginModal = connector(
                   props.setIsAuthenticated({ isAuthenticated: true })
                   // window.location.reload() // Reload page to get authenticated status
                 } else {
-                  // If uploaded JSON is not keyfile
-                  //   this.setState({
-                  //     // Throw error
-                  //     keyFileName: "Error: Not a keyfile",
-                  //     isLoading: false
-                  //   })
                   props.loadKeyFile({ keyFileName: "Error: Not a keyfile" })
                 }
               }
             } else {
-              // If filename does not end in '.json'
-              //   this.setState({
-              //     // Throw error
-              //     keyFileName: "Error: Not a keyfile"
-              //   })
               props.loadKeyFile({ keyFileName: "Error: Not a keyfile" })
             }
 
             props.closeLoginModal({})
-
-            // createNewProject({ newProjectRoot })
-            // TODO: fix it
-
-            // await new Promise(r =>setTimeout (r, 500))
-            // props.loadProjectList({})
-
-            // startProjectRootChanged({
-            //   projectRoot: newProjectRoot
-            // })
           }}
         >
           Drop your Arweave wallet keyfile here or Click here
