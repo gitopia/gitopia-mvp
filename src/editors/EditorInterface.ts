@@ -1,4 +1,4 @@
-export type EditorInterface = {
+export interface EditorInterface {
   fontScale: number
   fontFamily: string
   spellCheck: boolean

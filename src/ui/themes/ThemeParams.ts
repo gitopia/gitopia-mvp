@@ -1,4 +1,4 @@
-export type ThemeParams = {
+export interface ThemeParams {
   main: string
   textColor: string
   tagTextColor: string
