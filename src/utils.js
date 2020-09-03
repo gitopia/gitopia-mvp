@@ -41,9 +41,9 @@ export const getAllActivities = async (arweave, address) => {
           }
         })
 
-        if (activity.type === "update-ref")
+        if (activity.type === "update-ref") {
           activity.value = tx.get("data", { decode: true, string: true })
-        else if (activity.type === "create-repo") {
+        } else if (activity.type === "create-repo") {
           const data = tx.get("data", { decode: true, string: true })
           const decoded = JSON.parse(data)
           activity.key = decoded.name
@@ -54,7 +54,7 @@ export const getAllActivities = async (arweave, address) => {
     })
   )
 
-  let filteredActivities = activities.filter(activity =>
+  const filteredActivities = activities.filter(activity =>
     ["create-repo", "update-ref"].includes(activity.type)
   )
   filteredActivities.sort((a, b) => {
