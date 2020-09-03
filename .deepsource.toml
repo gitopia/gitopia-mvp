@@ -1,0 +1,12 @@
+version = 1
+
+[[analyzers]]
+name = "javascript"
+enabled = true
+
+  [analyzers.meta]
+  module_system = "commonjs"
+  environment = ["nodejs"]
+  plugins = ["react"]
+  style_guide = "standard"
+  dialect = "typescript"
