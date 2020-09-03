@@ -1,4 +1,5 @@
-const IS_LOCALHOST = location.href.indexOf("localhost") > -1
+/*global */
+const IS_LOCALHOST = window.location.href.indexOf("localhost") > -1
 const USE_SW = !IS_LOCALHOST
 
 const contentEl = document.querySelector(".content-skeleton")

@@ -18,12 +18,7 @@ class App extends React.Component<any> {
   state = {
     component: null
   }
-  async componentDidMount() {
-    const {
-      default: AsyncComponent
-    } = await import(/* webpackChunkName: "monaco-editor" */ "../../../../editors/MonacoEditor")
-    this.setState({ component: AsyncComponent })
-  }
+
   render() {
     const Cmp: any = this.state.component
     return Cmp == null ? <>loading</> : <Cmp />

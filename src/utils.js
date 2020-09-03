@@ -22,7 +22,7 @@ export const getAllActivities = async (arweave, address) => {
   const txids = await arweave.arql(appQuery(address))
   const activities = await Promise.all(
     txids.map(async txid => {
-      let activity = {}
+      const activity = {}
       activity.txid = txid
       try {
         const tx = await arweave.transactions.get(txid)
@@ -30,10 +30,15 @@ export const getAllActivities = async (arweave, address) => {
         tx.get("tags").forEach(tag => {
           const key = tag.get("name", { decode: true, string: true })
           const value = tag.get("value", { decode: true, string: true })
-          if (key === "Unix-Time") activity.unixTime = value
-          else if (key === "Type") activity.type = value
-          else if (key === "ref") activity.key = value
-          else if (key === "Repo") activity.repoName = value
+          if (key === "Unix-Time") {
+            activity.unixTime = value
+          } else if (key === "Type") {
+            activity.type = value
+          } else if (key === "ref") {
+            activity.key = value
+          } else if (key === "Repo") {
+            activity.repoName = value
+          }
         })
 
         if (activity.type === "update-ref")
@@ -49,11 +54,11 @@ export const getAllActivities = async (arweave, address) => {
     })
   )
 
-  const filteredActivities = activities.filter(activity =>
+  let filteredActivities = activities.filter(activity =>
     ["create-repo", "update-ref"].includes(activity.type)
   )
   filteredActivities.sort((a, b) => {
-    Number(b.unixTime) - Number(a.unixTime)
+    return Number(b.unixTime) - Number(a.unixTime)
   })
 
   return filteredActivities
