@@ -1,9 +1,8 @@
-import * as helpers from "../../__testHelpers__/helpers"
-
 import fs from "fs"
 import * as git from "isomorphic-git"
 import path from "path"
 import assert from "power-assert"
+import * as helpers from "../../__testHelpers__/helpers"
 import { commitAll } from "../commitAll"
 
 test("commit all files", async () => {

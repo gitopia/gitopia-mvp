@@ -1,7 +1,7 @@
+import fs from "fs"
 import * as git from "isomorphic-git"
 import uniq from "lodash/uniq"
 import { getFilesRecursively } from "../../filesystem/queries/getFileRecursively"
-import fs from "fs"
 
 export async function getRepositoryFiles(
   projectRoot: string,

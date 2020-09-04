@@ -1,5 +1,5 @@
-import * as git from "isomorphic-git"
 import fs from "fs"
+import * as git from "isomorphic-git"
 export async function checkoutBranch(
   projectRoot: string,
   branchName: string

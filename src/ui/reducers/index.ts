@@ -1,13 +1,12 @@
 import { combineReducers } from "redux"
 import * as app from "./app"
+import * as argit from "./argit"
 import * as buffer from "./buffer"
 import * as config from "./config"
 import * as git from "./git"
+import * as navigation from "./navigation"
 import * as project from "./project"
 import * as repository from "./repository"
-import * as argit from "./argit"
-import * as navigation from "./navigation"
-import { NavigatorTitle } from "../components/atoms/NavgatorTitle"
 export type RootState = {
   app: app.AppState
   repository: repository.RepositoryState

@@ -1,7 +1,6 @@
-import "../../__testHelpers__"
-
 import * as git from "isomorphic-git"
 import assert from "power-assert"
+import "../../__testHelpers__"
 import * as helpers from "../../__testHelpers__/helpers"
 import { isFastForward, isFastForwardByCommits } from "../isFastForward"
 import { CommitDescription } from "./../../../types"

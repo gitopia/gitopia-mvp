@@ -3,10 +3,8 @@ import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 import { configureStore } from "../store/configureStore"
 import { LandingNew } from "./argit/LandingNew"
-
 import { LoginModal } from "./argit/loginModal"
 import { CreateRepoModal } from "./organisms/CreateRepoModal"
-
 import { GlobalErrorBoundary } from "./utils/GlobalErrorBoundary"
 import { GlobalKeyHandler } from "./utils/GlobalKeyHandler"
 

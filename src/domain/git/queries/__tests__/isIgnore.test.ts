@@ -1,8 +1,7 @@
-import "../../__testHelpers__"
-
 import fs from "fs"
 import path from "path"
 import assert from "power-assert"
+import "../../__testHelpers__"
 import * as helpers from "../../__testHelpers__/helpers"
 import { isIgnored } from "../isIgnored"
 

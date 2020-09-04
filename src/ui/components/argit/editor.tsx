@@ -1,3 +1,6 @@
+import "ace-builds/src-noconflict/mode-jsx"
+import "ace-builds/src-noconflict/theme-github"
+import "ace-builds/src-noconflict/theme-monokai"
 import path from "path"
 import * as React from "react"
 import AceEditor from "react-ace"
@@ -6,9 +9,6 @@ import { lifecycle } from "recompose"
 import { ReadCommitResult } from "../../../domain/types"
 import { connector } from "../../actionCreators/index"
 import { ThemeToggleButton } from "./themeToggleButton"
-import "ace-builds/src-noconflict/mode-jsx"
-import "ace-builds/src-noconflict/theme-github"
-import "ace-builds/src-noconflict/theme-monokai"
 const languages = [
   "javascript",
   "java",

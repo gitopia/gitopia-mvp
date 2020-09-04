@@ -1,7 +1,7 @@
 import delay from "delay"
 import { EventEmitter } from "events"
-import * as git from "isomorphic-git"
 import fs from "fs"
+import * as git from "isomorphic-git"
 
 export async function cloneRepository(
   projectRoot: string,

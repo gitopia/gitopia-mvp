@@ -1,7 +1,7 @@
+import fs from "fs"
 import * as git from "isomorphic-git"
 import flatten from "lodash/flatten"
 import path from "path"
-import fs from "fs"
 
 export async function getRefOids(projectRoot: string, ref: string) {
   const sha = await git.resolveRef({ fs, dir: projectRoot, ref })

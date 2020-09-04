@@ -1,10 +1,9 @@
-import "../../__testHelpers__"
-
 import fs from "fs"
 import * as git from "isomorphic-git"
 import path from "path"
 import pify from "pify"
 import assert from "power-assert"
+import "../../__testHelpers__"
 // tslint:disable-next-line
 import * as helpers from "../../__testHelpers__/helpers"
 import { detectConflict } from "../detectConflict"

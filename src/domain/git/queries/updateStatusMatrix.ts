@@ -1,6 +1,6 @@
+import fs from "fs"
 import * as git from "isomorphic-git"
 import { StatusMatrix, StatusRow } from "../../types"
-import fs from "fs"
 
 export async function updateStatusMatrix(
   projectRoot: string,

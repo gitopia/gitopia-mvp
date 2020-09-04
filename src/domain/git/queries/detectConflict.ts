@@ -1,9 +1,9 @@
 import diff3Merge from "diff3"
+import fs from "fs"
 import * as git from "isomorphic-git"
 import uniq from "lodash/uniq"
 // tslint:disable-next-line
 import { getRefOids } from "./getRefOids"
-import fs from "fs"
 
 export async function detectConflict(
   dir: string,

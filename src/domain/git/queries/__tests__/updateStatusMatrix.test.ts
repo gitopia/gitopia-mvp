@@ -1,9 +1,8 @@
-import * as helpers from "../../__testHelpers__"
-
 import fs from "fs"
 import * as git from "isomorphic-git"
 import path from "path"
 import assert from "power-assert"
+import * as helpers from "../../__testHelpers__"
 import { updateStatusMatrix } from "../updateStatusMatrix"
 
 test("update", async () => {

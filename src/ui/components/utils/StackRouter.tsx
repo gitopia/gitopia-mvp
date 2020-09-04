@@ -1,26 +1,25 @@
+import { format } from "date-fns"
+import fs from "fs"
+import * as git from "isomorphic-git"
+import { getRef } from "isomorphic-git/src/utils/arweave"
 import React from "react"
+import { Link } from "react-router-dom"
+import { CardBody, Col, Container, Row } from "reactstrap"
+import { lifecycle } from "recompose"
+import { ReadCommitResult } from "../../../domain/types"
+import { arweave } from "../../../index"
 import { connector } from "../../actionCreators"
-import { RootState } from "../../reducers"
+import {
+  deleteProject,
+  startProjectRootChanged
+} from "../../actionCreators/editorActions"
+import { Editor } from "../../components/argit/editor"
+import { setTxLoading } from "../../reducers/argit"
+import { createNewProject } from "../../reducers/project"
+import { CloneButton } from "../argit/cloneButton"
+import { RepositoryBrowser } from "../organisms/RepositoryBrowser"
 import { Config } from "../pages/Config"
 import { Edit } from "../pages/Edit"
-import { lifecycle } from "recompose"
-import { createNewProject } from "../../reducers/project"
-import {
-  startProjectRootChanged,
-  deleteProject
-} from "../../actionCreators/editorActions"
-import { RepositoryBrowser } from "../organisms/RepositoryBrowser"
-import { Editor } from "../../components/argit/editor"
-import { Card, CardBody, Container, Row, Col } from "reactstrap"
-import { arweave } from "../../../index"
-import * as git from "isomorphic-git"
-import fs from "fs"
-import { CloneButton } from "../argit/cloneButton"
-import { Link } from "react-router-dom"
-import { ReadCommitResult } from "../../../domain/types"
-import { format } from "date-fns"
-import { getRef } from "isomorphic-git/src/utils/arweave"
-import { setTxLoading } from "../../reducers/argit"
 
 type Project = {
   projectRoot: string

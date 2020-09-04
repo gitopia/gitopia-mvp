@@ -1,6 +1,6 @@
+import fs from "fs"
 import * as git from "isomorphic-git"
 import * as Parser from "../queries/parseStatusMatrix"
-import fs from "fs"
 
 export async function commitAll(
   root: string,
