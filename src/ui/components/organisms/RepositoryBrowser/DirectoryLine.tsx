@@ -17,7 +17,6 @@ import * as RepositoryActions from "../../../reducers/repository"
 import { Pathname } from "../../atoms/Pathname"
 import { AddDir } from "./AddDir"
 import { AddFile } from "./AddFile"
-import { Draggable } from "./Draggable"
 import { FileLine } from "./FileLine"
 
 type OwnProps = {
@@ -153,33 +152,20 @@ const DirectoryLineContent: React.ComponentClass<
               }
             }}
           >
-            <Draggable
-              pathname={dirpath}
-              type="dir"
-              onDrop={result => {
-                if (result) {
-                  this.props.fileMoved(result)
-                }
-              }}
-              onDropByOther={_result => {
-                this.setState({ opened: true })
-              }}
-            >
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <div style={{ display: "inline-flex" }}>
-                  <Prefix depth={depth} />
-                  {opened ? (
-                    <Icon icon="folder-open" />
-                  ) : (
-                    <Icon icon="folder-close" />
-                  )}
-                  &nbsp;
-                  <Pathname ignoreGit={ignoreGit}>
-                    {basename || `${dirpath}`}
-                  </Pathname>
-                </div>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <div style={{ display: "inline-flex" }}>
+                <Prefix depth={depth} />
+                {opened ? (
+                  <Icon icon="folder-open" />
+                ) : (
+                  <Icon icon="folder-close" />
+                )}
+                &nbsp;
+                <Pathname ignoreGit={ignoreGit}>
+                  {basename || `${dirpath}`}
+                </Pathname>
               </div>
-            </Draggable>
+            </div>
             {opened && (
               <>
                 {this.props.isFileCreating && (

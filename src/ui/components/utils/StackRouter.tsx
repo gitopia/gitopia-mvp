@@ -18,8 +18,6 @@ import { setTxLoading } from "../../reducers/argit"
 import { createNewProject } from "../../reducers/project"
 import { CloneButton } from "../argit/cloneButton"
 import { RepositoryBrowser } from "../organisms/RepositoryBrowser"
-import { Config } from "../pages/Config"
-import { Edit } from "../pages/Edit"
 
 type Project = {
   projectRoot: string
@@ -172,12 +170,7 @@ export const StackRouter = connector(
         </Container>
       )
     }
-    case "edit": {
-      return <Edit />
-    }
-    case "config": {
-      return <Config />
-    }
+
     default: {
       return <span>Route Error: No {props.currentScene}</span>
     }
