@@ -6,7 +6,7 @@ import { connector } from "../../../actionCreators/index"
 import { StackRouter } from "../../utils/StackRouter"
 import BreadcrumbHistory from "../BreadcrumbHistory/BreadcrumbHistory"
 import { Commits } from "../commits"
-import { DashboardNew } from "../DashboardNew/DashboardNew"
+import { Dashboard } from "../Dashboard/Dashboard"
 import Header from "../Header/Header"
 import PullRequest from "../PullRequest"
 import { Repositories } from "../Repositories"
@@ -76,7 +76,7 @@ export const Layout = connector(
                   <Route
                     path="/app/main/dashboard"
                     exact
-                    component={DashboardNew}
+                    component={Dashboard}
                   />
                   <Route
                     path="/app/main/repositories"

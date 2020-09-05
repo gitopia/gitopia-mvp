@@ -18,7 +18,7 @@ import {
   updateRepositories
 } from "../../../reducers/argit"
 import Widget from "../Widget/Widget"
-import s from "./DashboardNew.module.scss"
+import s from "./Dashboard.module.scss"
 
 type ConnectedProps = {
   isAuthenticated: boolean
@@ -33,7 +33,7 @@ type ConnectedProps = {
   activities: Activity[]
 }
 
-export const DashboardNew = connector(
+export const Dashboard = connector(
   state => ({
     repositories: state.argit.repositories,
     address: state.argit.address,
@@ -124,7 +124,7 @@ export const DashboardNew = connector(
       }
     }
   })
-)(function DashboardNew(props) {
+)(function Dashboard(props) {
   return (
     <div className={s.root}>
       <h1 className="page-title">
