@@ -1,7 +1,7 @@
+import fs from "fs"
 import * as git from "isomorphic-git"
 import { zipWith } from "lodash"
 import { getFileStatus } from "./getFileStatus"
-import fs from "fs"
 
 export async function listGitFiles(
   projectRoot: string,

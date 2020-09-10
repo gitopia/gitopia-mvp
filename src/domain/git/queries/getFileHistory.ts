@@ -1,7 +1,7 @@
 import * as Diff from "diff"
+import fs from "fs"
 import * as git from "isomorphic-git"
 import { GitBlobDescription, ReadCommitResult } from "../../types"
-import fs from "fs"
 
 export async function getFileHistory(
   dir: string,

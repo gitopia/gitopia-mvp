@@ -1,3 +1,4 @@
+import fs from "fs"
 import {
   ActionCreator,
   buildActionCreator,
@@ -9,11 +10,10 @@ import { RootState } from "."
 import * as Git from "../../domain/git"
 import {
   GitStatusString,
-  StatusMatrix,
-  ReadCommitResult
+  ReadCommitResult,
+  StatusMatrix
 } from "../../domain/types"
 import { projectChanged } from "../actionCreators/globalActions"
-import fs from "fs"
 
 const {
   createAction,

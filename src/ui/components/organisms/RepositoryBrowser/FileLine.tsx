@@ -15,7 +15,6 @@ import styled from "styled-components"
 import { connector } from "../../../actionCreators"
 import { Input } from "../../atoms/Input"
 import { Pathname } from "../../atoms/Pathname"
-import { Draggable } from "./Draggable"
 
 type OwnProps = {
   depth: number
@@ -79,37 +78,24 @@ export const FileLine: React.ComponentType<OwnProps> = connector(
   }
   return (
     <ContextMenuProvider id="file" data={{ filepath }}>
-      <Draggable
-        pathname={filepath}
-        type="file"
-        onDrop={async result => {
-          if (result) {
-            fileMoved(result)
-          }
-        }}
-        onDropByOther={_result => {
-          // Do nothing yet
-        }}
-      >
-        <Container selected={editingFilepath === filepath}>
-          <div
-            style={{ display: "inline-flex" }}
-            onClick={() => {
-              props.loadFile({ filepath })
-              if (props.isMobile) {
-                props.pushScene({ nextScene: "edit" })
-              }
-            }}
-          >
-            {range(depth).map((_, k) => (
-              <span key={k}>&nbsp;&nbsp;</span>
-            ))}
-            <Icon icon="document" />
-            &nbsp;
-            <Pathname ignoreGit={props.ignoreGit}>{basename}</Pathname>
-          </div>
-        </Container>
-      </Draggable>
+      <Container selected={editingFilepath === filepath}>
+        <div
+          style={{ display: "inline-flex" }}
+          onClick={() => {
+            props.loadFile({ filepath })
+            if (props.isMobile) {
+              props.pushScene({ nextScene: "edit" })
+            }
+          }}
+        >
+          {range(depth).map((_, k) => (
+            <span key={k}>&nbsp;&nbsp;</span>
+          ))}
+          <Icon icon="document" />
+          &nbsp;
+          <Pathname ignoreGit={props.ignoreGit}>{basename}</Pathname>
+        </div>
+      </Container>
     </ContextMenuProvider>
   )
 }) as any

@@ -1,5 +1,5 @@
-import actions from "../../actionCreators"
 import fs from "fs"
+import actions from "../../actionCreators"
 
 type MousetrapExpr = string | string[]
 

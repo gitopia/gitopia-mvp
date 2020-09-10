@@ -4,7 +4,6 @@ const CopyPlugin = require("copy-webpack-plugin")
 const WorkboxPlugin = require("workbox-webpack-plugin")
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const HtmlPlugin = require("html-webpack-plugin")
-const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent")
 
@@ -87,7 +86,6 @@ if (USE_CUSTOM_SRC) {
 }
 
 const plugins = [
-  new MonacoWebpackPlugin(),
   new HtmlPlugin({
     inject: false,
     template: path.join(SRC, "index.html.ejs")

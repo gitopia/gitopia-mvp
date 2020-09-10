@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Component } from "react"
 import pr from "../argit/images/pr.svg"
 
 export interface PullRequestProps {}

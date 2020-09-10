@@ -1,6 +1,6 @@
 // This file will be override by SRC='src-modified' by webpack
-import { run } from "./runApp"
 import Arweave from "arweave/web"
+import { run } from "./runApp"
 
 export const arweave = Arweave.init({
   host: "arweave.net",

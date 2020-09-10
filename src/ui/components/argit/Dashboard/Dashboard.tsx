@@ -1,25 +1,24 @@
+import { format } from "date-fns"
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { connector } from "../../../actionCreators/index"
+import { CardBody, CardTitle, Col, Row } from "reactstrap"
 import { lifecycle } from "recompose"
 import { arweave } from "../../../../index"
-import { format } from "date-fns"
+import { getAllActivities, txQuery } from "../../../../utils"
+import { connector } from "../../../actionCreators/index"
+import { openCreateRepoModal } from "../../../reducers/app"
 import {
-  Repository,
-  setIsAuthenticated,
+  Activity,
+  loadActivities,
   loadAddress,
-  updateRepositories,
   loadNotifications,
   Notification,
-  loadActivities,
-  Activity
+  Repository,
+  setIsAuthenticated,
+  updateRepositories
 } from "../../../reducers/argit"
-import { openCreateRepoModal } from "../../../reducers/app"
-import { txQuery, getAllActivities } from "../../../../utils"
-import { Row, Col, Progress, Card, CardBody, CardTitle, div } from "reactstrap"
-import s from "./DashboardNew.module.scss"
 import Widget from "../Widget/Widget"
-import AnimateNumber from "react-animated-number"
+import s from "./Dashboard.module.scss"
 
 type ConnectedProps = {
   isAuthenticated: boolean
@@ -34,7 +33,7 @@ type ConnectedProps = {
   activities: Activity[]
 }
 
-export const DashboardNew = connector(
+export const Dashboard = connector(
   state => ({
     repositories: state.argit.repositories,
     address: state.argit.address,
@@ -64,7 +63,7 @@ export const DashboardNew = connector(
 
         const activities = await getAllActivities(arweave, address)
         actions.loadActivities({ activities })
-        console.log(activities)
+
         const txids = await arweave.arql(txQuery(address, "create-repo"))
         let notifications: Notification[] = []
         let completed_txids: String[] = []
@@ -76,10 +75,6 @@ export const DashboardNew = connector(
                 decode: true,
                 string: true
               })
-
-              // if (typeof data === "object") {
-              //   console.log(new TextDecoder("utf-8").decode(data))
-              // }
 
               const decoded: any = JSON.parse(data)
               repository = {
@@ -129,7 +124,7 @@ export const DashboardNew = connector(
       }
     }
   })
-)(function DashboardNew(props) {
+)(function Dashboard(props) {
   return (
     <div className={s.root}>
       <h1 className="page-title">

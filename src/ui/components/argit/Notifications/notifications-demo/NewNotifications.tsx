@@ -1,11 +1,9 @@
 import React from "react"
-import { ListGroup, ListGroupItem, Button } from "reactstrap"
-
-import s from "./ListGroup.module.scss"
-
+import { Button, ListGroup, ListGroupItem } from "reactstrap"
 import a3 from "../../images/people/a3.jpg"
 import a5 from "../../images/people/a5.jpg"
 import a6 from "../../images/people/a6.jpg"
+import s from "./ListGroup.module.scss"
 
 class NewNotificationsDemo extends React.Component {
   render() {

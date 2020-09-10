@@ -1,6 +1,0 @@
-{
-  "name": "DashboardNew",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./DashboardNew.tsx"
-}

@@ -1,23 +1,20 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { connector } from "../../actionCreators/index"
+import { Table } from "reactstrap"
 import { lifecycle } from "recompose"
-import { arweave } from "../../../index"
 import styled from "styled-components"
-
+import { arweave } from "../../../index"
+import { txQuery } from "../../../utils"
+import { connector } from "../../actionCreators/index"
+import { openCreateRepoModal } from "../../reducers/app"
 import {
+  loadAddress,
+  loadNotifications,
+  Notification,
   Repository,
   setIsAuthenticated,
-  loadAddress,
-  updateRepositories,
-  loadNotifications,
-  Notification
+  updateRepositories
 } from "../../reducers/argit"
-import { txQuery } from "../../../utils"
-import { openCreateRepoModal } from "../../reducers/app"
-import { object } from "prop-types"
-import { Table, Button } from "reactstrap"
-import { decode } from "punycode"
 
 type ConnectedProps = {
   isAuthenticated: boolean
@@ -187,16 +184,3 @@ export const Repositories = connector(
     </React.Fragment>
   )
 })
-
-// <div key={repository.name} className="card mt-4">
-//   <div className="card-body">
-//     <Link
-//       to={`/app/main/repository/${props.address}/${
-//         repository.name
-//       }`}
-//     >
-//       {repository.name}
-//     </Link>
-//     <p>{repository.description}</p>
-//   </div>
-// </div>

@@ -1,6 +1,5 @@
 import { rootReducer, RootState } from "../reducers"
-import { reducer as configReducer } from "../reducers/config"
-import { rules } from "../reducers/config"
+import { reducer as configReducer, rules } from "../reducers/config"
 
 const MIGRATOR_INIT = "@migrator/init"
 

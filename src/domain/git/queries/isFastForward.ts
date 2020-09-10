@@ -1,6 +1,6 @@
+import fs from "fs"
 import * as git from "isomorphic-git"
 import { ReadCommitResult } from "./../../types"
-import fs from "fs"
 
 export async function isFastForward(
   dir: string,

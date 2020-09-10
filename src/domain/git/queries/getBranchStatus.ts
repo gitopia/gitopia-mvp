@@ -1,10 +1,9 @@
+import fs from "fs"
 import * as git from "isomorphic-git"
 import flatten from "lodash/flatten"
 import { ReadCommitResult } from "../../types"
 import { getHistory } from "./getHistory"
-import { getRemotes } from "./getRemotes"
 import { listRemoteBranches } from "./listBranches"
-import fs from "fs"
 
 export async function getBranchStatus(
   projectRoot: string

@@ -1,9 +1,9 @@
+import fs from "fs"
 import * as git from "isomorphic-git"
 import difference from "lodash/difference"
 import uniq from "lodash/uniq"
 import { getFilesRecursively } from "../../filesystem/queries/getFileRecursively"
 import { GitTrackingStatus } from "../../types"
-import fs from "fs"
 
 export async function getTrackingStatus(
   projectRoot: string

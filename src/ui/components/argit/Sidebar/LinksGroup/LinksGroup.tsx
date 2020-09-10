@@ -1,10 +1,8 @@
-import React, { Component } from "react"
-import PropTypes from "prop-types"
-import { NavLink, withRouter, Link, Route } from "react-router-dom"
-import { Collapse, Badge } from "reactstrap"
 import classnames from "classnames"
+import React, { Component } from "react"
+import { NavLink, Route } from "react-router-dom"
+import { Badge, Collapse } from "reactstrap"
 import { changeActiveSidebarItem } from "../../../../reducers/navigation"
-
 import s from "./LinksGroup.module.scss"
 
 type LinksGroupProps = {

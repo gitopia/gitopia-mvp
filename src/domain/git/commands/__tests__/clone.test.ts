@@ -1,9 +1,8 @@
-import "../../__testHelpers__"
-
 import EventEmitter from "events"
 import fs from "fs"
 import * as git from "isomorphic-git"
 import uuid from "uuid"
+import "../../__testHelpers__"
 
 // Check clone works correctly
 test.skip("clone", async () => {

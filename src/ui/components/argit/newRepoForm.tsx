@@ -1,12 +1,9 @@
 import React, { Component } from "react"
-import { Link } from "react-router-dom"
-// import Repository from "../repository";
+import { arweave } from "../../../index"
 import Input from "../../../ui/components/utils/input"
 import { Repository as Repo } from "../../../ui/reducers/argit"
 import { closeCreateRepoModal } from "../../reducers/app"
-// import NewRepoForm from "./newRepoForm"
 import { updateRepositories } from "../../reducers/argit"
-import { arweave } from "../../../index"
 
 type NewRepoFormProps = {
   address: string
@@ -60,11 +57,6 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
     }
     return errors
   }
-
-  // componentDidMount() {
-  //   const { repositories } = this.props
-  //   this.setState({ repositories })
-  // }
 
   arCreate = async () => {
     this.setState({ transactionLoading: true })

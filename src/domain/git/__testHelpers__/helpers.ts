@@ -1,10 +1,9 @@
 import fs from "fs"
 import * as git from "isomorphic-git"
+import { plugins } from "isomorphic-git"
 import path from "path"
 import rimraf from "rimraf"
 import uuid from "uuid"
-
-import { plugins } from "isomorphic-git"
 
 plugins.set("fs", fs)
 

@@ -1,13 +1,8 @@
 import React from "react"
-import {
-  ListGroup,
-  ListGroupItem,
-  Progress,
-  UncontrolledTooltip
-} from "reactstrap"
-
-import s from "./ListGroup.module.scss" // eslint-disable-line
+import { ListGroup, ListGroupItem } from "reactstrap"
 import { Notification } from "../../../../reducers/argit"
+import s from "./ListGroup.module.scss" // eslint-disable-line
+
 export interface PendingProps {
   notifications: Notification[]
 }
@@ -28,7 +23,6 @@ class Pending extends React.Component<PendingProps, PendingState> {
                   <br />
                   &nbsp; txid: {notif.txid}
                 </h6>
-                {/* <Progress className={["m-0"].join(" ")} color="primary" value="60" /> */}
                 <span className="help-block">
                   last update: April 22, 2014 2:36 pm
                 </span>

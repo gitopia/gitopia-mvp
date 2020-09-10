@@ -1,7 +1,6 @@
 import * as React from "react"
-import { connector } from "../../actionCreators/index"
 import styled from "styled-components"
-import { setConfigValue } from "../../reducers/config"
+import { connector } from "../../actionCreators/index"
 
 const Button = styled.i`
   cursor: pointer;
