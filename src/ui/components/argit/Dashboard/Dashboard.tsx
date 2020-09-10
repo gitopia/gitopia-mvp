@@ -63,7 +63,7 @@ export const Dashboard = connector(
 
         const activities = await getAllActivities(arweave, address)
         actions.loadActivities({ activities })
-        console.log(activities)
+
         const txids = await arweave.arql(txQuery(address, "create-repo"))
         let notifications: Notification[] = []
         let completed_txids: String[] = []
