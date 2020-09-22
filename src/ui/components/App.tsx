@@ -7,6 +7,8 @@ import { LoginModal } from "./argit/loginModal"
 import { CreateRepoModal } from "./organisms/CreateRepoModal"
 import { GlobalErrorBoundary } from "./utils/GlobalErrorBoundary"
 import { GlobalKeyHandler } from "./utils/GlobalKeyHandler"
+import { HashRouter, Switch, Route } from "react-router-dom"
+import { StackRouter } from "./utils/StackRouter"
 
 export class App extends React.Component<{}> {
   render() {
@@ -16,7 +18,20 @@ export class App extends React.Component<{}> {
         <Provider store={store}>
           <PersistGate persistor={persistor}>
             <GlobalKeyHandler>
-              <Landing />
+              <HashRouter>
+                <Switch>
+                  <Route
+                    exact
+                    path="/"
+                    render={(props: any) => <Landing {...props} />}
+                  />
+                  <Route
+                    path="/app/main/repository/:wallet_address/:repo_name"
+                    component={StackRouter}
+                  />
+                  <Route default component={Landing} />
+                </Switch>
+              </HashRouter>
               <LoginModal />
               <CreateRepoModal />
             </GlobalKeyHandler>
