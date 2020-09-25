@@ -38,14 +38,16 @@ export const Layout = connector(
       ].join(" ")}
     >
       <div className={s.wrap}>
-        <Header
-          {...props}
-          setIsAuthenticated={props.setIsAuthenticated}
-          updateRepositories={props.updateRepositories}
-          updateNotifications={props.loadNotifications}
-          notifications={props.notifications}
-          address={props.address}
-        />
+        {props.isAuthenticated && (
+          <Header
+            {...props}
+            setIsAuthenticated={props.setIsAuthenticated}
+            updateRepositories={props.updateRepositories}
+            updateNotifications={props.loadNotifications}
+            notifications={props.notifications}
+            address={props.address}
+          />
+        )}
 
         <Sidebar />
         <Hammer>

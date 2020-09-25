@@ -17,23 +17,13 @@ export interface SidebarProps {
 export const Sidebar = connector(
   state => ({
     sidebarOpened: state.navigation.sidebarOpened,
-    activeItem: state.navigation.activeItem
+    activeItem: state.navigation.activeItem,
+    isAuthenticated: state.argit.isAuthenticated
   }),
   actions => ({
     changeActiveSidebarItem: actions.navigation.changeActiveSidebarItem
   }),
   lifecycle<SidebarProps, {}>({
-    componentDidMount(props) {
-      // this.element.addEventListener(
-      //   "transitionend",
-      //   () => {
-      //     if (props.sidebarOpened) {
-      //       this.element.classList.add(s.sidebarOpen)
-      //     }
-      //   },
-      //   false
-      // )
-    },
     componentWillReceiveProps(nextProps) {
       if (nextProps.sidebarOpened !== this.props.sidebarOpened) {
         if (nextProps.sidebarOpened) {
@@ -60,45 +50,46 @@ export const Sidebar = connector(
           d<span className="fw-bold">git</span>
         </Link>
       </header>
-      <ul className={s.nav}>
-        <LinksGroup
-          onActiveSidebarItemChange={props.changeActiveSidebarItem}
-          activeItem={props.activeItem}
-          header="Dashboard"
-          isHeader
-          iconName="flaticon-home"
-          link="/app/main"
-          index="main"
-        />
-        {/* <h5 className={[s.navTitle, s.groupTitle].join(" ")}>TEMPLATE</h5> */}
-        <LinksGroup
-          onActiveSidebarItemChange={props.changeActiveSidebarItem}
-          activeItem={props.activeItem}
-          header="Repositories"
-          isHeader
-          iconName="flaticon-archive"
-          link="/app/main/repositories"
-          index="repositories"
-        />
-        <LinksGroup
-          onActiveSidebarItemChange={props.changeActiveSidebarItem}
-          activeItem={props.activeItem}
-          header="Pull Requests"
-          isHeader
-          iconName="flaticon-map-location"
-          link="/app/main/pulls"
-          index="pulls"
-        />
-        <LinksGroup
-          onActiveSidebarItemChange={props.changeActiveSidebarItem}
-          activeItem={props.activeItem}
-          header="Issues"
-          isHeader
-          iconName="flaticon-layers"
-          link="/app/main/issues"
-          index="issues"
-        />
-        {/* <LinksGroup
+      {props.isAuthenticated && (
+        <ul className={s.nav}>
+          <LinksGroup
+            onActiveSidebarItemChange={props.changeActiveSidebarItem}
+            activeItem={props.activeItem}
+            header="Dashboard"
+            isHeader
+            iconName="flaticon-home"
+            link="/app/main"
+            index="main"
+          />
+          {/* <h5 className={[s.navTitle, s.groupTitle].join(" ")}>TEMPLATE</h5> */}
+          <LinksGroup
+            onActiveSidebarItemChange={props.changeActiveSidebarItem}
+            activeItem={props.activeItem}
+            header="Repositories"
+            isHeader
+            iconName="flaticon-archive"
+            link="/app/main/repositories"
+            index="repositories"
+          />
+          <LinksGroup
+            onActiveSidebarItemChange={props.changeActiveSidebarItem}
+            activeItem={props.activeItem}
+            header="Pull Requests"
+            isHeader
+            iconName="flaticon-map-location"
+            link="/app/main/pulls"
+            index="pulls"
+          />
+          <LinksGroup
+            onActiveSidebarItemChange={props.changeActiveSidebarItem}
+            activeItem={props.activeItem}
+            header="Issues"
+            isHeader
+            iconName="flaticon-layers"
+            link="/app/main/issues"
+            index="issues"
+          />
+          {/* <LinksGroup
           onActiveSidebarItemChange={props.changeActiveSidebarItem}
           activeItem={props.activeItem}
           header="Repositories"
@@ -121,7 +112,8 @@ export const Sidebar = connector(
             }
           ]}
         /> */}
-      </ul>
+        </ul>
+      )}
     </nav>
   )
 })
