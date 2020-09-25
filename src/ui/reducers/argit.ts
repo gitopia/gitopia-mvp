@@ -33,6 +33,14 @@ export const closeLoginModal: ActionCreator<{}> = createAction(
   "close-login-modal"
 )
 
+export const openSponsorModal: ActionCreator<{}> = createAction(
+  "open-sponsor-modal"
+)
+
+export const closeSponsorModal: ActionCreator<{}> = createAction(
+  "close-sponsor-modal"
+)
+
 export const loadNotifications: ActionCreator<{
   notifications: Notification[]
 }> = createAction("load-notifications")
@@ -71,6 +79,7 @@ export type ArgitState = {
   isAuthenticated: boolean
   address: string | null
   openedLoginModal: boolean
+  openedSponsorModal: boolean
   keyFileName: string | null
   activeRepository: string | null
   notifications: Notification[]
@@ -83,6 +92,7 @@ const initialState: ArgitState = {
   isAuthenticated: false,
   address: null,
   openedLoginModal: false,
+  openedSponsorModal: false,
   keyFileName: null,
   activeRepository: null,
   notifications: [],
@@ -114,6 +124,12 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   })
   .case(closeLoginModal, state => {
     return { ...state, openedLoginModal: false }
+  })
+  .case(openSponsorModal, state => {
+    return { ...state, openedSponsorModal: true }
+  })
+  .case(closeSponsorModal, state => {
+    return { ...state, openedSponsorModal: false }
   })
   .case(loadKeyFile, (state, payload) => {
     return { ...state, keyFileName: payload.keyFileName }

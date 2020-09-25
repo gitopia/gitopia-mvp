@@ -4,7 +4,7 @@ import * as git from "isomorphic-git"
 import { getRef } from "isomorphic-git/src/utils/arweave"
 import React from "react"
 import { Link } from "react-router-dom"
-import { CardBody, Col, Container, Row } from "reactstrap"
+import { CardBody, Col, Container, Row, Button } from "reactstrap"
 import { lifecycle } from "recompose"
 import { ReadCommitResult } from "../../../domain/types"
 import { arweave } from "../../../index"
@@ -18,6 +18,7 @@ import { setTxLoading } from "../../reducers/argit"
 import { createNewProject } from "../../reducers/project"
 import { CloneButton } from "../argit/cloneButton"
 import { RepositoryBrowser } from "../organisms/RepositoryBrowser"
+import { Sponsor } from "../argit/Sponsor"
 
 type Project = {
   projectRoot: string
@@ -50,14 +51,16 @@ export const StackRouter = connector(
     projectRoot: state.project.projectRoot,
     address: state.argit.address,
     history: state.git.history,
-    txLoading: state.argit.txLoading
+    txLoading: state.argit.txLoading,
+    isAuthenticated: state.argit.isAuthenticated
   }),
   actions => ({
     updateProjectList: actions.project.updateProjectList,
     startProjectRootChanged: actions.editor.startProjectRootChanged,
     createNewProject: actions.project.createNewProject,
     deleteProject: actions.editor.deleteProject,
-    setTxLoading: actions.argit.setTxLoading
+    setTxLoading: actions.argit.setTxLoading,
+    openSponsorModal: actions.argit.openSponsorModal
   }),
   lifecycle<StackRouterProps, {}>({
     async componentDidMount() {
@@ -73,7 +76,8 @@ export const StackRouter = connector(
 
       createNewProject({ newProjectRoot })
 
-      const url = `dgit://${address}${newProjectRoot}`
+      const url = `dgit://${match.params.wallet_address}${newProjectRoot}`
+      console.log(arweave, url)
       const oid = await getRef(arweave, url, "refs/heads/master")
 
       if (oid !== "0000000000000000000000000000000000000000" && oid !== "") {
@@ -125,8 +129,29 @@ export const StackRouter = connector(
             <></>
           ) : (
             <>
+              <Sponsor
+                address={props.match.params.wallet_address}
+                repo={props.match.params.repo_name}
+              />
+
+              <h2 className="mb-3">
+                {props.match.params.wallet_address}/
+                {props.match.params.repo_name}
+              </h2>
+
+              {/* <DgitScore /> */}
+
               <Row>
                 <Col>
+                  {props.isAuthenticated && (
+                    <Button
+                      color="primary"
+                      type="button"
+                      onClick={props.openSponsorModal}
+                    >
+                      Sponsor
+                    </Button>
+                  )}
                   <div className="float-right">
                     <CloneButton />
                   </div>

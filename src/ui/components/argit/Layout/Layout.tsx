@@ -52,7 +52,9 @@ export const Layout = connector(
         <Sidebar />
         <Hammer>
           <main className={s.content}>
-            <BreadcrumbHistory url={props.location.pathname} />
+            {props.isAuthenticated && (
+              <BreadcrumbHistory url={props.location.pathname} />
+            )}
             <TransitionGroup>
               <CSSTransition
                 key={props.location.key}
