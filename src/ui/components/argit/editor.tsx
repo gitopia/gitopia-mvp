@@ -112,7 +112,7 @@ export const Editor = connector(
         <p>
           Run the following commands in your existing git repository to push
         </p>
-        <code>
+        <code className="app-code">
           export ARWEAVE_WALLET_PATH="PATH_OF_YOUR_ARWEAVE_KEYFILE" <br />
           <br />
           dgit remote add origin "{url}" <br />

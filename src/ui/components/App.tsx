@@ -2,7 +2,7 @@ import React from "react"
 import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 import { configureStore } from "../store/configureStore"
-import { Landing } from "./argit/Landing"
+import { LandingNew } from "./argit/LandingNew"
 import { LoginModal } from "./argit/loginModal"
 import { CreateRepoModal } from "./organisms/CreateRepoModal"
 import { GlobalErrorBoundary } from "./utils/GlobalErrorBoundary"
@@ -23,7 +23,7 @@ export class App extends React.Component<{}> {
                   <Route
                     exact
                     path="/"
-                    render={(props: any) => <Landing {...props} />}
+                    render={(props: any) => <LandingNew {...props} />}
                   />
                   <Route
                     path="/app"
@@ -35,7 +35,7 @@ export class App extends React.Component<{}> {
                     render={(props: any) => <Layout {...props} />}
                   />
                   <Redirect from="*" to="/app/main/dashboard" />
-                  <Route default component={Landing} />
+                  <Route default component={LandingNew} />
                 </Switch>
               </HashRouter>
               <LoginModal />

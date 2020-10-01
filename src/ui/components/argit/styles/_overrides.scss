@@ -723,7 +723,7 @@ h6,
 // Code
 // -----------------
 
-code {
+.app-code {
   font-size: 85%;
   background-color: rgba($primary, 0.3);
   color: $success;
@@ -731,7 +731,7 @@ code {
   border-radius: $border-radius;
 }
 
-pre {
+.app-pre {
   display: block;
   padding: 6.5px;
   margin: 0 0 (1rem / 2);

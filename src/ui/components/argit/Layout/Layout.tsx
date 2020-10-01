@@ -30,76 +30,79 @@ export const Layout = connector(
   })
 )(function LayoutImpl(props) {
   return (
-    <div
-      className={[
-        s.root,
-        "sidebar-" + props.sidebarPosition,
-        "sidebar-" + props.sidebarVisibility
-      ].join(" ")}
-    >
-      <div className={s.wrap}>
-        {props.isAuthenticated && (
-          <Header
-            {...props}
-            setIsAuthenticated={props.setIsAuthenticated}
-            updateRepositories={props.updateRepositories}
-            updateNotifications={props.loadNotifications}
-            notifications={props.notifications}
-            address={props.address}
-          />
-        )}
+    <div className="app-body">
+      <div
+        className={[
+          s.root,
+          "sidebar-" + props.sidebarPosition,
+          "sidebar-" + props.sidebarVisibility
+        ].join(" ")}
+      >
+        <div className={s.wrap}>
+          {props.isAuthenticated && (
+            <Header
+              {...props}
+              setIsAuthenticated={props.setIsAuthenticated}
+              updateRepositories={props.updateRepositories}
+              updateNotifications={props.loadNotifications}
+              notifications={props.notifications}
+              address={props.address}
+            />
+          )}
 
-        <Sidebar />
-        <Hammer>
-          <main className={s.content}>
-            {props.isAuthenticated && (
-              <BreadcrumbHistory url={props.location.pathname} />
-            )}
-            <TransitionGroup>
-              <CSSTransition
-                key={props.location.key}
-                classNames="fade"
-                timeout={200}
-              >
-                <Switch>
-                  <Route
-                    path="/app/main/repository/:wallet_address/:repo_name"
-                    exact
-                    component={StackRouter}
-                  />
-                  <Route
-                    path="/app/main/repository/:wallet_address/:repo_name/commits"
-                    exact
-                    component={Commits}
-                  />
-                  <Route
-                    path="/app/main"
-                    exact
-                    render={() => <Redirect to="/app/main/dashboard" />}
-                  />
-                  <Route
-                    path="/app/main/dashboard"
-                    exact
-                    component={Dashboard}
-                  />
-                  <Route
-                    path="/app/main/repositories"
-                    exact
-                    render={props => <Repositories {...props} />}
-                  />
-                  <Route
-                    path="/app/main/pulls"
-                    exact
-                    render={props => <PullRequest />}
-                  />
-                </Switch>
-              </CSSTransition>
-            </TransitionGroup>
-            <footer className={s.contentFooter}>
-              dgit - Open versioning Hub, made by <a href="#">Tech Trap LLP</a>
-            </footer>
-          </main>
-        </Hammer>
+          <Sidebar />
+          <Hammer>
+            <main className={s.content}>
+              {props.isAuthenticated && (
+                <BreadcrumbHistory url={props.location.pathname} />
+              )}
+              <TransitionGroup>
+                <CSSTransition
+                  key={props.location.key}
+                  classNames="fade"
+                  timeout={200}
+                >
+                  <Switch>
+                    <Route
+                      path="/app/main/repository/:wallet_address/:repo_name"
+                      exact
+                      component={StackRouter}
+                    />
+                    <Route
+                      path="/app/main/repository/:wallet_address/:repo_name/commits"
+                      exact
+                      component={Commits}
+                    />
+                    <Route
+                      path="/app/main"
+                      exact
+                      render={() => <Redirect to="/app/main/dashboard" />}
+                    />
+                    <Route
+                      path="/app/main/dashboard"
+                      exact
+                      component={Dashboard}
+                    />
+                    <Route
+                      path="/app/main/repositories"
+                      exact
+                      render={props => <Repositories {...props} />}
+                    />
+                    <Route
+                      path="/app/main/pulls"
+                      exact
+                      render={props => <PullRequest />}
+                    />
+                  </Switch>
+                </CSSTransition>
+              </TransitionGroup>
+              <footer className={s.contentFooter}>
+                dgit - Open versioning Hub, made by{" "}
+                <a href="#">Tech Trap LLP</a>
+              </footer>
+            </main>
+          </Hammer>
+        </div>
       </div>
     </div>
   )

@@ -2,7 +2,6 @@ import * as React from "react"
 import Dropzone from "react-dropzone"
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { connector } from "../../actionCreators/index"
-
 export const LoginModal = connector(
   state => ({
     keyFileName: state.argit.keyFileName,
