@@ -25,7 +25,7 @@ export const LandingNew = connector(
         "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"
       document.getElementsByTagName("head")[0].appendChild(hscript)
       script.src =
-        "https://raw.githack.com/amiechen/codrops-scribbler/master/scribbler.js"
+        "https://raw.githack.com/TheTechTrap/codrops-scribbler/39e6c7b02f711abd82a762ec608bf09c3225a64a/scribbler.js"
       document.getElementsByTagName("head")[0].appendChild(script)
       hscript.onload = () => {
         hljs.initHighlighting()
@@ -55,14 +55,14 @@ export const LandingNew = connector(
             <div className="landing-menu__item toggle">
               <span />
             </div>
-            <li className="landing-menu__item">
+            {/* <li className="landing-menu__item">
               <a
                 href="doc.html"
                 className="landing-a landing-link landing-link--dark"
               >
                 <i className="fa fa-book" /> Documentation
               </a>
-            </li>
+            </li> */}
             <li className="landing-menu__item">
               <a
                 href="#"
@@ -79,19 +79,19 @@ export const LandingNew = connector(
             <img width="150px" height="150px" src={logo} />
           </h1>
           <p className="landing-hero__description">
-            Take your markdown notes in terminal
+            Permanent versioning for your Code
           </p>
         </div>
         <div className="landing-hero__terminal">
           <pre className="landing-pre">
-            <code className="landing-shell-session demo">hyperyolo ~ $</code>
+            <code className="landing-shell-session demo">dgit ~ $</code>
           </pre>
         </div>
         <div className="landing-wrapper">
           <div className="landing-installation">
             <h3 className="landing-section__title">Installation</h3>
             <div className="landing-tab__container">
-              <ul className="landing-tab__menu">
+              {/* <ul className="landing-tab__menu">
                 <li className="landing-tab active" data-tab="mac">
                   mac
                 </li>
@@ -101,33 +101,39 @@ export const LandingNew = connector(
                 <li className="landing-tab" data-tab="win">
                   win
                 </li>
-              </ul>
+              </ul> */}
               <pre className="landing-nohighlight landing-code">
                 <code className="landing-tab__pane active mac">
-                  $ brew install scribbler
+                  $ npm install -g git-remote-dgit
                 </code>
-                <code className="landing-tab__pane linux">
+                {/* <code className="landing-tab__pane linux">
                   $ apt-get install scribbler
                 </code>
                 <code className="landing-tab__pane win">
                   $ gem install scribbler
-                </code>
+                </code> */}
               </pre>
             </div>
           </div>
           <div className="landing-feature">
             <div className="landing-feature__item">
-              <h3 className="landing-section__title">Fast & Light</h3>
+              <h3 className="landing-section__title">
+                Permanent home for your code
+              </h3>
               <p className="landing-p">
-                Start writing your notes immediately in any terminal! No more
-                time wasted on navigating and opening your text editor.
+                All your code is stored on the blockchain forever so anything
+                stored with dgit will never be lost, even when you accidently
+                force push :D
               </p>
             </div>
             <div className="landing-feature__item">
-              <h3 className="landing-section__title">File Syncing</h3>
+              <h3 className="landing-section__title">
+                Always available for you
+              </h3>
               <p className="landing-p">
-                Save your file in Dropbox then you can access to it from
-                anywhere.
+                All your code is mirrored across the distributed network of
+                blockchain nodes, so you don't need to rely on a centralized
+                server.
               </p>
             </div>
             <div className="landing-feature__item">
@@ -163,7 +169,7 @@ export const LandingNew = connector(
               </p>
             </div>
           </div>
-          <div className="landing-keybinding">
+          {/* <div className="landing-keybinding">
             <ul className="landing-keybinding__detail">
               <h3 className="landing-keybinding__title">Default Keybindings</h3>
               <li>
@@ -202,11 +208,9 @@ export const LandingNew = connector(
                 Table
               </li>
             </ul>
-          </div>
+          </div> */}
           <div className="landing-callout">
-            <p className="landing-p">
-              Read our documentation for advanced keybindings and customization
-            </p>
+            <p className="landing-p">Read our documentation for info</p>
             <a href="doc.html" className="landing-a landing-button--primary">
               Documentation
             </a>
@@ -217,8 +221,8 @@ export const LandingNew = connector(
             <h3 className="landing-section__title">Changelog</h3>
             <div className="landing-changelog__item">
               <div className="landing-changelog__meta">
-                <h4 className="landing-changelog__title">v0.7</h4>
-                <small className="landing-changelog__date">10/12/2017</small>
+                <h4 className="landing-changelog__title">v0.0.3</h4>
+                <small className="landing-changelog__date">8/21/2020</small>
               </div>
               <div className="landing-changelog__detail">
                 <ul>
@@ -233,8 +237,8 @@ export const LandingNew = connector(
             </div>
             <div className="landing-changelog__item">
               <div className="landing-changelog__meta">
-                <h4 className="landing-changelog__title">v0.6</h4>
-                <small className="landing-changelog__date">7/30/2017</small>
+                <h4 className="landing-changelog__title">v0.0.2</h4>
+                <small className="landing-changelog__date">8/14/2020</small>
               </div>
               <div className="landing-changelog__detail">
                 <ul>
@@ -246,7 +250,7 @@ export const LandingNew = connector(
             </div>
             <div className="landing-changelog__item">
               <div className="landing-changelog__meta">
-                <h4 className="landing-changelog__title">v0.5</h4>
+                <h4 className="landing-changelog__title">v0.0.1</h4>
                 <small className="landing-changelog__date">5/10/2017</small>
               </div>
               <div className="landing-changelog__detail">

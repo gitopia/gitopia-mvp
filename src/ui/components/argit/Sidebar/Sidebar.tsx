@@ -6,6 +6,7 @@ import { connector } from "../../../actionCreators/index"
 import { changeActiveSidebarItem } from "../../../reducers/navigation"
 import LinksGroup from "./LinksGroup/LinksGroup"
 import s from "./Sidebar.module.scss"
+import dlogo from "../../argit/images/logosv.svg"
 
 export interface SidebarProps {
   sidebarOpened: boolean
@@ -47,7 +48,7 @@ export const Sidebar = connector(
     >
       <header className={s.logo}>
         <Link to="/">
-          d<span className="fw-bold">git</span>
+          <img src={dlogo} height="120px" width="120px" />
         </Link>
       </header>
       {props.isAuthenticated && (

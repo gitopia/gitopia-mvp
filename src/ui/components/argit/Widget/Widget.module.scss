@@ -23,11 +23,8 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(
-    farthest-side ellipse at 10% 0,
-    #333867 20%,
-    #17193b
-  );
+  background-color: #f8f8fa;
+  background-image: linear-gradient(315deg, #f8f8fa 0%, #f8f8fa 74%);
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 55;
