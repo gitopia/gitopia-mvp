@@ -134,10 +134,10 @@ export const StackRouter = connector(
                 repo={props.match.params.repo_name}
               />
 
-              <h2 className="mb-3">
+              {/* <h2 className="mb-3">
                 {props.match.params.wallet_address}/
                 {props.match.params.repo_name}
-              </h2>
+              </h2> */}
 
               {/* <DgitScore /> */}
 

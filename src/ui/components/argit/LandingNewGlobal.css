@@ -29,7 +29,7 @@
 .landing-a,
 .landing-a:hover {
   text-decoration: none;
-  color: var(--landing-primary-color);
+  color: var(--landing-white-color);
 }
 
 .landing-hr {

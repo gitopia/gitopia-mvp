@@ -268,7 +268,10 @@ small {
 
 .btn-secondary {
   border-color: $gray-400;
-  color: $white;
+  color: #fff;
+}
+.btn-primary {
+  color: #fff;
 }
 
 .btn-success,

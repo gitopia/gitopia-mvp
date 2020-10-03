@@ -151,8 +151,8 @@ export const Dashboard = connector(
                       />
                     </span> */}
                     <img
-                      className="inline-block h-10 w-10 rounded-full text-white shadow-solid"
-                      src={`https://api.adorable.io/avatars/100/${
+                      className="inline-block h-5 w-5 rounded-circle text-white shadow-solid"
+                      src={`https://api.adorable.io/avatars/50/${
                         props.address
                       }.png`}
                       alt=""

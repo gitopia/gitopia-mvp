@@ -96,13 +96,23 @@ export const Layout = connector(
                   </Switch>
                 </CSSTransition>
               </TransitionGroup>
-              <footer className={s.contentFooter}>
-                dgit - Open versioning Hub, made by{" "}
-                <a href="#">Tech Trap LLP</a>
-              </footer>
             </main>
           </Hammer>
         </div>
+        <footer className="landing-footer">
+          Made with <span style={{ color: "#e25555" }}>&#9829;</span>
+          &nbsp; by{" "}
+          <span className="font-bold">
+            <a
+              href="https://thechtrap.com/"
+              target="_blank"
+              className="landing-a landing-link link--dark"
+            >
+              TheTechTrap
+            </a>
+          </span>
+          .
+        </footer>
       </div>
     </div>
   )

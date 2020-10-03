@@ -169,8 +169,8 @@ export const LandingNew = connector(
               </p>
             </div>
           </div>
-          {/* <div className="landing-keybinding">
-            <ul className="landing-keybinding__detail">
+          <div className="landing-keybinding">
+            {/* <ul className="landing-keybinding__detail">
               <h3 className="landing-keybinding__title">Default Keybindings</h3>
               <li>
                 Quit without saving{" "}
@@ -207,14 +207,14 @@ export const LandingNew = connector(
                 <span className="landing-keybinding__label">Ctrl+T</span> Insert
                 Table
               </li>
-            </ul>
-          </div> */}
-          <div className="landing-callout">
+            </ul>*/}
+          </div>
+          {/* <div className="landing-callout">
             <p className="landing-p">Read our documentation for info</p>
             <a href="doc.html" className="landing-a landing-button--primary">
               Documentation
             </a>
-          </div>
+          </div> */}
         </div>
         <div className="landing-changelog">
           <div className="landing-wrapper">
@@ -260,22 +260,25 @@ export const LandingNew = connector(
                 </ul>
               </div>
             </div>
-            <div className="landing-changelog__callout">
+            {/* <div className="landing-changelog__callout">
               <a href="#" className="landing-a landing-button--secondary">
                 Checkout Full Log
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
         <footer className="landing-footer">
-          Scribbler is a free HTML template created exclusively for{" "}
-          <a
-            href="https://tympanus.net/codrops/"
-            target="_blank"
-            className="landing-a landing-link link--light"
-          >
-            Codrops
-          </a>
+          Made with <span style={{ color: "#e25555" }}>&#9829;</span>
+          &nbsp; by{" "}
+          <span className="font-bold">
+            <a
+              href="https://thechtrap.com/"
+              target="_blank"
+              className="landing-a landing-link link--dark"
+            >
+              TheTechTrap
+            </a>
+          </span>
           .
         </footer>
       </div>
