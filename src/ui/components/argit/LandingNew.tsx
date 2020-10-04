@@ -31,11 +31,16 @@ export const LandingNew = connector(
         "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"
       document.getElementsByTagName("head")[0].appendChild(hscript)
       script.src =
-        "https://raw.githack.com/TheTechTrap/codrops-scribbler/39e6c7b02f711abd82a762ec608bf09c3225a64a/scribbler.js"
+        "https://raw.githack.com/TheTechTrap/codrops-scribbler/93e605a748752a2ee8da008c35f85f05b07c4c44/scribbler.js"
       document.getElementsByTagName("head")[0].appendChild(script)
       hscript.onload = () => {
         hljs.initHighlighting()
       }
+        var typer = document.getElementById("typewriter")
+
+        var typewriter = setupTypewriter(typer)
+
+        typewriter.type()
     }
   })
 )(function LandingNewImpl(props: any) {
@@ -89,9 +94,21 @@ export const LandingNew = connector(
           </p>
         </div>
         <div className="landing-hero__terminal">
-          <pre className="landing-pre">
-            <code className="landing-shell-session demo">dgit ~ $</code>
+          <pre className="landing-pre" id="typewriter">
+            <span className="dgit-highlight">dgit ~ $</span> <span className="dgit-code" >git remote add
+          origin dgit://VC4NJ3nlVJJPgyJ4DScpeXx3-UnXmiasfrxiIFpJwb0/repo-name{"    "}</span>
+            <span className="dgit-highlight">dgit ~ $</span><span className="dgit-code" > git push origin
+            master</span>
           </pre>
+          {/* <pre className="landing-pre">
+            <code className="landing-shell-session">
+              dgit ~ $ git remote add origin
+              dgit://VC4NJ3nlVJJPgyJ4DScpeXx3-UnXmiasfrxiIFpJwb0/repo-name
+            </code>
+            <code className="landing-shell-session">
+              dgit ~ $ git push origin master
+            </code>
+          </pre> */}
         </div>
         <div className="landing-wrapper">
           <div className="landing-installation">

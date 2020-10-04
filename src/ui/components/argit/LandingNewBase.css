@@ -191,3 +191,44 @@
   margin-top: 30px;
   margin-bottom: 30px;
 }
+
+.dgit-highlight {
+  color: #c0ad60;
+}
+
+#typewriter {
+  font-size: 1.01em;
+  margin: 0;
+  font-family: "Courier New";
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.dgit-code {
+  color: #fff;
+}
