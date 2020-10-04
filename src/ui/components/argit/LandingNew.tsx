@@ -5,6 +5,12 @@ import { Layout } from "./Layout/Layout"
 import { lifecycle } from "recompose"
 import logo from "../argit/images/logosv.svg"
 import dlogo from "../argit/images/dlogo.svg"
+import serverImage from "./images/undraw_server_q2pb.svg"
+import availabilityImage from "./images/undraw_Memory_storage_reh0.svg"
+import securityImage from "./images/undraw_security_o890.svg"
+import votingImage from "./images/undraw_voting_nvu7.svg"
+import osImage from "./images/undraw_open_source_1qxw.svg"
+import pushImage from "./images/undraw_pull_request_gld8.svg"
 
 import "./LandingNewGlobal.css"
 import "./LandingNewBase.css"
@@ -117,55 +123,78 @@ export const LandingNew = connector(
           </div>
           <div className="landing-feature">
             <div className="landing-feature__item">
-              <h3 className="landing-section__title">
-                Permanent home for your code
+              <div className="landing-feature__images justify-content-center">
+                <img src={serverImage} height="100px" width="100px" />
+              </div>
+              <h3 className="landing-section__title justify-content-center">
+                Permanent
               </h3>
-              <p className="landing-p">
+              <p className="landing-p justify-content-center">
                 All your code is stored on the blockchain forever so anything
                 stored with dgit will never be lost, even when you accidently
-                force push :D
+                force push
               </p>
             </div>
             <div className="landing-feature__item">
-              <h3 className="landing-section__title">
-                Always available for you
+              <div className="landing-feature__images justify-content-center">
+                <img src={availabilityImage} height="100px" width="100px" />
+              </div>
+              <h3 className="landing-section__title justify-content-center">
+                Available
               </h3>
-              <p className="landing-p">
+              <p className="landing-p justify-content-center">
                 All your code is mirrored across the distributed network of
                 blockchain nodes, so you don't need to rely on a centralized
                 server.
               </p>
             </div>
             <div className="landing-feature__item">
-              <h3 className="landing-section__title">Secure</h3>
-              <p className="landing-p">
-                Encrypt your notes optionally. No one can get to your secrets!{" "}
+              <div className="landing-feature__images justify-content-center">
+                <img src={securityImage} height="100px" width="100px" />
+              </div>
+              <h3 className="landing-section__title justify-content-center">
+                Secure
+              </h3>
+              <p className="landing-p justify-content-center">
+                The code can be updated only by the user holding the private
+                keys
               </p>
             </div>
             <div className="landing-feature__item">
-              <h3 className="landing-section__title">Configuration</h3>
-              <p className="landing-p">
-                Maintain all your settings in a single{" "}
-                <span className="landing-code landing-code--inline">
-                  config.json
-                </span>{" "}
-                file. Never need to redo the setting every single time jotting
-                down a note.
+              <div className="landing-feature__images justify-content-center">
+                <img src={votingImage} height="100px" width="100px" />
+              </div>
+              <h3 className="landing-section__title justify-content-center">
+                Governance
+              </h3>
+              <p className="landing-p justify-content-center">
+                Dgit being a Profit Sharing Community, all governance/product
+                decisions need a voting on community.xyz
               </p>
             </div>
             <div className="landing-feature__item">
-              <h3 className="landing-section__title">Highlightings</h3>
-              <p className="landing-p">
-                For better readability, scribbler has a clean, beautiful color
-                scheme allow you to scan files fast.
+              <div className="landing-feature__images justify-content-center">
+                <img src={osImage} height="100px" width="100px" />
+              </div>
+              <h3 className="landing-section__title justify-content-center">
+                Open Source
+              </h3>
+              <p className="landing-p justify-content-center">
+                All of dgit code is open source on dgit and can be audited by
+                anyone.
               </p>
             </div>
             <div className="landing-feature__item">
-              <h3 className="landing-section__title">Keybindings</h3>
-              <p className="landing-p">
-                You can expect common keybindings for scribbler. Customize{" "}
-                <span className="landing-code code--inline">bindings.json</span>{" "}
-                for your own liking!{" "}
+              <div className="landing-feature__images justify-content-center">
+                <img src={pushImage} height="100px" width="100px" />
+              </div>
+              <h3 className="landing-section__title justify-content-center">
+                git CLI
+              </h3>
+              <p className="landing-p justify-content-center">
+                dgit makes use of git-remote-dgit helper which enables
+                developers to work with the default git cli they are comfortable
+                with.
               </p>
             </div>
           </div>
@@ -210,7 +239,7 @@ export const LandingNew = connector(
             </ul>*/}
           </div>
           {/* <div className="landing-callout">
-            <p className="landing-p">Read our documentation for info</p>
+            <p className="landing-p justify-content-center">Read our documentation for info</p>
             <a href="doc.html" className="landing-a landing-button--primary">
               Documentation
             </a>
