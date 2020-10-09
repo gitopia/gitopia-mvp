@@ -53,6 +53,14 @@ export const loadActivities: ActionCreator<{
   activities: Activity[]
 }> = createAction("load-activities")
 
+export const updateRepository: ActionCreator<{
+  repository: {
+    name: string
+    description: string
+    owner: { name: string }
+  }
+}> = createAction("update-repo")
+
 export type Repository = {
   name: string
   description: string
@@ -85,6 +93,11 @@ export type ArgitState = {
   notifications: Notification[]
   txLoading: boolean
   activities: Activity[]
+  repository: {
+    name: string
+    description: string
+    owner: { name: string }
+  }
 }
 
 const initialState: ArgitState = {
@@ -97,7 +110,12 @@ const initialState: ArgitState = {
   activeRepository: null,
   notifications: [],
   txLoading: false,
-  activities: []
+  activities: [],
+  repository: {
+    name: "",
+    description: "",
+    owner: { name: "" }
+  }
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -142,4 +160,7 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   })
   .case(loadActivities, (state, payload) => {
     return { ...state, activities: payload.activities }
+  })
+  .case(updateRepository, (state, payload) => {
+    return { ...state, repository: payload.repository }
   })
