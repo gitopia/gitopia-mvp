@@ -47,14 +47,11 @@
 .landing-feature {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 30px;
 }
 
 .landing-feature__item {
-  max-width: calc(31% - 20px);
-  margin-bottom: 30px;
-  margin-left: 20px;
-  margin-right: 25px;
+  max-width: calc(33% - 20px);
+  margin: 0 20px 0 0;
 }
 
 .landing-feature__item .landing-section__title {
@@ -231,4 +228,8 @@
 
 .dgit-code {
   color: #fff;
+}
+
+.landing-installation {
+  margin-bottom: 10px;
 }
