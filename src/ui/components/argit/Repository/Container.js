@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 const NewContainer = styled.div`
   max-width: 900px;
-  background: ##8e7474;
+  background: #f8f8f9;
   border-radius: 4px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   padding: 30px;
@@ -39,3 +39,71 @@ export const Icon = styled.h2`
 `
 
 export default NewContainer
+
+export const List = styled.ul`
+  margin-top: 30px;
+  list-style-type: none;
+  font-size: 16px;
+
+  li {
+    padding: 15px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    & + li {
+      border-top: 1px solid #eee;
+    }
+
+    img {
+      width: 32px;
+      margin-right: 12px;
+      border-radius: 50%;
+      border: 2px solid #dbdbdb;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        color: #7159c1;
+      }
+    }
+
+    button {
+      color: #999;
+      background: none;
+      border: 0;
+      padding: 6px 0 6px 16px;
+
+      &:hover {
+        color: #7159c1;
+      }
+    }
+  }
+`
+
+export const SubmitButton = styled.button`
+  background: rgba(113, 89, 193, 0.2);
+  border: 0;
+
+  border-radius: 4px;
+`
+
+export const Form = styled.form`
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+
+  input {
+    flex: 1;
+    border: solid 2px #e41111;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+`

@@ -43,7 +43,7 @@ import {
   IssueLabel
 } from "../argit/Repository/RepositoryStyles"
 import { GoArrowLeft, GoArrowRight } from "react-icons/go"
-import { FaHistory, FaRegFileAlt, FaAward } from "react-icons/fa"
+import { FaHistory, FaRegFileAlt, FaAward, FaSpinner } from "react-icons/fa"
 import { mkdir } from "../../../domain/filesystem/commands/mkdir"
 import pify from "pify"
 import { existsPath } from "../../../domain/filesystem/queries/existsPath"
@@ -269,10 +269,14 @@ export const StackRouter = connector(
 
       if (props.txLoading)
         return (
-          <>
-            <i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
-            <span className="sr-only">Loading...</span>
-          </>
+          <NewContainer>
+            <Icon>
+              <img src={dlogo} height="48px" width="48px" />
+            </Icon>
+            <Loading loading={props.txLoading ? 1 : 0}>
+              <FaSpinner />
+            </Loading>
+          </NewContainer>
         )
 
       return (
