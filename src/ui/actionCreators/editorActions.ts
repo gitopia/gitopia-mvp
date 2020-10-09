@@ -246,12 +246,12 @@ export async function pushCurrentBranchToOrigin(
 
 export async function initializeGitStatus(projectRoot: string) {
   return async (dispatch: any) => {
-    const {
-      currentBranch,
-      branches,
-      remotes,
-      remoteBranches
-    } = await Git.getBranchStatus(projectRoot)
+    // const {
+    //   currentBranch,
+    //   branches,
+    //   remotes,
+    //   remoteBranches
+    // } = await Git.getBranchStatus(projectRoot)
 
     let history: ReadCommitResult[] = []
     try {
@@ -265,10 +265,10 @@ export async function initializeGitStatus(projectRoot: string) {
     dispatch(
       GitActions.endInitialize({
         history,
-        remotes,
-        currentBranch,
-        branches,
-        remoteBranches,
+        remotes: [],
+        currentBranch: "master",
+        branches: [],
+        remoteBranches: [],
         statusMatrix: matrix
       })
     )

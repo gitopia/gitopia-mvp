@@ -57,6 +57,7 @@ type EditorProps = {
   unloadFile: any
   theme: string
   history: ReadCommitResult[]
+  head: string
 }
 
 export const Editor = connector(
@@ -66,7 +67,8 @@ export const Editor = connector(
     address: state.argit.address,
     projectRoot: state.project.projectRoot,
     theme: state.config.theme,
-    history: state.git.history
+    history: state.git.history,
+    head: state.argit.repositoryHead
   }),
   actions => ({
     unloadFile: actions.buffer.unloadFile
@@ -77,7 +79,7 @@ export const Editor = connector(
     }
   })
 )(function EditorImpl(props) {
-  if (props.history.length) {
+  if (props.head) {
     if (props.value) {
       const mode = extToAceMode(props.filepath)
 

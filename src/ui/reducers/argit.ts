@@ -41,6 +41,14 @@ export const closeSponsorModal: ActionCreator<{}> = createAction(
   "close-sponsor-modal"
 )
 
+export const setRepositoryURL: ActionCreator<{
+  repositoryURL: string
+}> = createAction("set-repository-url")
+
+export const setRepositoryHead: ActionCreator<{
+  repositoryHead: string
+}> = createAction("set-repository-head")
+
 export const loadNotifications: ActionCreator<{
   notifications: Notification[]
 }> = createAction("load-notifications")
@@ -89,7 +97,8 @@ export type ArgitState = {
   openedLoginModal: boolean
   openedSponsorModal: boolean
   keyFileName: string | null
-  activeRepository: string | null
+  repositoryURL: string | null
+  repositoryHead: string | null
   notifications: Notification[]
   txLoading: boolean
   activities: Activity[]
@@ -107,7 +116,8 @@ const initialState: ArgitState = {
   openedLoginModal: false,
   openedSponsorModal: false,
   keyFileName: null,
-  activeRepository: null,
+  repositoryURL: null,
+  repositoryHead: null,
   notifications: [],
   txLoading: false,
   activities: [],
@@ -148,6 +158,12 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   })
   .case(closeSponsorModal, state => {
     return { ...state, openedSponsorModal: false }
+  })
+  .case(setRepositoryURL, (state, payload) => {
+    return { ...state, repositoryURL: payload.repositoryURL }
+  })
+  .case(setRepositoryHead, (state, payload) => {
+    return { ...state, repositoryHead: payload.repositoryHead }
   })
   .case(loadKeyFile, (state, payload) => {
     return { ...state, keyFileName: payload.keyFileName }

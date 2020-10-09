@@ -7,7 +7,7 @@ export async function mkdir(dirpath: string): Promise<void> {
     // Do nothing
     console.info("mkdir: exists", dirpath)
   } else {
-    await pify(fs.mkdir)(dirpath)
+    await pify(fs.mkdir)(dirpath, { recursive: true })
     console.info("mkdir: done", dirpath)
   }
 }

@@ -18,6 +18,8 @@ import { Pathname } from "../../atoms/Pathname"
 import { AddDir } from "./AddDir"
 import { AddFile } from "./AddFile"
 import { FileLine } from "./FileLine"
+import { arweave } from "../../../../index"
+import { loadDirectory } from "../../utils/StackRouter"
 
 type OwnProps = {
   root: string
@@ -29,6 +31,8 @@ type OwnProps = {
 
 type Props = OwnProps & {
   editingFilepath: string | null
+  repositoryURL: string | null
+  repositoryHead: string | null
   touchCounter: number
   isFileCreating: boolean
   isDirCreating: boolean
@@ -40,7 +44,6 @@ type Props = OwnProps & {
 
 type DirectroyState = {
   opened: boolean
-  fileList: FileInfo[] | null
   loaded: boolean
   loading: boolean
   error: null
@@ -54,7 +57,9 @@ export const DirectoryLine: React.ComponentType<OwnProps> = connector(
       editingFilepath: state.buffer.filepath,
       touchCounter: state.repository.touchCounter,
       isFileCreating: ownProps.dirpath === state.repository.fileCreatingDir,
-      isDirCreating: ownProps.dirpath === state.repository.dirCreatingDir
+      isDirCreating: ownProps.dirpath === state.repository.dirCreatingDir,
+      repositoryURL: state.argit.repositoryURL,
+      repositoryHead: state.argit.repositoryHead
     }
   },
   actions => {
@@ -82,7 +87,6 @@ const DirectoryLineContent: React.ComponentClass<
     super(props)
     this.state = {
       opened: this.props.open || false,
-      fileList: null,
       loaded: false,
       loading: true,
       error: null,
@@ -112,16 +116,15 @@ const DirectoryLineContent: React.ComponentClass<
       return
     }
     try {
-      const fileList = await readFileStats(this.props.root, this.props.dirpath)
-      this.setState({ fileList, loaded: true, loading: false })
+      this.setState({ loaded: true, loading: false })
     } catch (error) {
       this.setState({ loaded: true, loading: false, error })
     }
   }
 
   render() {
-    const { dirpath, depth, root } = this.props
-    const { opened, fileList } = this.state
+    const { dirpath, depth, root, repositoryURL, repositoryHead } = this.props
+    const { opened } = this.state
 
     const relpath = path.relative(root, dirpath)
     const basename = path.basename(relpath)
@@ -184,66 +187,85 @@ const DirectoryLineContent: React.ComponentClass<
             )}
           </Container>
         </MyContextMenuProvider>
-        {opened &&
-          fileList != null && (
-            <LinkedLines
-              root={root}
-              dirpath={dirpath}
-              depth={depth + 1}
-              fileList={fileList}
-              editingFilepath={this.props.editingFilepath}
-            />
-          )}
+        {opened && (
+          <LinkedLines
+            root={root}
+            dirpath={dirpath}
+            depth={depth + 1}
+            editingFilepath={this.props.editingFilepath}
+            repositoryURL={repositoryURL}
+            repositoryHead={repositoryHead}
+          />
+        )}
       </>
     )
   }
 }
 
-function LinkedLines({
-  dirpath,
-  root,
-  depth,
-  fileList,
-  editingFilepath
-}: {
+interface LinkedLinesProps {
   dirpath: string
   root: string
   depth: number
-  fileList: FileInfo[]
   editingFilepath: string | null
-}) {
-  return (
-    <>
-      {fileList.map((f: FileInfo) => {
-        const filepath = path.join(dirpath, f.name)
-        if (f.type === "file") {
-          return (
-            <FileLine
-              key={f.name}
-              depth={depth}
-              filepath={filepath}
-              ignoreGit={f.ignored}
-            />
-          )
-        } else if (f.type === "dir") {
-          return (
-            <DirectoryLine
-              key={f.name}
-              root={root}
-              dirpath={filepath}
-              depth={depth}
-              open={
-                // open if dir includes editing filepath
-                editingFilepath != null &&
-                !path.relative(filepath, editingFilepath).startsWith("..")
-              }
-              ignoreGit={f.ignored} // TODO: See .gitignore
-            />
-          )
-        }
-      })}
-    </>
-  )
+  repositoryURL: string | null
+  repositoryHead: string | null
+}
+
+interface LinkedLinesState {
+  fileList: FileInfo[]
+}
+
+class LinkedLines extends React.Component<LinkedLinesProps, LinkedLinesState> {
+  state = { fileList: [] }
+
+  async componentDidMount() {
+    await loadDirectory(
+      arweave,
+      this.props.repositoryURL,
+      this.props.repositoryHead,
+      this.props.root,
+      this.props.dirpath
+    )
+    const fileList = await readFileStats(this.props.root, this.props.dirpath)
+    this.setState({ fileList })
+  }
+
+  render() {
+    const { dirpath, depth, root, editingFilepath } = this.props
+
+    return (
+      <>
+        {this.state.fileList.map((f: FileInfo) => {
+          const filepath = path.join(dirpath, f.name)
+          if (f.type === "file") {
+            return (
+              <FileLine
+                key={f.name}
+                depth={depth}
+                filepath={filepath}
+                ignoreGit={f.ignored}
+              />
+            )
+          } else if (f.type === "dir") {
+            return (
+              <DirectoryLine
+                key={f.name}
+                root={root}
+                dirpath={filepath}
+                depth={depth}
+                open={
+                  // open if dir includes editing filepath
+                  editingFilepath != null &&
+                  !path.relative(filepath, editingFilepath).startsWith("..")
+                }
+                ignoreGit={f.ignored} // TODO: See .gitignore
+              />
+            )
+          }
+        })}
+      </>
+    )
+  }
 }
 
 export const RootDirectory: React.ComponentType<OwnProps> = compose(
