@@ -8,6 +8,8 @@ import { CardBody, Col, Row, Container } from "reactstrap"
 import { lifecycle } from "recompose"
 import { ReadCommitResult } from "../../../domain/types"
 import { arweave } from "../../../index"
+import dlogo from "../argit/images/dlogo.svg"
+
 import { connector } from "../../actionCreators"
 import {
   deleteProject,
@@ -279,6 +281,9 @@ export const StackRouter = connector(
             <></>
           ) : (
             <NewContainer>
+              <Icon>
+                <img src={dlogo} height="48px" width="48px" />
+              </Icon>
               {/* <Repository /> */}
               <Owner>
                 <div>
