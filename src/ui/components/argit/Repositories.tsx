@@ -149,7 +149,7 @@ export const Repositories = connector(
         </Icon>
         <h1>
           Repositories {"  "}
-          <SubmitButton>
+          <SubmitButton onClick={() => props.openCreateRepoModal({})}>
             <FaPlus color="#fff" size={26} />
           </SubmitButton>
           {/* <button
