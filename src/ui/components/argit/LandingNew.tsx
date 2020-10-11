@@ -63,9 +63,7 @@ export const LandingNew = connector(
             <img src={dlogo} height="32px" width="32px" />
           </div>
           <ul className="landing-menu">
-            <div className="landing-menu__item toggle">
-              <span />
-            </div>
+
             {/* <li className="landing-menu__item">
               <a
                 href="doc.html"
@@ -74,6 +72,15 @@ export const LandingNew = connector(
                 <i className="fa fa-book" /> Documentation
               </a>
             </li> */}
+            <li className="landing-menu__item landing-toggle">
+              <a
+                href="#"
+                onClick={() => props.openLoginModal({})}
+                className="landing-a landing-link landing-link--dark"
+              >
+                <i className="fa fa-sign-in" /> Login
+              </a>
+            </li>
             <li className="landing-menu__item">
               <a
                 href="#"
