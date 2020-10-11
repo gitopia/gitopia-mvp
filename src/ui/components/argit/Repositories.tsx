@@ -33,7 +33,14 @@ import NewContainer, {
   Form
 } from "../argit/Repository/Container"
 import dlogo from "../argit/images/dlogo.svg"
-import { FaCheckCircle, FaSpinner, FaPlus } from "react-icons/fa"
+import {
+  FaCheckCircle,
+  FaSpinner,
+  FaPlus,
+  FaAward,
+  FaHistory,
+  FaRegFileAlt
+} from "react-icons/fa"
 
 import { setTxLoading, updateItems } from "../../reducers/argit"
 type ConnectedProps = {
@@ -210,6 +217,7 @@ export const Repositories = connector(
         <img src={dlogo} height="48px" width="48px" />
       </Icon>
       <Owner>
+        <div />
         <OwnerProfile>
           <a
             href={`/${props.address}`}
@@ -223,15 +231,16 @@ export const Repositories = connector(
           </a>
         </OwnerProfile>
         <RepoInfo>
-          <h1>
-            <a
-              href={`/${props.address}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {props.address}
-            </a>
+          <h1 className="d-md-none">
+            {props.address.replace(/(.{7})..+/, "$1...")}
           </h1>
+          <h1 className="d-none d-md-block">{props.address}</h1>
+          <div>
+            <span className="rv-button">
+              <FaAward />
+              Sponsor
+            </span>
+          </div>
         </RepoInfo>
       </Owner>
 
