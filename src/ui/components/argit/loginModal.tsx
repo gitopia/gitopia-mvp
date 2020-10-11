@@ -2,6 +2,7 @@ import * as React from "react"
 import Dropzone from "react-dropzone"
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { connector } from "../../actionCreators/index"
+import { arweave } from "../../../index"
 
 export const LoginModal = connector(
   state => ({
@@ -47,6 +48,12 @@ export const LoginModal = connector(
                   //   this.toggleModal() // Close login modal
                   props.closeLoginModal({})
                   props.setIsAuthenticated({ isAuthenticated: true })
+                  arweave.wallets
+                    .jwkToAddress(
+                      JSON.parse(String(sessionStorage.getItem("keyfile")))
+                    )
+                    .then(address => window.location.replace(`/#/${address}`))
+
                   // window.location.reload() // Reload page to get authenticated status
                 } else {
                   props.loadKeyFile({ keyFileName: "Error: Not a keyfile" })
