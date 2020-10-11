@@ -12,6 +12,7 @@ import PullRequest from "../PullRequest"
 import { Repositories } from "../Repositories"
 import { Sidebar } from "../Sidebar/Sidebar"
 import s from "./Layout.module.scss"
+import dlogo from "../../argit/images/dlogo.svg"
 
 export const Layout = connector(
   state => ({
@@ -31,14 +32,11 @@ export const Layout = connector(
 )(function LayoutImpl(props) {
   return (
     <div className="app-body">
-      <div
-        className={[
-          s.root,
-          "sidebar-" + props.sidebarPosition,
-          "sidebar-" + props.sidebarVisibility
-        ].join(" ")}
-      >
-        <div className={s.wrap}>
+      <div>
+        <nav className="landing-nav">
+          <div className="landing-logo">
+            <img src={dlogo} height="48px" width="48px" />
+          </div>
           {props.isAuthenticated && (
             <Header
               {...props}
@@ -49,71 +47,69 @@ export const Layout = connector(
               address={props.address}
             />
           )}
-
-          <Sidebar />
-          <Hammer>
-            <main className={s.content}>
-              {props.isAuthenticated && (
+        </nav>
+        <Hammer>
+          <main className={s.content}>
+            {/* {props.isAuthenticated && (
                 <BreadcrumbHistory url={props.location.pathname} />
-              )}
-              <TransitionGroup>
-                <CSSTransition
-                  key={props.location.key}
-                  classNames="fade"
-                  timeout={200}
-                >
-                  <Switch>
-                    <Route
-                      path="/app/main/repository/:wallet_address/:repo_name"
-                      exact
-                      component={StackRouter}
-                    />
-                    <Route
-                      path="/app/main/repository/:wallet_address/:repo_name/commits"
-                      exact
-                      component={Commits}
-                    />
-                    <Route
-                      path="/app/main"
-                      exact
-                      render={() => <Redirect to="/app/main/dashboard" />}
-                    />
-                    <Route
-                      path="/app/main/dashboard"
-                      exact
-                      component={Dashboard}
-                    />
-                    <Route
-                      path="/app/main/repositories"
-                      exact
-                      render={props => <Repositories {...props} />}
-                    />
-                    <Route
-                      path="/app/main/pulls"
-                      exact
-                      render={props => <PullRequest />}
-                    />
-                  </Switch>
-                </CSSTransition>
-              </TransitionGroup>
-            </main>
-          </Hammer>
-        </div>
-        <footer className="landing-footer">
-          Made with <span style={{ color: "#e25555" }}>&#9829;</span>
-          &nbsp; by{" "}
-          <span className="font-bold">
-            <a
-              href="https://thechtrap.com/"
-              target="_blank"
-              className="landing-a landing-link link--dark"
-            >
-              TheTechTrap
-            </a>
-          </span>
-          .
-        </footer>
+              )} */}
+            <TransitionGroup>
+              <CSSTransition
+                key={props.location.key}
+                classNames="fade"
+                timeout={200}
+              >
+                <Switch>
+                  <Route
+                    path="/:wallet_address"
+                    exact
+                    render={props => <Repositories {...props} />}
+                  />
+                  <Route
+                    path="/:wallet_address/:repo_name"
+                    exact
+                    component={StackRouter}
+                  />
+                  <Route
+                    path="/:wallet_address/:repo_name/commits"
+                    exact
+                    component={Commits}
+                  />
+                  <Route
+                    path="/app/main"
+                    exact
+                    render={() => <Redirect to="/app/main/dashboard" />}
+                  />
+                  <Route
+                    path="/app/main/dashboard"
+                    exact
+                    component={Dashboard}
+                  />
+                  <Route
+                    path="/app/main/pulls"
+                    exact
+                    render={props => <PullRequest />}
+                  />
+                </Switch>
+              </CSSTransition>
+            </TransitionGroup>
+          </main>
+        </Hammer>
       </div>
+      <footer className="landing-footer">
+        Made with <span style={{ color: "#e25555" }}>&#9829;</span>
+        &nbsp; by{" "}
+        <span className="font-bold">
+          <a
+            href="https://thechtrap.com/"
+            target="_blank"
+            className="landing-a landing-link link--dark"
+          >
+            TheTechTrap
+          </a>
+        </span>
+        .
+      </footer>
     </div>
   )
 })

@@ -19,9 +19,10 @@ export const Landing = connector(
     return (
       <HashRouter>
         <Switch>
-          <Route path="/app" exact render={() => <Redirect to="/app/main" />} />
-          <Route path="/app" render={(props: any) => <Layout {...props} />} />
-          <Redirect from="*" to="/app/main/dashboard" />
+          <Route
+            path="/:wallet_address/"
+            render={(props: any) => <Layout {...props} />}
+          />
         </Switch>
       </HashRouter>
     )

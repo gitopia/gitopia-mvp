@@ -140,7 +140,10 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 />
               </span>
               <span className={`small ${s.accountCheck}`}>
-                {this.props.address}
+                <span className="d-md-none">
+                  {`${this.props.address}`.replace(/(.{10})..+/, "$1...")}{" "}
+                </span>
+                <span className="d-none d-md-block">{this.props.address} </span>
               </span>
               <Badge className={s.badge} color="primary">
                 {this.props.notifications.length}

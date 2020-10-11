@@ -48,9 +48,7 @@ export const LandingNew = connector(
     return (
       <HashRouter>
         <Switch>
-          <Route path="/app" exact render={() => <Redirect to="/app/main" />} />
-          <Route path="/app" render={(props: any) => <Layout {...props} />} />
-          <Redirect from="*" to="/app/main/dashboard" />
+          <Route path="/:wallet_address" render={(props: any) => <Layout {...props} />} />
         </Switch>
       </HashRouter>
     )
@@ -60,7 +58,7 @@ export const LandingNew = connector(
       <div className="landing-body">
         <nav className="landing-nav">
           <div className="landing-logo">
-            <img src={dlogo} height="32px" width="32px" />
+            <img src={dlogo} height="48px" width="48px" />
           </div>
           <ul className="landing-menu">
 

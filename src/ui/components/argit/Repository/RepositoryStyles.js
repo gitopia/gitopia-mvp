@@ -89,6 +89,7 @@ export const OwnerProfile = styled.div`
 
 export const RepoInfo = styled.div`
   align-self: flex-start;
+  align-items: center;
 
   @media (max-width: 600px) {
     text-align: center;

@@ -256,9 +256,9 @@ export const StackRouter = connector(
       }
 
       let repo = {
-        html_url: `/#/app/main/repository/${
-          props.match.params.wallet_address
-        }/${props.match.params.repo_name}`,
+        html_url: `/#/${props.match.params.wallet_address}/${
+          props.match.params.repo_name
+        }`,
         name: "",
         stargazers_count: 0,
         license: { name: "" },
@@ -291,7 +291,7 @@ export const StackRouter = connector(
               {/* <Repository /> */}
               <Owner>
                 <div>
-                  <Link to="/app/main/repositories">
+                  <Link to={`/${props.repository.owner.name}`}>
                     <GoArrowLeft /> Back to Repositories
                   </Link>
                 </div>
@@ -337,9 +337,7 @@ export const StackRouter = connector(
                     </span>
                     {props.history.length !== 0 && (
                       <Link
-                        to={`/app/main/repository/${props.address}${
-                          props.projectRoot
-                        }/commits`}
+                        to={`/${props.address}${props.projectRoot}/commits`}
                       >
                         <span>
                           <FaHistory />

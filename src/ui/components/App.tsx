@@ -25,16 +25,11 @@ export class App extends React.Component<{}> {
                     path="/"
                     render={(props: any) => <LandingNew {...props} />}
                   />
+
                   <Route
-                    path="/app"
-                    exact
-                    render={() => <Redirect to="/app/main" />}
-                  />
-                  <Route
-                    path="/app"
+                    path="/:wallet_address/"
                     render={(props: any) => <Layout {...props} />}
                   />
-                  <Redirect from="*" to="/app/main/dashboard" />
                   <Route default component={LandingNew} />
                 </Switch>
               </HashRouter>
