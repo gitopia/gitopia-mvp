@@ -1535,6 +1535,11 @@
     "@types/cheerio" "*"
     "@types/react" "*"
 
+"@types/fuzzaldrin@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@types/fuzzaldrin/-/fuzzaldrin-2.1.3.tgz#4167e31dfce0e9cb62192eef8f1660f07faa1487"
+  integrity sha512-VzxUWIkHpZsswTWDXC1Ui0VqtQB01/Jau2HxG4Y6PPK20lFdq0uiiTnplhH0fXyAfiF+yEEfNU2e/RgJQmoxBA==
+
 "@types/history@*":
   version "4.7.7"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.7.tgz#613957d900fab9ff84c8dfb24fa3eef0c2a40896"
@@ -6512,6 +6517,11 @@ function.prototype.name@^1.1.0:
     define-properties "^1.1.2"
     function-bind "^1.1.1"
     is-callable "^1.1.3"
+
+fuzzaldrin@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/fuzzaldrin/-/fuzzaldrin-2.1.0.tgz#90204c3e2fdaa6941bb28d16645d418063a90e9b"
+  integrity sha1-kCBMPi/appQbso0WZF1BgGOpDps=
 
 gauge@~2.7.3:
   version "2.7.4"

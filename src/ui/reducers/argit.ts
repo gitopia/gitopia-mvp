@@ -69,6 +69,10 @@ export const updateRepository: ActionCreator<{
   }
 }> = createAction("update-repo")
 
+export const updateItems: ActionCreator<{
+  items: { items: string[]; objects: {} }
+}> = createAction("update-items")
+
 export type Repository = {
   name: string
   description: string
@@ -107,6 +111,7 @@ export type ArgitState = {
     description: string
     owner: { name: string }
   }
+  items: { items: string[]; objects: {} }
 }
 
 const initialState: ArgitState = {
@@ -125,7 +130,8 @@ const initialState: ArgitState = {
     name: "",
     description: "",
     owner: { name: "" }
-  }
+  },
+  items: { items: [], objects: {} }
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -179,4 +185,10 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   })
   .case(updateRepository, (state, payload) => {
     return { ...state, repository: payload.repository }
+  })
+  .case(updateItems, (state, payload) => {
+    return {
+      ...state,
+      items: payload.items
+    }
   })
