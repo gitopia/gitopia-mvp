@@ -165,9 +165,8 @@ export const Dashboard = connector(
                   </CardTitle>
                   <div>
                     <Link
-                      to={`/app/main/repository/${
-                        props.address
-                      }/${activity.repoName || activity.key}`}
+                      to={`/${props.address}/${activity.repoName ||
+                        activity.key}`}
                     >
                       {activity.repoName || activity.key}
                     </Link>
@@ -206,11 +205,7 @@ export const Dashboard = connector(
                   <span>
                     <i className="fa fa-code-fork" />
                     &nbsp;&nbsp;&nbsp;
-                    <Link
-                      to={`/app/main/repository/${props.address}/${
-                        repository.name
-                      }`}
-                    >
+                    <Link to={`/${props.address}/${repository.name}`}>
                       {repository.name}
                     </Link>
                   </span>

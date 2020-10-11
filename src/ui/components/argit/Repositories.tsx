@@ -162,7 +162,7 @@ export const Repositories = connector(
           {props.repositories.map(repo => (
             <li key={repo.name}>
               <div>
-                <Link to={`/app/main/repository/${props.address}/${repo.name}`}>
+                <Link to={`/${props.address}/${repo.name}`}>
                   <img
                     src={`https://api.adorable.io/avatars/100/${repo.name}.png`}
                     alt={repo.name}
