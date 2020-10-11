@@ -191,6 +191,7 @@
 
 .dgit-highlight {
   color: #c0ad60;
+  float: left;
 }
 
 #typewriter {
@@ -228,6 +229,7 @@
 
 .dgit-code {
   color: #fff;
+  margin-left: 5px;
 }
 
 .landing-installation {
