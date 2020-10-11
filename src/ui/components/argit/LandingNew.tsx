@@ -96,8 +96,10 @@ export const LandingNew = connector(
         <div className="landing-hero__terminal">
           <pre className="landing-pre" id="typewriter">
             <span className="dgit-highlight">dgit ~ $</span> <span className="dgit-code" >git remote add
-          origin dgit://VC4NJ3nlVJJPgyJ4DScpeXx3-UnXmiasfrxiIFpJwb0/repo-name{"    "}</span>
-            <span className="dgit-highlight">dgit ~ $</span><span className="dgit-code" > git push origin
+          origin dgit://VC4NJ3nlVJJPgyJ4DScpeXx3-UnXmiasfrxiIFpJwb0/repo-name{"\n"}</span>
+
+
+            <span className="dgit-highlight">dgit ~ $</span><span className="dgit-code" >git push origin
             master</span>
           </pre>
           {/* <pre className="landing-pre">
@@ -130,10 +132,8 @@ export const LandingNew = connector(
                   $ npm install -g git-remote-dgit
                 </code>
                 {/* <code className="landing-tab__pane linux">
-                  $ apt-get install scribbler
                 </code>
                 <code className="landing-tab__pane win">
-                  $ gem install scribbler
                 </code> */}
               </pre>
             </div>
