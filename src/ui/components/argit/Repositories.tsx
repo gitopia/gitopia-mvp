@@ -232,7 +232,7 @@ export const Repositories = connector(
         </OwnerProfile>
         <RepoInfo>
           <h1 className="d-md-none">
-            {props.address.replace(/(.{7})..+/, "$1...")}
+            {`${props.address}`.replace(/(.{7})..+/, "$1...")}
           </h1>
           <h1 className="d-none d-md-block">{props.address}</h1>
           <div>
