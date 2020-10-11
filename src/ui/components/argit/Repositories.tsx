@@ -15,7 +15,14 @@ import {
   setIsAuthenticated,
   updateRepositories
 } from "../../reducers/argit"
-
+import NewContainer, {
+  Icon,
+  List,
+  SubmitButton,
+  Form
+} from "../argit/Repository/Container"
+import dlogo from "../argit/images/dlogo.svg"
+import { FaCheckCircle, FaSpinner, FaPlus } from "react-icons/fa"
 type ConnectedProps = {
   isAuthenticated: boolean
   repositories: Repository[]
@@ -136,51 +143,47 @@ export const Repositories = connector(
 
   return (
     <React.Fragment>
-      <h1>
-        Repositories{" "}
-        <Button
-          onClick={() => props.openCreateRepoModal({})}
-          className="fa fa-plus-square-o"
-          aria-hidden="true"
-        />
-        <br />
-      </h1>
-      <Table bordered>
-        <thead>
-          <tr className="fs-sm">
-            <th>Name</th>
-            <th className="hidden-sm-down">tx-id</th>
-            <th className="hidden-sm-down">Tx Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.repositories &&
-            props.repositories.map(repository => (
-              <tr key={repository.name}>
-                <td>
-                  <Link
-                    to={`/app/main/repository/${props.address}/${
-                      repository.name
-                    }`}
-                  >
-                    {repository.name}
-                  </Link>
-                </td>
-                <td>{repository.txid}</td>
-                {repository.status === "confirmed" && (
-                  <td>
-                    <i className="fa fa-check-circle" aria-hidden="true" />
-                  </td>
-                )}
-                {repository.status === "pending" && (
-                  <td>
-                    <i className="fa fa-spinner" aria-hidden="true" />
-                  </td>
-                )}
-              </tr>
-            ))}
-        </tbody>
-      </Table>
+      <NewContainer>
+        <Icon>
+          <img src={dlogo} height="48px" width="48px" />
+        </Icon>
+        <h1>
+          Repositories {"  "}
+          <SubmitButton onClick={() => props.openCreateRepoModal({})}>
+            <FaPlus color="#fff" size={26} />
+          </SubmitButton>
+          {/* <button
+            onClick={() => props.openCreateRepoModal({})}
+            className="fa fa-plus-square-o"
+            aria-hidden="true"
+          /> */}
+        </h1>
+        <List>
+          {props.repositories.map(repo => (
+            <li key={repo.name}>
+              <div>
+                <Link to={`/app/main/repository/${props.address}/${repo.name}`}>
+                  <img
+                    src={`https://api.adorable.io/avatars/100/${repo.name}.png`}
+                    alt={repo.name}
+                  />
+                  <span>{repo.name}</span>
+                </Link>
+              </div>
+              {repo.status === "confirmed" && (
+                <button>
+                  <FaCheckCircle />
+                </button>
+              )}
+              {repo.status === "pending" && (
+                <button>
+                  <FaSpinner />
+                </button>
+              )}
+            </li>
+          ))}
+        </List>
+      </NewContainer>
     </React.Fragment>
   )
 })
