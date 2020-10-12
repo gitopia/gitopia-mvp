@@ -14,7 +14,8 @@ import {
   Notification,
   Repository,
   setIsAuthenticated,
-  updateRepositories
+  updateRepositories,
+  openSponsorModal
 } from "../../reducers/argit"
 import {
   Loading,
@@ -43,6 +44,7 @@ import {
 } from "react-icons/fa"
 
 import { setTxLoading, updateItems } from "../../reducers/argit"
+import { Sponsor } from "./Sponsor"
 type ConnectedProps = {
   isAuthenticated: boolean
   repositories: Repository[]
@@ -56,6 +58,7 @@ type ConnectedProps = {
   txLoading: boolean
   items: [{ items: string[]; objects: {} }]
   updateItems: typeof updateItems
+  openSponsorModal: typeof openSponsorModal
 }
 
 export const Repositories = connector(
@@ -72,7 +75,8 @@ export const Repositories = connector(
     updateRepositories: actions.argit.updateRepositories,
     openCreateRepoModal: actions.app.openCreateRepoModal,
     loadNotifications: actions.argit.loadNotifications,
-    updateItems: actions.argit.updateItems
+    updateItems: actions.argit.updateItems,
+    openSponsorModal: actions.argit.openSponsorModal
   }),
 
   lifecycle<ConnectedProps, {}>({
@@ -236,7 +240,12 @@ export const Repositories = connector(
           </h1>
           <h1 className="d-none d-md-block">{props.address}</h1>
           <div>
-            <span className="rv-button">
+            <span
+              className="rv-button"
+              onClick={() => {
+                props.openSponsorModal({})
+              }}
+            >
               <FaAward />
               Sponsor
             </span>
@@ -268,11 +277,7 @@ export const Repositories = connector(
             }}
             loading={props.txLoading ? 1 : 0}
           >
-            {props.txLoading ? (
-              <FaSpinner color="#fff" size={14} />
-            ) : (
-              <FaPlus color="#fff" size={14} />
-            )}
+            <FaPlus color="#fff" size={14} />
           </SubmitButton>
         </Form>
 
@@ -315,6 +320,7 @@ export const Repositories = connector(
           </button>
         </PageNav>
       </IssueList>
+      <Sponsor match={props.match} />
     </NewContainer>
   )
 })

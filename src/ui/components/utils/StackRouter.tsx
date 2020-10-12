@@ -355,7 +355,8 @@ export const StackRouter = connector(
                     <span id="clone_button" className="rv-button">
                       <FaRegFileAlt /> Clone
                       <UncontrolledPopover
-                        placement="right"
+                        className="rv-pop"
+                        placement="top-end"
                         trigger="legacy"
                         target="clone_button"
                       >
@@ -369,10 +370,6 @@ export const StackRouter = connector(
                   <p>{header}</p>
                 </RepoInfo>
               </Owner>
-              <Sponsor
-                address={props.match.params.wallet_address}
-                repo={props.match.params.repo_name}
-              />
 
               {/* <h2 className="mb-3">
                 {props.match.params.wallet_address}/
@@ -397,6 +394,7 @@ export const StackRouter = connector(
                   </Col>
                 </Row>
               </Container>
+              <Sponsor match={props.match} />
             </NewContainer>
           )}
         </>

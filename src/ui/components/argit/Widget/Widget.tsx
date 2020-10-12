@@ -205,7 +205,7 @@ class Widget extends React.Component<WidgetProps, WidgetState> {
                 )}
                 {settingsInverse && (
                   <button className={`bg-gray-transparent ${s.inverse}`}>
-                    <i className="la la-cog text-white" />
+                    <i className="la la-cog text-black" />
                   </button>
                 )}
                 {refresh && (
@@ -413,7 +413,7 @@ class Widget extends React.Component<WidgetProps, WidgetState> {
               {reloading || fetchingData ? (
                 <Loader className={s.widgetLoader} size={40} />
               ) : customBody ? (
-                <div className="jumbotron handle bg-default text-white mb-0">
+                <div className="jumbotron handle bg-default text-black mb-0">
                   <div className="container">
                     <h1>Draggable story!</h1>
                     <p className="lead">

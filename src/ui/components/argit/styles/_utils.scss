@@ -291,6 +291,7 @@ $z-index-variants: (
 @include text-emphasis-variant(".text-gray-darker", $gray-900);
 @include text-emphasis-variant(".text-gray-lighter", $gray-200);
 @include text-emphasis-variant(".text-bg-sidebar", $sidebar-bg-color);
+@include text-emphasis-variant(".text-black", rgba($black, 0.9));
 
 .text-ellipsis {
   display: block;

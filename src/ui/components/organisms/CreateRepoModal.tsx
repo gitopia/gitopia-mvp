@@ -5,6 +5,7 @@ import { Repository } from "../../../ui/reducers/argit"
 import { connector } from "../../actionCreators"
 import { closeCreateRepoModal } from "../../reducers/app"
 import NewRepoForm from "../argit/newRepoForm"
+import NewContainer from "../argit/Repository/Container"
 
 // This is example reference
 export const CreateRepoModal = connector(

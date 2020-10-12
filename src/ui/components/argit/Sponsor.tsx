@@ -11,15 +11,16 @@ export const Sponsor = connector(
     closeSponsorModal: actions.argit.closeSponsorModal
   })
 )(function SponsorImpl(props) {
-  const { address, repo } = props
+  console.log(props)
+  const { match } = props
   return (
     <Modal isOpen={props.openedSponsorModal} toggle={props.closeSponsorModal}>
       <ModalHeader toggle={props.closeSponsorModal}>Sponsor</ModalHeader>
       <ModalBody>
         <SponsorForm
-          address={props.address}
+          address={match.params.wallet_address}
           closeSponsorModal={props.closeSponsorModal}
-          repo={props.repo}
+          repo={match.params.repo_name || null}
         />
       </ModalBody>
       <ModalFooter>

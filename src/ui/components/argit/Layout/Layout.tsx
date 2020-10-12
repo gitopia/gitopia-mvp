@@ -13,6 +13,7 @@ import { Repositories } from "../Repositories"
 import { Sidebar } from "../Sidebar/Sidebar"
 import s from "./Layout.module.scss"
 import dlogo from "../../argit/images/dlogo.svg"
+import { Sponsor } from "../Sponsor"
 
 export const Layout = connector(
   state => ({
@@ -32,31 +33,30 @@ export const Layout = connector(
 )(function LayoutImpl(props) {
   return (
     <div className="app-body">
-      <div>
-        <nav className="landing-nav">
-          <div
-            className="landing-logo"
-            onClick={() =>
-              props.isAuthenticated
-                ? window.location.replace(`/#/${props.address}`)
-                : window.location.replace(`/`)
-            }
-          >
-            <img src={dlogo} height="48px" width="48px" />
-          </div>
-          {props.isAuthenticated && (
-            <Header
-              {...props}
-              setIsAuthenticated={props.setIsAuthenticated}
-              updateRepositories={props.updateRepositories}
-              updateNotifications={props.loadNotifications}
-              notifications={props.notifications}
-              address={props.address}
-            />
-          )}
-          {!props.isAuthenticated && (
-            <ul className="landing-menu">
-              {/* <li className="landing-menu__item">
+      <nav className="landing-nav">
+        <div
+          className="landing-logo"
+          onClick={() =>
+            props.isAuthenticated
+              ? window.location.replace(`/#/${props.address}`)
+              : window.location.replace(`/`)
+          }
+        >
+          <img src={dlogo} height="48px" width="48px" />
+        </div>
+        {props.isAuthenticated && (
+          <Header
+            {...props}
+            setIsAuthenticated={props.setIsAuthenticated}
+            updateRepositories={props.updateRepositories}
+            updateNotifications={props.loadNotifications}
+            notifications={props.notifications}
+            address={props.address}
+          />
+        )}
+        {!props.isAuthenticated && (
+          <ul className="landing-menu">
+            {/* <li className="landing-menu__item">
   <a
     href="doc.html"
     className="landing-a landing-link landing-link--dark"
@@ -64,58 +64,57 @@ export const Layout = connector(
     <i className="fa fa-book" /> Documentation
   </a>
 </li> */}
-              <li className="landing-menu__item landing-toggle">
-                <a
-                  onClick={() => props.openLoginModal({})}
-                  className="landing-a landing-link landing-link--dark"
-                >
-                  <i className="fa fa-sign-in" /> Login
-                </a>
-              </li>
-              <li className="landing-menu__item">
-                <a
-                  onClick={() => props.openLoginModal({})}
-                  className="landing-a landing-link landing-link--dark"
-                >
-                  <i className="fa fa-sign-in" /> Login
-                </a>
-              </li>
-            </ul>
-          )}
-        </nav>
-        <Hammer>
-          <main className={s.content}>
-            {/* {props.isAuthenticated && (
+            <li className="landing-menu__item landing-toggle">
+              <a
+                onClick={() => props.openLoginModal({})}
+                className="landing-a landing-link landing-link--dark"
+              >
+                <i className="fa fa-sign-in" /> Login
+              </a>
+            </li>
+            <li className="landing-menu__item">
+              <a
+                onClick={() => props.openLoginModal({})}
+                className="landing-a landing-link landing-link--dark"
+              >
+                <i className="fa fa-sign-in" /> Login
+              </a>
+            </li>
+          </ul>
+        )}
+      </nav>
+      <Hammer>
+        <main className={s.content}>
+          {/* {props.isAuthenticated && (
                 <BreadcrumbHistory url={props.location.pathname} />
               )} */}
-            <TransitionGroup>
-              <CSSTransition
-                key={props.location.key}
-                classNames="fade"
-                timeout={200}
-              >
-                <Switch>
-                  <Route
-                    path="/:wallet_address"
-                    exact
-                    render={props => <Repositories {...props} />}
-                  />
-                  <Route
-                    path="/:wallet_address/:repo_name"
-                    exact
-                    component={StackRouter}
-                  />
-                  <Route
-                    path="/:wallet_address/:repo_name/commits"
-                    exact
-                    component={Commits}
-                  />
-                </Switch>
-              </CSSTransition>
-            </TransitionGroup>
-          </main>
-        </Hammer>
-      </div>
+          <TransitionGroup>
+            <CSSTransition
+              key={props.location.key}
+              classNames="fade"
+              timeout={200}
+            >
+              <Switch>
+                <Route
+                  path="/:wallet_address"
+                  exact
+                  render={props => <Repositories {...props} />}
+                />
+                <Route
+                  path="/:wallet_address/:repo_name"
+                  exact
+                  component={StackRouter}
+                />
+                <Route
+                  path="/:wallet_address/:repo_name/commits"
+                  exact
+                  component={Commits}
+                />
+              </Switch>
+            </CSSTransition>
+          </TransitionGroup>
+        </main>
+      </Hammer>
       <footer className="landing-footer">
         Made with <span style={{ color: "#e25555" }}>&#9829;</span>
         &nbsp; by{" "}
