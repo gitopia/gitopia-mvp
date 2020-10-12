@@ -18,7 +18,8 @@ import "./styles/theme.scss"
 
 export const LandingNew = connector(
   state => ({
-    isAuthenticated: state.argit.isAuthenticated
+    isAuthenticated: state.argit.isAuthenticated,
+    address: state.argit.address
   }),
   actions => ({
     openLoginModal: actions.argit.openLoginModal
@@ -49,9 +50,11 @@ export const LandingNew = connector(
       <HashRouter>
         <Switch>
           <Route path="/:wallet_address" render={(props: any) => <Layout {...props} />} />
+          <Redirect from="*" to={`/${props.address}`}/>
         </Switch>
       </HashRouter>
     )
+
 
   return (
     <React.Fragment>
