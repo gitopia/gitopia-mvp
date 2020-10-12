@@ -273,6 +273,11 @@ export const StackRouter = connector(
             <Icon>
               <img src={dlogo} height="48px" width="48px" />
             </Icon>
+            <div>
+              <Link to={`/${props.repository.owner.name}`}>
+                <GoArrowLeft /> Back to Repositories
+              </Link>
+            </div>
             <Loading loading={props.txLoading ? 1 : 0}>
               <FaSpinner />
             </Loading>

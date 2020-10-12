@@ -57,7 +57,14 @@ export const LandingNew = connector(
     <React.Fragment>
       <div className="landing-body">
         <nav className="landing-nav">
-          <div className="landing-logo">
+        <div
+            className="landing-logo"
+            onClick={() =>
+              props.isAuthenticated
+                ? window.location.replace(`/#/${props.address}`)
+                : window.location.replace(`/`)
+            }
+          >
             <img src={dlogo} height="48px" width="48px" />
           </div>
           <ul className="landing-menu">

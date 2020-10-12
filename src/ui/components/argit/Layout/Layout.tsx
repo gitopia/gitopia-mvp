@@ -34,7 +34,14 @@ export const Layout = connector(
     <div className="app-body">
       <div>
         <nav className="landing-nav">
-          <div className="landing-logo">
+          <div
+            className="landing-logo"
+            onClick={() =>
+              props.isAuthenticated
+                ? window.location.replace(`/#/${props.address}`)
+                : window.location.replace(`/`)
+            }
+          >
             <img src={dlogo} height="48px" width="48px" />
           </div>
           {props.isAuthenticated && (
@@ -46,6 +53,34 @@ export const Layout = connector(
               notifications={props.notifications}
               address={props.address}
             />
+          )}
+          {!props.isAuthenticated && (
+            <ul className="landing-menu">
+              {/* <li className="landing-menu__item">
+  <a
+    href="doc.html"
+    className="landing-a landing-link landing-link--dark"
+  >
+    <i className="fa fa-book" /> Documentation
+  </a>
+</li> */}
+              <li className="landing-menu__item landing-toggle">
+                <a
+                  onClick={() => props.openLoginModal({})}
+                  className="landing-a landing-link landing-link--dark"
+                >
+                  <i className="fa fa-sign-in" /> Login
+                </a>
+              </li>
+              <li className="landing-menu__item">
+                <a
+                  onClick={() => props.openLoginModal({})}
+                  className="landing-a landing-link landing-link--dark"
+                >
+                  <i className="fa fa-sign-in" /> Login
+                </a>
+              </li>
+            </ul>
           )}
         </nav>
         <Hammer>
@@ -74,21 +109,6 @@ export const Layout = connector(
                     path="/:wallet_address/:repo_name/commits"
                     exact
                     component={Commits}
-                  />
-                  <Route
-                    path="/app/main"
-                    exact
-                    render={() => <Redirect to="/app/main/dashboard" />}
-                  />
-                  <Route
-                    path="/app/main/dashboard"
-                    exact
-                    component={Dashboard}
-                  />
-                  <Route
-                    path="/app/main/pulls"
-                    exact
-                    render={props => <PullRequest />}
                   />
                 </Switch>
               </CSSTransition>
