@@ -111,11 +111,13 @@ class SponsorForm extends Component<SponsorFormProps, SponsorFormState> {
     return (
       <div>
         {repo && (
-          <h2>
+          <h2 className="sponsor-h2">
             Sponsor {address} for their work on {repo}
           </h2>
         )}
-        {!repo && <h2>Sponsor {address} for their work</h2>}
+        {!repo && (
+          <h2 className="sponsor-h2">Sponsor {address} for their work</h2>
+        )}
         <br />
         <form onSubmit={this.handleSubmit}>
           <Input
