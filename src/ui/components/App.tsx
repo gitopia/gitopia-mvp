@@ -10,6 +10,7 @@ import { GlobalKeyHandler } from "./utils/GlobalKeyHandler"
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom"
 import { StackRouter } from "./utils/StackRouter"
 import { Layout } from "./argit/Layout/Layout"
+import { Sponsor } from "./argit/Sponsor"
 export class App extends React.Component<{}> {
   render() {
     const { store, persistor } = configureStore()

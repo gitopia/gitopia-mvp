@@ -29,7 +29,7 @@ export const Landing = connector(
 
   return (
     <React.Fragment>
-      <nav id="header" className="fixed w-full z-30 top-0 text-white">
+      <nav id="header" className="fixed w-full z-30 top-0 text-black">
         <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
           <div className="pl-4 flex items-center" />
         </div>
@@ -175,7 +175,7 @@ export const Landing = connector(
         </g>
       </svg>
       <section className="container mx-auto text-center py-6 mb-12">
-        <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
+        <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-black">
           Enough talk, lets dgit
         </h1>
         <div className="w-full mb-4">

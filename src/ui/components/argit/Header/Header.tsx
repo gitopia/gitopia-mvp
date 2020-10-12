@@ -163,7 +163,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             </DropdownMenu>
           </Dropdown>
 
-          <NavItem className={`${s.divider} text-white`} />
+          <NavItem className={`${s.divider} text-black`} />
 
           <NavItem>
             <NavLink
@@ -174,7 +174,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 // window.location.reload()
                 this.props.history.replace("/")
               }}
-              className={`${s.navItem} text-white`}
+              className={`${s.navItem} text-black`}
               href="#"
             >
               <i className="glyphicon glyphicon-off" />

@@ -97,11 +97,11 @@
   font-family: $font-family-base;
   box-shadow: none;
   transition: border-color ease-in-out 0.15s, background-color ease-in-out 0.15s;
-  background: $bg-custom-dark;
+  background: #fff;
   border: none;
   &:focus {
     box-shadow: none;
-    background: $bg-custom-dark;
+    background: #fcfcfc;
   }
 
   &.no-border {
@@ -971,4 +971,9 @@ pre code {
 
 .rv-button {
   cursor: pointer;
+  margin-right: 30px;
+}
+
+.rv-pop {
+  float: right;
 }

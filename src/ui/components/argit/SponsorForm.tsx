@@ -6,7 +6,7 @@ import { parse } from "querystring"
 
 type SponsorFormProps = {
   address: string
-  repo: string
+  repo: string | null
   closeSponsorModal: typeof closeSponsorModal
 }
 
@@ -110,9 +110,12 @@ class SponsorForm extends Component<SponsorFormProps, SponsorFormState> {
     const { address, repo } = this.props
     return (
       <div>
-        <h2>
-          Sponsor {address} for their work on {repo}
-        </h2>
+        {repo && (
+          <h2>
+            Sponsor {address} for their work on {repo}
+          </h2>
+        )}
+        {!repo && <h2>Sponsor {address} for their work</h2>}
         <br />
         <form onSubmit={this.handleSubmit}>
           <Input
