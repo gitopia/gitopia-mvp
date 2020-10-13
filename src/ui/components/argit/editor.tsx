@@ -117,9 +117,9 @@ export const Editor = connector(
         <code className="app-code">
           export ARWEAVE_WALLET_PATH="PATH_OF_YOUR_ARWEAVE_KEYFILE" <br />
           <br />
-          dgit remote add origin "{url}" <br />
+          git remote add origin "{url}" <br />
           <br />
-          dgit push origin master
+          git push origin master
         </code>
       </CardBody>
     </div>

@@ -223,9 +223,9 @@ export const StackRouter = connector(
 
       const oid = await getRef(arweave, url, `refs/heads/${ref}`)
 
-      setRepositoryHead({ repositoryHead: oid })
-
       if (oid !== "0000000000000000000000000000000000000000" && oid !== "") {
+        setRepositoryHead({ repositoryHead: oid })
+
         await git.init({ fs, dir: newProjectRoot })
 
         await loadDirectory(arweave, url, oid, newProjectRoot, newProjectRoot)
