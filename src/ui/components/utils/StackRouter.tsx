@@ -389,7 +389,7 @@ export const StackRouter = connector(
                 <Row>
                   <Col>
                     <div className="mt-4">
-                      <Editor />
+                      <Editor {...props} />
                     </div>
                   </Col>
                 </Row>

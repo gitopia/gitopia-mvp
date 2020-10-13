@@ -104,8 +104,10 @@ export const Editor = connector(
     }
     return null
   }
-
-  const url = `dgit://${props.address}${props.projectRoot}`
+  console.log(props)
+  const url = `dgit://${props.match.params.wallet_address}/${
+    props.match.params.repo_name
+  }`
 
   return (
     <div className="card-dgit">
@@ -117,7 +119,7 @@ export const Editor = connector(
         <code className="app-code">
           export ARWEAVE_WALLET_PATH="PATH_OF_YOUR_ARWEAVE_KEYFILE" <br />
           <br />
-          git remote add origin "{url}" <br />
+          git remote add origin {`${url}`} <br />
           <br />
           git push origin master
         </code>
