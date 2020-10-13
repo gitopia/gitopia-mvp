@@ -271,14 +271,16 @@ export const Repositories = connector(
             placeholder="Search Repository"
             onChange={handleChange}
           />
-          <SubmitButton
-            onClick={() => {
-              props.openCreateRepoModal({})
-            }}
-            loading={props.txLoading ? 1 : 0}
-          >
-            <FaPlus color="#fff" size={14} />
-          </SubmitButton>
+          {props.isAuthenticated && (
+            <SubmitButton
+              onClick={() => {
+                props.openCreateRepoModal({})
+              }}
+              loading={props.txLoading ? 1 : 0}
+            >
+              <FaPlus color="#fff" size={14} />
+            </SubmitButton>
+          )}
         </Form>
 
         <List>

@@ -48,8 +48,8 @@ async function* fetchCommits(arweave, url, ref, projectRoot) {
         tips.push(commit)
       }
     }
-
-    tips.sort((a, b) => compareAge(a.commit, b.commit))
+    console.log(tips)
+    tips.sort((a, b) => compareAge(a.object, b.object))
   }
 }
 
