@@ -244,6 +244,7 @@ export const reducer: Reducer<GitState> = createReducer(initialState)
       currentBranch: payload.currentBranch,
       branches: payload.branches,
       history: payload.history,
+      commits: [],
       remotes: payload.remotes,
       remoteBranches: payload.remoteBranches,
       stagingLoading: true,
