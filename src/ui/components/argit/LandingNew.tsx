@@ -282,45 +282,23 @@ export const LandingNew = connector(
             <h3 className="landing-section__title">Changelog</h3>
             <div className="landing-changelog__item">
               <div className="landing-changelog__meta">
-                <h4 className="landing-changelog__title">v0.0.3</h4>
-                <small className="landing-changelog__date">8/21/2020</small>
+                <h4 className="landing-changelog__title">v0.1.0</h4>
+                <small className="landing-changelog__date">10/13/2020</small>
               </div>
               <div className="landing-changelog__detail">
                 <ul>
                   <li>
-                    Improving the writing workflow with better key bindings
+                    Redesigned landing page
                   </li>
-                  <li>Design updates</li>
-                  <li>SSL Verification for web hooks</li>
-                  <li>Render Emoji</li>
+                  <li>Improved UI/UX of the frontend app</li>
+                  <li>Git remote helper</li>
+                  <li>Frontend optimizations, lazy loading of git objects</li>
+                  <li>Sponsor project owners</li>
+                  <li>Unauth views for repositories and public urls</li>
                 </ul>
               </div>
             </div>
-            <div className="landing-changelog__item">
-              <div className="landing-changelog__meta">
-                <h4 className="landing-changelog__title">v0.0.2</h4>
-                <small className="landing-changelog__date">8/14/2020</small>
-              </div>
-              <div className="landing-changelog__detail">
-                <ul>
-                  <li>Adding Unicode support</li>
-                  <li>Basic text highlighting</li>
-                  <li>Fresh Design</li>
-                </ul>
-              </div>
-            </div>
-            <div className="landing-changelog__item">
-              <div className="landing-changelog__meta">
-                <h4 className="landing-changelog__title">v0.0.1</h4>
-                <small className="landing-changelog__date">5/10/2017</small>
-              </div>
-              <div className="landing-changelog__detail">
-                <ul>
-                  <li>Save default md file in new folders</li>
-                  <li>Ability to quick search on existing notes</li>
-                </ul>
-              </div>
-            </div>
+            
             {/* <div className="landing-changelog__callout">
               <a href="#" className="landing-a landing-button--secondary">
                 Checkout Full Log
