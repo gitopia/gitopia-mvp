@@ -102,6 +102,7 @@ export const loadDirectory = async (arweave, url, head, projectRoot, path) => {
         found = true
         treeOid = entry.oid
         fullPath += `/${entry.path}`
+        break
       }
     }
 
