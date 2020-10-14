@@ -11,7 +11,6 @@ export const Sponsor = connector(
     closeSponsorModal: actions.argit.closeSponsorModal
   })
 )(function SponsorImpl(props) {
-  console.log(props)
   const { match } = props
   return (
     <Modal isOpen={props.openedSponsorModal} toggle={props.closeSponsorModal}>
