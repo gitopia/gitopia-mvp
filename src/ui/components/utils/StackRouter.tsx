@@ -102,6 +102,7 @@ export const loadDirectory = async (arweave, url, head, projectRoot, path) => {
         found = true
         treeOid = entry.oid
         fullPath += `/${entry.path}`
+        break
       }
     }
 
@@ -222,10 +223,9 @@ export const StackRouter = connector(
 
       const oid = await getRef(arweave, url, `refs/heads/${ref}`)
 
-      setRepositoryHead({ repositoryHead: oid })
-
       if (oid !== "0000000000000000000000000000000000000000" && oid !== "") {
-        await mkdir(newProjectRoot)
+        setRepositoryHead({ repositoryHead: oid })
+
         await git.init({ fs, dir: newProjectRoot })
 
         await loadDirectory(arweave, url, oid, newProjectRoot, newProjectRoot)
@@ -242,6 +242,8 @@ export const StackRouter = connector(
     }
   })
 )(function StackRouterImpl(props) {
+  const { match } = props
+
   switch (props.currentScene) {
     case "main": {
       let header = ""
@@ -256,9 +258,7 @@ export const StackRouter = connector(
       }
 
       let repo = {
-        html_url: `/#/${props.match.params.wallet_address}/${
-          props.match.params.repo_name
-        }`,
+        html_url: `/#/${match.params.wallet_address}/${match.params.repo_name}`,
         name: "",
         stargazers_count: 0,
         license: { name: "" },
@@ -340,18 +340,18 @@ export const StackRouter = connector(
                       <FaAward />
                       Sponsor
                     </span>
-                    {props.history.length !== 0 && (
-                      <Link
-                        to={`/${props.address}${props.projectRoot}/commits`}
-                      >
-                        <span>
-                          <FaHistory />
-                          {`${Number(props.history.length).toLocaleString()} ${
-                            props.history.length === 1 ? "commit" : "commits"
-                          }`}
-                        </span>
-                      </Link>
-                    )}
+
+                    <Link
+                      to={`/${match.params.wallet_address}/${
+                        match.params.repo_name
+                      }/commits/master`}
+                    >
+                      <span>
+                        <FaHistory />
+                        Commits
+                      </span>
+                    </Link>
+
                     <span id="clone_button" className="rv-button">
                       <FaRegFileAlt /> Clone
                       <UncontrolledPopover
@@ -389,7 +389,7 @@ export const StackRouter = connector(
                 <Row>
                   <Col>
                     <div className="mt-4">
-                      <Editor />
+                      <Editor {...props} />
                     </div>
                   </Col>
                 </Row>

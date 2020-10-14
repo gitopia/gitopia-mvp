@@ -119,6 +119,10 @@ export const updateHistory = createAsyncAction(
   }
 )
 
+export const updateCommits: ActionCreator<{
+  commits: any[]
+}> = createAction("update-commits")
+
 export const commitStagedChanges = createThunkAction(
   "commit-staged-changes",
   async (
@@ -199,6 +203,7 @@ export type GitState = {
   remotes: string[]
   remoteBranches: string[]
   history: ReadCommitResult[]
+  commits: any[]
   statusMatrix: StatusMatrix | null
   stagingLoading: boolean
 }
@@ -212,6 +217,7 @@ const initialState: GitState = {
   remotes: [],
   remoteBranches: [],
   history: [],
+  commits: [],
   statusMatrix: null,
   stagingLoading: true
 }
@@ -238,6 +244,7 @@ export const reducer: Reducer<GitState> = createReducer(initialState)
       currentBranch: payload.currentBranch,
       branches: payload.branches,
       history: payload.history,
+      commits: [],
       remotes: payload.remotes,
       remoteBranches: payload.remoteBranches,
       stagingLoading: true,
@@ -248,6 +255,12 @@ export const reducer: Reducer<GitState> = createReducer(initialState)
     return {
       ...state,
       history: payload.history
+    }
+  })
+  .case(updateCommits, (state, payload) => {
+    return {
+      ...state,
+      commits: payload.commits
     }
   })
   .case(updateRemotes.resolved, (state, payload) => {

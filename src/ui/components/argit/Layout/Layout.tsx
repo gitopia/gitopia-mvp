@@ -106,7 +106,7 @@ export const Layout = connector(
                   component={StackRouter}
                 />
                 <Route
-                  path="/:wallet_address/:repo_name/commits"
+                  path="/:wallet_address/:repo_name/commits/:branch?"
                   exact
                   component={Commits}
                 />
