@@ -8,6 +8,7 @@ import { connector } from "../../actionCreators/index"
 import { openCreateRepoModal } from "../../reducers/app"
 import { filter } from "fuzzaldrin"
 import { format } from "date-fns"
+import { Container, Row, Col } from "reactstrap"
 
 import {
   loadAddress,
@@ -246,7 +247,7 @@ export const Repositories = connector(
         mainItems: { repos: objects, activities: {} }
       })
     } else if (index == 1) {
-      props.repositories.forEach(item => {
+      props.activities.forEach(item => {
         let itemname = item.txid
         // names.push(item.txid)
         objects[itemname] = item
@@ -268,7 +269,7 @@ export const Repositories = connector(
   const Button = styled.i`
     cursor: pointer;
   `
-  const { mainItems } = props
+  const { activities, repos } = props.mainItems
   if (props.txLoading)
     return (
       <NewContainer>
@@ -331,32 +332,34 @@ export const Repositories = connector(
             </button>
           ))}
         </FilterList>
-        <Form>
-          <input
-            type="text"
-            placeholder="Search Repository"
-            onChange={handleChange}
-          />
-          {props.isAuthenticated && (
-            <SubmitButton
-              onClick={() => {
-                props.openCreateRepoModal({})
-              }}
-              loading={props.txLoading ? 1 : 0}
-            >
-              <FaPlus color="#fff" size={14} />
-            </SubmitButton>
-          )}
-        </Form>
+        {props.filterIndex === 0 && (
+          <Form>
+            <input
+              type="text"
+              placeholder="Search Repository"
+              onChange={handleChange}
+            />
+            {props.isAuthenticated && (
+              <SubmitButton
+                onClick={() => {
+                  props.openCreateRepoModal({})
+                }}
+                loading={props.txLoading ? 1 : 0}
+              >
+                <FaPlus color="#fff" size={14} />
+              </SubmitButton>
+            )}
+          </Form>
+        )}
 
         <List>
           {props.filterIndex == 0 &&
             props.repositories &&
-            Object.keys(mainItems.repos).map(name => (
+            Object.keys(repos).map(name => (
               <li key={name}>
                 <div>
-                  {mainItems.repos[name] &&
-                    !mainItems.repos[name].type && (
+                  {repos[name] &&
+                    !repos[name].type && (
                       <Link to={`/${props.address}/${name}`}>
                         <img
                           src={`https://api.adorable.io/avatars/100/${name}.png`}
@@ -366,14 +369,14 @@ export const Repositories = connector(
                       </Link>
                     )}
                 </div>
-                {mainItems.repos[name] &&
-                  mainItems.repos[name].status === "confirmed" && (
+                {repos[name] &&
+                  repos[name].status === "confirmed" && (
                     <button>
                       <FaCheckCircle />
                     </button>
                   )}
-                {mainItems.repos[name] &&
-                  mainItems.repos[name].status === "pending" && (
+                {repos[name] &&
+                  repos[name].status === "pending" && (
                     <button>
                       <FaSpinner />
                     </button>
@@ -382,36 +385,44 @@ export const Repositories = connector(
             ))}
           {props.filterIndex == 1 &&
             props.activities &&
-            Object.keys(mainItems.activities).map(
-              txid =>
-                mainItems.activities[txid] && (
-                  <li key={txid}>
-                    <div>
-                      <span>{txid}</span>
-                      <Link
-                        to={`/${props.address}/${mainItems.activities[txid]
-                          .repoName || mainItems.activities[txid].key}`}
-                      >
-                        {mainItems.activities[txid].repoName ||
-                          mainItems.activities[txid].key}
-                      </Link>
-                      <span className="float-right">
-                        {format(
-                          parseInt(mainItems.activities[txid].unixTime) * 1000,
-                          "MM/DD HH:mm"
-                        )}
-                      </span>
-                      <span>
-                        {mainItems.activities[txid].type === "create-repo"
-                          ? mainItems.activities[txid].value
-                          : `Updated ref ${mainItems.activities[txid].key} => ${
-                              mainItems.activities[txid].value
-                            }`}
-                      </span>
-                    </div>
-                  </li>
-                )
-            )}
+            Object.keys(activities).map(txid => (
+              <li key={txid}>
+                <div>
+                  <Link
+                    to={`/${props.address}/${activities[txid].repoName ||
+                      activities[txid].key}`}
+                  >
+                    <Container className="activity">
+                      <Row>
+                        <Col>
+                          <span>
+                            {`${txid}`.replace(/(.{15})..+/, "$1...")}
+                          </span>
+                        </Col>
+                        <Col>
+                          {activities[txid].repoName || activities[txid].key}
+                        </Col>
+                        <Col>
+                          <span className="float-right">
+                            {format(
+                              parseInt(activities[txid].unixTime) * 1000,
+                              "MM/DD HH:mm"
+                            )}
+                          </span>
+                        </Col>
+                        <Col>
+                          <span>
+                            {activities[txid].type === "create-repo"
+                              ? activities[txid].value
+                              : `Updated ref ${activities[txid].key}`}
+                          </span>
+                        </Col>
+                      </Row>
+                    </Container>
+                  </Link>
+                </div>
+              </li>
+            ))}
         </List>
 
         <PageNav>

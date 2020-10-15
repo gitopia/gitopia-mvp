@@ -27,32 +27,35 @@ export const getAllActivities = async (arweave, address) => {
   try {
     const activities = await api.post("/graphql", {
       query: `query {
-          transactions(owners:["${address}"],tags: [
-        
-                      {
-                        name: "App-Name",
-                        values: "dgit"
-                      },
-                      {
-                        name: "version",
-                        values: "0.0.1"
-                      }
-                    ]) {
-            pageInfo {
-              hasNextPage
-            }
-            edges {
-              cursor
-              node {
-                id
-                tags {
-                  name,
-                  value
-                }
+        transactions(owners:["${address}"],tags: [      
+                    {
+                      name: "App-Name",
+                      values: "dgit"
+                    },
+                    {
+                      name: "version",
+                      values: "0.0.1"
+                    },
+                        {
+                      name: "Type",
+                      values: ["create-repo","update-ref"]
+                    }
+                  ]) {
+          pageInfo {
+            hasNextPage
+          }
+          edges {
+            cursor
+            node {
+              id
+              tags {
+                name,
+                value
               }
             }
           }
-        }`
+        }
+      }`
     })
 
     // const tx = await arweave.transactions.get(txid)
@@ -74,14 +77,10 @@ export const getAllActivities = async (arweave, address) => {
         }
       })
 
-      // if (actobj.type === "update-ref") {
-      //   actobj.value = tx.get("data", { decode: true, string: true })
-      // } else if (actobj.type === "create-repo") {
-      //   const data = tx.get("data", { decode: true, string: true })
-      //   const decoded = JSON.parse(data)
-      //   actobj.key = decoded.name
-      //   actobj.value = decoded.description
-      // }
+      if (actobj.type === "create-repo") {
+        actobj.key = activity.repoName
+        actobj.value = activity.repoName
+      }
       console.log(actobj)
       return actobj
     })

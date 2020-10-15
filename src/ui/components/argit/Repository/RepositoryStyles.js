@@ -201,13 +201,11 @@ export const IssueList = styled.ul`
 
     div {
       flex: 1;
-      margin-left: 15px;
 
       strong {
         font-size: 16px;
 
         & span:first-child {
-          margin-right: 10px;
         }
       }
 
