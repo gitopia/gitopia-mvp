@@ -9,7 +9,6 @@ import { Commits } from "../commits"
 import { Dashboard } from "../Dashboard/Dashboard"
 import Header from "../Header/Header"
 import PullRequest from "../PullRequest"
-import { Repositories } from "../Repositories"
 import { Sidebar } from "../Sidebar/Sidebar"
 import s from "./Layout.module.scss"
 import dlogo from "../../argit/images/dlogo.svg"
@@ -75,13 +74,13 @@ type ConnectedProps = {
   txLoading: boolean
   mainItems: { repos: {}; activities: {} }
   updateMainItems: typeof updateMainItems
-  openSponsorModal: typeof openSponsorModal
   filterIndex: Number
   updateFilterIndex: typeof updateFilterIndex
   loadActivities: typeof loadActivities
   activities: Activity[]
   updatePage: typeof updatePage
   page: string
+  openSponsorModal: typeof openSponsorModal
 }
 
 export const Layout = connector(
@@ -109,7 +108,9 @@ export const Layout = connector(
     updatePage: actions.argit.updatePage,
     setTxLoading: actions.argit.setTxLoading,
     loadAddress: actions.argit.loadAddress,
-    loadActivities: actions.argit.loadActivities
+    loadActivities: actions.argit.loadActivities,
+    openSponsorModal: actions.argit.openSponsorModal,
+    openCreateRepoModal: actions.app.openCreateRepoModal
   }),
   lifecycle<ConnectedProps, {}>({
     async componentDidMount() {
@@ -598,6 +599,7 @@ export const Layout = connector(
               </NewContainer>
             </CSSTransition>
           </TransitionGroup>
+          <Sponsor match={props.match} />
         </main>
       </Hammer>
       <footer className="landing-footer">

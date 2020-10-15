@@ -309,7 +309,6 @@ export const StackRouter = connector(
                   </Col>
                 </Row>
               </Container>
-              <Sponsor match={props.match} />
             </div>
           )}
         </>
