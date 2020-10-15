@@ -104,7 +104,6 @@ export const Editor = connector(
     }
     return null
   }
-  console.log(props)
   const url = `dgit://${props.match.params.wallet_address}/${
     props.match.params.repo_name
   }`

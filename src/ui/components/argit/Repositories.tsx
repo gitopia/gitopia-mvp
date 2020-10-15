@@ -4,10 +4,11 @@ import { Table } from "reactstrap"
 import { lifecycle } from "recompose"
 import styled, { consolidateStreamedStyles } from "styled-components"
 import { arweave } from "../../../index"
-import { txQuery } from "../../../utils"
 import { connector } from "../../actionCreators/index"
 import { openCreateRepoModal } from "../../reducers/app"
 import { filter } from "fuzzaldrin"
+import { format } from "date-fns"
+
 import {
   loadAddress,
   loadNotifications,
@@ -15,8 +16,11 @@ import {
   Repository,
   setIsAuthenticated,
   updateRepositories,
-  openSponsorModal
+  openSponsorModal,
+  loadActivities
 } from "../../reducers/argit"
+import { getAllActivities, txQuery } from "./../../../utils"
+
 import {
   Loading,
   Owner,
@@ -43,8 +47,14 @@ import {
   FaRegFileAlt
 } from "react-icons/fa"
 
-import { setTxLoading, updateItems } from "../../reducers/argit"
+import {
+  setTxLoading,
+  updateMainItems,
+  Activity,
+  updateFilterIndex
+} from "../../reducers/argit"
 import { Sponsor } from "./Sponsor"
+
 type ConnectedProps = {
   isAuthenticated: boolean
   repositories: Repository[]
@@ -56,9 +66,13 @@ type ConnectedProps = {
   notifications: typeof Notification[]
   setTxLoading: typeof setTxLoading
   txLoading: boolean
-  items: [{ items: string[]; objects: {} }]
-  updateItems: typeof updateItems
+  mainItems: { repos: {}; activities: {} }
+  updateMainItems: typeof updateMainItems
   openSponsorModal: typeof openSponsorModal
+  filterIndex: Number
+  updateFilterIndex: typeof updateFilterIndex
+  loadActivities: typeof loadActivities
+  activities: Activity[]
 }
 
 export const Repositories = connector(
@@ -68,22 +82,28 @@ export const Repositories = connector(
     isAuthenticated: state.argit.isAuthenticated,
     notifications: state.argit.notifications,
     txLoading: state.argit.txLoading,
-    items: state.argit.items
+    mainItems: state.argit.mainItems,
+    filterIndex: state.argit.filterIndex,
+    activities: state.argit.activities
   }),
   actions => ({
     loadAddress: actions.argit.loadAddress,
     updateRepositories: actions.argit.updateRepositories,
     openCreateRepoModal: actions.app.openCreateRepoModal,
     loadNotifications: actions.argit.loadNotifications,
-    updateItems: actions.argit.updateItems,
-    openSponsorModal: actions.argit.openSponsorModal
+    updateMainItems: actions.argit.updateMainItems,
+    openSponsorModal: actions.argit.openSponsorModal,
+    updateFilterIndex: actions.argit.updateFilterIndex,
+    loadActivities: actions.argit.loadActivities,
+    setTxLoading: actions.argit.setTxLoading
   }),
 
   lifecycle<ConnectedProps, {}>({
     async componentDidMount() {
-      // UI Boot
-      // await delay(150)
-      setTxLoading({ loading: true })
+      this.props
+        // UI Boot
+        // await delay(150)
+        .setTxLoading({ loading: true })
 
       const { isAuthenticated, repositories, ...actions } = this.props
       let address = this.props.match.params.wallet_address
@@ -95,7 +115,10 @@ export const Repositories = connector(
       }
 
       actions.loadAddress({ address })
+      const activities = await getAllActivities(arweave, address)
+      console.log(activities)
 
+      actions.loadActivities({ activities: activities })
       const txids = await arweave.arql(txQuery(address, "create-repo"))
       let notifications: Notification[] = []
       let completed_txids: String[] = []
@@ -177,8 +200,13 @@ export const Repositories = connector(
         objects[itemname] = item
       })
       console.log(objects)
-      actions.updateItems({ items: { items: names, objects: objects } })
-      setTxLoading({ loading: false })
+      actions.updateMainItems({
+        mainItem: {
+          repos: objects,
+          activities: this.props.mainItems.activities
+        }
+      })
+      this.props.setTxLoading({ loading: false })
     }
   })
 )(function RepositoriesImpl(props) {
@@ -191,18 +219,56 @@ export const Repositories = connector(
       objects[itemname] = item
     })
     const results = filter(names, e.target.value)
-    props.updateItems({ items: { items: results, objects: objects } })
+    props.updateMainItems({
+      mainItems: { repos: objects, activities: {} }
+    })
   }
-
-  const Button = styled.i`
-    cursor: pointer;
-  `
   let filters = [
     { state: "repos", label: "Repositories", active: true },
     { state: "activity", label: "Activity", active: false },
     { state: "overview", label: "Overview", active: false }
   ]
-  let filterIndex = 0
+
+  function handleFilter(index: number) {
+    console.log(index)
+    props.updateFilterIndex({ filterIndex: index })
+    let names: [] = []
+    let objects: {} = {}
+
+    if (index == 0) {
+      props.repositories.forEach(item => {
+        let itemname = item.name
+        // names.push(item.name)
+        objects[itemname] = item
+      })
+      console.log(names)
+      props.updateMainItems({
+        mainItems: { repos: objects, activities: {} }
+      })
+    } else if (index == 1) {
+      props.repositories.forEach(item => {
+        let itemname = item.txid
+        // names.push(item.txid)
+        objects[itemname] = item
+      })
+      props.updateMainItems({
+        mainItems: { repos: {}, activities: objects }
+      })
+    } else if (index == 2) {
+      // props.updateMainItems({
+      //   mainItems: {
+      //     repos: props.mainItems.repos,
+      //     activities: props.mainItems.activities
+      //   }
+      // })
+    }
+    props.updateFilterIndex({ filterIndex: index })
+  }
+
+  const Button = styled.i`
+    cursor: pointer;
+  `
+  const { mainItems } = props
   if (props.txLoading)
     return (
       <NewContainer>
@@ -254,12 +320,12 @@ export const Repositories = connector(
       </Owner>
 
       <IssueList>
-        <FilterList active={Number(filterIndex)}>
+        <FilterList active={Number(props.filterIndex)}>
           {filters.map((filter, index) => (
             <button
               type="button"
               key={filter.state}
-              onClick={() => props.handleFilter(index)}
+              onClick={() => handleFilter(index)}
             >
               {filter.label}
             </button>
@@ -284,33 +350,68 @@ export const Repositories = connector(
         </Form>
 
         <List>
-          {props.items.items &&
-            props.items.objects &&
-            props.items.items.map(name => (
+          {props.filterIndex == 0 &&
+            props.repositories &&
+            Object.keys(mainItems.repos).map(name => (
               <li key={name}>
                 <div>
-                  <Link to={`/${props.address}/${name}`}>
-                    <img
-                      src={`https://api.adorable.io/avatars/100/${name}.png`}
-                      alt={name}
-                    />
-                    <span>{name}</span>
-                  </Link>
+                  {mainItems.repos[name] &&
+                    !mainItems.repos[name].type && (
+                      <Link to={`/${props.address}/${name}`}>
+                        <img
+                          src={`https://api.adorable.io/avatars/100/${name}.png`}
+                          alt={name}
+                        />
+                        <span>{name}</span>
+                      </Link>
+                    )}
                 </div>
-                {props.items.objects[name] &&
-                  props.items.objects[name].status === "confirmed" && (
+                {mainItems.repos[name] &&
+                  mainItems.repos[name].status === "confirmed" && (
                     <button>
                       <FaCheckCircle />
                     </button>
                   )}
-                {props.items.objects[name] &&
-                  props.items.objects[name].status === "pending" && (
+                {mainItems.repos[name] &&
+                  mainItems.repos[name].status === "pending" && (
                     <button>
                       <FaSpinner />
                     </button>
                   )}
               </li>
             ))}
+          {props.filterIndex == 1 &&
+            props.activities &&
+            Object.keys(mainItems.activities).map(
+              txid =>
+                mainItems.activities[txid] && (
+                  <li key={txid}>
+                    <div>
+                      <span>{txid}</span>
+                      <Link
+                        to={`/${props.address}/${mainItems.activities[txid]
+                          .repoName || mainItems.activities[txid].key}`}
+                      >
+                        {mainItems.activities[txid].repoName ||
+                          mainItems.activities[txid].key}
+                      </Link>
+                      <span className="float-right">
+                        {format(
+                          parseInt(mainItems.activities[txid].unixTime) * 1000,
+                          "MM/DD HH:mm"
+                        )}
+                      </span>
+                      <span>
+                        {mainItems.activities[txid].type === "create-repo"
+                          ? mainItems.activities[txid].value
+                          : `Updated ref ${mainItems.activities[txid].key} => ${
+                              mainItems.activities[txid].value
+                            }`}
+                      </span>
+                    </div>
+                  </li>
+                )
+            )}
         </List>
 
         <PageNav>

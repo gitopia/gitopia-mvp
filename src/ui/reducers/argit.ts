@@ -49,6 +49,10 @@ export const setRepositoryHead: ActionCreator<{
   repositoryHead: string
 }> = createAction("set-repository-head")
 
+export const updateFilterIndex: ActionCreator<{
+  filterIndex: number
+}> = createAction("update-filter-index")
+
 export const loadNotifications: ActionCreator<{
   notifications: Notification[]
 }> = createAction("load-notifications")
@@ -69,9 +73,9 @@ export const updateRepository: ActionCreator<{
   }
 }> = createAction("update-repo")
 
-export const updateItems: ActionCreator<{
-  items: { items: string[]; objects: {} }
-}> = createAction("update-items")
+export const updateMainItems: ActionCreator<{
+  mainItems: { repos: {}; activities: {} }
+}> = createAction("update-main-items")
 
 export type Repository = {
   name: string
@@ -111,7 +115,8 @@ export type ArgitState = {
     description: string
     owner: { name: string }
   }
-  items: { items: string[]; objects: {} }
+  filterIndex: Number
+  mainItems: { repos: {}; activities: {} }
 }
 
 const initialState: ArgitState = {
@@ -131,7 +136,8 @@ const initialState: ArgitState = {
     description: "",
     owner: { name: "" }
   },
-  items: { items: [], objects: {} }
+  mainItems: { repos: {}, activities: {} },
+  filterIndex: 0
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -186,9 +192,15 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   .case(updateRepository, (state, payload) => {
     return { ...state, repository: payload.repository }
   })
-  .case(updateItems, (state, payload) => {
+  .case(updateMainItems, (state, payload) => {
     return {
       ...state,
-      items: payload.items
+      mainItems: { ...state.mainItems, ...payload.mainItems }
+    }
+  })
+  .case(updateFilterIndex, (state, payload) => {
+    return {
+      ...state,
+      filterIndex: payload.filterIndex
     }
   })
