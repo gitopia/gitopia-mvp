@@ -272,54 +272,18 @@ export const Repositories = connector(
   const { activities, repos } = props.mainItems
   if (props.txLoading)
     return (
-      <NewContainer>
+      <>
         <Icon>
           <img src={dlogo} height="48px" width="48px" />
         </Icon>
         <Loading loading={props.txLoading ? 1 : 0}>
           <FaSpinner />
         </Loading>
-      </NewContainer>
+      </>
     )
 
   return (
-    <NewContainer>
-      <Icon>
-        <img src={dlogo} height="48px" width="48px" />
-      </Icon>
-      <Owner>
-        <div />
-        <OwnerProfile>
-          <a
-            href={`/${props.address}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src={`https://api.adorable.io/avatars/100/${props.address}.png`}
-              alt={`${props.address}`}
-            />
-          </a>
-        </OwnerProfile>
-        <RepoInfo>
-          <h1 className="d-md-none">
-            {`${props.address}`.replace(/(.{7})..+/, "$1...")}
-          </h1>
-          <h1 className="d-none d-md-block">{props.address}</h1>
-          <div>
-            <span
-              className="rv-button"
-              onClick={() => {
-                props.openSponsorModal({})
-              }}
-            >
-              <FaAward />
-              Sponsor
-            </span>
-          </div>
-        </RepoInfo>
-      </Owner>
-
+    <>
       <IssueList>
         <FilterList active={Number(props.filterIndex)}>
           {filters.map((filter, index) => (
@@ -435,6 +399,6 @@ export const Repositories = connector(
         </PageNav>
       </IssueList>
       <Sponsor match={props.match} />
-    </NewContainer>
+    </>
   )
 })

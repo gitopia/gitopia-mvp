@@ -77,6 +77,10 @@ export const updateMainItems: ActionCreator<{
   mainItems: { repos: {}; activities: {} }
 }> = createAction("update-main-items")
 
+export const updatePage: ActionCreator<{
+  page: string
+}> = createAction("update-page")
+
 export type Repository = {
   name: string
   description: string
@@ -117,6 +121,7 @@ export type ArgitState = {
   }
   filterIndex: Number
   mainItems: { repos: {}; activities: {} }
+  page: string
 }
 
 const initialState: ArgitState = {
@@ -137,7 +142,8 @@ const initialState: ArgitState = {
     owner: { name: "" }
   },
   mainItems: { repos: {}, activities: {} },
-  filterIndex: 0
+  filterIndex: 0,
+  page: "main"
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -202,5 +208,11 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
     return {
       ...state,
       filterIndex: payload.filterIndex
+    }
+  })
+  .case(updatePage, (state, payload) => {
+    return {
+      ...state,
+      page: payload.page
     }
   })

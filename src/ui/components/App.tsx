@@ -28,7 +28,7 @@ export class App extends React.Component<{}> {
                   />
 
                   <Route
-                    path="/:wallet_address/"
+                    path="/:wallet_address/:repo_name?"
                     render={(props: any) => <Layout {...props} />}
                   />
                   <Route default component={LandingNew} />
