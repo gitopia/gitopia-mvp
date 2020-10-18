@@ -29,7 +29,7 @@ import {
 import { lifecycle } from "recompose"
 import { openCreateRepoModal } from "../../../reducers/app"
 import { arweave } from "../../../../index"
-import { getAllActivities, txQuery } from "../../../../utils"
+import { getAllActivities, txQuery, getNextActivities } from "../../../../utils"
 
 import NewContainer, {
   Icon,
@@ -42,6 +42,8 @@ import {
   OwnerProfile,
   RepoInfo,
   FilterList,
+  Loading,
+  PageNav,
   IssueList
 } from "../../argit/Repository/RepositoryStyles"
 import {
@@ -95,6 +97,7 @@ export const Layout = connector(
     filterIndex: state.argit.filterIndex,
     repository: state.argit.repository,
     page: state.argit.page,
+    txLoading: state.argit.txLoading,
     mainItems: state.argit.mainItems
   }),
   actions => ({
@@ -114,7 +117,6 @@ export const Layout = connector(
   }),
   lifecycle<ConnectedProps, {}>({
     async componentDidMount() {
-      console.log(this.props)
       if (this.props.match.params.repo_name) {
         this.props.updatePage({ page: "repo" })
       } else {
@@ -222,7 +224,7 @@ export const Layout = connector(
       })
       console.log(objects)
       actions.updateMainItems({
-        mainItem: {
+        mainItems: {
           repos: objects,
           activities: this.props.mainItems.activities
         }
@@ -231,6 +233,27 @@ export const Layout = connector(
     }
   })
 )(function LayoutImpl(props) {
+  function handlePage(e: string) {
+    let objects = {}
+    getNextActivities(arweave, props.address, props.activities[9].cursor, e)
+      .then(activities => {
+        console.log(activities)
+        props.loadActivities({ activities: activities })
+        console.log(props.activities)
+      })
+      .then(() => {
+        props.activities.forEach(item => {
+          let itemname = item.txid
+          // names.push(item.txid)
+          objects[itemname] = item
+        })
+        props.updateMainItems({
+          mainItems: { repos: {}, activities: objects }
+        })
+        console.log(activities)
+        props.setTxLoading({ loading: false })
+      })
+  }
   function handleChange(e: string) {
     let names: string[] = []
     let objects: {} = {}
@@ -246,13 +269,11 @@ export const Layout = connector(
   }
   let mainFilters = [
     { state: "repos", label: "Repositories", active: true },
-    { state: "activity", label: "Activity", active: false },
-    { state: "overview", label: "Overview", active: false }
+    { state: "activity", label: "Activity", active: false }
   ]
   let repoFilters = [
     { state: "code", label: "Code", active: true },
-    { state: "commits", label: "Commits", active: false },
-    { state: "sponsors", label: "Sponsors", active: false }
+    { state: "commits", label: "Commits", active: false }
   ]
   function handleFilter(index: number, page: string) {
     props.updateFilterIndex({ filterIndex: index })
@@ -495,106 +516,132 @@ export const Layout = connector(
                             onClick={() => {
                               props.openCreateRepoModal({})
                             }}
-                            loading={props.txLoading ? 1 : 0}
                           >
                             <FaPlus color="#fff" size={14} />
                           </SubmitButton>
                         )}
                       </Form>
                     )}
-
-                  <List>
-                    {props.page === "main" &&
-                      props.filterIndex == 0 &&
-                      props.repositories &&
-                      Object.keys(repos).map(name => (
-                        <li key={name}>
-                          <div>
+                  {props.txLoading ? (
+                    <>
+                      <Loading loading={props.txLoading ? 1 : 0}>
+                        <FaSpinner />
+                      </Loading>
+                    </>
+                  ) : (
+                    <List>
+                      {props.page === "main" &&
+                        props.filterIndex == 0 &&
+                        props.repositories &&
+                        Object.keys(repos).map(name => (
+                          <li key={name}>
+                            <div>
+                              {repos[name] &&
+                                !repos[name].type && (
+                                  <Link
+                                    to={`/${props.address}/${name}`}
+                                    onClick={() => {
+                                      props.updatePage({ page: "repo" })
+                                    }}
+                                  >
+                                    <img
+                                      src={`https://api.adorable.io/avatars/100/${name}.png`}
+                                      alt={name}
+                                    />
+                                    <span>{name}</span>
+                                  </Link>
+                                )}
+                            </div>
                             {repos[name] &&
-                              !repos[name].type && (
-                                <Link
-                                  to={`/${props.address}/${name}`}
-                                  onClick={() => {
-                                    props.updatePage({ page: "repo" })
-                                  }}
-                                >
-                                  <img
-                                    src={`https://api.adorable.io/avatars/100/${name}.png`}
-                                    alt={name}
-                                  />
-                                  <span>{name}</span>
-                                </Link>
+                              repos[name].status === "confirmed" && (
+                                <button>
+                                  <FaCheckCircle />
+                                </button>
                               )}
-                          </div>
-                          {repos[name] &&
-                            repos[name].status === "confirmed" && (
-                              <button>
-                                <FaCheckCircle />
-                              </button>
-                            )}
-                          {repos[name] &&
-                            repos[name].status === "pending" && (
-                              <button>
-                                <FaSpinner />
-                              </button>
-                            )}
-                        </li>
-                      ))}
-                    {props.page === "main" &&
-                      props.filterIndex == 1 &&
-                      props.activities &&
-                      Object.keys(activities).map(txid => (
-                        <li key={txid}>
-                          <div>
-                            <Link
-                              to={`/${props.address}/${activities[txid]
-                                .repoName || activities[txid].key}`}
-                            >
-                              <Container className="activity">
-                                <Row>
-                                  <Col>
-                                    <span>
-                                      {`${txid}`.replace(/(.{15})..+/, "$1...")}
-                                    </span>
-                                  </Col>
-                                  <Col>
-                                    {activities[txid].repoName ||
-                                      activities[txid].key}
-                                  </Col>
-                                  <Col>
-                                    <span className="float-right">
-                                      {format(
-                                        parseInt(activities[txid].unixTime) *
-                                          1000,
-                                        "MM/DD HH:mm"
-                                      )}
-                                    </span>
-                                  </Col>
-                                  <Col>
-                                    <span>
-                                      {activities[txid].type === "create-repo"
-                                        ? activities[txid].value
-                                        : `Updated ref ${activities[txid].key}`}
-                                    </span>
-                                  </Col>
-                                </Row>
-                              </Container>
-                            </Link>
-                          </div>
-                        </li>
-                      ))}
-                    {props.page === "repo" &&
-                      props.filterIndex === 0 && <StackRouter {...props} />}
-                    {props.page === "repo" &&
-                      props.filterIndex === 1 && <Commits {...props} />}
-                  </List>
-                  <Switch>
-                    <Route
-                      path="/:wallet_address/:repo_name/commits/:branch?"
-                      exact
-                      component={Commits}
-                    />
-                  </Switch>
+                            {repos[name] &&
+                              repos[name].status === "pending" && (
+                                <button>
+                                  <FaSpinner />
+                                </button>
+                              )}
+                          </li>
+                        ))}
+                      {props.page === "main" &&
+                        props.filterIndex == 1 &&
+                        props.activities &&
+                        Object.keys(activities).map(txid => (
+                          <li key={txid}>
+                            <div>
+                              <Link
+                                to={`/${props.address}/${activities[txid]
+                                  .repoName || activities[txid].key}`}
+                              >
+                                <Container className="activity">
+                                  <Row>
+                                    <Col>
+                                      <span>
+                                        {`${txid}`.replace(
+                                          /(.{15})..+/,
+                                          "$1..."
+                                        )}
+                                      </span>
+                                    </Col>
+                                    <Col>
+                                      <span>
+                                        {activities[txid].repoName ||
+                                          activities[txid].type}
+                                      </span>
+                                    </Col>
+                                    <Col>
+                                      <span>
+                                        {format(
+                                          parseInt(activities[txid].unixTime) *
+                                            1000,
+                                          "MM/DD HH:mm"
+                                        )}
+                                      </span>
+                                    </Col>
+                                    <Col>
+                                      <span>
+                                        {activities[txid].type === "create-repo"
+                                          ? "Create New Repo"
+                                          : `Updated ref ${
+                                              activities[txid].key
+                                            }`}
+                                      </span>
+                                    </Col>
+                                  </Row>
+                                </Container>
+                              </Link>
+                            </div>
+                          </li>
+                        ))}
+                    </List>
+                  )}
+                  {props.page === "repo" &&
+                    props.filterIndex === 0 && <StackRouter {...props} />}
+                  {props.page === "repo" &&
+                    props.filterIndex === 1 && <Commits {...props} />}
+                  <PageNav>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        props.setTxLoading({ loading: true })
+                        handlePage("back")
+                      }}
+                    >
+                      Newer
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        props.setTxLoading({ loading: true })
+                        handlePage("next")
+                      }}
+                    >
+                      Older
+                    </button>
+                  </PageNav>
                 </IssueList>
               </NewContainer>
             </CSSTransition>
