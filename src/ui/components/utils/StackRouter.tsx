@@ -125,23 +125,25 @@ export const loadDirectory = async (arweave, url, head, projectRoot, path) => {
     format: "parsed"
   })
 
-  for (var entry of parsedTreeObject.object) {
-    await downloadGitObject(arweave, url, entry.oid, projectRoot)
+  await Promise.all(
+    parsedTreeObject.object.map(async entry => {
+      await downloadGitObject(arweave, url, entry.oid, projectRoot)
 
-    const path = `${fullPath}/${entry.path}`
+      const path = `${fullPath}/${entry.path}`
 
-    if (entry.type === "blob") {
-      const { blob } = await git.readBlob({
-        fs,
-        dir: projectRoot,
-        oid: entry.oid,
-        format: "parsed"
-      })
-      await pify(fs.writeFile)(path, Buffer.from(blob))
-    } else if (entry.type === "tree") {
-      await mkdir(path)
-    }
-  }
+      if (entry.type === "blob") {
+        const { blob } = await git.readBlob({
+          fs,
+          dir: projectRoot,
+          oid: entry.oid,
+          format: "parsed"
+        })
+        await pify(fs.writeFile)(path, Buffer.from(blob))
+      } else if (entry.type === "tree") {
+        await mkdir(path)
+      }
+    })
+  )
 }
 
 type Project = {
