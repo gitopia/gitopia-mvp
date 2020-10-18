@@ -5,7 +5,7 @@ import { downloadGitObject } from "../utils/StackRouter"
 import { readObject } from "isomorphic-git"
 import fs from "fs"
 import { arweave } from "../../../index"
-import { getRef } from "isomorphic-git/src/utils/arweave"
+import { getOidByRef } from "isomorphic-git/src/utils/graphql"
 import { createNewProject } from "../../reducers/project"
 import { updateCommits } from "../../reducers/git"
 import NewContainer, { Icon, List } from "../argit/Repository/Container"
@@ -96,7 +96,7 @@ export const Commits = connector(
         }`
         const branch = match.params.branch || "master"
         const newProjectRoot = `/${match.params.repo_name}`
-        const ref = await getRef(arweave, url, `refs/heads/${branch}`)
+        const ref = await getOidByRef(arweave, url, `refs/heads/${branch}`)
         const commits = []
 
         createNewProject({ newProjectRoot })
