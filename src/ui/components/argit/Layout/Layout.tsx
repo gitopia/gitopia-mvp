@@ -135,8 +135,6 @@ export const Layout = connector(
         address = await arweave.wallets.jwkToAddress(
           JSON.parse(String(sessionStorage.getItem("keyfile")))
         )
-      }
-
       actions.loadAddress({ address })
       const activities = await getAllActivities(arweave, address)
       console.log(activities)
@@ -445,7 +443,7 @@ export const Layout = connector(
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {props.repository.owner.name}
+                          {props.match.params.wallet_address}
                         </a>
                       </h1>
                     )}

@@ -28,6 +28,10 @@ export const getAllActivities = async (arweave, address) => {
     const activities = await api.post("/graphql", {
       query: `query {
         transactions(owners:["${address}"],tags: [      
+          {
+        name: "Type",
+        values: ["create-repo","update-ref"]
+      },
                     {
                       name: "App-Name",
                       values: "dgit"
@@ -35,10 +39,6 @@ export const getAllActivities = async (arweave, address) => {
                     {
                       name: "version",
                       values: "0.0.1"
-                    },
-                        {
-                      name: "Type",
-                      values: ["create-repo","update-ref"]
                     }
                   ]) {
           pageInfo {
