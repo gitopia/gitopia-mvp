@@ -41,3 +41,4 @@ declare module "*.svg" {
   export default content
 }
 declare module "isomorphic-git/src/utils/arweave"
+declare module "isomorphic-git/src/utils/graphql"
