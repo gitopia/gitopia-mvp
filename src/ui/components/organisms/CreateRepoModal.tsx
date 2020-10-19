@@ -13,7 +13,8 @@ export const CreateRepoModal = connector(
     return {
       openedCreateRepoModal: state.app.openedCreateRepoModal,
       address: state.argit.address,
-      repositories: state.argit.repositories
+      repositories: state.argit.repositories,
+      mainItems: state.argit.mainItems
     }
   },
   actions => {
@@ -22,7 +23,8 @@ export const CreateRepoModal = connector(
       closeModal: actions.app.closeCreateRepoModal,
       loadProjectList: actions.project.loadProjectList,
       startProjectRootChanged: actions.editor.startProjectRootChanged,
-      updateRepositories: actions.argit.updateRepositories
+      updateRepositories: actions.argit.updateRepositories,
+      updateMainItems: actions.argit.updateMainItems
     }
   }
 )(function CreateRepoModalImpl(props) {
@@ -50,6 +52,8 @@ export const CreateRepoModal = connector(
           address={props.address}
           repositories={props.repositories}
           closeCreateRepoModal={props.closeModal}
+          mainItems={props.mainItems}
+          updateMainItems={props.updateMainItems}
         />
       </ModalBody>
       <ModalFooter>

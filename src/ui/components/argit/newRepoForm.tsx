@@ -3,13 +3,15 @@ import { arweave } from "../../../index"
 import Input from "../../../ui/components/utils/input"
 import { Repository as Repo } from "../../../ui/reducers/argit"
 import { closeCreateRepoModal } from "../../reducers/app"
-import { updateRepositories } from "../../reducers/argit"
+import { updateRepositories, updateMainItems } from "../../reducers/argit"
 
 type NewRepoFormProps = {
   address: string
-  repositories: Repo[]
+  mainItems: {}
+  repositories: []
   closeCreateRepoModal: typeof closeCreateRepoModal
   updateRepositories: typeof updateRepositories
+  updateMainItems: typeof updateMainItems
 }
 
 type NewRepoFormState = {
@@ -105,12 +107,19 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
     console.log(tx)
     const repository = {
       name: name,
-      description: description,
-      status: "pending",
+      cursor: "WyIyMDIwLTEwLTE5VDE0OjQzOjMwLjUzNVoiLDEwXQ==",
+      unixTime: "1603107464",
+      type: "create-repo",
       txid: tx.id
     }
-    this.props.updateRepositories({
-      repositories: [...this.props.repositories, repository]
+    let newRepos = { ...this.props.mainItems.repos }
+    newRepos[name] = repository
+    console.log(newRepos)
+    this.props.updateMainItems({
+      mainItems: {
+        repos: newRepos,
+        activities: this.props.mainItems.activities
+      }
     })
   }
 
