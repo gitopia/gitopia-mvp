@@ -301,7 +301,7 @@
 
 .landing-footer {
   text-align: center;
-  background-color: var(--landing-primary-color);
+  background-color: #3f51b5;
   padding: 2rem;
   color: white;
 }

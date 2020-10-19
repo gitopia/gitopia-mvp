@@ -27,7 +27,7 @@ export const Icon = styled.h2`
   bottom: -40px;
   transform: translateX(-50%);
   background: white;
-  color: #7159c1;
+  color: #3f51b5;
   width: 80px;
   height: 80px;
   font-size: 48px;
@@ -70,7 +70,7 @@ export const List = styled.ul`
       text-decoration: none;
 
       &:hover {
-        color: #7159c1;
+        color: #3f51b5;
       }
     }
 
@@ -81,14 +81,14 @@ export const List = styled.ul`
       padding: 6px 0 6px 16px;
 
       &:hover {
-        color: #7159c1;
+        color: #3f51b5;
       }
     }
   }
 `
 
 export const SubmitButton = styled.button`
-  background: #7159c1;
+  background: #3f51b5;
   border: 0;
   padding: 0 15px;
   margin-left: 10px;

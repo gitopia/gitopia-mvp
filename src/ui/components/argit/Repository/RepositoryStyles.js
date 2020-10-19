@@ -26,7 +26,7 @@ export const Loading = styled.div`
       svg {
         font-size: 40px;
         animation: ${rotate} 2s linear infinite;
-        color: #7159c1 !important;
+        color: #3f51b5 !important;
       }
     `};
 `
@@ -43,7 +43,7 @@ export const Owner = styled.header`
     margin-bottom: 40px;
 
     & > a {
-      color: #7159c1;
+      color: #3f51b5;
       font-size: 16px;
       text-decoration: none;
 
@@ -103,7 +103,7 @@ export const RepoInfo = styled.div`
       text-decoration: none;
 
       &:hover {
-        color: #7159c1;
+        color: #3f51b5;
       }
     }
   }
@@ -113,7 +113,7 @@ export const RepoInfo = styled.div`
 
     & span {
       font-size: 14px;
-      background: #7564aa;
+      background: #3f51b5;
       color: #fff;
       padding: 4px 8px;
       border-radius: 3px;
@@ -151,12 +151,12 @@ export const FilterList = styled.div`
 
     &:nth-child(${props => props.active + 1}) {
       font-weight: bold;
-      color: #7159c1;
-      border-bottom: 2px solid #7159c1;
+      color: #3f51b5;
+      border-bottom: 2px solid #3f51b5;
     }
 
     &:hover {
-      color: #7159c1;
+      color: #3f51b5;
     }
   }
 `
@@ -185,7 +185,7 @@ export const IssueList = styled.ul`
       transition: all 180ms ease-in-out;
 
       &:hover {
-        color: #7159c1;
+        color: #3f51b5;
         border-color: #ddd;
         transform: scale(1.005);
         box-shadow: 0 12px 10px -10px hsla(254, 26%, 25%, 0.27);
@@ -244,7 +244,7 @@ export const PageNav = styled.div`
     margin: 0;
 
     &:hover {
-      background: #7159c1;
+      background: #3f51b5;
       color: #fff;
     }
 

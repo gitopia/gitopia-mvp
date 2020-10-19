@@ -209,7 +209,7 @@ export const LandingNew = connector(
                 <img src={osImage} height="100px" width="100px" />
               </div>
               <h3 className="landing-section__title justify-content-center">
-                Open Source
+                OpenSource
               </h3>
               <p className="landing-p justify-content-center">
                 All of dgit code is open source on dgit and can be audited by
