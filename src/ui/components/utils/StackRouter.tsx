@@ -1,7 +1,8 @@
 import { format } from "date-fns"
 import fs from "fs"
 import * as git from "isomorphic-git"
-import { getRef, fetchGitObject } from "isomorphic-git/src/utils/arweave"
+import { getOidByRef } from "isomorphic-git/src/utils/graphql"
+import { fetchGitObject } from "isomorphic-git/src/utils/arweave"
 import React from "react"
 import { Link } from "react-router-dom"
 import { CardBody, Col, Row, Container } from "reactstrap"
@@ -125,23 +126,25 @@ export const loadDirectory = async (arweave, url, head, projectRoot, path) => {
     format: "parsed"
   })
 
-  for (var entry of parsedTreeObject.object) {
-    await downloadGitObject(arweave, url, entry.oid, projectRoot)
+  await Promise.all(
+    parsedTreeObject.object.map(async entry => {
+      await downloadGitObject(arweave, url, entry.oid, projectRoot)
 
-    const path = `${fullPath}/${entry.path}`
+      const path = `${fullPath}/${entry.path}`
 
-    if (entry.type === "blob") {
-      const { blob } = await git.readBlob({
-        fs,
-        dir: projectRoot,
-        oid: entry.oid,
-        format: "parsed"
-      })
-      await pify(fs.writeFile)(path, Buffer.from(blob))
-    } else if (entry.type === "tree") {
-      await mkdir(path)
-    }
-  }
+      if (entry.type === "blob") {
+        const { blob } = await git.readBlob({
+          fs,
+          dir: projectRoot,
+          oid: entry.oid,
+          format: "parsed"
+        })
+        await pify(fs.writeFile)(path, Buffer.from(blob))
+      } else if (entry.type === "tree") {
+        await mkdir(path)
+      }
+    })
+  )
 }
 
 type Project = {
@@ -225,7 +228,7 @@ export const StackRouter = connector(
 
       setRepositoryURL({ repositoryURL: url })
 
-      const oid = await getRef(arweave, url, `refs/heads/${ref}`)
+      const oid = await getOidByRef(arweave, url, `refs/heads/${ref}`)
 
       if (oid !== "0000000000000000000000000000000000000000" && oid !== "") {
         setRepositoryHead({ repositoryHead: oid })
