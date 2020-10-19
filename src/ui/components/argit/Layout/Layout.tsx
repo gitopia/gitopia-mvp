@@ -141,14 +141,16 @@ export const Layout = connector(
           JSON.parse(String(sessionStorage.getItem("keyfile")))
         )
       }
+      let user_address = this.props.match.params.wallet_address
+
       actions.loadAddress({ address })
-      const activities = await getAllActivities(arweave, address)
+      const activities = await getAllActivities(arweave, user_address)
       console.log(activities)
 
       actions.loadActivities({ activities: activities })
       let notifications: Notification[] = []
       let completed_txids: String[] = []
-      const repos = await getAllRepositores(arweave, address)
+      const repos = await getAllRepositores(arweave, user_address)
       console.log(repos)
 
       const newNotifications = this.props.notifications
@@ -460,15 +462,17 @@ export const Layout = connector(
                           placeholder="Search Repository"
                           onChange={handleChange}
                         />
-                        {props.isAuthenticated && (
-                          <SubmitButton
-                            onClick={() => {
-                              props.openCreateRepoModal({})
-                            }}
-                          >
-                            <FaPlus color="#fff" size={14} />
-                          </SubmitButton>
-                        )}
+                        {props.isAuthenticated &&
+                          props.match.params.wallet_address ===
+                            props.address && (
+                            <SubmitButton
+                              onClick={() => {
+                                props.openCreateRepoModal({})
+                              }}
+                            >
+                              <FaPlus color="#fff" size={14} />
+                            </SubmitButton>
+                          )}
                       </Form>
                     )}
                   {props.txLoading ? (
