@@ -17,6 +17,7 @@ import { Link } from "react-router-dom"
 import { GoArrowLeft, GoArrowRight } from "react-icons/go"
 import { FaCheckCircle, FaSpinner, FaPlus } from "react-icons/fa"
 import { format } from "date-fns"
+import { filter } from "fuzzaldrin"
 
 import {
   PopoverBody,
@@ -166,17 +167,18 @@ export const Layout = connector(
       let finalNotifications = [...notifications, ...newNotifications]
       actions.loadNotifications({ notifications: finalNotifications })
       actions.updateRepositories({ repositories: repos })
-      // let names: string[] = []
-      // let objects: {} = {}
-      // this.props.repositories.forEach(item => {
-      //   let itemname = item.name
-      //   names.push(item.name)
-      //   objects[itemname] = item
-      // })
-      // console.log(objects)
+      let names: [] = []
+      let objects: {} = {}
+      this.props.repositories.forEach(item => {
+        let itemname = item.name
+        names.push(item.name)
+        objects[itemname] = item
+      })
+
+      console.log(objects)
       actions.updateMainItems({
         mainItems: {
-          repos: repos,
+          repos: objects,
           activities: this.props.mainItems.activities
         }
       })
@@ -205,17 +207,24 @@ export const Layout = connector(
         props.setTxLoading({ loading: false })
       })
   }
-  function handleChange(e: string) {
-    let names: string[] = []
+  function handleChange(e) {
+    let names: [] = []
     let objects: {} = {}
+    let filteredObjects: {} = {}
     props.repositories.forEach(item => {
       let itemname = item.name
-      names.push(item.name)
+      names.push(itemname)
       objects[itemname] = item
     })
     const results = filter(names, e.target.value)
+
+    console.log(results, names)
+    results.forEach(result => {
+      filteredObjects[result] = objects[result]
+    })
     props.updateMainItems({
-      mainItems: { repos: objects, activities: {} }
+      repos: filteredObjects,
+      activities: props.mainItems.activities
     })
   }
   let mainFilters = [
@@ -453,7 +462,6 @@ export const Layout = connector(
                         </button>
                       ))}
                   </FilterList>
-
                   {props.filterIndex === 0 &&
                     props.page === "main" && (
                       <Form>
@@ -486,27 +494,31 @@ export const Layout = connector(
                       {props.page === "main" &&
                         props.filterIndex == 0 &&
                         props.repositories &&
-                        props.repositories.map(repo => (
-                          <li key={repo.name}>
+                        Object.keys(props.mainItems.repos).map(repo => (
+                          <li key={props.mainItems.repos[repo].txid}>
                             <div>
-                              {repo.name && (
+                              {props.mainItems.repos[repo].name && (
                                 <Link
-                                  to={`/${props.address}/${repo.name}`}
+                                  to={`/${props.address}/${
+                                    props.mainItems.repos[repo].name
+                                  }`}
                                   onClick={() => {
                                     props.updatePage({ page: "repo" })
                                   }}
                                 >
                                   <img
                                     src={`https://api.adorable.io/avatars/100/${
-                                      repo.name
+                                      props.mainItems.repos[repo].name
                                     }.png`}
-                                    alt={repo.name}
+                                    alt={props.mainItems.repos[repo].name}
                                   />
-                                  <span>{repo.name}</span>
+                                  <span>
+                                    {props.mainItems.repos[repo].name}
+                                  </span>
                                 </Link>
                               )}
                             </div>
-                            {repo.name && (
+                            {props.mainItems.repos[repo].name && (
                               <button>
                                 <FaCheckCircle />
                               </button>
@@ -569,26 +581,29 @@ export const Layout = connector(
                     props.filterIndex === 0 && <StackRouter {...props} />}
                   {props.page === "repo" &&
                     props.filterIndex === 1 && <Commits {...props} />}
-                  <PageNav>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        props.setTxLoading({ loading: true })
-                        handlePage("back")
-                      }}
-                    >
-                      Newer
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        props.setTxLoading({ loading: true })
-                        handlePage("next")
-                      }}
-                    >
-                      Older
-                    </button>
-                  </PageNav>
+                  {props.page === "main" &&
+                    props.filterIndex === 1 && (
+                      <PageNav>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            props.setTxLoading({ loading: true })
+                            handlePage("back")
+                          }}
+                        >
+                          Newer
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            props.setTxLoading({ loading: true })
+                            handlePage("next")
+                          }}
+                        >
+                          Older
+                        </button>
+                      </PageNav>
+                    )}
                 </IssueList>
               </NewContainer>
             </CSSTransition>
