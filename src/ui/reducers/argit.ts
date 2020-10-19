@@ -10,7 +10,7 @@ const { createAction } = buildActionCreator({
 })
 
 export const updateRepositories: ActionCreator<{
-  repositories: Repository[]
+  repositories: []
 }> = createAction("update-repos")
 
 export const loadAddress: ActionCreator<{
@@ -49,6 +49,10 @@ export const setRepositoryHead: ActionCreator<{
   repositoryHead: string
 }> = createAction("set-repository-head")
 
+export const updateFilterIndex: ActionCreator<{
+  filterIndex: number
+}> = createAction("update-filter-index")
+
 export const loadNotifications: ActionCreator<{
   notifications: Notification[]
 }> = createAction("load-notifications")
@@ -69,9 +73,13 @@ export const updateRepository: ActionCreator<{
   }
 }> = createAction("update-repo")
 
-export const updateItems: ActionCreator<{
-  items: { items: string[]; objects: {} }
-}> = createAction("update-items")
+export const updateMainItems: ActionCreator<{
+  mainItems: { repos: {}; activities: {} }
+}> = createAction("update-main-items")
+
+export const updatePage: ActionCreator<{
+  page: string
+}> = createAction("update-page")
 
 export type Repository = {
   name: string
@@ -95,7 +103,7 @@ export type Activity = {
 }
 
 export type ArgitState = {
-  repositories: Repository[]
+  repositories: []
   isAuthenticated: boolean
   address: string | null
   openedLoginModal: boolean
@@ -111,7 +119,9 @@ export type ArgitState = {
     description: string
     owner: { name: string }
   }
-  items: { items: string[]; objects: {} }
+  filterIndex: Number
+  mainItems: { repos: {}; activities: {} }
+  page: string
 }
 
 const initialState: ArgitState = {
@@ -131,7 +141,9 @@ const initialState: ArgitState = {
     description: "",
     owner: { name: "" }
   },
-  items: { items: [], objects: {} }
+  mainItems: { repos: {}, activities: {} },
+  filterIndex: 0,
+  page: "main"
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -186,9 +198,21 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   .case(updateRepository, (state, payload) => {
     return { ...state, repository: payload.repository }
   })
-  .case(updateItems, (state, payload) => {
+  .case(updateMainItems, (state, payload) => {
     return {
       ...state,
-      items: payload.items
+      mainItems: { ...state.mainItems, ...payload.mainItems }
+    }
+  })
+  .case(updateFilterIndex, (state, payload) => {
+    return {
+      ...state,
+      filterIndex: payload.filterIndex
+    }
+  })
+  .case(updatePage, (state, payload) => {
+    return {
+      ...state,
+      page: payload.page
     }
   })

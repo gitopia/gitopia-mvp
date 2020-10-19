@@ -139,49 +139,13 @@ export const Commits = connector(
   )
 
   return (
-    <NewContainer>
-      <Icon>
-        <img src={dlogo} height="48px" width="48px" />
-      </Icon>
-      {/* <Repository /> */}
-      <Owner>
-        <div>
-          <Link
-            to={`/${match.params.wallet_address}/${match.params.repo_name}`}
-          >
-            <GoArrowLeft /> Back to Repository
-          </Link>
-        </div>
-        <OwnerProfile>
-          <Link to={`/${match.params.wallet_address}`}>
-            <img
-              src={`https://api.adorable.io/avatars/100/${
-                match.params.wallet_address
-              }.png`}
-              alt={match.params.wallet_address}
-            />
-          </Link>
-          <h2 className="d-md-none">
-            {match.params.wallet_address.replace(/(.{7})..+/, "$1...")}
-          </h2>
-          <h2 className="d-none d-md-block">{match.params.wallet_address}</h2>
-        </OwnerProfile>
-        <RepoInfo>
-          <h1>
-            <Link
-              to={`/${match.params.wallet_address}/${match.params.repo_name}`}
-            >
-              {match.params.repo_name}
-            </Link>
-          </h1>
-        </RepoInfo>
-      </Owner>
+    <>
       {pageLoading ? (
         <Loading loading={pageLoading ? 1 : 0}>
           <FaSpinner />
         </Loading>
       ) : (
-        <List>
+        <>
           {commitsToDisplay &&
             commitsToDisplay.map(commit => (
               <li key={commit.oid}>
@@ -211,7 +175,7 @@ export const Commits = connector(
                 </div>
               </li>
             ))}
-        </List>
+        </>
       )}
       <PageNav>
         <button
@@ -231,6 +195,6 @@ export const Commits = connector(
           Older
         </button>
       </PageNav>
-    </NewContainer>
+    </>
   )
 })

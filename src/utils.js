@@ -1,3 +1,4 @@
+import axios from "axios"
 const appQuery = address => ({
   op: "and",
   expr1: {
@@ -18,48 +19,240 @@ export const txQuery = (address, txType) => ({
   expr2: { op: "equals", expr1: "Type", expr2: txType }
 })
 
-export const getAllActivities = async (arweave, address) => {
-  const txids = await arweave.arql(appQuery(address))
-  const activities = await Promise.all(
-    txids.map(async txid => {
-      const activity = {}
-      activity.txid = txid
-      try {
-        const tx = await arweave.transactions.get(txid)
-
-        tx.get("tags").forEach(tag => {
-          const key = tag.get("name", { decode: true, string: true })
-          const value = tag.get("value", { decode: true, string: true })
-          if (key === "Unix-Time") {
-            activity.unixTime = value
-          } else if (key === "Type") {
-            activity.type = value
-          } else if (key === "ref") {
-            activity.key = value
-          } else if (key === "Repo") {
-            activity.repoName = value
+const api = axios.create({
+  baseURL: "https://arweave.dev"
+})
+export const getAllRepositores = async (arweave, address) => {
+  try {
+    const repos = await api.post("/graphql", {
+      query: `query {
+        transactions(owners:["${address}"],tags: [      
+          {
+        name: "Type",
+        values: "create-repo"
+      },
+                    {
+                      name: "App-Name",
+                      values: "dgit"
+                    },
+                    {
+                      name: "version",
+                      values: "0.0.2"
+                    }
+                  ]) {
+          pageInfo {
+            hasNextPage
           }
-        })
-
-        if (activity.type === "update-ref") {
-          activity.value = tx.get("data", { decode: true, string: true })
-        } else if (activity.type === "create-repo") {
-          const data = tx.get("data", { decode: true, string: true })
-          const decoded = JSON.parse(data)
-          activity.key = decoded.name
-          activity.value = decoded.description
+          edges {
+            cursor
+            node {
+              id
+              tags {
+                name,
+                value
+              }
+            }
+          }
         }
-      } catch (error) {}
-      return activity
+      }`
     })
-  )
+    console.log(repos)
+    // const tx = await arweave.transactions.get(txid)
+    let repoobj = {}
+    let objects = repos.data.data.transactions.edges.map(repo => {
+      repoobj = {}
+      repoobj.txid = repo.node.id
+      repoobj.cursor = repo.cursor
 
-  const filteredActivities = activities.filter(activity =>
-    ["create-repo", "update-ref"].includes(activity.type)
-  )
-  filteredActivities.sort((a, b) => {
-    return Number(b.unixTime) - Number(a.unixTime)
-  })
+      repo.node.tags.forEach(tag => {
+        let key = tag.name
+        let value = tag.value
+        if (key === "Unix-Time") {
+          repoobj.unixTime = value
+        }
+        if (key === "Type") {
+          repoobj.type = value
+        }
+        if (key === "Repo") {
+          repoobj.name = value
+        }
+      })
 
-  return filteredActivities
+      console.log(repoobj)
+      return repoobj
+    })
+
+    // const filteredActivities = objects.filter(activity =>
+    //   ["create-repo", "update-ref"].includes(activity.type)
+    // )
+    // filteredActivities.sort((a, b) => {
+    //   return Number(b.unixTime) - Number(a.unixTime)
+    // })
+    console.log(objects)
+    return objects
+  } catch (error) {
+    console.log(error)
+  }
+}
+export const getAllActivities = async (arweave, address) => {
+  try {
+    const activities = await api.post("/graphql", {
+      query: `query {
+        transactions(owners:["${address}"],tags: [      
+          {
+        name: "Type",
+        values: ["create-repo","update-ref"]
+      },
+                    {
+                      name: "App-Name",
+                      values: "dgit"
+                    },
+                    {
+                      name: "version",
+                      values: "0.0.1"
+                    }
+                  ]) {
+          pageInfo {
+            hasNextPage
+          }
+          edges {
+            cursor
+            node {
+              id
+              tags {
+                name,
+                value
+              }
+            }
+          }
+        }
+      }`
+    })
+    console.log(activities)
+    // const tx = await arweave.transactions.get(txid)
+    let actobj = {}
+    let objects = activities.data.data.transactions.edges.map(activity => {
+      actobj = {}
+      actobj.txid = activity.node.id
+      actobj.cursor = activity.cursor
+
+      activity.node.tags.forEach(tag => {
+        let key = tag.name
+        let value = tag.value
+        if (key === "Unix-Time") {
+          actobj.unixTime = value
+        }
+        if (key === "Type") {
+          actobj.type = value
+        }
+        if (key === "ref") {
+          actobj.key = value
+        }
+        if (key === "Repo") {
+          actobj.repoName = value
+        }
+      })
+
+      if (actobj.type === "create-repo") {
+        actobj.value = "Create New Repo"
+      }
+
+      console.log(actobj)
+      return actobj
+    })
+
+    // const filteredActivities = objects.filter(activity =>
+    //   ["create-repo", "update-ref"].includes(activity.type)
+    // )
+    // filteredActivities.sort((a, b) => {
+    //   return Number(b.unixTime) - Number(a.unixTime)
+    // })
+    console.log(objects)
+    return objects
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getNextActivities = async (arweave, address, cursor, e) => {
+  try {
+    console.log(cursor)
+    const activities = await api.post("/graphql", {
+      query: `query {
+        transactions(first:${
+          cursor === "next" ? -10 : 10
+        }, after:"${cursor}",owners:["${address}"],tags: [      
+          {
+            name: "App-Name",
+            values: "dgit"
+          },
+          {
+            name: "version",
+            values: "0.0.1"
+          },
+              {
+            name: "Type",
+            values: ["create-repo","update-ref"]
+          }
+        ]) {
+          pageInfo {
+            hasNextPage
+          }
+          edges {
+            cursor
+            node {
+              id
+              tags {
+                name,
+                value
+              }
+            }
+          }
+        }
+      }`
+    })
+    console.error(activities)
+    // const tx = await arweave.transactions.get(txid)
+    let actobj = {}
+    let objects = activities.data.data.transactions.edges.map(activity => {
+      actobj = {}
+      actobj.txid = activity.node.id
+      actobj.cursor = activity.cursor
+
+      activity.node.tags.forEach(tag => {
+        let key = tag.name
+        let value = tag.value
+        if (key === "Unix-Time") {
+          actobj.unixTime = value
+        }
+        if (key === "Type") {
+          actobj.type = value
+        }
+        if (key === "ref") {
+          actobj.key = value
+        }
+        if (key === "Repo") {
+          actobj.repoName = value
+        }
+      })
+
+      if (actobj.type === "create-repo") {
+        actobj.value = "Create New Repo"
+      }
+
+      console.log(actobj)
+      return actobj
+    })
+
+    // const filteredActivities = objects.filter(activity =>
+    //   ["create-repo", "update-ref"].includes(activity.type)
+    // )
+    // filteredActivities.sort((a, b) => {
+    //   return Number(b.unixTime) - Number(a.unixTime)
+    // })
+    console.log(objects)
+    return objects
+  } catch (error) {
+    console.log(error)
+  }
 }

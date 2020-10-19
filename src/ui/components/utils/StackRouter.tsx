@@ -20,7 +20,8 @@ import {
   setTxLoading,
   setRepositoryURL,
   setRepositoryHead,
-  updateRepository
+  updateRepository,
+  updatePage
 } from "../../reducers/argit"
 import { createNewProject } from "../../reducers/project"
 import { RepositoryBrowser } from "../organisms/RepositoryBrowser"
@@ -162,6 +163,7 @@ type StackRouterProps = {
   updateRepository: typeof updateRepository
   setRepositoryURL: typeof setRepositoryURL
   setRepositoryHead: typeof setRepositoryHead
+  updatePage: typeof updatePage
 }
 
 // const selector = (state: RootState): Props => {
@@ -190,10 +192,12 @@ export const StackRouter = connector(
     openSponsorModal: actions.argit.openSponsorModal,
     updateRepository: actions.argit.updateRepository,
     setRepositoryURL: actions.argit.setRepositoryURL,
-    setRepositoryHead: actions.argit.setRepositoryHead
+    setRepositoryHead: actions.argit.setRepositoryHead,
+    updatePage: actions.argit.updatePage
   }),
   lifecycle<StackRouterProps, {}>({
     async componentDidMount() {
+      this.props.updatePage({ page: "repo" })
       const {
         match,
         startProjectRootChanged,
@@ -269,19 +273,11 @@ export const StackRouter = connector(
 
       if (props.txLoading)
         return (
-          <NewContainer>
-            <Icon>
-              <img src={dlogo} height="48px" width="48px" />
-            </Icon>
-            <div>
-              <Link to={`/${props.repository.owner.name}`}>
-                <GoArrowLeft /> Back to Repositories
-              </Link>
-            </div>
+          <>
             <Loading loading={props.txLoading ? 1 : 0}>
               <FaSpinner />
             </Loading>
-          </NewContainer>
+          </>
         )
 
       return (
@@ -289,94 +285,13 @@ export const StackRouter = connector(
           {props.history.length === 1 ? (
             <></>
           ) : (
-            <NewContainer>
-              <Icon>
-                <img src={dlogo} height="48px" width="48px" />
-              </Icon>
-              {/* <Repository /> */}
-              <Owner>
-                <div>
-                  <Link to={`/${props.repository.owner.name}`}>
-                    <GoArrowLeft /> Back to Repositories
-                  </Link>
-                </div>
-                <OwnerProfile>
-                  <a
-                    href={props.repository.owner.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img
-                      src={`https://api.adorable.io/avatars/100/${
-                        props.repository.owner.name
-                      }.png`}
-                      alt={props.repository.owner.name}
-                    />
-                  </a>
-                  <h2 className="d-md-none">
-                    {props.repository.owner.name.replace(/(.{7})..+/, "$1...")}
-                  </h2>
-                  <h2 className="d-none d-md-block">
-                    {props.repository.owner.name}
-                  </h2>
-                </OwnerProfile>
-                <RepoInfo>
-                  <h1>
-                    <a
-                      href={props.repository.html_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {props.repository.name}
-                    </a>
-                  </h1>
-                  <div>
-                    <span
-                      className="rv-button"
-                      onClick={() => {
-                        props.openSponsorModal({})
-                      }}
-                    >
-                      <FaAward />
-                      Sponsor
-                    </span>
-
-                    <Link
-                      to={`/${match.params.wallet_address}/${
-                        match.params.repo_name
-                      }/commits/master`}
-                    >
-                      <span>
-                        <FaHistory />
-                        Commits
-                      </span>
-                    </Link>
-
-                    <span id="clone_button" className="rv-button">
-                      <FaRegFileAlt /> Clone
-                      <UncontrolledPopover
-                        className="rv-pop"
-                        placement="top-end"
-                        trigger="legacy"
-                        target="clone_button"
-                      >
-                        <PopoverHeader>Clone with dgit</PopoverHeader>
-                        <PopoverBody>{`dgit://${props.repository.owner.name}/${
-                          props.repository.name
-                        }`}</PopoverBody>
-                      </UncontrolledPopover>
-                    </span>
-                  </div>
-                  <p>{header}</p>
-                </RepoInfo>
-              </Owner>
-
+            <div className="stack-top">
               {/* <h2 className="mb-3">
                 {props.match.params.wallet_address}/
                 {props.match.params.repo_name}
               </h2> */}
               {/* <DgitScore /> */}
-              <Container flex fullHeight flexCol justifyContent="center">
+              <Container>
                 <Row alignItems="center" flexCol>
                   <Col xs="12">
                     <div className="card-dgit">
@@ -394,8 +309,7 @@ export const StackRouter = connector(
                   </Col>
                 </Row>
               </Container>
-              <Sponsor match={props.match} />
-            </NewContainer>
+            </div>
           )}
         </>
       )
