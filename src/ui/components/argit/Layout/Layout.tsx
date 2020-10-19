@@ -29,7 +29,12 @@ import {
 import { lifecycle } from "recompose"
 import { openCreateRepoModal } from "../../../reducers/app"
 import { arweave } from "../../../../index"
-import { getAllActivities, txQuery, getNextActivities } from "../../../../utils"
+import {
+  getAllActivities,
+  txQuery,
+  getNextActivities,
+  getAllRepositores
+} from "../../../../utils"
 
 import NewContainer, {
   Icon,
@@ -135,71 +140,17 @@ export const Layout = connector(
         address = await arweave.wallets.jwkToAddress(
           JSON.parse(String(sessionStorage.getItem("keyfile")))
         )
+      }
       actions.loadAddress({ address })
       const activities = await getAllActivities(arweave, address)
       console.log(activities)
 
       actions.loadActivities({ activities: activities })
-      const txids = await arweave.arql(txQuery(address, "create-repo"))
       let notifications: Notification[] = []
       let completed_txids: String[] = []
-      const repos = await Promise.all(
-        txids.map(async txid => {
-          let repository = {} as Repository
-          try {
-            const data: any = await arweave.transactions.getData(txid, {
-              decode: true,
-              string: true
-            })
-            // if (typeof data === "object") {
-            //   console.log(new TextDecoder("utf-8").decode(data))
-            // }
-            if (typeof data === "string" && data !== "") {
-              const decoded: any = JSON.parse(data)
-              repository = {
-                name: decoded.name,
-                description: decoded.description,
-                txid: txid,
-                status: "confirmed"
-              }
-              completed_txids.push(txid)
-            } else if (data === "") {
-              repository = {
-                name: "Arweave server error",
-                description: "Arweave server error",
-                txid: txid,
-                status: "confirmed"
-              }
-              completed_txids.push(txid)
-            } else {
-              throw new Error("Pendng Transaction")
-            }
-          } catch (error) {
-            repository = {
-              name: "Pending",
-              txid: txid,
-              status: "pending",
-              description: "Pending"
-            }
-            notifications.push({
-              type: "pending",
-              action: "Create Repo",
-              txid: txid
-            })
-          }
+      const repos = await getAllRepositores(arweave, address)
+      console.log(repos)
 
-          if (!repository) {
-            repository = {
-              txid: txid,
-              description: "Pending",
-              status: "pending",
-              name: "Pending"
-            }
-          }
-
-          return repository
-        })
-      )
       const newNotifications = this.props.notifications
         .filter(
           notif =>
@@ -213,17 +164,17 @@ export const Layout = connector(
       let finalNotifications = [...notifications, ...newNotifications]
       actions.loadNotifications({ notifications: finalNotifications })
       actions.updateRepositories({ repositories: repos })
-      let names: string[] = []
-      let objects: {} = {}
-      this.props.repositories.forEach(item => {
-        let itemname = item.name
-        names.push(item.name)
-        objects[itemname] = item
-      })
-      console.log(objects)
+      // let names: string[] = []
+      // let objects: {} = {}
+      // this.props.repositories.forEach(item => {
+      //   let itemname = item.name
+      //   names.push(item.name)
+      //   objects[itemname] = item
+      // })
+      // console.log(objects)
       actions.updateMainItems({
         mainItems: {
-          repos: objects,
+          repos: repos,
           activities: this.props.mainItems.activities
         }
       })
@@ -531,37 +482,31 @@ export const Layout = connector(
                       {props.page === "main" &&
                         props.filterIndex == 0 &&
                         props.repositories &&
-                        Object.keys(repos).map(name => (
-                          <li key={name}>
+                        props.repositories.map(repo => (
+                          <li key={repo.name}>
                             <div>
-                              {repos[name] &&
-                                !repos[name].type && (
-                                  <Link
-                                    to={`/${props.address}/${name}`}
-                                    onClick={() => {
-                                      props.updatePage({ page: "repo" })
-                                    }}
-                                  >
-                                    <img
-                                      src={`https://api.adorable.io/avatars/100/${name}.png`}
-                                      alt={name}
-                                    />
-                                    <span>{name}</span>
-                                  </Link>
-                                )}
+                              {repo.name && (
+                                <Link
+                                  to={`/${props.address}/${repo.name}`}
+                                  onClick={() => {
+                                    props.updatePage({ page: "repo" })
+                                  }}
+                                >
+                                  <img
+                                    src={`https://api.adorable.io/avatars/100/${
+                                      repo.name
+                                    }.png`}
+                                    alt={repo.name}
+                                  />
+                                  <span>{repo.name}</span>
+                                </Link>
+                              )}
                             </div>
-                            {repos[name] &&
-                              repos[name].status === "confirmed" && (
-                                <button>
-                                  <FaCheckCircle />
-                                </button>
-                              )}
-                            {repos[name] &&
-                              repos[name].status === "pending" && (
-                                <button>
-                                  <FaSpinner />
-                                </button>
-                              )}
+                            {repo.name && (
+                              <button>
+                                <FaCheckCircle />
+                              </button>
+                            )}
                           </li>
                         ))}
                       {props.page === "main" &&

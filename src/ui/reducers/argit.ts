@@ -10,7 +10,7 @@ const { createAction } = buildActionCreator({
 })
 
 export const updateRepositories: ActionCreator<{
-  repositories: Repository[]
+  repositories: []
 }> = createAction("update-repos")
 
 export const loadAddress: ActionCreator<{
@@ -103,7 +103,7 @@ export type Activity = {
 }
 
 export type ArgitState = {
-  repositories: Repository[]
+  repositories: []
   isAuthenticated: boolean
   address: string | null
   openedLoginModal: boolean

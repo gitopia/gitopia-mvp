@@ -22,7 +22,78 @@ export const txQuery = (address, txType) => ({
 const api = axios.create({
   baseURL: "https://arweave.dev"
 })
+export const getAllRepositores = async (arweave, address) => {
+  try {
+    const repos = await api.post("/graphql", {
+      query: `query {
+        transactions(owners:["${address}"],tags: [      
+          {
+        name: "Type",
+        values: "create-repo"
+      },
+                    {
+                      name: "App-Name",
+                      values: "dgit"
+                    },
+                    {
+                      name: "version",
+                      values: "0.0.2"
+                    }
+                  ]) {
+          pageInfo {
+            hasNextPage
+          }
+          edges {
+            cursor
+            node {
+              id
+              tags {
+                name,
+                value
+              }
+            }
+          }
+        }
+      }`
+    })
+    console.log(repos)
+    // const tx = await arweave.transactions.get(txid)
+    let repoobj = {}
+    let objects = repos.data.data.transactions.edges.map(repo => {
+      repoobj = {}
+      repoobj.txid = repo.node.id
+      repoobj.cursor = repo.cursor
 
+      repo.node.tags.forEach(tag => {
+        let key = tag.name
+        let value = tag.value
+        if (key === "Unix-Time") {
+          repoobj.unixTime = value
+        }
+        if (key === "Type") {
+          repoobj.type = value
+        }
+        if (key === "Repo") {
+          repoobj.name = value
+        }
+      })
+
+      console.log(repoobj)
+      return repoobj
+    })
+
+    // const filteredActivities = objects.filter(activity =>
+    //   ["create-repo", "update-ref"].includes(activity.type)
+    // )
+    // filteredActivities.sort((a, b) => {
+    //   return Number(b.unixTime) - Number(a.unixTime)
+    // })
+    console.log(objects)
+    return objects
+  } catch (error) {
+    console.log(error)
+  }
+}
 export const getAllActivities = async (arweave, address) => {
   try {
     const activities = await api.post("/graphql", {
