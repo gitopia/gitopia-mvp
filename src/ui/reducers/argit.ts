@@ -80,6 +80,9 @@ export const updateMainItems: ActionCreator<{
 export const updatePage: ActionCreator<{
   page: string
 }> = createAction("update-page")
+export const setWallet: ActionCreator<{
+  wallet: string
+}> = createAction("set-wallet")
 
 export type Repository = {
   name: string
@@ -122,6 +125,7 @@ export type ArgitState = {
   filterIndex: Number
   mainItems: { repos: {}; activities: {} }
   page: string
+  wallet: string
 }
 
 const initialState: ArgitState = {
@@ -143,7 +147,8 @@ const initialState: ArgitState = {
   },
   mainItems: { repos: {}, activities: {} },
   filterIndex: 0,
-  page: "main"
+  page: "main",
+  wallet: ""
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -191,6 +196,9 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   })
   .case(setTxLoading, (state, payload) => {
     return { ...state, txLoading: payload.loading }
+  })
+  .case(setWallet, (state, payload) => {
+    return { ...state, wallet: payload.wallet }
   })
   .case(loadActivities, (state, payload) => {
     return { ...state, activities: payload.activities }

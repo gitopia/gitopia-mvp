@@ -13,7 +13,8 @@ import {
 import {
   loadNotifications,
   setIsAuthenticated,
-  updateRepositories
+  updateRepositories,
+  setWallet
 } from "../../../reducers/argit"
 import {
   changeSidebarPosition,
@@ -31,6 +32,7 @@ type HeaderProps = {
   loadNotifications: typeof loadNotifications
   notifications: typeof Notification[]
   address: string
+  setWallet: typeof setWallet
 }
 
 type HeaderState = {
@@ -168,7 +170,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           <NavItem>
             <NavLink
               onClick={() => {
-                sessionStorage.removeItem("keyfile") // Remove keyfile from sessionStorage
+                this.props.setWallet({ wallet: "" })
                 this.props.setIsAuthenticated({ isAuthenticated: false })
                 this.props.updateRepositories({ repositories: [] })
                 // window.location.reload()

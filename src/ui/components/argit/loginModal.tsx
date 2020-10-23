@@ -7,13 +7,15 @@ import { arweave } from "../../../index"
 export const LoginModal = connector(
   state => ({
     keyFileName: state.argit.keyFileName,
-    openedLoginModal: state.argit.openedLoginModal
+    openedLoginModal: state.argit.openedLoginModal,
+    wallet: state.argit.wallet
   }),
   actions => ({
     openLoginModal: actions.argit.openLoginModal,
     closeLoginModal: actions.argit.closeLoginModal,
     loadKeyFile: actions.argit.loadKeyFile,
-    setIsAuthenticated: actions.argit.setIsAuthenticated
+    setIsAuthenticated: actions.argit.setIsAuthenticated,
+    setWallet: actions.argit.setWallet
   })
 )(function LoginModalImpl(props) {
   return (
@@ -44,14 +46,14 @@ export const LoginModal = connector(
 
                 if (keyfile.kty === "RSA") {
                   // Confirm that uploaded file is indeed keyfile
-                  sessionStorage.setItem("keyfile", String(reader.result)) // Set keyfile to sessionStorage
+                  props.setWallet({ wallet: String(reader.result) })
                   //   this.toggleModal() // Close login modal
                   props.closeLoginModal({})
                   props.setIsAuthenticated({ isAuthenticated: true })
+
+                  console.log(props.wallet)
                   arweave.wallets
-                    .jwkToAddress(
-                      JSON.parse(String(sessionStorage.getItem("keyfile")))
-                    )
+                    .jwkToAddress(JSON.parse(props.wallet))
                     .then(address => window.location.replace(`/#/${address}`))
 
                   // window.location.reload() // Reload page to get authenticated status

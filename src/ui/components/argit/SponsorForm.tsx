@@ -8,6 +8,7 @@ type SponsorFormProps = {
   address: string
   repo: string | null
   closeSponsorModal: typeof closeSponsorModal
+  wallet: string
 }
 
 type SponsorFormState = {
@@ -41,7 +42,8 @@ class SponsorForm extends Component<SponsorFormProps, SponsorFormState> {
 
   arCreate = async () => {
     this.setState({ transactionLoading: true })
-    let wallet = JSON.parse(sessionStorage.getItem("keyfile"))
+    console.log(this.props.wallet)
+    let wallet = JSON.parse(this.props.wallet)
 
     // First we create the transaction
     const transaction = await arweave.createTransaction(

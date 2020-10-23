@@ -67,7 +67,8 @@ import {
   updateMainItems,
   updatePage,
   updateFilterIndex,
-  Activity
+  Activity,
+  setWallet
 } from "../../../reducers/argit"
 import { FaAward, FaRegFileAlt } from "react-icons/fa"
 import { CreateRepoModal } from "../../organisms/CreateRepoModal"
@@ -92,6 +93,8 @@ type ConnectedProps = {
   updatePage: typeof updatePage
   page: string
   openSponsorModal: typeof openSponsorModal
+  wallet: string
+  setWallet: typeof setWallet
 }
 
 export const Layout = connector(
@@ -107,7 +110,8 @@ export const Layout = connector(
     repository: state.argit.repository,
     page: state.argit.page,
     txLoading: state.argit.txLoading,
-    mainItems: state.argit.mainItems
+    mainItems: state.argit.mainItems,
+    wallet: state.argit.wallet
   }),
   actions => ({
     openLoginModal: actions.argit.openLoginModal,
@@ -122,7 +126,8 @@ export const Layout = connector(
     loadAddress: actions.argit.loadAddress,
     loadActivities: actions.argit.loadActivities,
     openSponsorModal: actions.argit.openSponsorModal,
-    openCreateRepoModal: actions.app.openCreateRepoModal
+    openCreateRepoModal: actions.app.openCreateRepoModal,
+    setWallet: actions.argit.setWallet
   }),
   lifecycle<ConnectedProps, {}>({
     async componentDidMount() {
@@ -142,7 +147,7 @@ export const Layout = connector(
 
       if (isAuthenticated) {
         address = await arweave.wallets.jwkToAddress(
-          JSON.parse(String(sessionStorage.getItem("keyfile")))
+          JSON.parse(this.props.wallet)
         )
       }
       let user_address = this.props.match.params.wallet_address
@@ -300,6 +305,7 @@ export const Layout = connector(
             updateNotifications={props.loadNotifications}
             notifications={props.notifications}
             address={props.address}
+            setWallet={props.setWallet}
           />
         )}
         {!props.isAuthenticated && (
@@ -581,8 +587,8 @@ export const Layout = connector(
               </NewContainer>
             </CSSTransition>
           </TransitionGroup>
-          <Sponsor match={props.match} />
-          <CreateRepoModal {...props} />
+          <Sponsor match={props.match} wallet={props.wallet} />
+          <CreateRepoModal {...props} wallet={props.wallet} />
         </main>
       </Hammer>
       <footer className="landing-footer">

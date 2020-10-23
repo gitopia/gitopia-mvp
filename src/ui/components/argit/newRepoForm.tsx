@@ -14,6 +14,7 @@ type NewRepoFormProps = {
   updateRepositories: typeof updateRepositories
   updateMainItems: typeof updateMainItems
   history: any
+  wallet: string
 }
 
 type NewRepoFormState = {
@@ -66,7 +67,7 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
     this.setState({ transactionLoading: true })
 
     const { name, description } = this.state.repo
-    let wallet = JSON.parse(sessionStorage.getItem("keyfile"))
+    let wallet = JSON.parse(this.props.wallet)
     const data = JSON.stringify({
       name: name,
       description: description

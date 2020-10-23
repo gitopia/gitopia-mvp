@@ -171,7 +171,6 @@ export const IssueList = styled.ul`
 
   li {
     & + li {
-      margin-top: 10px;
     }
 
     a {
@@ -204,9 +203,6 @@ export const IssueList = styled.ul`
 
       strong {
         font-size: 16px;
-
-        & span:first-child {
-        }
       }
 
       p {

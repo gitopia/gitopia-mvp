@@ -4,7 +4,8 @@ import { connector } from "../../actionCreators/index"
 import SponsorForm from "./SponsorForm"
 export const Sponsor = connector(
   state => ({
-    openedSponsorModal: state.argit.openedSponsorModal
+    openedSponsorModal: state.argit.openedSponsorModal,
+    wallet: state.argit.wallet
   }),
   actions => ({
     openSponsorModal: actions.argit.openSponsorModal,
@@ -20,6 +21,7 @@ export const Sponsor = connector(
           address={match.params.wallet_address}
           closeSponsorModal={props.closeSponsorModal}
           repo={match.params.repo_name || null}
+          wallet={props.wallet}
         />
       </ModalBody>
       <ModalFooter>
