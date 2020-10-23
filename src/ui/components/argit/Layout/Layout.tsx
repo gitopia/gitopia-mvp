@@ -19,6 +19,7 @@ import { FaCheckCircle, FaSpinner, FaPlus } from "react-icons/fa"
 import { format } from "date-fns"
 import { filter } from "fuzzaldrin"
 import { CreateRepoModal } from "../../organisms/CreateRepoModal"
+import { Pagination } from "../../argit/Pagination"
 import {
   PopoverBody,
   PopoverHeader,
@@ -30,6 +31,7 @@ import {
 import { lifecycle } from "recompose"
 import { openCreateRepoModal } from "../../../reducers/app"
 import { arweave } from "../../../../index"
+
 import {
   getAllActivities,
   txQuery,
@@ -494,38 +496,8 @@ export const Layout = connector(
                     <List>
                       {props.page === "main" &&
                         props.filterIndex == 0 &&
-                        props.repositories &&
-                        Object.keys(props.mainItems.repos).map(repo => (
-                          <li key={props.mainItems.repos[repo].txid}>
-                            <div>
-                              {props.mainItems.repos[repo].name && (
-                                <Link
-                                  to={`/${props.address}/${
-                                    props.mainItems.repos[repo].name
-                                  }`}
-                                  onClick={() => {
-                                    props.updatePage({ page: "repo" })
-                                  }}
-                                >
-                                  <img
-                                    src={`https://api.adorable.io/avatars/100/${
-                                      props.mainItems.repos[repo].name
-                                    }.png`}
-                                    alt={props.mainItems.repos[repo].name}
-                                  />
-                                  <span>
-                                    {props.mainItems.repos[repo].name}
-                                  </span>
-                                </Link>
-                              )}
-                            </div>
-                            {props.mainItems.repos[repo].name && (
-                              <button>
-                                <FaCheckCircle />
-                              </button>
-                            )}
-                          </li>
-                        ))}
+                        props.repositories && <Pagination {...props} />}
+
                       {props.page === "main" &&
                         props.filterIndex == 1 &&
                         props.activities &&

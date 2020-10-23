@@ -26,7 +26,7 @@ export const getAllRepositores = async (arweave, address) => {
   try {
     const repos = await api.post("/graphql", {
       query: `query {
-        transactions(owners:["${address}"],tags: [      
+        transactions(first: 2147483647, owners:["${address}"],tags: [      
           {
         name: "Type",
         values: "create-repo"
