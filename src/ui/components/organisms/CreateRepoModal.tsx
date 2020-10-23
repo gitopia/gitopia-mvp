@@ -48,6 +48,7 @@ export const CreateRepoModal = connector(
 
       <ModalBody>
         <NewRepoForm
+          {...props}
           updateRepositories={props.updateRepositories}
           address={props.address}
           repositories={props.repositories}

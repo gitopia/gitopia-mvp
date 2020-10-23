@@ -18,7 +18,7 @@ import { GoArrowLeft, GoArrowRight } from "react-icons/go"
 import { FaCheckCircle, FaSpinner, FaPlus } from "react-icons/fa"
 import { format } from "date-fns"
 import { filter } from "fuzzaldrin"
-
+import { CreateRepoModal } from "../../organisms/CreateRepoModal"
 import {
   PopoverBody,
   PopoverHeader,
@@ -68,6 +68,7 @@ import {
   Activity
 } from "../../../reducers/argit"
 import { FaAward, FaRegFileAlt } from "react-icons/fa"
+import { CreateRepoModal } from "../../organisms/CreateRepoModal"
 
 type ConnectedProps = {
   isAuthenticated: boolean
@@ -609,6 +610,7 @@ export const Layout = connector(
             </CSSTransition>
           </TransitionGroup>
           <Sponsor match={props.match} />
+          <CreateRepoModal {...props} />
         </main>
       </Hammer>
       <footer className="landing-footer">

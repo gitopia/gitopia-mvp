@@ -4,6 +4,7 @@ import Input from "../../../ui/components/utils/input"
 import { Repository as Repo } from "../../../ui/reducers/argit"
 import { closeCreateRepoModal } from "../../reducers/app"
 import { updateRepositories, updateMainItems } from "../../reducers/argit"
+import { Redirect, withRouter } from "react-router-dom"
 
 type NewRepoFormProps = {
   address: string
@@ -12,6 +13,7 @@ type NewRepoFormProps = {
   closeCreateRepoModal: typeof closeCreateRepoModal
   updateRepositories: typeof updateRepositories
   updateMainItems: typeof updateMainItems
+  history: any
 }
 
 type NewRepoFormState = {
@@ -100,38 +102,56 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
     }
 
     await arweave.transactions.post(tx) // Post transaction
-
-    this.setState({ transactionLoading: false }) // Set loading status to false
-    this.props.closeCreateRepoModal({})
-
     console.log(tx)
-    const repository = {
-      name: name,
-      cursor: "WyIyMDIwLTEwLTE5VDE0OjQzOjMwLjUzNVoiLDEwXQ==",
-      unixTime: "1603107464",
-      type: "create-repo",
-      txid: tx.id
+    try {
+      const data: any = await arweave.transactions.getData(tx.id, {
+        decode: true,
+        string: true
+      })
+      console.error(data)
+    } catch (error) {
+      console.log(error)
     }
-    let newRepos = { ...this.props.mainItems.repos }
-    newRepos[name] = repository
-    console.log(newRepos)
-    this.props.updateMainItems({
-      mainItems: {
-        repos: newRepos,
-        activities: this.props.mainItems.activities
+    try {
+      const decoded: any = JSON.parse(data)
+      this.setState({ transactionLoading: false }) // Set loading status to false
+      this.props.closeCreateRepoModal({})
+
+      console.log(tx)
+      const repository = {
+        name: decoded.name,
+        type: "create-repo",
+        txid: tx.id
       }
-    })
+      let newRepos = { ...this.props.mainItems.repos }
+      newRepos[name] = repository
+      console.log(newRepos)
+      this.props.updateMainItems({
+        mainItems: {
+          repos: newRepos,
+          activities: this.props.mainItems.activities
+        }
+      })
+      return decoded.name
+    } catch (error) {
+      return Error(error)
+    }
   }
 
   handleSubmit = e => {
-    const { name, description } = this.state.repo
     e.preventDefault()
     const errors = this.validate()
     if (errors) {
       this.setState({ errors: errors })
       return
     }
-    this.arCreate()
+    this.arCreate().then(name => {
+      console.log(name)
+
+      this.props.history.push(`/${this.props.address}/${name}`)
+      this.props.updatePage({ page: "repo" })
+      this.props.updateFilterIndex({ filterIndex: 0 })
+    })
   }
 
   handleChange = ({ currentTarget: input }) => {
@@ -175,4 +195,4 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
   }
 }
 
-export default NewRepoForm
+export default withRouter(NewRepoForm)
