@@ -193,8 +193,8 @@ $z-index-variants: (
   }
 }
 
-@include bg-variant(".bg-dark", $text-color);
-@include bg-variant(".bg-widget", $widget-bg);
+@include bg-variant(".bg-dark", $text-color, $ignore-warning: true);
+@include bg-variant(".bg-widget", $widget-bg, $ignore-warning: true);
 
 .td-underline {
   text-decoration: underline;
@@ -245,22 +245,38 @@ $z-index-variants: (
 
 //copy bg classes after bootstrap so it's possible to overload other bootstrap classes
 
-@include bg-variant(".bg-primary", theme-color("primary"));
-@include bg-variant(".bg-success", theme-color("success"));
-@include bg-variant(".bg-info", theme-color("info"));
-@include bg-variant(".bg-warning", theme-color("warning"));
-@include bg-variant(".bg-danger", theme-color("danger"));
-@include bg-variant(".bg-body", $body-bg);
-@include bg-variant(".bg-body-light", $body-bg-light);
-@include bg-variant(".bg-gray", $gray-700);
-@include bg-variant(".bg-gray-transparent", rgba($gray-700, 0.6));
-@include bg-variant(".bg-gray-dark", $gray-800);
-@include bg-variant(".bg-black", $black);
-@include bg-variant(".bg-gray-light", $gray-600);
-@include bg-variant(".bg-gray-lighter", $gray-200);
-@include bg-variant(".bg-transparent", rgba(0, 0, 0, 0));
-@include bg-variant(".bg-white", $white);
-@include bg-variant(".bg-sidebar", $sidebar-bg-color);
+@include bg-variant(
+  ".bg-primary",
+  theme-color("primary"),
+  $ignore-warning: true
+);
+@include bg-variant(
+  ".bg-success",
+  theme-color("success"),
+  $ignore-warning: true
+);
+@include bg-variant(".bg-info", theme-color("info"), $ignore-warning: true);
+@include bg-variant(
+  ".bg-warning",
+  theme-color("warning"),
+  $ignore-warning: true
+);
+@include bg-variant(".bg-danger", theme-color("danger"), $ignore-warning: true);
+@include bg-variant(".bg-body", $body-bg, $ignore-warning: true);
+@include bg-variant(".bg-body-light", $body-bg-light, $ignore-warning: true);
+@include bg-variant(".bg-gray", $gray-700, $ignore-warning: true);
+@include bg-variant(
+  ".bg-gray-transparent",
+  rgba($gray-700, 0.6),
+  $ignore-warning: true
+);
+@include bg-variant(".bg-gray-dark", $gray-800, $ignore-warning: true);
+@include bg-variant(".bg-black", $black, $ignore-warning: true);
+@include bg-variant(".bg-gray-light", $gray-600, $ignore-warning: true);
+@include bg-variant(".bg-gray-lighter", $gray-200, $ignore-warning: true);
+@include bg-variant(".bg-transparent", rgba(0, 0, 0, 0), $ignore-warning: true);
+@include bg-variant(".bg-white", $white, $ignore-warning: true);
+@include bg-variant(".bg-sidebar", $sidebar-bg-color, $ignore-warning: true);
 
 .bg-body,
 .bg-body-light,
@@ -277,21 +293,77 @@ $z-index-variants: (
 
 //override bs .text-* classes so they use $brand-* variables
 
-@include text-emphasis-variant(".text-primary", theme-color("primary"));
-@include text-emphasis-variant(".text-success", theme-color("success"));
-@include text-emphasis-variant(".text-info", theme-color("info"));
-@include text-emphasis-variant(".text-warning", theme-color("warning"));
-@include text-emphasis-variant(".text-danger", theme-color("danger"));
-@include text-emphasis-variant(".text-link", $link-color);
-@include text-emphasis-variant(".text-white", rgba($white, 0.9));
-@include text-emphasis-variant(".text-gray", $gray-700);
-@include text-emphasis-variant(".text-gray-dark", $gray-800);
-@include text-emphasis-variant(".text-gray-light", $gray-600);
-@include text-emphasis-variant(".text-semi-muted", $gray-600);
-@include text-emphasis-variant(".text-gray-darker", $gray-900);
-@include text-emphasis-variant(".text-gray-lighter", $gray-200);
-@include text-emphasis-variant(".text-bg-sidebar", $sidebar-bg-color);
-@include text-emphasis-variant(".text-black", rgba($black, 0.9));
+@include text-emphasis-variant(
+  ".text-primary",
+  theme-color("primary"),
+  $ignore-warning: true
+);
+@include text-emphasis-variant(
+  ".text-success",
+  theme-color("success"),
+  $ignore-warning: true
+);
+@include text-emphasis-variant(
+  ".text-info",
+  theme-color("info"),
+  $ignore-warning: true
+);
+@include text-emphasis-variant(
+  ".text-warning",
+  theme-color("warning"),
+  $ignore-warning: true
+);
+@include text-emphasis-variant(
+  ".text-danger",
+  theme-color("danger"),
+  $ignore-warning: true
+);
+@include text-emphasis-variant(
+  ".text-link",
+  $link-color,
+  $ignore-warning: true
+);
+@include text-emphasis-variant(
+  ".text-white",
+  rgba($white, 0.9),
+  $ignore-warning: true
+);
+@include text-emphasis-variant(".text-gray", $gray-700, $ignore-warning: true);
+@include text-emphasis-variant(
+  ".text-gray-dark",
+  $gray-800,
+  $ignore-warning: true
+);
+@include text-emphasis-variant(
+  ".text-gray-light",
+  $gray-600,
+  $ignore-warning: true
+);
+@include text-emphasis-variant(
+  ".text-semi-muted",
+  $gray-600,
+  $ignore-warning: true
+);
+@include text-emphasis-variant(
+  ".text-gray-darker",
+  $gray-900,
+  $ignore-warning: true
+);
+@include text-emphasis-variant(
+  ".text-gray-lighter",
+  $gray-200,
+  $ignore-warning: true
+);
+@include text-emphasis-variant(
+  ".text-bg-sidebar",
+  $sidebar-bg-color,
+  $ignore-warning: true
+);
+@include text-emphasis-variant(
+  ".text-black",
+  rgba($black, 0.9),
+  $ignore-warning: true
+);
 
 .text-ellipsis {
   display: block;

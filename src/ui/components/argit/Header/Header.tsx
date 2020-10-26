@@ -179,7 +179,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               className={`${s.navItem} text-black`}
               href="#"
             >
-              <i className="glyphicon glyphicon-off" />
+              <i className="fa fa-sign-out" aria-hidden="true" />
             </NavLink>
           </NavItem>
         </Nav>
