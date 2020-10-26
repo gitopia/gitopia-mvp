@@ -375,9 +375,9 @@ export const Layout = connector(
                       rel="noopener noreferrer"
                     >
                       <img
-                        src={`https://api.adorable.io/avatars/100/${
+                        src={`https://avatars.dicebear.com/api/bottts/${
                           props.address
-                        }.png`}
+                        }.svg?h=100&r=5&m=5`}
                         alt={`${props.address}`}
                       />
                     </a>
