@@ -2,7 +2,6 @@
  * Customized version of bootstrap using variables from _variables.scss.
  * This file is loaded via separate loader thus allowing to use original bootstrap classes (e.g. .btn-default) through out the app.
  */
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800");
 @import "../../../../../node_modules/bootstrap/scss/functions";
 @import "variables";
 @import "../../../../../node_modules/bootstrap/scss/bootstrap";

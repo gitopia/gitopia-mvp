@@ -151,10 +151,10 @@ export const Commits = connector(
               <li key={commit.oid}>
                 <div>
                   <img
-                    src={`https://api.adorable.io/avatars/100/${
-                      commit.object.committer.email
+                    src={`https://avatars.dicebear.com/api/initials/${
+                      commit.object.committer.name
                     }.png`}
-                    alt={commit.object.committer.email}
+                    alt={commit.object.committer.name}
                   />
                   <span>
                     {format(
