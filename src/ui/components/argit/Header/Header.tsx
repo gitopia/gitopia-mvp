@@ -135,9 +135,9 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 } rounded-circle thumb-sm float-left mr-2`}
               >
                 <img
-                  src={`https://api.adorable.io/avatars/100/${
+                  src={`https://avatars.dicebear.com/api/bottts/${
                     this.props.address
-                  }.png`}
+                  }.svg?h=30&r=5&m=2`}
                   alt="..."
                 />
               </span>
