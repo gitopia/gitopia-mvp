@@ -52,9 +52,10 @@ export const LoginModal = connector(
                   props.setIsAuthenticated({ isAuthenticated: true })
 
                   console.log(props.wallet)
-                  arweave.wallets
-                    .jwkToAddress(JSON.parse(props.wallet))
-                    .then(address => window.location.replace(`/#/${address}`))
+                  arweave.wallets.jwkToAddress(keyfile).then(address => {
+                    window.location.replace(`/#/${address}`)
+                    props.closeLoginModal({})
+                  })
 
                   // window.location.reload() // Reload page to get authenticated status
                 } else {

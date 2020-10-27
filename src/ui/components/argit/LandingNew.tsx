@@ -144,7 +144,7 @@ export const LandingNew = connector(
               </ul> */}
               <pre className="landing-nohighlight landing-code">
                 <code className="landing-tab__pane active mac">
-                  $ npm install -g git-remote-dgit
+                  $ npm install -g @thetechtrap/git-remote-dgit
                 </code>
                 {/* <code className="landing-tab__pane linux">
                 </code>
