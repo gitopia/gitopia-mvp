@@ -28,7 +28,7 @@ export const setIsAuthenticated: ActionCreator<{
 export const openLoginModal: ActionCreator<{}> = createAction(
   "open-login-modal"
 )
-
+export const userLogout: ActionCreator<{}> = createAction("user-logout")
 export const closeLoginModal: ActionCreator<{}> = createAction(
   "close-login-modal"
 )
@@ -222,5 +222,10 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
     return {
       ...state,
       page: payload.page
+    }
+  })
+  .case(userLogout, () => {
+    return {
+      ...initialState
     }
   })

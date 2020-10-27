@@ -14,7 +14,8 @@ import {
   loadNotifications,
   setIsAuthenticated,
   updateRepositories,
-  setWallet
+  setWallet,
+  userLogout
 } from "../../../reducers/argit"
 import {
   changeSidebarPosition,
@@ -33,6 +34,7 @@ type HeaderProps = {
   notifications: typeof Notification[]
   address: string
   setWallet: typeof setWallet
+  userLogout: typeof userLogout
 }
 
 type HeaderState = {
@@ -173,6 +175,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 this.props.setWallet({ wallet: "" })
                 this.props.setIsAuthenticated({ isAuthenticated: false })
                 this.props.updateRepositories({ repositories: [] })
+                this.props.userLogout({})
                 // window.location.reload()
                 this.props.history.replace("/")
               }}

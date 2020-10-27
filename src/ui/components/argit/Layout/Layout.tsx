@@ -68,7 +68,8 @@ import {
   updatePage,
   updateFilterIndex,
   Activity,
-  setWallet
+  setWallet,
+  userLogout
 } from "../../../reducers/argit"
 import { FaAward, FaRegFileAlt } from "react-icons/fa"
 import { CreateRepoModal } from "../../organisms/CreateRepoModal"
@@ -95,6 +96,7 @@ type ConnectedProps = {
   openSponsorModal: typeof openSponsorModal
   wallet: string
   setWallet: typeof setWallet
+  userLogout: typeof userLogout
 }
 
 export const Layout = connector(
@@ -127,7 +129,8 @@ export const Layout = connector(
     loadActivities: actions.argit.loadActivities,
     openSponsorModal: actions.argit.openSponsorModal,
     openCreateRepoModal: actions.app.openCreateRepoModal,
-    setWallet: actions.argit.setWallet
+    setWallet: actions.argit.setWallet,
+    userLogout: actions.argit.userLogout
   }),
   lifecycle<ConnectedProps, {}>({
     async componentDidMount() {
@@ -150,16 +153,15 @@ export const Layout = connector(
           JSON.parse(this.props.wallet)
         )
       }
-      let user_address = this.props.match.params.wallet_address
 
       actions.loadAddress({ address })
-      const activities = await getAllActivities(arweave, user_address)
+      const activities = await getAllActivities(arweave, address)
       console.log(activities)
 
       actions.loadActivities({ activities: activities })
       let notifications: Notification[] = []
       let completed_txids: String[] = []
-      const repos = await getAllRepositores(arweave, user_address)
+      const repos = await getAllRepositores(arweave, address)
       console.log(repos)
 
       const newNotifications = this.props.notifications
@@ -303,6 +305,7 @@ export const Layout = connector(
             setIsAuthenticated={props.setIsAuthenticated}
             updateRepositories={props.updateRepositories}
             updateNotifications={props.loadNotifications}
+            userLogout={props.userLogout}
             notifications={props.notifications}
             address={props.address}
             setWallet={props.setWallet}
