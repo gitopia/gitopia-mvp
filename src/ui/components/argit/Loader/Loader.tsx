@@ -12,7 +12,7 @@ class Loader extends React.Component<LoaderProps, {}> {
     return (
       <div className={cx(s.root, this.props.className)}>
         <i
-          className="la la-spinner la-spin"
+          className="fa fa-spinner fa-spin"
           style={{ fontSize: this.props.size | 21 }}
         />
       </div>

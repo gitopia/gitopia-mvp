@@ -120,10 +120,10 @@ class Notifications extends React.Component<
           >
             {this.state.isLoad ? (
               <span>
-                <i className="la la-refresh la-spin" /> Loading...
+                <i className="fs fa-refresh fa-spin" /> Loading...
               </span>
             ) : (
-              <i className="la la-refresh" />
+              <i className="fa fa-refresh" />
             )}
           </Button>
           <span className="fs-mini">Synced at: 21 Apr 2014 18:36</span>
