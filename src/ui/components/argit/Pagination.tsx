@@ -13,13 +13,13 @@ export class Pagination extends React.Component {
     this.state = {
       currentPage: 1,
       objPerPage: 15,
-      currentObjs: []
+      currentObjs: [],
+      pageNumbers: []
     }
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick(event, number) {
-    console.log(event, number)
     this.setState({
       currentPage: number
     })
@@ -30,12 +30,56 @@ export class Pagination extends React.Component {
     // Logic for displaying current Objs
     const indexOfLastObj = currentPage * objPerPage
     const indexOfFirstObj = indexOfLastObj - objPerPage
-    const currentObjs = this.props.repositories.slice(
+    const currentObjs = Object.keys(this.props.mainItems.repos).slice(
       indexOfFirstObj,
       indexOfLastObj
     )
-
     this.setState({ currentObjs })
+    const pageNumbers = []
+    for (
+      let i = 1;
+      i <=
+      Math.ceil(
+        Object.keys(this.props.mainItems.repos).length / this.state.objPerPage
+      );
+      i++
+    ) {
+      pageNumbers.push(i)
+    }
+    console.log(pageNumbers)
+    this.setState({ pageNumbers })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.mainItems.repos !== this.props.mainItems.repos) {
+      const { currentPage, objPerPage } = this.state
+
+      // Logic for displaying current Objs
+      const indexOfLastObj = currentPage * objPerPage
+      const indexOfFirstObj = indexOfLastObj - objPerPage
+      const currentObjs = Object.keys(nextProps.mainItems.repos).slice(
+        indexOfFirstObj,
+        indexOfLastObj
+      )
+
+      this.setState({ currentObjs })
+      console.log("updated")
+
+      const pageNumbers = []
+      for (
+        let i = 1;
+        i <=
+        Math.ceil(
+          Object.keys(nextProps.mainItems.repos).length / this.state.objPerPage
+        );
+        i++
+      ) {
+        pageNumbers.push(i)
+      }
+      console.log(pageNumbers)
+
+      this.setState({ pageNumbers })
+    }
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.currentPage !== this.state.currentPage) {
@@ -44,7 +88,7 @@ export class Pagination extends React.Component {
       // Logic for displaying current Objs
       const indexOfLastObj = currentPage * objPerPage
       const indexOfFirstObj = indexOfLastObj - objPerPage
-      const currentObjs = this.props.repositories.slice(
+      const currentObjs = Object.keys(this.props.mainItems.repos).slice(
         indexOfFirstObj,
         indexOfLastObj
       )
@@ -55,16 +99,8 @@ export class Pagination extends React.Component {
 
   render() {
     // Logic for displaying page numbers
-    const pageNumbers = []
-    for (
-      let i = 1;
-      i <= Math.ceil(this.props.repositories.length / this.state.objPerPage);
-      i++
-    ) {
-      pageNumbers.push(i)
-    }
 
-    const renderPageNumbers = pageNumbers.map(number => {
+    const renderPageNumbers = this.state.pageNumbers.map(number => {
       return (
         <PaginationItem
           active={number === this.state.currentPage}
@@ -79,42 +115,45 @@ export class Pagination extends React.Component {
     return (
       <>
         <ul>
-          {this.state.currentObjs.map(obj => {
-            return (
-              <li key={obj.txid}>
-                {" "}
-                <div>
-                  {obj.name && (
-                    <Link
-                      to={`/${this.props.address}/${obj.name}`}
-                      onClick={() => {
-                        this.props.updatePage({ page: "repo" })
-                      }}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        width="27"
-                        height="27"
-                        className="repo-list"
+          {!this.props.loading &&
+            this.state.currentObjs.map(obj => {
+              return (
+                <li key={this.props.mainItems.repos[obj].txid}>
+                  {" "}
+                  <div>
+                    {this.props.mainItems.repos[obj].name && (
+                      <Link
+                        to={`/${this.props.address}/${
+                          this.props.mainItems.repos[obj].name
+                        }`}
+                        onClick={() => {
+                          this.props.updatePage({ page: "repo" })
+                        }}
                       >
-                        <path
-                          fillRule="evenodd"
-                          d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"
-                        />
-                      </svg>
-                      <span>{obj.name}</span>
-                    </Link>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 16 16"
+                          width="27"
+                          height="27"
+                          className="repo-list"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"
+                          />
+                        </svg>
+                        <span>{this.props.mainItems.repos[obj].name}</span>
+                      </Link>
+                    )}
+                  </div>
+                  {this.props.mainItems.repos[obj].name && (
+                    <button>
+                      <FaCheckCircle />
+                    </button>
                   )}
-                </div>
-                {obj.name && (
-                  <button>
-                    <FaCheckCircle />
-                  </button>
-                )}
-              </li>
-            )
-          })}
+                </li>
+              )
+            })}
         </ul>
         <div className="pagination">
           <RPagination>
@@ -137,7 +176,7 @@ export class Pagination extends React.Component {
             {renderPageNumbers}
 
             <PaginationItem
-              disabled={this.state.currentPage >= pageNumbers.length}
+              disabled={this.state.currentPage >= this.state.pageNumbers.length}
             >
               <PaginationLink
                 next
@@ -151,7 +190,9 @@ export class Pagination extends React.Component {
                 last
                 onClick={event => {
                   this.setState({
-                    currentPage: pageNumbers[pageNumbers.length - 1]
+                    currentPage: this.state.pageNumbers[
+                      this.state.pageNumbers.length - 1
+                    ]
                   })
                 }}
               />

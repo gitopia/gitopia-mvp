@@ -218,9 +218,11 @@ export const Layout = connector(
       })
   }
   function handleChange(e) {
+    props.setTxLoading({ loading: true })
     let names: [] = []
     let objects: {} = {}
     let filteredObjects: {} = {}
+    console.log(e.target.value)
     props.repositories.forEach(item => {
       let itemname = item.name
       names.push(itemname)
@@ -232,10 +234,14 @@ export const Layout = connector(
     results.forEach(result => {
       filteredObjects[result] = objects[result]
     })
+    console.log(filteredObjects)
     props.updateMainItems({
-      repos: filteredObjects,
-      activities: props.mainItems.activities
+      mainItems: {
+        repos: filteredObjects,
+        activities: props.mainItems.activities
+      }
     })
+    props.setTxLoading({ loading: false })
   }
   let mainFilters = [
     { state: "repos", label: "Repositories", active: true },
@@ -505,7 +511,12 @@ export const Layout = connector(
                     <List>
                       {props.page === "main" &&
                         props.filterIndex == 0 &&
-                        props.repositories && <Pagination {...props} />}
+                        props.repositories && (
+                          <Pagination
+                            allObjs={props.mainItems.repos}
+                            {...props}
+                          />
+                        )}
 
                       {props.page === "main" &&
                         props.filterIndex == 1 &&
