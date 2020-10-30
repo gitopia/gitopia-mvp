@@ -102,7 +102,10 @@ export const Editor = connector(
         </div>
       )
     }
+
+    return (<></>)
   }
+
   const url = `gitopia://${props.match.params.wallet_address}/${
     props.match.params.repo_name
   }`
@@ -115,7 +118,7 @@ export const Editor = connector(
           Run the following commands in your existing git repository to push
         </p>
         <code className="app-code">
-          export ARWEAVE_WALLET_PATH="PATH_OF_YOUR_ARWEAVE_KEYFILE" <br />
+          export GITOPIA_WALLET_PATH="PATH_OF_YOUR_ARWEAVE_KEYFILE" <br />
           <br />
           git remote add origin {`${url}`} <br />
           <br />

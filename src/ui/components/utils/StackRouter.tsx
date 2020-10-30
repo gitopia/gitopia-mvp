@@ -167,6 +167,7 @@ type StackRouterProps = {
   updateRepository: typeof updateRepository
   setRepositoryURL: typeof setRepositoryURL
   setRepositoryHead: typeof setRepositoryHead
+  repositoryHead: string | null
   updatePage: typeof updatePage
 }
 
@@ -185,7 +186,8 @@ export const StackRouter = connector(
     history: state.git.history,
     txLoading: state.argit.txLoading,
     isAuthenticated: state.argit.isAuthenticated,
-    repository: state.argit.repository
+    repository: state.argit.repository,
+    repositoryHead: state.argit.repositoryHead
   }),
   actions => ({
     updateProjectList: actions.project.updateProjectList,
@@ -225,18 +227,19 @@ export const StackRouter = connector(
       })
       createNewProject({ newProjectRoot })
 
-      const url = `dgit://${match.params.wallet_address}${newProjectRoot}`
+      const url = `gitopia://${match.params.wallet_address}${newProjectRoot}`
 
       setRepositoryURL({ repositoryURL: url })
 
       const { oid } = await getOidByRef(arweave, url, `refs/heads/${ref}`)
 
-      if (oid !== "0000000000000000000000000000000000000000" && oid !== "") {
+      if (oid) {
         setRepositoryHead({ repositoryHead: oid })
 
         await git.init({ fs, dir: newProjectRoot })
-
         await loadDirectory(arweave, url, oid, newProjectRoot, newProjectRoot)
+      } else {
+        setRepositoryHead({ repositoryHead: null })
       }
 
       await startProjectRootChanged({
@@ -250,7 +253,7 @@ export const StackRouter = connector(
     }
   })
 )(function StackRouterImpl(props) {
-  const { match } = props
+  const { match, repositoryHead } = props
 
   switch (props.currentScene) {
     case "main": {
@@ -285,10 +288,6 @@ export const StackRouter = connector(
         )
 
       return (
-        <>
-          {props.history.length === 1 ? (
-            <></>
-          ) : (
             <div className="stack-top">
               {/* <h2 className="mb-3">
                 {props.match.params.wallet_address}/
@@ -296,7 +295,7 @@ export const StackRouter = connector(
               </h2> */}
               {/* <DgitScore /> */}
               <Container>
-                <Row alignItems="center" flexCol>
+                {repositoryHead && (<Row alignItems="center" flexCol>
                   <Col xs="12">
                     <div className="card-dgit">
                       <CardBody>
@@ -304,7 +303,7 @@ export const StackRouter = connector(
                       </CardBody>
                     </div>
                   </Col>
-                </Row>
+                </Row>)}
                 <Row>
                   <Col>
                     <div className="mt-4">
@@ -314,9 +313,7 @@ export const StackRouter = connector(
                 </Row>
               </Container>
             </div>
-          )}
-        </>
-      )
+          )
     }
 
     default: {

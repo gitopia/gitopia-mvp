@@ -46,7 +46,7 @@ export const setRepositoryURL: ActionCreator<{
 }> = createAction("set-repository-url")
 
 export const setRepositoryHead: ActionCreator<{
-  repositoryHead: string
+  repositoryHead: string | null
 }> = createAction("set-repository-head")
 
 export const updateFilterIndex: ActionCreator<{

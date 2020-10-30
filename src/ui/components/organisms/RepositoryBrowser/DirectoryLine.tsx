@@ -219,15 +219,18 @@ class LinkedLines extends React.Component<LinkedLinesProps, LinkedLinesState> {
   state = { fileList: [] }
 
   async componentDidMount() {
-    await loadDirectory(
-      arweave,
-      this.props.repositoryURL,
-      this.props.repositoryHead,
-      this.props.root,
-      this.props.dirpath
-    )
-    const fileList = await readFileStats(this.props.root, this.props.dirpath)
-    this.setState({ fileList })
+    const {repositoryURL, repositoryHead, root, dirpath} = this.props
+    if (repositoryHead) {
+      await loadDirectory(
+        arweave,
+        repositoryURL,
+        repositoryHead,
+        root,
+        dirpath
+      )
+      const fileList = await readFileStats(root, dirpath)
+      this.setState({ fileList })
+    }
   }
 
   render() {
