@@ -162,18 +162,23 @@ export const Layout = connector(
       let completed_txids: String[] = []
       const repos = await getAllRepositores(arweave, address)
       console.log(repos)
+      console.log("notif", this.props.notifications)
+      const newNotifications = this.props.notifications.map(notif => {
+        if (
+          notif.type === "pending" &&
+          repos.find(o => o.txid === notif.txid)
+        ) {
+          return {
+            type: "confirmed",
+            action: notif.action,
+            txid: notif.txid
+          }
+        } else {
+          return notif
+        }
+      })
 
-      const newNotifications = this.props.notifications
-        .filter(
-          notif =>
-            notif.type == "pending" && completed_txids.includes(notif.txid)
-        )
-        .map(notif => ({
-          type: "confirmed",
-          action: "Create Repo",
-          txid: notif.txid
-        }))
-      let finalNotifications = [...notifications, ...newNotifications]
+      let finalNotifications = [...newNotifications]
       actions.loadNotifications({ notifications: finalNotifications })
       actions.updateRepositories({ repositories: repos })
       let names: [] = []

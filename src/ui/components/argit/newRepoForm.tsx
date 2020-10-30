@@ -5,6 +5,7 @@ import { Repository as Repo } from "../../../ui/reducers/argit"
 import { closeCreateRepoModal } from "../../reducers/app"
 import { updateRepositories, updateMainItems } from "../../reducers/argit"
 import { Redirect, withRouter } from "react-router-dom"
+import { loadNotifications, Notification } from "../../reducers/argit"
 
 type NewRepoFormProps = {
   address: string
@@ -15,6 +16,8 @@ type NewRepoFormProps = {
   updateMainItems: typeof updateMainItems
   history: any
   wallet: string
+  loadNotifications: typeof loadNotifications
+  notifications: typeof Notification[]
 }
 
 type NewRepoFormState = {
@@ -22,6 +25,7 @@ type NewRepoFormState = {
   errors: { name: string | null }
   transactionLoading: boolean
   numTokens: string
+  disabled: boolean
 }
 
 class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
@@ -32,7 +36,8 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
     },
     errors: { name: "" },
     transactionLoading: false,
-    numTokens: "0"
+    numTokens: "0",
+    disabled: false
   }
   constructor(props: NewRepoFormProps) {
     super(props)
@@ -124,6 +129,14 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
         type: "create-repo",
         txid: tx.id
       }
+      const notification = {
+        txid: tx.id,
+        type: "pending",
+        action: `Create ${decoded.name} Repo`
+      }
+      this.props.loadNotifications({
+        notifications: [...this.props.notifications, notification]
+      })
       let newRepos = { ...this.props.mainItems.repos }
       newRepos[name] = repository
       console.log(newRepos)
@@ -140,6 +153,7 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
   }
 
   handleSubmit = e => {
+    this.setState({ disabled: true })
     e.preventDefault()
     const errors = this.validate()
     if (errors) {
@@ -189,7 +203,10 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
               name="description"
             />
           </div>
-          <button className="btn btn-primary">Create Repository</button>
+          <button className="btn btn-primary" disabled={this.state.disabled}>
+            Create Repository{" "}
+            {this.state.disabled && <i className="fa fa-spinner" />}
+          </button>
         </form>
       </div>
     )

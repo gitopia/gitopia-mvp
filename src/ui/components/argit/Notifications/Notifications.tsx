@@ -7,11 +7,13 @@ import MessagesDemo from "./notifications-demo/Messages"
 import NewNotificationsDemo from "./notifications-demo/NewNotifications"
 import Pending from "./notifications-demo/Pending"
 import s from "./Notifications.module.scss"
+import { getAllRepositores } from "../../../../utils"
+import { arweave } from "../../../../index"
 
 export interface NotificationsProps {
   loadNotifications: typeof loadNotifications
   notifications: Notification[]
-  addressa: string
+  address: string
 }
 
 export interface NotificationsState {
@@ -39,16 +41,28 @@ class Notifications extends React.Component<
       newNotifications: null
     })
   }
-  loadNotifications() {
+  async loadNotifications() {
     this.setState({
       isLoad: true
     })
+    const repos = await getAllRepositores(arweave, this.props.address)
 
+    const newNotifications = this.props.notifications.map(notif => {
+      if (notif.type === "pending" && repos.find(o => o.txid === notif.txid)) {
+        return {
+          type: "confirmed",
+          action: notif.action,
+          txid: notif.txid
+        }
+      } else {
+        return notif
+      }
+    })
+
+    let finalNotifications = [...newNotifications]
     setTimeout(() => {
-      this.setState({
-        newNotifications: <NewNotificationsDemo />,
-        isLoad: false
-      })
+      this.props.loadNotifications({ notifications: finalNotifications })
+      this.setState({ isLoad: false })
     }, 1500)
   }
   render() {
@@ -126,7 +140,7 @@ class Notifications extends React.Component<
               <i className="fa fa-refresh" />
             )}
           </Button>
-          <span className="fs-mini">Synced at: 21 Apr 2014 18:36</span>
+          <span className="fs-mini">Last Synced: </span>
         </footer>
       </section>
     )
