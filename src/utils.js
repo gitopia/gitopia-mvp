@@ -20,26 +20,21 @@ export const txQuery = (address, txType) => ({
 })
 
 const api = axios.create({
-  baseURL: "https://arweave.dev"
+  baseURL: "https://arweave.net"
 })
 export const getAllRepositores = async (arweave, address) => {
   try {
     const repos = await api.post("/graphql", {
       query: `query {
-        transactions(first: 2147483647, owners:["${address}"],tags: [      
-          {
-        name: "Type",
-        values: "create-repo"
-      },
-                    {
-                      name: "App-Name",
-                      values: "dgit"
-                    },
-                    {
-                      name: "version",
-                      values: "0.0.2"
-                    }
-                  ]) {
+        transactions(
+          first: 2147483647
+          owners: ["${address}"]
+          tags: [
+            { name: "Type", values: "create-repo" }
+            { name: "version", values: "0.0.2" }
+            { name: "App-Name", values: "Gitopia" }
+          ]
+        ) {
           pageInfo {
             hasNextPage
           }
@@ -48,7 +43,7 @@ export const getAllRepositores = async (arweave, address) => {
             node {
               id
               tags {
-                name,
+                name
                 value
               }
             }
@@ -98,20 +93,14 @@ export const getAllActivities = async (arweave, address) => {
   try {
     const activities = await api.post("/graphql", {
       query: `query {
-        transactions(owners:["${address}"],tags: [      
-          {
-        name: "Type",
-        values: ["create-repo","update-ref"]
-      },
-                    {
-                      name: "App-Name",
-                      values: "dgit"
-                    },
-                    {
-                      name: "version",
-                      values: "0.0.1"
-                    }
-                  ]) {
+        transactions(
+          owners: ["${address}"]
+          tags: [
+            { name: "Type", values: ["create-repo", "update-ref"] }
+            { name: "version", values: "0.0.2" }
+            { name: "App-Name", values: "Gitopia" }
+          ]
+        ) {
           pageInfo {
             hasNextPage
           }
@@ -120,7 +109,7 @@ export const getAllActivities = async (arweave, address) => {
             node {
               id
               tags {
-                name,
+                name
                 value
               }
             }
@@ -145,7 +134,7 @@ export const getAllActivities = async (arweave, address) => {
         if (key === "Type") {
           actobj.type = value
         }
-        if (key === "ref") {
+        if (key === "Ref") {
           actobj.key = value
         }
         if (key === "Repo") {
@@ -179,22 +168,16 @@ export const getNextActivities = async (arweave, address, cursor, e) => {
     console.log(cursor)
     const activities = await api.post("/graphql", {
       query: `query {
-        transactions(first:${
-          cursor === "next" ? -10 : 10
-        }, after:"${cursor}",owners:["${address}"],tags: [      
-          {
-            name: "App-Name",
-            values: "dgit"
-          },
-          {
-            name: "version",
-            values: "0.0.1"
-          },
-              {
-            name: "Type",
-            values: ["create-repo","update-ref"]
-          }
-        ]) {
+        transactions(
+          first: ${cursor === "next" ? -10 : 10}
+          after: "${cursor}"
+          owners: ["${address}"]
+          tags: [
+            { name: "Type", values: ["create-repo", "update-ref"] }
+            { name: "Version", values: "0.0.2" }
+            { name: "App-Name", values: "Gitopia" }
+          ]
+        ) {
           pageInfo {
             hasNextPage
           }
@@ -203,7 +186,7 @@ export const getNextActivities = async (arweave, address, cursor, e) => {
             node {
               id
               tags {
-                name,
+                name
                 value
               }
             }
@@ -228,7 +211,7 @@ export const getNextActivities = async (arweave, address, cursor, e) => {
         if (key === "Type") {
           actobj.type = value
         }
-        if (key === "ref") {
+        if (key === "Ref") {
           actobj.key = value
         }
         if (key === "Repo") {

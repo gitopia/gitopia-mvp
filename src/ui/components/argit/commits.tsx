@@ -91,18 +91,18 @@ export const Commits = connector(
     () => {
       const componentDidMount = async () => {
         setPageLoading(true)
-        const url = `dgit://${match.params.wallet_address}/${
+        const url = `gitopia://${match.params.wallet_address}/${
           match.params.repo_name
         }`
         const branch = match.params.branch || "master"
         const newProjectRoot = `/${match.params.repo_name}`
-        const ref = await getOidByRef(arweave, url, `refs/heads/${branch}`)
+        const { oid } = await getOidByRef(arweave, url, `refs/heads/${branch}`)
         const commits = []
 
         createNewProject({ newProjectRoot })
         await git.init({ fs, dir: newProjectRoot })
 
-        commitGen = await fetchCommits(arweave, url, ref, newProjectRoot)
+        commitGen = await fetchCommits(arweave, url, oid, newProjectRoot)
 
         for (let i = 0; i < numCommitsPerPage; i++) {
           const commit = await commitGen.next()

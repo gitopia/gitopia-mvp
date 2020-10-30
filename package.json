@@ -1,5 +1,5 @@
 {
-  "name": "dgit",
+  "name": "gitopia",
   "author": "Tech Trap LLP",
   "version": "0.0.2",
   "license": "MIT",
@@ -94,6 +94,7 @@
   },
   "dependencies": {
     "@blueprintjs/core": "3.6.1",
+    "isomorphic-git": "TheTechtrap/dgit-cli#v0.1.0-final-fixes",
     "@types/classnames": "^2.2.10",
     "@types/fuzzaldrin": "^2.1.3",
     "@types/react": "^16.9.44",
@@ -119,7 +120,6 @@
     "glyphicons-halflings": "^1.9.1",
     "hard-reducer": "2.3.0",
     "ini": "1.3.5",
-    "isomorphic-git": "https://github.com/TheTechTrap/dgit-cli.git",
     "line-awesome": "^1.3.0",
     "lodash": "4.17.19",
     "normalize.css": "8.0.0",

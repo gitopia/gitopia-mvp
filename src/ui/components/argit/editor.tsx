@@ -103,7 +103,7 @@ export const Editor = connector(
       )
     }
   }
-  const url = `dgit://${props.match.params.wallet_address}/${
+  const url = `gitopia://${props.match.params.wallet_address}/${
     props.match.params.repo_name
   }`
 

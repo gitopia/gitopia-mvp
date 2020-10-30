@@ -34,7 +34,6 @@ import { arweave } from "../../../../index"
 
 import {
   getAllActivities,
-  txQuery,
   getNextActivities,
   getAllRepositores
 } from "../../../../utils"
@@ -447,8 +446,8 @@ export const Layout = connector(
                             trigger="legacy"
                             target="clone_button"
                           >
-                            <PopoverHeader>Clone with dgit</PopoverHeader>
-                            <PopoverBody>{`dgit://${
+                            <PopoverHeader>Clone from Gitopia</PopoverHeader>
+                            <PopoverBody>{`gitopia://${
                               props.repository.owner.name
                             }/${props.repository.name}`}</PopoverBody>
                           </UncontrolledPopover>

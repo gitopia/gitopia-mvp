@@ -75,12 +75,12 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
     console.log(data)
     let tx = await arweave.createTransaction({ data }, wallet)
 
-    tx.addTag("Content-Type", "application/json")
-    tx.addTag("App-Name", "dgit")
-    tx.addTag("version", "0.0.2")
-    tx.addTag("Unix-Time", String(Math.round(new Date().getTime() / 1000))) // Add Unix timestamp
-    tx.addTag("Type", "create-repo")
     tx.addTag("Repo", name)
+    tx.addTag("Version", "0.0.2")
+    tx.addTag("Type", "create-repo")
+    tx.addTag("App-Name", "Gitopia")
+    tx.addTag("Unix-Time", String(Math.round(new Date().getTime() / 1000))) // Add Unix timestamp
+    tx.addTag("Content-Type", "application/json")
 
     await arweave.transactions.sign(tx, wallet) // Sign transaction
     let tx_id = tx.id // Get transaction id from signed transaction

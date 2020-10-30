@@ -229,7 +229,7 @@ export const StackRouter = connector(
 
       setRepositoryURL({ repositoryURL: url })
 
-      const oid = await getOidByRef(arweave, url, `refs/heads/${ref}`)
+      const { oid } = await getOidByRef(arweave, url, `refs/heads/${ref}`)
 
       if (oid !== "0000000000000000000000000000000000000000" && oid !== "") {
         setRepositoryHead({ repositoryHead: oid })
