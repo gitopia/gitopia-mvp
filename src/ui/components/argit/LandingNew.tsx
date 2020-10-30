@@ -166,12 +166,10 @@ export const LandingNew = connector(
                 <img src={serverImage} height="100px" width="100px" />
               </div>
               <h3 className="landing-section__title justify-content-center">
-                Permanent
+                Persistent
               </h3>
               <p className="landing-p justify-content-center">
-                All your code is stored on the blockchain forever so anything
-                stored with dgit will never be lost, even when you accidently
-                force push
+                We let your code revisions stay on the blockweave permanently, while you keep on building.
               </p>
             </div>
             <div className="landing-feature__item">
@@ -179,12 +177,10 @@ export const LandingNew = connector(
                 <img src={availabilityImage} height="100px" width="100px" />
               </div>
               <h3 className="landing-section__title justify-content-center">
-                Available
+                Accessible
               </h3>
               <p className="landing-p justify-content-center">
-                All your code is mirrored across the distributed network of
-                blockchain nodes, so you don't need to rely on a centralized
-                server.
+                Never lose access to your code with Gitopia. All your code is mirrored across distributed network of Arweave nodes.
               </p>
             </div>
             <div className="landing-feature__item">
@@ -204,11 +200,10 @@ export const LandingNew = connector(
                 <img src={votingImage} height="100px" width="100px" />
               </div>
               <h3 className="landing-section__title justify-content-center">
-                Governance
+                Community-centric
               </h3>
               <p className="landing-p justify-content-center">
-                Dgit being a Profit Sharing Community, all governance/product
-                decisions need a voting on community.xyz
+                Gitopia being a Profit Sharing Community, all our product decisions will be voted by the community.
               </p>
             </div>
             <div className="landing-feature__item">
@@ -216,10 +211,10 @@ export const LandingNew = connector(
                 <img src={osImage} height="100px" width="100px" />
               </div>
               <h3 className="landing-section__title justify-content-center">
-                OpenSource
+                Open Source
               </h3>
               <p className="landing-p justify-content-center">
-                All of dgit code is open source on dgit and can be audited by
+                All of Gitopia source code is open source and can be audited by
                 anyone.
               </p>
             </div>
@@ -228,12 +223,10 @@ export const LandingNew = connector(
                 <img src={pushImage} height="100px" width="100px" />
               </div>
               <h3 className="landing-section__title justify-content-center">
-                git CLI
+                Get, Set, Push
               </h3>
               <p className="landing-p justify-content-center">
-                dgit makes use of git-remote-dgit helper which enables
-                developers to work with the default git cli they are comfortable
-                with.
+                All you need is an Arweave wallet and our git remote helper to start pushing your code to Gitopia. You could also use our GitHub action to mirror your existing repos.
               </p>
             </div>
           </div>
@@ -290,12 +283,12 @@ export const LandingNew = connector(
             <div className="landing-changelog__item">
               <div className="landing-changelog__meta">
                 <h4 className="landing-changelog__title">v0.1.0</h4>
-                <small className="landing-changelog__date">10/13/2020</small>
+                <small className="landing-changelog__date">10/30/2020</small>
               </div>
               <div className="landing-changelog__detail">
                 <ul>
                   <li>
-                    Redesigned landing page
+                    All new landing page and branding
                   </li>
                   <li>Improved UI/UX of the frontend app</li>
                   <li>Git remote helper</li>
