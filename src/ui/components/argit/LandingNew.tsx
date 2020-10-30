@@ -102,7 +102,7 @@ export const LandingNew = connector(
         </nav>
         <div className="landing-hero">
           <h1 className="landing-hero__title">
-            <img width="150px" height="150px" src={logo} />
+            <img width="200px" height="200px" src={logo} />
           </h1>
           <p className="landing-hero__description">Decentralized 
             <div className="slidingVertical">
@@ -117,11 +117,11 @@ export const LandingNew = connector(
         </div>
         <div className="landing-hero__terminal">
           <pre className="landing-pre" id="typewriter">
-            <span className="dgit-highlight">dgit ~ $</span> <span className="dgit-code" >git remote add
-          origin dgit://VC4NJ3nlVJJPgyJ4DScpeXx3-UnXmiasfrxiIFpJwb0/repo-name{"\n"}</span>
+            <span className="dgit-highlight">Gitopia ~ $</span> <span className="dgit-code" >git remote add
+          origin gitopia://wallet_address/repo-name{"\n"}</span>
 
 
-            <span className="dgit-highlight">dgit ~ $</span><span className="dgit-code" >git push origin
+            <span className="dgit-highlight">Gitopia ~ $</span><span className="dgit-code" >git push origin
             master</span>
           </pre>
           {/* <pre className="landing-pre">
@@ -151,7 +151,7 @@ export const LandingNew = connector(
               </ul> */}
               <pre className="landing-nohighlight landing-code">
                 <code className="landing-tab__pane active mac">
-                  $ npm install -g @thetechtrap/git-remote-dgit
+                  $ npm install -g @gitopia/git-remote-gitopia
                 </code>
                 {/* <code className="landing-tab__pane linux">
                 </code>
