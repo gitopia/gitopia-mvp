@@ -23,6 +23,10 @@
 
 .landing-hero__description {
   margin: -1rem auto 2rem auto;
+  margin-right: 12rem;
+  margin-bottom: 5rem;
+  margin-top: 2rem;
+  font-size: 35px;
 }
 
 .landing-hero__terminal {

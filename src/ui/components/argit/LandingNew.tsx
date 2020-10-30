@@ -104,9 +104,16 @@ export const LandingNew = connector(
           <h1 className="landing-hero__title">
             <img width="150px" height="150px" src={logo} />
           </h1>
-          <p className="landing-hero__description">
-            Permanent versioning for your Code
+          <p className="landing-hero__description">Decentralized 
+            <div className="slidingVertical">
+              <span>&nbsp;Collaboration</span>
+              <span>&nbsp;Communities</span>
+              <span>&nbsp;Source Code</span>
+            </div>
           </p>
+          {/* <p className="landing-hero__description">
+            Permanent versioning for your Code
+          </p> */}
         </div>
         <div className="landing-hero__terminal">
           <pre className="landing-pre" id="typewriter">
