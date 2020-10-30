@@ -31,7 +31,7 @@ export const getAllRepositores = async (arweave, address) => {
           owners: ["${address}"]
           tags: [
             { name: "Type", values: "create-repo" }
-            { name: "version", values: "0.0.2" }
+            { name: "Version", values: "0.0.2" }
             { name: "App-Name", values: "Gitopia" }
           ]
         ) {
@@ -97,7 +97,7 @@ export const getAllActivities = async (arweave, address) => {
           owners: ["${address}"]
           tags: [
             { name: "Type", values: ["create-repo", "update-ref"] }
-            { name: "version", values: "0.0.2" }
+            { name: "Version", values: "0.0.2" }
             { name: "App-Name", values: "Gitopia" }
           ]
         ) {
