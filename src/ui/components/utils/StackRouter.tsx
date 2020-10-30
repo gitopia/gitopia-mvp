@@ -1,7 +1,7 @@
 import { format } from "date-fns"
 import fs from "fs"
 import * as git from "isomorphic-git"
-import * as pkg from "isomorphic-git/src/utils/graphql"
+import * as pkg from "isomorphic-git/src/utils/arweave"
 const { getOidByRef } = pkg
 import { fetchGitObject } from "isomorphic-git/src/utils/arweave"
 import React from "react"
