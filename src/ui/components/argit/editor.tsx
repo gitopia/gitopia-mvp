@@ -9,6 +9,11 @@ import { lifecycle } from "recompose"
 import { ReadCommitResult } from "../../../domain/types"
 import { connector } from "../../actionCreators/index"
 import { ThemeToggleButton } from "./themeToggleButton"
+import remark from "remark"
+import remarkReact from "remark-react"
+
+const processor = remark().use(remarkReact)
+
 const languages = [
   "javascript",
   "java",
@@ -52,6 +57,7 @@ export function extToAceMode(filepath: string): string {
 type EditorProps = {
   value: string
   filepath: string
+  filetype: string
   address: string
   projectRoot: string
   unloadFile: any
@@ -64,6 +70,7 @@ export const Editor = connector(
   state => ({
     value: state.buffer.value,
     filepath: state.buffer.filepath,
+    filetype: state.buffer.filetype,
     address: state.argit.address,
     projectRoot: state.project.projectRoot,
     theme: state.config.theme,
@@ -81,6 +88,12 @@ export const Editor = connector(
 )(function EditorImpl(props) {
   if (props.head) {
     if (props.value) {
+      if (props.filetype === "markdown") {
+        const contents = processor.processSync(props.value).contents
+        
+        return <div>{contents}</div>
+      }
+      
       const mode = extToAceMode(props.filepath)
 
       return (

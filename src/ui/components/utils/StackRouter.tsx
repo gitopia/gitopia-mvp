@@ -50,6 +50,7 @@ import { FaHistory, FaRegFileAlt, FaAward, FaSpinner } from "react-icons/fa"
 import { mkdir } from "../../../domain/filesystem/commands/mkdir"
 import pify from "pify"
 import { existsPath } from "../../../domain/filesystem/queries/existsPath"
+import { loadFile } from '../../reducers/buffer';
 
 const getGitObjectPath = (projectRoot, oid) => {
   const dirpath = `${projectRoot}/.git/objects/${oid.slice(0, 2)}`
@@ -199,7 +200,8 @@ export const StackRouter = connector(
     updateRepository: actions.argit.updateRepository,
     setRepositoryURL: actions.argit.setRepositoryURL,
     setRepositoryHead: actions.argit.setRepositoryHead,
-    updatePage: actions.argit.updatePage
+    updatePage: actions.argit.updatePage,
+    loadFile: actions.editor.loadFile
   }),
   lifecycle<StackRouterProps, {}>({
     async componentDidMount() {
@@ -211,7 +213,8 @@ export const StackRouter = connector(
         setTxLoading,
         setRepositoryURL,
         setRepositoryHead,
-        updateRepository
+        updateRepository,
+        loadFile
       } = this.props
       const newProjectRoot = `/${match.params.repo_name}`
       const ref = match.params.ref || "master"
@@ -238,6 +241,11 @@ export const StackRouter = connector(
 
         await git.init({ fs, dir: newProjectRoot })
         await loadDirectory(arweave, url, oid, newProjectRoot, newProjectRoot)
+
+        const readmePath = `${newProjectRoot}/README.md`
+        if (existsPath(readmePath)) {
+          loadFile({filepath: readmePath})
+        }
       } else {
         setRepositoryHead({ repositoryHead: null })
       }
