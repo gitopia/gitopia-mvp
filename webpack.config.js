@@ -6,7 +6,21 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const HtmlPlugin = require("html-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent")
-
+const languages = [
+  "javascript",
+  "java",
+  "python",
+  "xml",
+  "ruby",
+  "markdown",
+  "json",
+  "html",
+  "golang",
+  "csharp",
+  "typescript",
+  "css"
+]
+const themes = ["github", "monokai"]
 // Constants
 
 const MODE = process.env.NODE_ENV || "development"
@@ -60,6 +74,7 @@ const COPY_RULES = [
     from: path.join(__dirname, "src/manifest.json"),
     to: path.join(__dirname, "/dist/manifest.json")
   },
+
   {
     from: path.join(__dirname, "/assets/favicon.ico"),
     to: path.join(__dirname, "/dist/favicon.ico")
@@ -76,6 +91,24 @@ const COPY_RULES = [
     to: path.join(__dirname, "dist/resources/icons")
   }
 ]
+languages.map(elem => {
+  COPY_RULES.push({
+    from: path.join(
+      __dirname,
+      `node_modules/ace-builds/src-noconflict/mode-${elem}.js`
+    ),
+    to: path.join(__dirname, `/dist/mode-${elem}.js`)
+  })
+})
+themes.map(elem => {
+  COPY_RULES.push({
+    from: path.join(
+      __dirname,
+      `node_modules/ace-builds/src-noconflict/theme-${elem}.js`
+    ),
+    to: path.join(__dirname, `/dist/theme-${elem}.js`)
+  })
+})
 
 if (USE_CUSTOM_SRC) {
   console.info("You are using custom entry:", SRC)

@@ -3,6 +3,7 @@ import Dropzone from "react-dropzone"
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { connector } from "../../actionCreators/index"
 import { arweave } from "../../../index"
+import { userLogout, loadAddress } from "../../reducers/argit"
 
 export const LoginModal = connector(
   state => ({
@@ -15,7 +16,9 @@ export const LoginModal = connector(
     closeLoginModal: actions.argit.closeLoginModal,
     loadKeyFile: actions.argit.loadKeyFile,
     setIsAuthenticated: actions.argit.setIsAuthenticated,
-    setWallet: actions.argit.setWallet
+    setWallet: actions.argit.setWallet,
+    userLogout: actions.argit.userLogout,
+    loadAddress: actions.argit.loadAddress
   })
 )(function LoginModalImpl(props) {
   return (
@@ -24,6 +27,7 @@ export const LoginModal = connector(
       <ModalBody>
         <Dropzone
           onDrop={async acceptedFiles => {
+            props.userLogout({})
             if (
               acceptedFiles[0].name
                 .split(".")
@@ -53,6 +57,7 @@ export const LoginModal = connector(
 
                   console.log(props.wallet)
                   arweave.wallets.jwkToAddress(keyfile).then(address => {
+                    props.loadAddress({ address })
                     window.location.replace(`/#/${address}`)
                     props.closeLoginModal({})
                   })

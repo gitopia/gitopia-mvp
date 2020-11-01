@@ -14,8 +14,6 @@ import s from "./Layout.module.scss"
 import dlogo from "../../argit/images/dlogo.svg"
 import { Sponsor } from "../Sponsor"
 import { Link } from "react-router-dom"
-import { GoArrowLeft, GoArrowRight } from "react-icons/go"
-import { FaCheckCircle, FaSpinner, FaPlus } from "react-icons/fa"
 import { format } from "date-fns"
 import { filter } from "fuzzaldrin"
 import { CreateRepoModal } from "../../organisms/CreateRepoModal"
@@ -70,7 +68,6 @@ import {
   setWallet,
   userLogout
 } from "../../../reducers/argit"
-import { FaAward, FaRegFileAlt } from "react-icons/fa"
 import { CreateRepoModal } from "../../organisms/CreateRepoModal"
 
 type ConnectedProps = {
@@ -95,6 +92,7 @@ type ConnectedProps = {
   openSponsorModal: typeof openSponsorModal
   wallet: string
   setWallet: typeof setWallet
+  address: string
   userLogout: typeof userLogout
 }
 
@@ -147,13 +145,6 @@ export const Layout = connector(
       const { isAuthenticated, repositories, ...actions } = this.props
       let address = this.props.match.params.wallet_address
 
-      if (isAuthenticated) {
-        address = await arweave.wallets.jwkToAddress(
-          JSON.parse(this.props.wallet)
-        )
-      }
-
-      actions.loadAddress({ address })
       const activities = await getAllActivities(arweave, address)
       console.log(activities)
 
@@ -377,21 +368,21 @@ export const Layout = connector(
                           props.updateFilterIndex({ filterIndex: 0 })
                         }}
                       >
-                        <GoArrowLeft /> Back to Repositories
+                        <i className="fa fa-arrow-left" /> Back to Repositories
                       </Link>
                     )}
                   </div>
                   <OwnerProfile>
                     <a
-                      href={`/${props.address}`}
+                      href={`/${props.match.params.wallet_address}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       <img
                         src={`https://avatars.dicebear.com/api/bottts/${
-                          props.address
+                          props.match.params.wallet_address
                         }.svg?h=100&r=5&m=5`}
-                        alt={`${props.address}`}
+                        alt={`${props.match.params.wallet_address}`}
                       />
                     </a>
                     {props.page === "repo" && (
@@ -439,12 +430,12 @@ export const Layout = connector(
                           props.openSponsorModal({})
                         }}
                       >
-                        <FaAward />
+                        <i className="fa fa-tryphy" />
                         Sponsor
                       </span>
                       {props.page === "repo" && (
                         <span id="clone_button" className="rv-button">
-                          <FaRegFileAlt /> Clone
+                          <i className="fa fa-file-text-o" /> Clone
                           <UncontrolledPopover
                             className="rv-pop"
                             placement="top-end"
@@ -500,7 +491,11 @@ export const Layout = connector(
                                 props.openCreateRepoModal({})
                               }}
                             >
-                              <FaPlus color="#fff" size={14} />
+                              <i
+                                className="fa fa-plus"
+                                color="#fff"
+                                size={14}
+                              />
                             </SubmitButton>
                           )}
                       </Form>
@@ -508,7 +503,7 @@ export const Layout = connector(
                   {props.txLoading ? (
                     <>
                       <Loading loading={props.txLoading ? 1 : 0}>
-                        <FaSpinner />
+                        <i className="fa fa-spinner" />
                       </Loading>
                     </>
                   ) : (

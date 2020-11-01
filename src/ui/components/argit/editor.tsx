@@ -1,9 +1,5 @@
 import path from "path"
 import * as React from "react"
-import AceEditor from "react-ace"
-import "ace-builds/src-noconflict/mode-jsx"
-import "ace-builds/src-noconflict/theme-github"
-import "ace-builds/src-noconflict/theme-monokai"
 import { CardBody } from "reactstrap"
 import { lifecycle } from "recompose"
 import { ReadCommitResult } from "../../../domain/types"
@@ -11,9 +7,11 @@ import { connector } from "../../actionCreators/index"
 import { ThemeToggleButton } from "./themeToggleButton"
 import remark from "remark"
 import remarkReact from "remark-react"
+import { Suspense } from "react"
+import { Loading } from "../argit/Repository/RepositoryStyles"
+const AceEditor = React.lazy(() => import("react-ace"))
 
 const processor = remark().use(remarkReact)
-
 const languages = [
   "javascript",
   "java",
@@ -28,10 +26,6 @@ const languages = [
   "typescript",
   "css"
 ]
-
-languages.forEach(lang => {
-  require(`ace-builds/src-noconflict/mode-${lang}`)
-})
 
 const EXT_TO_ACE_MODE_MAP: any = {
   ".js": "javascript",
@@ -90,33 +84,45 @@ export const Editor = connector(
     if (props.value) {
       if (props.filetype === "markdown") {
         const contents = processor.processSync(props.value).contents
-        
+
         return <div>{contents}</div>
       }
-      
+
       const mode = extToAceMode(props.filepath)
 
       return (
         <div>
           {props.filepath}
-          <ThemeToggleButton />
-          <AceEditor
-            mode={mode}
-            theme={props.theme}
-            name="ace"
-            value={props.value}
-            readOnly={true}
-            fontSize={14}
-            highlightActiveLine={false}
-            width="100%"
-            showPrintMargin={false}
-            editorProps={{ $blockScrolling: true }}
-          />
+          <Suspense
+            fallback={
+              <>
+                <Loading loading={props.txLoading ? 1 : 0}>
+                  <i className="fa fa-spinner" />
+                </Loading>
+              </>
+            }
+          >
+            <>
+              <ThemeToggleButton />
+              <AceEditor
+                mode={mode}
+                theme={props.theme}
+                name="ace"
+                value={props.value}
+                readOnly={true}
+                fontSize={14}
+                highlightActiveLine={false}
+                width="100%"
+                showPrintMargin={false}
+                editorProps={{ $blockScrolling: true }}
+              />
+            </>
+          </Suspense>
         </div>
       )
     }
 
-    return (<></>)
+    return <></>
   }
 
   const url = `gitopia://${props.match.params.wallet_address}/${

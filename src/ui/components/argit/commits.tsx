@@ -18,8 +18,6 @@ import {
 } from "../argit/Repository/RepositoryStyles"
 import dlogo from "../argit/images/dlogo.svg"
 import { Link } from "react-router-dom"
-import { GoArrowLeft } from "react-icons/go"
-import { FaSpinner } from "react-icons/fa"
 import * as git from "isomorphic-git"
 
 function compareAge(a, b) {
@@ -142,7 +140,7 @@ export const Commits = connector(
     <>
       {pageLoading ? (
         <Loading loading={pageLoading ? 1 : 0}>
-          <FaSpinner />
+          <i className="fa fa-spinner" />
         </Loading>
       ) : (
         <>
@@ -151,9 +149,9 @@ export const Commits = connector(
               <li key={commit.oid}>
                 <div>
                   <img
-                    src={`https://avatars.dicebear.com/api/initials/${
-                      commit.object.committer.name
-                    }.png`}
+                    src={`https://avatars.dicebear.com/api/initials/${commit.object.committer.name.split(
+                      " "
+                    )[0] || ""}.svg`}
                     alt={commit.object.committer.name}
                   />
                   <span>

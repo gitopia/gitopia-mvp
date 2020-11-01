@@ -5,7 +5,6 @@ import {
 } from "reactstrap"
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { FaCheckCircle, FaSpinner, FaPlus } from "react-icons/fa"
 
 export class Pagination extends React.Component {
   constructor(props) {
@@ -123,7 +122,7 @@ export class Pagination extends React.Component {
                   <div>
                     {this.props.mainItems.repos[obj].name && (
                       <Link
-                        to={`/${this.props.address}/${
+                        to={`/${this.props.match.params.wallet_address}/${
                           this.props.mainItems.repos[obj].name
                         }`}
                         onClick={() => {
@@ -148,7 +147,7 @@ export class Pagination extends React.Component {
                   </div>
                   {this.props.mainItems.repos[obj].name && (
                     <button>
-                      <FaCheckCircle />
+                      <i className="fa fa-check-circle" />
                     </button>
                   )}
                 </li>

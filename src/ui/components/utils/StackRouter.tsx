@@ -4,7 +4,7 @@ import * as git from "isomorphic-git"
 import * as pkg from "isomorphic-git/src/utils/arweave"
 const { getOidByRef } = pkg
 import { fetchGitObject } from "isomorphic-git/src/utils/arweave"
-import React from "react"
+import React, { lazy, Suspense } from "react"
 import { Link } from "react-router-dom"
 import { CardBody, Col, Row, Container } from "reactstrap"
 import { lifecycle } from "recompose"
@@ -45,12 +45,10 @@ import {
   RepoInfo,
   IssueLabel
 } from "../argit/Repository/RepositoryStyles"
-import { GoArrowLeft, GoArrowRight } from "react-icons/go"
-import { FaHistory, FaRegFileAlt, FaAward, FaSpinner } from "react-icons/fa"
 import { mkdir } from "../../../domain/filesystem/commands/mkdir"
 import pify from "pify"
 import { existsPath } from "../../../domain/filesystem/queries/existsPath"
-import { loadFile } from '../../reducers/buffer';
+import { loadFile } from "../../reducers/buffer"
 
 const getGitObjectPath = (projectRoot, oid) => {
   const dirpath = `${projectRoot}/.git/objects/${oid.slice(0, 2)}`
@@ -244,7 +242,7 @@ export const StackRouter = connector(
 
         const readmePath = `${newProjectRoot}/README.md`
         if (existsPath(readmePath)) {
-          loadFile({filepath: readmePath})
+          loadFile({ filepath: readmePath })
         }
       } else {
         setRepositoryHead({ repositoryHead: null })
@@ -290,38 +288,40 @@ export const StackRouter = connector(
         return (
           <>
             <Loading loading={props.txLoading ? 1 : 0}>
-              <FaSpinner />
+              <i className="fa fa-spinner" />
             </Loading>
           </>
         )
 
       return (
-            <div className="stack-top">
-              {/* <h2 className="mb-3">
+        <div className="stack-top">
+          {/* <h2 className="mb-3">
                 {props.match.params.wallet_address}/
                 {props.match.params.repo_name}
               </h2> */}
-              {/* <DgitScore /> */}
-              <Container>
-                {repositoryHead && (<Row alignItems="center" flexCol>
-                  <Col xs="12">
-                    <div className="card-dgit">
-                      <CardBody>
-                        <RepositoryBrowser />
-                      </CardBody>
-                    </div>
-                  </Col>
-                </Row>)}
-                <Row>
-                  <Col>
-                    <div className="mt-4">
-                      <Editor {...props} />
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            </div>
-          )
+          {/* <DgitScore /> */}
+          <Container>
+            {repositoryHead && (
+              <Row alignItems="center" flexCol>
+                <Col xs="12">
+                  <div className="card-dgit">
+                    <CardBody>
+                      <RepositoryBrowser />
+                    </CardBody>
+                  </div>
+                </Col>
+              </Row>
+            )}
+            <Row>
+              <Col>
+                <div className="mt-4">
+                  <Editor {...props} />
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      )
     }
 
     default: {

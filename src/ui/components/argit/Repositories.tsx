@@ -39,14 +39,6 @@ import NewContainer, {
   Form
 } from "../argit/Repository/Container"
 import dlogo from "../argit/images/dlogo.svg"
-import {
-  FaCheckCircle,
-  FaSpinner,
-  FaPlus,
-  FaAward,
-  FaHistory,
-  FaRegFileAlt
-} from "react-icons/fa"
 
 import {
   setTxLoading,
