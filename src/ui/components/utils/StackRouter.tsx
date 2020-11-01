@@ -168,6 +168,7 @@ type StackRouterProps = {
   setRepositoryHead: typeof setRepositoryHead
   repositoryHead: string | null
   updatePage: typeof updatePage
+  currentRef: string
 }
 
 // const selector = (state: RootState): Props => {
@@ -186,7 +187,8 @@ export const StackRouter = connector(
     txLoading: state.argit.txLoading,
     isAuthenticated: state.argit.isAuthenticated,
     repository: state.argit.repository,
-    repositoryHead: state.argit.repositoryHead
+    repositoryHead: state.argit.repositoryHead,
+    currentRef: state.argit.currentRef
   }),
   actions => ({
     updateProjectList: actions.project.updateProjectList,
@@ -212,10 +214,10 @@ export const StackRouter = connector(
         setRepositoryURL,
         setRepositoryHead,
         updateRepository,
-        loadFile
+        loadFile,
+        currentRef
       } = this.props
       const newProjectRoot = `/${match.params.repo_name}`
-      const ref = match.params.ref || "master"
       const path = match.params.path
 
       setTxLoading({ loading: true })
@@ -232,7 +234,7 @@ export const StackRouter = connector(
 
       setRepositoryURL({ repositoryURL: url })
 
-      const { oid } = await getOidByRef(arweave, url, `refs/heads/${ref}`)
+      const { oid } = await getOidByRef(arweave, url, currentRef)
 
       if (oid) {
         setRepositoryHead({ repositoryHead: oid })
@@ -254,7 +256,59 @@ export const StackRouter = connector(
 
       setTxLoading({ loading: false })
     },
-    componentWillUnmount() {
+    async componentDidUpdate(prevProps, prevState) {
+      if (prevProps.currentRef !== this.props.currentRef) {
+        this.props.updatePage({ page: "repo" })
+        const {
+          match,
+          startProjectRootChanged,
+          address,
+          setTxLoading,
+          setRepositoryURL,
+          setRepositoryHead,
+          updateRepository,
+          loadFile,
+          currentRef
+        } = this.props
+        const newProjectRoot = `/${match.params.repo_name}`
+        const path = match.params.path
+
+        setTxLoading({ loading: true })
+        updateRepository({
+          repository: {
+            name: match.params.repo_name,
+            owner: { name: match.params.wallet_address },
+            description: ""
+          }
+        })
+        createNewProject({ newProjectRoot })
+
+        const url = `gitopia://${match.params.wallet_address}${newProjectRoot}`
+
+        setRepositoryURL({ repositoryURL: url })
+
+        const { oid } = await getOidByRef(arweave, url, currentRef)
+
+        if (oid) {
+          setRepositoryHead({ repositoryHead: oid })
+
+          await git.init({ fs, dir: newProjectRoot })
+          await loadDirectory(arweave, url, oid, newProjectRoot, newProjectRoot)
+
+          const readmePath = `${newProjectRoot}/README.md`
+          if (existsPath(readmePath)) {
+            loadFile({ filepath: readmePath })
+          }
+        } else {
+          setRepositoryHead({ repositoryHead: null })
+        }
+
+        await startProjectRootChanged({
+          projectRoot: newProjectRoot
+        })
+
+        setTxLoading({ loading: false })
+      }
       // this.props.deleteProject({ dirpath: this.props.projectRoot })
     }
   })

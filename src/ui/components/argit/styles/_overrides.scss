@@ -1127,3 +1127,31 @@ h3 {
   margin-top: 20px;
   text-align: center;
 }
+
+.dropdown-br {
+  font-size: 18px;
+  background: #3f51b5;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 3px;
+  margin-right: 8px;
+
+  &:hover,
+  &:focus {
+    background: #3f51b5;
+    color: #fff;
+  }
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-secondary:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle {
+  color: #fff;
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+}
+
+.drop-br {
+  margin-left: 35px;
+  margin-bottom: 15px;
+}

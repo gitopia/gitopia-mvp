@@ -55,6 +55,12 @@ export const setRepositoryHead: ActionCreator<{
 export const updateFilterIndex: ActionCreator<{
   filterIndex: number
 }> = createAction("update-filter-index")
+export const loadRefs: ActionCreator<{
+  refs: []
+}> = createAction("load-refs")
+export const updateCurrentRef: ActionCreator<{
+  currentRef: string
+}> = createAction("update-current-ref")
 
 export const loadNotifications: ActionCreator<{
   notifications: Notification[]
@@ -130,6 +136,8 @@ export type ArgitState = {
   page: string
   wallet: string
   lastSynced: number
+  refs: []
+  currentRef: string
 }
 
 const initialState: ArgitState = {
@@ -153,7 +161,9 @@ const initialState: ArgitState = {
   filterIndex: 0,
   page: "main",
   wallet: "",
-  lastSynced: new Date().getTime()
+  lastSynced: new Date().getTime(),
+  refs: [],
+  currentRef: "refs/heads/master"
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -230,6 +240,18 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
     return {
       ...state,
       page: payload.page
+    }
+  })
+  .case(loadRefs, (state, payload) => {
+    return {
+      ...state,
+      refs: payload.refs
+    }
+  })
+  .case(updateCurrentRef, (state, payload) => {
+    return {
+      ...state,
+      currentRef: payload.currentRef
     }
   })
   .case(userLogout, () => {

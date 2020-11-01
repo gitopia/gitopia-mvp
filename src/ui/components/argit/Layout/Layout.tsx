@@ -18,6 +18,7 @@ import { format } from "date-fns"
 import { filter } from "fuzzaldrin"
 import { CreateRepoModal } from "../../organisms/CreateRepoModal"
 import { Pagination } from "../../argit/Pagination"
+
 import {
   PopoverBody,
   PopoverHeader,
@@ -67,9 +68,13 @@ import {
   Activity,
   setWallet,
   userLogout,
-  setLastSynced
+  setLastSynced,
+  loadRefs,
+  updateCurrentRef
 } from "../../../reducers/argit"
 import { CreateRepoModal } from "../../organisms/CreateRepoModal"
+import BranchDropdown from "./BranchDropdown"
+import { getAllRefs } from "isomorphic-git/src/utils/arweave"
 
 type ConnectedProps = {
   isAuthenticated: boolean
@@ -96,6 +101,10 @@ type ConnectedProps = {
   address: string
   userLogout: typeof userLogout
   setLastSynced: typeof setLastSynced
+  loadRefs: typeof loadRefs
+  updateCurrentRef: typeof updateCurrentRef
+  currentRef: string
+  refs: []
 }
 
 export const Layout = connector(
@@ -113,7 +122,9 @@ export const Layout = connector(
     txLoading: state.argit.txLoading,
     mainItems: state.argit.mainItems,
     wallet: state.argit.wallet,
-    lastSynced: state.argit.lastSynced
+    lastSynced: state.argit.lastSynced,
+    currentRef: state.argit.currentRef,
+    refs: state.argit.refs
   }),
   actions => ({
     openLoginModal: actions.argit.openLoginModal,
@@ -131,20 +142,30 @@ export const Layout = connector(
     openCreateRepoModal: actions.app.openCreateRepoModal,
     setWallet: actions.argit.setWallet,
     userLogout: actions.argit.userLogout,
-    setLastSynced: actions.argit.setLastSynced
+    setLastSynced: actions.argit.setLastSynced,
+    loadRefs: actions.argit.loadRefs,
+    updateCurrentRef: actions.argit.updateCurrentRef
   }),
   lifecycle<ConnectedProps, {}>({
     async componentDidMount() {
-      if (this.props.match.params.repo_name) {
-        this.props.updatePage({ page: "repo" })
-      } else {
-        this.props.updatePage({ page: "main" })
-      }
-
       this.props
         // UI Boot
         // await delay(150)
         .setTxLoading({ loading: true })
+      if (this.props.match.params.repo_name) {
+        this.props.updatePage({ page: "repo" })
+        const refs = await getAllRefs(
+          arweave,
+          `gitopia://${this.props.match.params.wallet_address}/${
+            this.props.match.params.repo_name
+          }`
+        )
+        console.log(refs, "refs")
+        this.props.loadRefs({ refs: Object.keys(refs) })
+      } else {
+        this.props.updatePage({ page: "main" })
+      }
+
       this.props.updateFilterIndex({ filterIndex: 0 })
       const { isAuthenticated, repositories, ...actions } = this.props
       let address = this.props.match.params.wallet_address
@@ -440,7 +461,7 @@ export const Layout = connector(
                           props.openSponsorModal({})
                         }}
                       >
-                        <i className="fa fa-tryphy" />
+                        <i className="fa fa-trophy" />
                         Sponsor
                       </span>
                       {props.page === "repo" && (
@@ -579,6 +600,18 @@ export const Layout = connector(
                         ))}
                     </List>
                   )}
+
+                  {props.page === "repo" &&
+                    props.refs &&
+                    !props.txLoading && (
+                      <div className="drop-br">
+                        <BranchDropdown
+                          refs={props.refs}
+                          updateCurrentRef={props.updateCurrentRef}
+                          currentRef={props.currentRef}
+                        />
+                      </div>
+                    )}
                   {props.page === "repo" &&
                     props.filterIndex === 0 && <StackRouter {...props} />}
                   {props.page === "repo" &&

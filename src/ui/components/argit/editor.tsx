@@ -40,7 +40,8 @@ const EXT_TO_ACE_MODE_MAP: any = {
   ".cs": "csharp",
   ".ts": "typescript",
   ".css": "css",
-  ".txt": "text"
+  ".txt": "text",
+  ".yml": "yaml"
 }
 
 export function extToAceMode(filepath: string): string {

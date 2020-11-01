@@ -18,7 +18,8 @@ const languages = [
   "golang",
   "csharp",
   "typescript",
-  "css"
+  "css",
+  "yaml"
 ]
 const themes = ["github", "monokai"]
 // Constants

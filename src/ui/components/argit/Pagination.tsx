@@ -163,59 +163,62 @@ export class Pagination extends React.Component {
                     )}
                   </li>
                 </ul>
-                <div className="pagination">
-                  <RPagination>
-                    <PaginationItem>
-                      <PaginationLink
-                        first
-                        onClick={event => {
-                          this.setState({ currentPage: 1 })
-                        }}
-                      />
-                    </PaginationItem>
-                    <PaginationItem disabled={this.state.currentPage <= 1}>
-                      <PaginationLink
-                        previous
-                        onClick={event => {
-                          this.setState({
-                            currentPage: this.state.currentPage - 1
-                          })
-                        }}
-                      />
-                    </PaginationItem>
-                    {renderPageNumbers}
-
-                    <PaginationItem
-                      disabled={
-                        this.state.currentPage >= this.state.pageNumbers.length
-                      }
-                    >
-                      <PaginationLink
-                        next
-                        onClick={event => {
-                          this.setState({
-                            currentPage: this.state.currentPage + 1
-                          })
-                        }}
-                      />
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        last
-                        onClick={event => {
-                          this.setState({
-                            currentPage: this.state.pageNumbers[
-                              this.state.pageNumbers.length - 1
-                            ]
-                          })
-                        }}
-                      />
-                    </PaginationItem>
-                  </RPagination>
-                </div>
               </>
             )
           })}
+        {!this.props.txLoading &&
+          this.state.currentObjs && (
+            <div className="pagination">
+              <RPagination>
+                <PaginationItem>
+                  <PaginationLink
+                    first
+                    onClick={event => {
+                      this.setState({ currentPage: 1 })
+                    }}
+                  />
+                </PaginationItem>
+                <PaginationItem disabled={this.state.currentPage <= 1}>
+                  <PaginationLink
+                    previous
+                    onClick={event => {
+                      this.setState({
+                        currentPage: this.state.currentPage - 1
+                      })
+                    }}
+                  />
+                </PaginationItem>
+                {renderPageNumbers}
+
+                <PaginationItem
+                  disabled={
+                    this.state.currentPage >= this.state.pageNumbers.length
+                  }
+                >
+                  <PaginationLink
+                    next
+                    onClick={event => {
+                      this.setState({
+                        currentPage: this.state.currentPage + 1
+                      })
+                    }}
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink
+                    last
+                    onClick={event => {
+                      this.setState({
+                        currentPage: this.state.pageNumbers[
+                          this.state.pageNumbers.length - 1
+                        ]
+                      })
+                    }}
+                  />
+                </PaginationItem>
+              </RPagination>
+            </div>
+          )}
       </>
     )
   }
