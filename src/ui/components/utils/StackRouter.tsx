@@ -288,7 +288,7 @@ export const StackRouter = connector(
         return (
           <>
             <Loading loading={props.txLoading ? 1 : 0}>
-              <i className="fa fa-spinner" />
+              <i className="fa fa-spinner fa-spin" />
             </Loading>
           </>
         )

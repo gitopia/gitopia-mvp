@@ -106,7 +106,7 @@ export const Form = styled.form`
 
   input {
     flex: 1;
-    border: solid 2px #e41111;
+    border: solid 2px #4051b5;
     padding: 10px 15px;
     border-radius: 4px;
     font-size: 16px;

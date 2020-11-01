@@ -66,7 +66,8 @@ import {
   updateFilterIndex,
   Activity,
   setWallet,
-  userLogout
+  userLogout,
+  setLastSynced
 } from "../../../reducers/argit"
 import { CreateRepoModal } from "../../organisms/CreateRepoModal"
 
@@ -94,6 +95,7 @@ type ConnectedProps = {
   setWallet: typeof setWallet
   address: string
   userLogout: typeof userLogout
+  setLastSynced: typeof setLastSynced
 }
 
 export const Layout = connector(
@@ -110,7 +112,8 @@ export const Layout = connector(
     page: state.argit.page,
     txLoading: state.argit.txLoading,
     mainItems: state.argit.mainItems,
-    wallet: state.argit.wallet
+    wallet: state.argit.wallet,
+    lastSynced: state.argit.lastSynced
   }),
   actions => ({
     openLoginModal: actions.argit.openLoginModal,
@@ -127,7 +130,8 @@ export const Layout = connector(
     openSponsorModal: actions.argit.openSponsorModal,
     openCreateRepoModal: actions.app.openCreateRepoModal,
     setWallet: actions.argit.setWallet,
-    userLogout: actions.argit.userLogout
+    userLogout: actions.argit.userLogout,
+    setLastSynced: actions.argit.setLastSynced
   }),
   lifecycle<ConnectedProps, {}>({
     async componentDidMount() {
@@ -170,7 +174,9 @@ export const Layout = connector(
       })
 
       let finalNotifications = [...newNotifications]
+      this.props.setLastSynced({})
       actions.loadNotifications({ notifications: finalNotifications })
+
       actions.updateRepositories({ repositories: repos })
       let names: [] = []
       let objects: {} = {}
@@ -193,6 +199,8 @@ export const Layout = connector(
 )(function LayoutImpl(props) {
   function handlePage(e: string) {
     let objects = {}
+    props.setTxLoading({ loading: true })
+
     getNextActivities(arweave, props.address, props.activities[9].cursor, e)
       .then(activities => {
         console.log(activities)
@@ -310,6 +318,8 @@ export const Layout = connector(
             notifications={props.notifications}
             address={props.address}
             setWallet={props.setWallet}
+            lastSynced={props.lastSynced}
+            setLastSynced={props.setLastSynced}
           />
         )}
         {!props.isAuthenticated && (
@@ -503,7 +513,7 @@ export const Layout = connector(
                   {props.txLoading ? (
                     <>
                       <Loading loading={props.txLoading ? 1 : 0}>
-                        <i className="fa fa-spinner" />
+                        <i className="fa fa-spinner fa-spin" />
                       </Loading>
                     </>
                   ) : (

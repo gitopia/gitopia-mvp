@@ -4,7 +4,6 @@ import {
   createReducer,
   Reducer
 } from "hard-reducer"
-
 const { createAction } = buildActionCreator({
   prefix: "argit/"
 })
@@ -29,6 +28,10 @@ export const openLoginModal: ActionCreator<{}> = createAction(
   "open-login-modal"
 )
 export const userLogout: ActionCreator<{}> = createAction("user-logout")
+export const setLastSynced: ActionCreator<{}> = createAction(
+  "update-last-synced"
+)
+
 export const closeLoginModal: ActionCreator<{}> = createAction(
   "close-login-modal"
 )
@@ -126,6 +129,7 @@ export type ArgitState = {
   mainItems: { repos: {}; activities: {} }
   page: string
   wallet: string
+  lastSynced: number
 }
 
 const initialState: ArgitState = {
@@ -148,7 +152,8 @@ const initialState: ArgitState = {
   mainItems: { repos: {}, activities: {} },
   filterIndex: 0,
   page: "main",
-  wallet: ""
+  wallet: "",
+  lastSynced: new Date().getTime()
 }
 
 export const reducer: Reducer<ArgitState> = createReducer(initialState)
@@ -205,6 +210,9 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   })
   .case(updateRepository, (state, payload) => {
     return { ...state, repository: payload.repository }
+  })
+  .case(setLastSynced, state => {
+    return { ...state, lastSynced: new Date().getTime() }
   })
   .case(updateMainItems, (state, payload) => {
     return {

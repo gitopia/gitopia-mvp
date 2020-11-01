@@ -140,7 +140,7 @@ export const Commits = connector(
     <>
       {pageLoading ? (
         <Loading loading={pageLoading ? 1 : 0}>
-          <i className="fa fa-spinner" />
+          <i className="fa fa-spinner fa-spin" />
         </Loading>
       ) : (
         <>

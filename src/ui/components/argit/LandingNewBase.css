@@ -1,7 +1,7 @@
 /* nav specialized to landing page */
 .landing-logo {
   background-size: contain;
-  margin: 0.3rem 0 0 0.3rem;
+  margin: 0.5rem 0 0 0.5rem;
   cursor: pointer;
 }
 

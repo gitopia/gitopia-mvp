@@ -15,7 +15,8 @@ import {
   setIsAuthenticated,
   updateRepositories,
   setWallet,
-  userLogout
+  userLogout,
+  setLastSynced
 } from "../../../reducers/argit"
 import {
   changeSidebarPosition,
@@ -35,6 +36,8 @@ type HeaderProps = {
   address: string
   setWallet: typeof setWallet
   userLogout: typeof userLogout
+  lastSynced: number
+  setLastSynced: typeof setLastSynced
 }
 
 type HeaderState = {
@@ -149,7 +152,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 </span>
                 <span className="d-none d-md-block">{this.props.address} </span>
               </span>
-              <Badge className={s.badge} color="primary">
+              <Badge className={s.badge}>
+                <i className="fa fa-bell" />
                 {this.props.notifications.length}
               </Badge>
             </DropdownToggle>
@@ -163,6 +167,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 notifications={this.props.notifications}
                 loadNotifications={this.props.loadNotifications}
                 address={this.props.address}
+                lastSynced={this.props.lastSynced}
+                setLastSynced={this.props.setLastSynced}
               />
             </DropdownMenu>
           </Dropdown>
