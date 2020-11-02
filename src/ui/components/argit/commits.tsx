@@ -56,6 +56,7 @@ type CommitsProps = {
   match: any
   createNewProject: typeof createNewProject
   updateCommits: typeof updateCommits
+  currentRef: string
 }
 
 let commitGen: AsyncGenerator<any, void, unknown> | null = null
@@ -64,7 +65,8 @@ const numCommitsPerPage = 15
 export const Commits = connector(
   state => ({
     currentBranch: state.git.currentBranch,
-    commits: state.git.commits
+    commits: state.git.commits,
+    currentRef: state.argit.currentRef
   }),
   actions => ({
     createNewProject: actions.project.createNewProject,
@@ -94,7 +96,7 @@ export const Commits = connector(
         }`
         const branch = match.params.branch || "master"
         const newProjectRoot = `/${match.params.repo_name}`
-        const { oid } = await getOidByRef(arweave, url, `refs/heads/${branch}`)
+        const { oid } = await getOidByRef(arweave, url, props.currentRef)
         const commits = []
 
         createNewProject({ newProjectRoot })
