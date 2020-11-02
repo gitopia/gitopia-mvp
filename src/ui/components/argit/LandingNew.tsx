@@ -80,16 +80,24 @@ export const LandingNew = connector(
                 <i className="fa fa-book" /> Documentation
               </a>
             </li> */}
-            <li className="landing-menu__item landing-toggle">
-              <a
-                href="#"
-                onClick={() => props.openLoginModal({})}
-                className="landing-a landing-link landing-link--dark"
-              >
-                <i className="fa fa-sign-in" /> Login
+
+
+            <li className="landing-menu__item">
+              <a href="https://thetechtrap.com/tags/gitopia" className="landing-link landing-link--dark">
+              <i className="fa fa-book" /> Blog
               </a>
             </li>
             <li className="landing-menu__item">
+              <a href="https://gitopia.org/#/Gitopia" className="landing-link landing-link--dark">
+              <img src={dlogo} height="30px" width="30px" /> Gitopia
+              </a>
+            </li>
+            <li className="landing-menu__item">
+              <a href="https://github.com/Gitopia" className="landing-link landing-link--dark">
+                <i className="fa fa-github" /> Github
+              </a>
+            </li>
+            <li className="landing-menu__item landing-toggle ">
               <a
                 href="#"
                 onClick={() => props.openLoginModal({})}
@@ -98,6 +106,24 @@ export const LandingNew = connector(
                 <i className="fa fa-sign-in" /> Login
               </a>
             </li>
+            <li className="landing-menu__item ">
+              <a
+                href="#"
+                onClick={() => props.openLoginModal({})}
+                className="landing-a landing-link landing-link--dark"
+              >
+                <i className="fa fa-sign-in" /> Login
+              </a>
+            </li>
+            {/* <li className="landing-menu__item">
+              <a
+                href="#"
+                onClick={() => props.openLoginModal({})}
+                className="landing-a landing-link landing-link--dark"
+              >
+                <i className="fa fa-sign-in" /> Login
+              </a>
+            </li> */}
           </ul>
         </nav>
         <div className="landing-hero">
@@ -270,12 +296,14 @@ export const LandingNew = connector(
               </li>
             </ul>*/}
           </div>
-          {/* <div className="landing-callout">
-            <p className="landing-p justify-content-center">Read our documentation for info</p>
-            <a href="doc.html" className="landing-a landing-button--primary">
-              Documentation
+          <hr/>
+          <div className="landing-callout">
+            <h4>Join us on Discord</h4>
+            <a href="https://discord.gg/mVpQVW3vKE"  className="landing-a">
+            <img src="https://img.shields.io/discord/746365205277179907?color=%235190FF&label=Gitopia&logo=discord&logoColor=white" />
             </a>
-          </div> */}
+       
+          </div>
         </div>
         <div className="landing-changelog">
           <div className="landing-wrapper">

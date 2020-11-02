@@ -194,7 +194,7 @@ export const Layout = connector(
             this.props.match.params.repo_name
           }`
         )
-        console.log(refs, "refs")
+        console.log("refs", refs)
         this.props.loadRefs({ refs: Object.keys(refs) })
       } else {
         this.props.updatePage({ page: "main" })
