@@ -147,6 +147,37 @@ export const Layout = connector(
     updateCurrentRef: actions.argit.updateCurrentRef
   }),
   lifecycle<ConnectedProps, {}>({
+    async componentDidUpdate(prevProps, prevState) {
+      console.log(this.props.match.params, prevProps.match.params)
+      if (
+        prevProps.match.params.wallet_address !==
+        this.props.match.params.wallet_address
+      ) {
+        console.log("enter")
+        this.props.setTxLoading({ loading: true })
+
+        let address = this.props.match.params.wallet_address
+
+        const repos = await getAllRepositores(arweave, address)
+        this.props.updateRepositories({ repositories: repos })
+        let names: [] = []
+        let objects: {} = {}
+        repos.forEach(item => {
+          let itemname = item.name
+          names.push(item.name)
+          objects[itemname] = item
+        })
+        console.log(objects)
+        this.props.updateMainItems({
+          mainItems: {
+            repos: objects,
+            activities: prevProps.mainItems.activities
+          }
+        })
+        this.props.setTxLoading({ loading: false })
+      }
+    },
+
     async componentDidMount() {
       this.props
         // UI Boot
