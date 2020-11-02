@@ -153,6 +153,9 @@ export const Layout = connector(
         prevProps.match.params.wallet_address !==
         this.props.match.params.wallet_address
       ) {
+        this.props.updatePage({ page: "main" })
+
+        this.props.updateFilterIndex({ filterIndex: 0 })
         console.log("enter")
         this.props.setTxLoading({ loading: true })
 
