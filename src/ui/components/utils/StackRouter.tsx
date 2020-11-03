@@ -257,8 +257,10 @@ export const StackRouter = connector(
       setTxLoading({ loading: false })
     },
     async componentDidUpdate(prevProps, prevState) {
-      if (prevProps.currentRef !== this.props.currentRef) {
-        this.props.updatePage({ page: "repo" })
+      if (
+        prevProps.currentRef !== this.props.currentRef &&
+        prevProps.match.params.repo_name === this.props.match.params.repo_name
+      ) {
         const {
           match,
           startProjectRootChanged,
@@ -270,10 +272,11 @@ export const StackRouter = connector(
           loadFile,
           currentRef
         } = this.props
+        setTxLoading({ loading: true })
+        this.props.updatePage({ page: "repo" })
         const newProjectRoot = `/${match.params.repo_name}`
         const path = match.params.path
 
-        setTxLoading({ loading: true })
         updateRepository({
           repository: {
             name: match.params.repo_name,

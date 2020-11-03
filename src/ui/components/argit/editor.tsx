@@ -59,6 +59,7 @@ type EditorProps = {
   theme: string
   history: ReadCommitResult[]
   head: string
+  txLoading: bool
 }
 
 export const Editor = connector(
@@ -70,7 +71,8 @@ export const Editor = connector(
     projectRoot: state.project.projectRoot,
     theme: state.config.theme,
     history: state.git.history,
-    head: state.argit.repositoryHead
+    head: state.argit.repositoryHead,
+    txloading: state.argit.txLoading
   }),
   actions => ({
     unloadFile: actions.buffer.unloadFile
@@ -83,7 +85,7 @@ export const Editor = connector(
 )(function EditorImpl(props) {
   if (props.head) {
     if (props.value) {
-      if (props.filetype === "markdown") {
+      if (props.filetype === "markdown" && !props.txloading) {
         const contents = processor.processSync(props.value).contents
 
         return <div>{contents}</div>

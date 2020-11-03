@@ -5,6 +5,7 @@ import {
 } from "reactstrap"
 import * as React from "react"
 import { Link } from "react-router-dom"
+import { setTxLoading } from "../../reducers/argit"
 
 export class Pagination extends React.Component {
   constructor(props) {
@@ -137,6 +138,7 @@ export class Pagination extends React.Component {
                             this.props.mainItems.repos[obj].name
                           }`}
                           onClick={() => {
+                            this.props.setTxLoading({ loading: true })
                             this.props.updatePage({ page: "repo" })
                           }}
                         >

@@ -179,6 +179,30 @@ export const Layout = connector(
         })
         this.props.setTxLoading({ loading: false })
       }
+      if (
+        prevProps.match.params.repo_name !== this.props.match.params.repo_name
+      ) {
+        this.props.setTxLoading({ loading: true })
+
+        if (this.props.match.params.repo_name) {
+          const refs = await getAllRefs(
+            arweave,
+            `gitopia://${this.props.match.params.wallet_address}/${
+              this.props.match.params.repo_name
+            }`
+          )
+          console.log("refs", refs)
+          this.props.loadRefs({ refs: Object.keys(refs) })
+          if (Object.keys(refs).includes("refs/heads/master")) {
+            this.props.updateCurrentRef({ currentRef: "refs/heads/master" })
+          } else {
+            this.props.updateCurrentRef({ currentRef: Object.keys(refs)[0] })
+          }
+        } else {
+          this.props.loadRefs({ refs: [] })
+          this.props.updateCurrentRef({ currentRef: "refs/heads/" })
+        }
+      }
     },
 
     async componentDidMount() {
@@ -196,6 +220,11 @@ export const Layout = connector(
         )
         console.log("refs", refs)
         this.props.loadRefs({ refs: Object.keys(refs) })
+        if (Object.keys(refs).includes("refs/heads/master")) {
+          this.props.updateCurrentRef({ currentRef: "refs/heads/master" })
+        } else {
+          this.props.updateCurrentRef({ currentRef: Object.keys(refs)[0] })
+        }
       } else {
         this.props.updatePage({ page: "main" })
       }
