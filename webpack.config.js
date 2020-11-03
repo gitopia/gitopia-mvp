@@ -75,6 +75,10 @@ const COPY_RULES = [
     from: path.join(__dirname, "src/manifest.json"),
     to: path.join(__dirname, "/dist/manifest.json")
   },
+  {
+    from: path.join(__dirname, "/assets/mirror-badge.json"),
+    to: path.join(__dirname, "/dist/mirror-badge.json")
+  },
 
   {
     from: path.join(__dirname, "/assets/favicon.ico"),

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "label": "Gitopia",
+  "labelColor": "#F8F8F9",
+  "message": "Mirror",
+  "color": "#3ec130",
+  "logoSvg": "<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 512 512'> <defs> <style> .a { opacity: 0.7; fill: url(#a); } .b { fill: url(#b); } .c { fill: url(#c); } </style> <linearGradient id='a' x1='372.8' y1='98.13' x2='337.25' y2='118.66' gradientUnits='userSpaceOnUse'> <stop offset='0.02' stop-color='#5290ff'/> <stop offset='0.41' stop-color='#4f8fff'/> <stop offset='0.75' stop-color='#448eff'/> <stop offset='1' stop-color='#378cff'/> </linearGradient> <linearGradient id='b' x1='356.85' y1='153.21' x2='140.91' y2='277.88' xlink:href='#a'/> <linearGradient id='c' x1='342.01' y1='304.97' x2='158.19' y2='411.1' xlink:href='#a'/> </defs> <g> <g> <rect class='a' x='336.08' y='89.93' width='37.9' height='36.93' rx='14'/> <path class='b' d='M345.79,143.3H329.31a9.23,9.23,0,0,0-9.24,9.26c0,9.22.06,22,.06,22.16v91.35a24.57,24.57,0,0,1-24.44,24.43H197.35a24.55,24.55,0,0,1-24.43-24.43V167.73a24.55,24.55,0,0,1,24.43-24.43h109.8a12.47,12.47,0,0,0,12.47-12.47v-10a12.47,12.47,0,0,0-12.47-12.47H209.82A71.8,71.8,0,0,0,138,180.2v73.4a71.81,71.81,0,0,0,71.8,71.81h73.4A71.81,71.81,0,0,0,355,253.6V152.54A9.24,9.24,0,0,0,345.79,143.3Z'/> </g> <path class='c' d='M327.41,322.5c-4,0-7.28,3-7.28,6.69v38.43a21.36,21.36,0,0,1-7.2,15.82,25.35,25.35,0,0,1-17.24,6.6H197.35a25.37,25.37,0,0,1-17.24-6.6,21.38,21.38,0,0,1-7.19-15.82V329.19c0-3.69-3.26-6.69-7.28-6.69H145.3c-4,0-7.28,3-7.28,6.69v31.75c0,33.76,29.83,61.13,66.62,61.13h83.77c36.79,0,66.62-27.37,66.62-61.13V329.19c0-3.69-3.26-6.69-7.29-6.69Z'/> </g> </svg>",
+  "cacheSeconds": 86400,
+  "style": "for-the-badge"
+}
