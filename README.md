@@ -1,9 +1,7 @@
-# d**git** - web
+# Gitopia
 
 [![DeepSource](https://static.deepsource.io/deepsource-badge-light-mini.svg)](https://deepsource.io/gh/TheTechTrap/dgit/?ref=repository-badge)
-
-[Permaweb link](https://arweave.net/H8h680dQsBnnY0EZFw72O-TPGuObdOzRHpXnAChc4pI)
-[gitopia.org](https://gitopia.org)
+[![Gitopia](https://img.shields.io/endpoint?style=&url=https://gitopia.org/mirror-badge.json)](https://gitopia.org/#/address/gitopia)
 
 ## Steps to Install
 
@@ -13,7 +11,9 @@
 
 ## Credits
 
-We are thankful to the following open source projects for their prior work.
+We are thankful to the following projects for their prior work which inspired the implementation :
 
 - [next-editor](https://github.com/mizchi/next-editor)
 - [isomorphic-git](https://github.com/isomorphic-git/isomorphic-git)
+- [co-scribbler]()
+- [react-github-repo-view]()

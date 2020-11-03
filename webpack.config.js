@@ -18,7 +18,8 @@ const languages = [
   "golang",
   "csharp",
   "typescript",
-  "css"
+  "css",
+  "yaml"
 ]
 const themes = ["github", "monokai"]
 // Constants
@@ -73,6 +74,10 @@ const COPY_RULES = [
   {
     from: path.join(__dirname, "src/manifest.json"),
     to: path.join(__dirname, "/dist/manifest.json")
+  },
+  {
+    from: path.join(__dirname, "/assets/mirror-badge.json"),
+    to: path.join(__dirname, "/dist/mirror-badge.json")
   },
 
   {

@@ -113,7 +113,7 @@
 /* buttons */
 .landing-button--primary {
   padding: 10px 22px;
-  background-color: var(--landing-accent-color);
+  background-color: #5190ff;
   color: white;
   position: relative;
   text-decoration: none;

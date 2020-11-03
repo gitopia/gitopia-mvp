@@ -52,17 +52,19 @@ export const LoginModal = connector(
                   // Confirm that uploaded file is indeed keyfile
                   props.setWallet({ wallet: String(reader.result) })
                   //   this.toggleModal() // Close login modal
-                  props.closeLoginModal({})
-                  props.setIsAuthenticated({ isAuthenticated: true })
 
-                  console.log(props.wallet)
                   arweave.wallets.jwkToAddress(keyfile).then(address => {
                     props.loadAddress({ address })
-                    window.location.replace(`/#/${address}`)
-                    props.closeLoginModal({})
-                  })
+                    props.setIsAuthenticated({ isAuthenticated: true })
+                    // window.location.replace(`/#/${address}`)
+                    // setTimeout(
+                    //   () => ,
+                    //   10000
+                    // )
 
-                  // window.location.reload() // Reload page to get authenticated status
+                    props.closeLoginModal({})
+                    window.location.reload() // Reload page to get authenticated status
+                  })
                 } else {
                   props.loadKeyFile({ keyFileName: "Error: Not a keyfile" })
                 }

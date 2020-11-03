@@ -1,0 +1,24 @@
+name: Gitopia Mirror
+
+on:
+  push:
+    branches: [wip-htrap]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - name: Gitopia Mirror Action
+        uses: gitopia/gitopia-mirror-action@v0.1.0
+        with:
+          gitopiaWallet: "${{ secrets.GITOPIA_WALLET }}"
+          branch: "wip-htrap"
+          remoteUrl: "gitopia://VC4NJ3nlVJJPgyJ4DScpeXx3-UnXmiasfrxiIFpJwb0/Gitopia1"

@@ -1,7 +1,11 @@
 import classnames from "classnames"
 import * as React from "react"
 import { Button, ButtonGroup } from "reactstrap"
-import { loadNotifications, Notification } from "../../../reducers/argit"
+import {
+  loadNotifications,
+  Notification,
+  setLastSynced
+} from "../../../reducers/argit"
 import Confirmed from "./notifications-demo/Confirmed"
 import MessagesDemo from "./notifications-demo/Messages"
 import NewNotificationsDemo from "./notifications-demo/NewNotifications"
@@ -14,6 +18,8 @@ export interface NotificationsProps {
   loadNotifications: typeof loadNotifications
   notifications: Notification[]
   address: string
+  lastSynced: number
+  setLastSynced: typeof setLastSynced
 }
 
 export interface NotificationsState {
@@ -62,10 +68,23 @@ class Notifications extends React.Component<
     let finalNotifications = [...newNotifications]
     setTimeout(() => {
       this.props.loadNotifications({ notifications: finalNotifications })
+      this.props.setLastSynced({})
       this.setState({ isLoad: false })
     }, 1500)
   }
   render() {
+    var date = new Date(this.props.lastSynced)
+    // Hours part from the timestamp
+    var hours = date.getHours()
+    // Minutes part from the timestamp
+    var minutes = "0" + date.getMinutes()
+    // Seconds part from the timestamp
+    var seconds = "0" + date.getSeconds()
+
+    // Will display time in 10:30:23 format
+    var formattedTime =
+      hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2)
+    console.log(this.props.lastSynced)
     let notificationsTab
 
     switch (this.state.notificationsTabSelected) {
@@ -134,13 +153,13 @@ class Notifications extends React.Component<
           >
             {this.state.isLoad ? (
               <span>
-                <i className="fs fa-refresh fa-spin" /> Loading...
+                <i className="fa fa-spinner fa-spin" />
               </span>
             ) : (
               <i className="fa fa-refresh" />
             )}
           </Button>
-          <span className="fs-mini">Last Synced: </span>
+          <span className="fs-mini">Last Synced: {formattedTime}</span>
         </footer>
       </section>
     )

@@ -205,7 +205,7 @@ class NewRepoForm extends Component<NewRepoFormProps, NewRepoFormState> {
           </div>
           <button className="btn btn-primary" disabled={this.state.disabled}>
             Create Repository{" "}
-            {this.state.disabled && <i className="fa fa-spinner" />}
+            {this.state.disabled && <i className="fa fa-spinner fa-spin" />}
           </button>
         </form>
       </div>

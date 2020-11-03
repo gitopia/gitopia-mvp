@@ -40,7 +40,8 @@ const EXT_TO_ACE_MODE_MAP: any = {
   ".cs": "csharp",
   ".ts": "typescript",
   ".css": "css",
-  ".txt": "text"
+  ".txt": "text",
+  ".yml": "yaml"
 }
 
 export function extToAceMode(filepath: string): string {
@@ -97,7 +98,7 @@ export const Editor = connector(
             fallback={
               <>
                 <Loading loading={props.txLoading ? 1 : 0}>
-                  <i className="fa fa-spinner" />
+                  <i className="fa fa-spinner fa-spin" />
                 </Loading>
               </>
             }
