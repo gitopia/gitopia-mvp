@@ -2,7 +2,7 @@ name: Gitopia Mirror
 
 on:
   push:
-    branches: [wip-htrap]
+    branches: [gitopia]
 
 jobs:
   build:
@@ -17,8 +17,8 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - name: Gitopia Mirror Action
-        uses: gitopia/gitopia-mirror-action@v0.1.0
+        uses: gitopia/gitopia-mirror-action@v0.1.1
         with:
           gitopiaWallet: "${{ secrets.GITOPIA_WALLET }}"
-          branch: "wip-htrap"
-          remoteUrl: "gitopia://VC4NJ3nlVJJPgyJ4DScpeXx3-UnXmiasfrxiIFpJwb0/Gitopia1"
+          branch: "master"
+          remoteUrl: "gitopia://z_TqsbmVJOKzpuQH4YrYXv_Q0DrkwDwc0UqapRrE0Do/Gitopia"
