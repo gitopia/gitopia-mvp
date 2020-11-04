@@ -70,6 +70,10 @@ export const setTxLoading: ActionCreator<{
   loading: boolean
 }> = createAction("set-tx-loading")
 
+export const setPageLoading: ActionCreator<{
+  loading: boolean
+}> = createAction("set-page-loading")
+
 export const loadActivities: ActionCreator<{
   activities: Activity[]
 }> = createAction("load-activities")
@@ -125,6 +129,7 @@ export type ArgitState = {
   repositoryHead: string | null
   notifications: Notification[]
   txLoading: boolean
+  pageLoading: boolean
   activities: Activity[]
   repository: {
     name: string
@@ -151,6 +156,7 @@ const initialState: ArgitState = {
   repositoryHead: null,
   notifications: [],
   txLoading: false,
+  pageLoading: false,
   activities: [],
   repository: {
     name: "",
@@ -211,6 +217,9 @@ export const reducer: Reducer<ArgitState> = createReducer(initialState)
   })
   .case(setTxLoading, (state, payload) => {
     return { ...state, txLoading: payload.loading }
+  })
+  .case(setPageLoading, (state, payload) => {
+    return { ...state, pageLoading: payload.loading }
   })
   .case(setWallet, (state, payload) => {
     return { ...state, wallet: payload.wallet }

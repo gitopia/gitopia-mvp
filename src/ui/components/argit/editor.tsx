@@ -59,7 +59,7 @@ type EditorProps = {
   theme: string
   history: ReadCommitResult[]
   head: string
-  txLoading: bool
+  pageLoading: bool
 }
 
 export const Editor = connector(
@@ -72,7 +72,7 @@ export const Editor = connector(
     theme: state.config.theme,
     history: state.git.history,
     head: state.argit.repositoryHead,
-    txloading: state.argit.txLoading
+    pageLoading: state.argit.pageLoading
   }),
   actions => ({
     unloadFile: actions.buffer.unloadFile
@@ -85,7 +85,7 @@ export const Editor = connector(
 )(function EditorImpl(props) {
   if (props.head) {
     if (props.value) {
-      if (props.filetype === "markdown" && !props.txloading) {
+      if (props.filetype === "markdown") {
         const contents = processor.processSync(props.value).contents
 
         return <div>{contents}</div>
@@ -99,7 +99,7 @@ export const Editor = connector(
           <Suspense
             fallback={
               <>
-                <Loading loading={props.txLoading ? 1 : 0}>
+                <Loading loading={props.pageLoading ? 1 : 0}>
                   <i className="fa fa-spinner fa-spin" />
                 </Loading>
               </>

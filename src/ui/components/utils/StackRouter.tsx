@@ -19,7 +19,7 @@ import {
 } from "../../actionCreators/editorActions"
 import { Editor } from "../../components/argit/editor"
 import {
-  setTxLoading,
+  setPageLoading,
   setRepositoryURL,
   setRepositoryHead,
   updateRepository,
@@ -161,14 +161,15 @@ type StackRouterProps = {
   deleteProject: typeof deleteProject
   projects: Project[]
   history: ReadCommitResult[]
-  txLoading: boolean
-  setTxLoading: typeof setTxLoading
+  pageLoading: boolean
+  setPageLoading: typeof setPageLoading
   updateRepository: typeof updateRepository
   setRepositoryURL: typeof setRepositoryURL
   setRepositoryHead: typeof setRepositoryHead
   repositoryHead: string | null
   updatePage: typeof updatePage
   currentRef: string
+  loadFile: typeof loadFile
 }
 
 // const selector = (state: RootState): Props => {
@@ -184,7 +185,7 @@ export const StackRouter = connector(
     projectRoot: state.project.projectRoot,
     address: state.argit.address,
     history: state.git.history,
-    txLoading: state.argit.txLoading,
+    pageLoading: state.argit.pageLoading,
     isAuthenticated: state.argit.isAuthenticated,
     repository: state.argit.repository,
     repositoryHead: state.argit.repositoryHead,
@@ -195,7 +196,7 @@ export const StackRouter = connector(
     startProjectRootChanged: actions.editor.startProjectRootChanged,
     createNewProject: actions.project.createNewProject,
     deleteProject: actions.editor.deleteProject,
-    setTxLoading: actions.argit.setTxLoading,
+    setPageLoading: actions.argit.setPageLoading,
     openSponsorModal: actions.argit.openSponsorModal,
     updateRepository: actions.argit.updateRepository,
     setRepositoryURL: actions.argit.setRepositoryURL,
@@ -209,8 +210,7 @@ export const StackRouter = connector(
       const {
         match,
         startProjectRootChanged,
-        address,
-        setTxLoading,
+        setPageLoading,
         setRepositoryURL,
         setRepositoryHead,
         updateRepository,
@@ -218,9 +218,8 @@ export const StackRouter = connector(
         currentRef
       } = this.props
       const newProjectRoot = `/${match.params.repo_name}`
-      const path = match.params.path
 
-      setTxLoading({ loading: true })
+      setPageLoading({ loading: true })
       updateRepository({
         repository: {
           name: match.params.repo_name,
@@ -254,7 +253,7 @@ export const StackRouter = connector(
         projectRoot: newProjectRoot
       })
 
-      setTxLoading({ loading: false })
+      setPageLoading({ loading: false })
     },
     async componentDidUpdate(prevProps, prevState) {
       if (
@@ -272,7 +271,7 @@ export const StackRouter = connector(
           loadFile,
           currentRef
         } = this.props
-        setTxLoading({ loading: true })
+        setPageLoading({ loading: true })
         this.props.updatePage({ page: "repo" })
         const newProjectRoot = `/${match.params.repo_name}`
         const path = match.params.path
@@ -310,7 +309,7 @@ export const StackRouter = connector(
           projectRoot: newProjectRoot
         })
 
-        setTxLoading({ loading: false })
+        setPageLoading({ loading: false })
       }
       // this.props.deleteProject({ dirpath: this.props.projectRoot })
     }
@@ -341,10 +340,10 @@ export const StackRouter = connector(
         forks: 0
       }
 
-      if (props.txLoading)
+      if (props.pageLoading)
         return (
           <>
-            <Loading loading={props.txLoading ? 1 : 0}>
+            <Loading loading={props.pageLoading ? 1 : 0}>
               <i className="fa fa-spinner fa-spin" />
             </Loading>
           </>
