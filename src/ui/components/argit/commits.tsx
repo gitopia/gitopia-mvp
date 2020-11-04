@@ -1,5 +1,5 @@
 import format from "date-fns/format"
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { connector } from "../../actionCreators/index"
 import { downloadGitObject } from "../utils/StackRouter"
 import { readObject } from "isomorphic-git"
@@ -73,7 +73,8 @@ export const Commits = connector(
     updateCommits: actions.git.updateCommits
   })
 )(function CommitsImpl(props: CommitsProps) {
-  const { match, commits, createNewProject, updateCommits } = props
+  const { match, currentRef, commits, createNewProject, updateCommits } = props
+  const prevRef = usePrevious(currentRef)
   const [offset, setOffset] = useState(0)
   const [pageLoading, setPageLoading] = useState(true)
   const commitsToDisplay = commits.slice(offset, offset + numCommitsPerPage)
@@ -94,7 +95,6 @@ export const Commits = connector(
         const url = `gitopia://${match.params.wallet_address}/${
           match.params.repo_name
         }`
-        const branch = match.params.branch || "master"
         const newProjectRoot = `/${match.params.repo_name}`
         const { oid } = await getOidByRef(arweave, url, props.currentRef)
         const commits = []
@@ -129,13 +129,14 @@ export const Commits = connector(
         setPageLoading(false)
       }
 
-      if (commits.length === 0) {
+      if (commits.length === 0 || currentRef !== prevRef) {
+        setOffset(0)
         componentDidMount()
       } else {
         componentDidUpdate()
       }
     },
-    [offset]
+    [offset, currentRef]
   )
 
   return (
@@ -198,3 +199,11 @@ export const Commits = connector(
     </>
   )
 })
+
+function usePrevious(value) {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
+}
