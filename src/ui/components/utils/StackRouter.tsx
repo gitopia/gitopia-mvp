@@ -48,7 +48,7 @@ import {
 import { mkdir } from "../../../domain/filesystem/commands/mkdir"
 import pify from "pify"
 import { existsPath } from "../../../domain/filesystem/queries/existsPath"
-import { loadFile } from "../../reducers/buffer"
+import { loadFile } from "../../actionCreators/editorActions"
 
 const getGitObjectPath = (projectRoot, oid) => {
   const dirpath = `${projectRoot}/.git/objects/${oid.slice(0, 2)}`
