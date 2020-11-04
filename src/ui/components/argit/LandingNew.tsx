@@ -88,7 +88,7 @@ export const LandingNew = connector(
               </a>
             </li>
             <li className="landing-menu__item">
-              <a href="https://gitopia.org/#/Gitopia" className="landing-link landing-link--dark">
+              <a href="https://gitopia.org/#/z_TqsbmVJOKzpuQH4YrYXv_Q0DrkwDwc0UqapRrE0Do/Gitopia" className="landing-link landing-link--dark">
               <img src={dlogo} height="30px" width="30px" /> Gitopia
               </a>
             </li>
@@ -217,7 +217,7 @@ export const LandingNew = connector(
                 Secure
               </h3>
               <p className="landing-p justify-content-center">
-                The code can be updated only by the user holding the private
+                The code can only be updated by the user holding the private
                 keys
               </p>
             </div>
@@ -229,7 +229,7 @@ export const LandingNew = connector(
                 Community-centric
               </h3>
               <p className="landing-p justify-content-center">
-                Gitopia being a Profit Sharing Community, all our product decisions will be voted by the community.
+                Gitopia is a Profit Sharing Community. In this model, governance is given to the community and everyone can vote on product decisions.
               </p>
             </div>
             <div className="landing-feature__item">
@@ -240,7 +240,7 @@ export const LandingNew = connector(
                 Open Source
               </h3>
               <p className="landing-p justify-content-center">
-                All of Gitopia source code is open source and can be audited by
+                All of the Gitopia source code is open source and can be audited by
                 anyone.
               </p>
             </div>
