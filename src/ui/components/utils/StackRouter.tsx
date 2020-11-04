@@ -69,7 +69,9 @@ export const downloadGitObject = async (arweave, url, oid, projectRoot) => {
 
 const writeGitObject = async (projectRoot, oid, object) => {
   const { dirpath, filepath } = getGitObjectPath(projectRoot, oid)
-  await mkdir(dirpath)
+  try {
+    await mkdir(dirpath)
+  } catch (err) {}
   const buf = Buffer.from(object, "base64")
   await pify(fs.writeFile)(filepath, buf)
 }
