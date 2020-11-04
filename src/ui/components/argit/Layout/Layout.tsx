@@ -202,14 +202,13 @@ export const Layout = connector(
           this.props.loadRefs({ refs: [] })
           this.props.updateCurrentRef({ currentRef: "refs/heads/" })
         }
+        this.props.setTxLoading({ loading: false })
       }
     },
 
     async componentDidMount() {
-      this.props
-        // UI Boot
-        // await delay(150)
-        .setTxLoading({ loading: true })
+      this.props.setTxLoading({ loading: true })
+
       if (this.props.match.params.repo_name) {
         this.props.updatePage({ page: "repo" })
         const refs = await getAllRefs(

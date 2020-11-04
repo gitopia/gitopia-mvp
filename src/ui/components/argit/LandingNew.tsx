@@ -94,7 +94,7 @@ export const LandingNew = connector(
             </li>
             <li className="landing-menu__item">
               <a href="https://github.com/Gitopia" className="landing-link landing-link--dark">
-                <i className="fa fa-github" /> Github
+                <i className="fa fa-github" /> GitHub
               </a>
             </li>
             <li className="landing-menu__item landing-toggle ">
