@@ -305,13 +305,23 @@ export const LandingNew = connector(
        
           </div>
         </div>
+
+        <div className="landing-keybinding">
+          <ul className="landing-keybinding__detail">
+            <h3 className="landing-keybinding__title">About Us</h3>
+            <p>What began as a decentralized solution essential for collaboration and data integrity, is now  becoming increasingly centralized and walled off. Centralized Source Code Management Applications hold the keys to our repositories and in turn have the ability, whether maliciously or inadvertently, to corrupt our code.
+            <br/><br/>With Gitopia, we have solved this problem by creating a decentralized Source Code Colloboration Platform. You now have the ability to store your code permanently on the blockchain in a decentralized and transparent manner. 
+            </p>
+          </ul>
+        </div>
+
         <div className="landing-changelog">
           <div className="landing-wrapper">
             <h3 className="landing-section__title">Changelog</h3>
             <div className="landing-changelog__item">
               <div className="landing-changelog__meta">
                 <h4 className="landing-changelog__title">v0.1.0</h4>
-                <small className="landing-changelog__date">10/30/2020</small>
+                <small className="landing-changelog__date">11/04/2020</small>
               </div>
               <div className="landing-changelog__detail">
                 <ul>

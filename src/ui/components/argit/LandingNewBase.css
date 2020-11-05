@@ -71,12 +71,14 @@
 /* keybinding section */
 .landing-keybinding {
   margin-top: 3rem;
-  display: flex;
+  /* display: flex; */
+  margin: 0 auto;
+  width: 70%;
 }
 
 .landing-keybinding__detail {
   position: relative;
-  border: 1px solid var(--landing-code-bg-color);
+  /* border: 1px solid var(--landing-code-bg-color); */
   flex-basis: 50%;
   padding: 2rem 1rem 1rem 1rem;
   list-style: none;
@@ -84,7 +86,7 @@
 }
 
 .landing-keybinding__detail:first-child {
-  text-align: right;
+  text-align: center;
   padding-right: 1rem;
 }
 
@@ -159,6 +161,10 @@
 .landing-changelog__callout {
   margin: 3rem auto 2rem auto;
   text-align: center;
+}
+
+.landing-changelog__detail ul {
+  list-style-type: disc;
 }
 
 @media (max-width: 750px) {
