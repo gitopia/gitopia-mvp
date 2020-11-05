@@ -339,7 +339,7 @@ export const LandingNew = connector(
           &nbsp; by{" "}
           <span className="font-bold">
             <a
-              href="https://thechtrap.com/"
+              href="https://thetechtrap.com/"
               target="_blank"
               className="landing-a landing-link link--dark"
             >
