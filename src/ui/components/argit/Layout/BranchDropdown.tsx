@@ -9,6 +9,7 @@ import {
 function getBranchFromRef(ref) {
   return ref.split("refs/heads/")[1]
 }
+
 const BranchDropdown = props => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const toggle = () => setDropdownOpen(prevState => !prevState)
@@ -33,7 +34,7 @@ const BranchDropdown = props => {
                   props.updateCurrentRef({ currentRef: ref })
                 }}
               >
-                {getBranchFromRef(ref)}
+                {props.refs && getBranchFromRef(ref)}
               </DropdownItem>
             )
           })}
