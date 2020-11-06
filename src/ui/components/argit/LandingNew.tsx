@@ -310,7 +310,7 @@ export const LandingNew = connector(
           <ul className="landing-keybinding__detail">
             <h3 className="landing-keybinding__title">About Us</h3>
             <p>What began as a decentralized solution essential for collaboration and data integrity, is now  becoming increasingly centralized and walled off. Centralized Source Code Management Applications hold the keys to our repositories and in turn have the ability, whether maliciously or inadvertently, to corrupt our code.
-            <br/><br/>With Gitopia, we have solved this problem by creating a decentralized Source Code Colloboration Platform. You now have the ability to store your code permanently on the blockchain in a decentralized and transparent manner. 
+            <br/><br/>With Gitopia, we have solved this problem by creating a decentralized Source Code Collaboration Platform. You now have the ability to store your code permanently on the blockchain in a decentralized and transparent manner. 
             </p>
           </ul>
         </div>
