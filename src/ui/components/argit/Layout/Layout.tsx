@@ -664,7 +664,8 @@ export const Layout = connector(
                   )}
 
                   {props.page === "repo" &&
-                    props.refs &&
+                    props.refs.length !== 0 &&
+                    props.currentRef &&
                     !props.txLoading && (
                       <div className="drop-br">
                         <BranchDropdown
