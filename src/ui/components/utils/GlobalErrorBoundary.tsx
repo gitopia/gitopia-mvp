@@ -15,7 +15,7 @@ export class GlobalErrorBoundary extends React.Component<
     if (hasError && error && info) {
       return (
         <div style={{ padding: 10 }}>
-          <h1>NextEditor: Recorvery Mode</h1>
+          <h1>NextEditor: Recovery Mode</h1>
           <h2>Error: {(error as any).message}</h2>
 
           <button
