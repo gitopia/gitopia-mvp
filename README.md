@@ -11,7 +11,7 @@
 
 ## Credits
 
-We are thankful to the following projects for their prior work which inspired the implementation :
+We are thankful to the following projects for their prior work which inspired the implementation:
 
 - [next-editor](https://github.com/mizchi/next-editor)
 - [isomorphic-git](https://github.com/isomorphic-git/isomorphic-git)
