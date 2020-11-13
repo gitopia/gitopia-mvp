@@ -15,7 +15,7 @@ This file may be rewrite by update
 You can edit this field.
 `
 
-const SCRATCH = `# Welcome to NextEditor!
+const SCRATCH = `# Welcome to Gitopia!
 
 Edit here...
 `

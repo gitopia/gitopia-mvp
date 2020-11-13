@@ -18,7 +18,7 @@ test.skip("clone", async () => {
 
   const clonePromise = git.clone({
     dir: root,
-    url: "https://github.com/mizchi/next-editor"
+    url: "https://github.com/gitopia/gitopia"
   })
 
   await clonePromise
