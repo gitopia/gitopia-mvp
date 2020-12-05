@@ -60,7 +60,7 @@ type CommitsProps = {
 }
 
 let commitGen: AsyncGenerator<any, void, unknown> | null = null
-const numCommitsPerPage = 15
+const numCommitsPerPage = 10
 
 export const Commits = connector(
   state => ({
