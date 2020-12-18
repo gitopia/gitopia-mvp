@@ -160,6 +160,11 @@ export const LandingNew = connector(
             </code>
           </pre> */}
         </div>
+        <div className="landing-callout">
+          <a href="https://gitopia.org/#/z_TqsbmVJOKzpuQH4YrYXv_Q0DrkwDwc0UqapRrE0Do" className="landing-button--primary">
+            Explore Gitopia
+          </a>
+        </div>
         <div className="landing-wrapper">
           <div className="landing-installation">
             <h3 className="landing-section__title">Installation</h3>

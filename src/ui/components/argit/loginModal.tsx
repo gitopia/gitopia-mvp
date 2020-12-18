@@ -76,10 +76,14 @@ export const LoginModal = connector(
             props.closeLoginModal({})
           }}
         >
-          Drop your Arweave wallet keyfile here or Click here
+          Drop your Arweave wallet keyfile here or Click here to select wallet
         </Dropzone>
       </ModalBody>
       <ModalFooter>
+          <p>If you don’t have an arweave wallet, grab one from the faucet that Arweave generously provides </p>
+        <Button>
+          <a className="button btn-secondary" href="https://www.arweave.org/wallet">Get Wallet</a>
+        </Button>
         <Button color="secondary" onClick={props.closeLoginModal}>
           Close
         </Button>
