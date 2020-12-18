@@ -26,18 +26,17 @@ const BranchDropdown = props => {
         {getBranchFromRef(props.currentRef)}
       </DropdownToggle>
       <DropdownMenu>
-        {props.refs.map(ref => {
-          return (
-            <DropdownItem
-              disabled={ref === props.currentRef}
-              onClick={() => {
-                props.updateCurrentRef({ currentRef: ref })
-              }}
-            >
-              {getBranchFromRef(ref)}
-            </DropdownItem>
-          )
-        })}
+        {props.refs.map(ref => (
+          <DropdownItem
+            key={ref}
+            disabled={ref === props.currentRef}
+            onClick={() => {
+              props.updateCurrentRef({ currentRef: ref })
+            }}
+          >
+            {getBranchFromRef(ref)}
+          </DropdownItem>
+        ))}
       </DropdownMenu>
     </Dropdown>
   )

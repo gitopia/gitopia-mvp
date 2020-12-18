@@ -360,7 +360,7 @@ export const StackRouter = connector(
           {/* <DgitScore /> */}
           <Container>
             {repositoryHead && (
-              <Row alignItems="center" flexCol>
+              <Row alignitems="center" flexcol="true">
                 <Col xs="12">
                   <div className="card-dgit">
                     <CardBody>
