@@ -216,21 +216,25 @@ interface LinkedLinesState {
 }
 
 class LinkedLines extends React.Component<LinkedLinesProps, LinkedLinesState> {
+  _isMounted = false
   state = { fileList: [] }
 
   async componentDidMount() {
-    const {repositoryURL, repositoryHead, root, dirpath} = this.props
+    this._isMounted = true
+    const { repositoryURL, repositoryHead, root, dirpath } = this.props
+
     if (repositoryHead) {
-      await loadDirectory(
-        arweave,
-        repositoryURL,
-        repositoryHead,
-        root,
-        dirpath
-      )
+      await loadDirectory(arweave, repositoryURL, repositoryHead, root, dirpath)
       const fileList = await readFileStats(root, dirpath)
-      this.setState({ fileList })
+
+      if (this._isMounted) {
+        this.setState({ fileList })
+      }
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   render() {
