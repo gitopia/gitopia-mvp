@@ -88,7 +88,7 @@ export const LandingNew = connector(
               </a>
             </li>
             <li className="landing-menu__item">
-              <a href="https://gitopia.org/#/z_TqsbmVJOKzpuQH4YrYXv_Q0DrkwDwc0UqapRrE0Do/Gitopia" className="landing-link landing-link--dark">
+              <a href="/#/z_TqsbmVJOKzpuQH4YrYXv_Q0DrkwDwc0UqapRrE0Do/Gitopia" className="landing-link landing-link--dark">
               <img src={dlogo} height="30px" width="30px" /> Gitopia
               </a>
             </li>
