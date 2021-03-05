@@ -59,7 +59,6 @@
   "include": [
     "src/**/*",
     "decls.d.ts",
-    "src-custom/**/*.ts",
     "src/ui/components/argit/**/*.d.ts"
   ],
   "exclude": ["node_modules/browserfs/**/*.d.ts"]
