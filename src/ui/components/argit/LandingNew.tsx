@@ -131,11 +131,11 @@ export const LandingNew = connector(
             <img width="200px" height="200px" src={logo} />
           </h1>
           <p className="landing-hero__description">Decentralized 
-            <div className="slidingVertical">
+            <span className="slidingVertical">
               <span>&nbsp;Collaboration</span>
               <span>&nbsp;Communities</span>
               <span>&nbsp;Source Code</span>
-            </div>
+            </span>
           </p>
           {/* <p className="landing-hero__description">
             Permanent versioning for your Code
