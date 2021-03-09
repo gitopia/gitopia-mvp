@@ -4,13 +4,11 @@ import * as git from "isomorphic-git"
 import * as pkg from "isomorphic-git/src/utils/arweave"
 const { getOidByRef } = pkg
 import { fetchGitObject } from "isomorphic-git/src/utils/arweave"
-import React, { lazy, Suspense } from "react"
-import { Link } from "react-router-dom"
+import React from "react"
 import { CardBody, Col, Row, Container } from "reactstrap"
 import { lifecycle } from "recompose"
 import { ReadCommitResult } from "../../../domain/types"
 import { arweave } from "../../../index"
-import dlogo from "../argit/images/dlogo.svg"
 
 import { connector } from "../../actionCreators"
 import {
@@ -27,23 +25,8 @@ import {
 } from "../../reducers/argit"
 import { createNewProject } from "../../reducers/project"
 import { RepositoryBrowser } from "../organisms/RepositoryBrowser"
-import { Sponsor } from "../argit/Sponsor"
-import NewContainer, { Icon } from "../argit/Repository/Container"
-import {
-  Button,
-  PopoverBody,
-  PopoverHeader,
-  UncontrolledPopover
-} from "reactstrap"
 import {
   Loading,
-  Owner,
-  IssueList,
-  FilterList,
-  PageNav,
-  OwnerProfile,
-  RepoInfo,
-  IssueLabel
 } from "../argit/Repository/RepositoryStyles"
 import { mkdir } from "../../../domain/filesystem/commands/mkdir"
 import pify from "pify"

@@ -88,7 +88,7 @@ export const LandingNew = connector(
               </a>
             </li>
             <li className="landing-menu__item">
-              <a href="https://gitopia.org/#/z_TqsbmVJOKzpuQH4YrYXv_Q0DrkwDwc0UqapRrE0Do/Gitopia" className="landing-link landing-link--dark">
+              <a href="/#/z_TqsbmVJOKzpuQH4YrYXv_Q0DrkwDwc0UqapRrE0Do/Gitopia" className="landing-link landing-link--dark">
               <img src={dlogo} height="30px" width="30px" /> Gitopia
               </a>
             </li>
@@ -131,11 +131,11 @@ export const LandingNew = connector(
             <img width="200px" height="200px" src={logo} />
           </h1>
           <p className="landing-hero__description">Decentralized 
-            <div className="slidingVertical">
+            <span className="slidingVertical">
               <span>&nbsp;Collaboration</span>
               <span>&nbsp;Communities</span>
               <span>&nbsp;Source Code</span>
-            </div>
+            </span>
           </p>
           {/* <p className="landing-hero__description">
             Permanent versioning for your Code

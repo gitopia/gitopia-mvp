@@ -1,4 +1,3 @@
-import "animate.css"
 import * as React from "react"
 import {
   Badge,

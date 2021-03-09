@@ -8,16 +8,10 @@ import { arweave } from "../../../index"
 import { getOidByRef } from "isomorphic-git/src/utils/arweave"
 import { createNewProject } from "../../reducers/project"
 import { updateCommits } from "../../reducers/git"
-import NewContainer, { Icon, List } from "../argit/Repository/Container"
 import {
-  Owner,
-  OwnerProfile,
-  RepoInfo,
   Loading,
   PageNav
 } from "../argit/Repository/RepositoryStyles"
-import dlogo from "../argit/images/dlogo.svg"
-import { Link } from "react-router-dom"
 import * as git from "isomorphic-git"
 
 function compareAge(a, b) {

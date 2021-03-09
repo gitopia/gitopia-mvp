@@ -5,7 +5,6 @@ import { configureStore } from "../store/configureStore"
 import { LandingNew } from "./argit/LandingNew"
 import { LoginModal } from "./argit/loginModal"
 import { GlobalErrorBoundary } from "./utils/GlobalErrorBoundary"
-import { GlobalKeyHandler } from "./utils/GlobalKeyHandler"
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom"
 import { Layout } from "./argit/Layout/Layout"
 export class App extends React.Component<{}> {
@@ -15,24 +14,22 @@ export class App extends React.Component<{}> {
       <GlobalErrorBoundary>
         <Provider store={store}>
           <PersistGate persistor={persistor}>
-            <GlobalKeyHandler>
-              <HashRouter>
-                <Switch>
-                  <Route
-                    exact
-                    path="/"
-                    render={(props: any) => <LandingNew {...props} />}
-                  />
+            <HashRouter>
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={(props: any) => <LandingNew {...props} />}
+                />
 
-                  <Route
-                    path="/:wallet_address/:repo_name?"
-                    render={(props: any) => <Layout {...props} />}
-                  />
-                  <Route default component={LandingNew} />
-                </Switch>
-              </HashRouter>
-              <LoginModal />
-            </GlobalKeyHandler>
+                <Route
+                  path="/:wallet_address/:repo_name?"
+                  render={(props: any) => <Layout {...props} />}
+                />
+                <Route default component={LandingNew} />
+              </Switch>
+            </HashRouter>
+            <LoginModal />
           </PersistGate>
         </Provider>
       </GlobalErrorBoundary>
