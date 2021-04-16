@@ -5,7 +5,7 @@
 
 ## Steps to Install
 
-- `git clone https://github.com/gitopia/gitopia.git`
+- `git clone https://github.com/gitopia/gitopia-mvp.git`
 - `yarn install`
 - `yarn watch`
 
