@@ -59,6 +59,9 @@ export const LandingNew = connector(
   return (
     <React.Fragment>
       <div className="landing-body">
+      <div className="alert alert-warning" role="alert">
+      <span className="font-weight-bold">Note:</span> This is only the MVP, and our new application will be released soon! Taking the learnings and feedback, we are building an application-specific blockchain optimized for Gitopia to support the massive scale of Open Source development. LORE will not be a Profit Sharing Token but a utility token. Follow our social media channels to get updates.
+      </div>
         <nav className="landing-nav">
         <div
             className="landing-logo"
